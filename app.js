@@ -11,6 +11,10 @@ const FAST_OVERPASS_TIMEOUT_MS = 5000;
 const FAST_OVERPASS_ENDPOINT_LIMIT = 1;
 const FAST_OVERPASS_ATTEMPTS = 1;
 const GEOCODE_CACHE_LIMIT = 10;
+const LOCATION_SUGGEST_MIN_CHARS = 2;
+const LOCATION_SUGGEST_LIMIT = 6;
+const LOCATION_SUGGEST_DEBOUNCE_MS = 220;
+const LOCATION_SUGGEST_TIMEOUT_MS = 5000;
 const CHARGER_QUERY_CACHE_LIMIT = 12;
 const FX_TIMEOUT_MS = 2500;
 const COUNTRY_CURRENCY_TIMEOUT_MS = 1500;
@@ -156,11 +160,17 @@ const state = {
   lastSubmitMode: "reach",
   marketCode: "GLOBAL",
   marketLabel: "Global",
+  marketCatalogMode: "All models",
   catalogSource: "Built-in",
   catalogCount: BASE_CAR_PRESETS.length,
   presetById: new Map(),
   userSelectedCarModel: false,
   geocodeCache: new Map(),
+  locationSuggestions: [],
+  activeLocationSuggestionIndex: -1,
+  locationSuggestTimer: 0,
+  locationSuggestionRequestToken: 0,
+  suppressLocationInputEvent: false,
   chargerQueryCache: new Map(),
   fxByCurrency: new Map(),
   currencyByMarket: new Map(Object.entries(MARKET_CURRENCY_BY_CODE)),
@@ -176,6 +186,8 @@ const ui = {
   marketHint: document.getElementById("market-hint"),
   useLocationBtn: document.getElementById("use-location"),
   locationInput: document.getElementById("location"),
+  locationSuggestions: document.getElementById("location-suggestions"),
+  locationSelectionHint: document.getElementById("location-selection-hint"),
   batteryInput: document.getElementById("battery-kwh"),
   socInput: document.getElementById("soc"),
   efficiencyInput: document.getElementById("efficiency"),
@@ -221,6 +233,9 @@ function readUrlState() {
   if (vp && ["independent", "official"].includes(vp)) {
     ui.verificationProfileSelect.value = vp;
     onVerificationProfileChange();
+  }
+  if (loc) {
+    setLocationSelectionHint("Location loaded from URL. Press Compute Reach to resolve market.");
   }
 }
 
@@ -276,6 +291,295 @@ function updateLocationDatalist() {
   if (!datalist) return;
   const recent = loadRecentLocations();
   datalist.innerHTML = recent.map((l) => `<option value="${escapeHtml(l)}">`).join("");
+}
+
+function setLocationSelectionHint(text) {
+  if (!ui.locationSelectionHint) return;
+  ui.locationSelectionHint.textContent = text;
+}
+
+function clearLocationSuggestionTimer() {
+  if (!state.locationSuggestTimer) return;
+  clearTimeout(state.locationSuggestTimer);
+  state.locationSuggestTimer = 0;
+}
+
+function hideLocationSuggestions() {
+  state.activeLocationSuggestionIndex = -1;
+  if (ui.locationSuggestions) {
+    ui.locationSuggestions.hidden = true;
+    ui.locationSuggestions.innerHTML = "";
+  }
+  ui.locationInput.setAttribute("aria-expanded", "false");
+}
+
+function setActiveLocationSuggestion(index) {
+  const buttons = ui.locationSuggestions
+    ? [...ui.locationSuggestions.querySelectorAll(".location-suggestion-btn")]
+    : [];
+  if (!buttons.length) {
+    state.activeLocationSuggestionIndex = -1;
+    return;
+  }
+  const bounded = Math.max(0, Math.min(index, buttons.length - 1));
+  state.activeLocationSuggestionIndex = bounded;
+  buttons.forEach((button, idx) => {
+    button.classList.toggle("is-active", idx === bounded);
+    button.setAttribute("aria-selected", idx === bounded ? "true" : "false");
+  });
+}
+
+function recentLocationSuggestions(query) {
+  const queryKey = normalizeLocationQuery(query);
+  return loadRecentLocations()
+    .filter((entry) => !queryKey || normalizeLocationQuery(entry).includes(queryKey))
+    .slice(0, LOCATION_SUGGEST_LIMIT)
+    .map((entry) => ({
+      value: entry,
+      title: entry,
+      subtitle: "Recent",
+      source: "recent",
+      lat: null,
+      lon: null,
+      countryCode: "",
+      countryName: "",
+    }));
+}
+
+function mapNominatimSuggestion(item) {
+  const lat = Number(item?.lat);
+  const lon = Number(item?.lon);
+  const city =
+    item?.address?.city ||
+    item?.address?.town ||
+    item?.address?.village ||
+    item?.address?.municipality ||
+    item?.address?.hamlet ||
+    item?.name ||
+    "";
+  const stateName = item?.address?.state || item?.address?.county || "";
+  const country = item?.address?.country || "";
+  const concise = [city, stateName, country].filter(Boolean).join(", ");
+  return {
+    value: item?.display_name || concise || "",
+    title: concise || item?.display_name || "",
+    subtitle: item?.display_name || concise || "",
+    source: "search",
+    lat: Number.isFinite(lat) ? lat : null,
+    lon: Number.isFinite(lon) ? lon : null,
+    countryCode: item?.address?.country_code?.toUpperCase() || "",
+    countryName: country,
+  };
+}
+
+function mergeLocationSuggestions(recent, live) {
+  const merged = [];
+  const seen = new Set();
+  for (const item of [...recent, ...live]) {
+    const key = normalizeLocationQuery(item?.value || "");
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    merged.push(item);
+  }
+  return merged.slice(0, LOCATION_SUGGEST_LIMIT);
+}
+
+function renderLocationSuggestions(items) {
+  state.locationSuggestions = items;
+  state.activeLocationSuggestionIndex = -1;
+  if (!ui.locationSuggestions) return;
+
+  ui.locationSuggestions.innerHTML = "";
+  if (!items.length) {
+    hideLocationSuggestions();
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  items.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.setAttribute("role", "option");
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "location-suggestion-btn";
+    button.dataset.index = String(index);
+    button.setAttribute("aria-selected", "false");
+
+    const main = document.createElement("span");
+    main.className = "location-suggestion-main";
+    main.textContent = item.title || item.value || "Unknown place";
+
+    const meta = document.createElement("span");
+    meta.className = "location-suggestion-meta";
+    meta.textContent = item.subtitle || "";
+
+    button.append(main, meta);
+    li.append(button);
+    fragment.append(li);
+  });
+
+  ui.locationSuggestions.append(fragment);
+  ui.locationSuggestions.hidden = false;
+  ui.locationInput.setAttribute("aria-expanded", "true");
+}
+
+function applyLocationSuggestion(suggestion) {
+  if (!suggestion) return;
+  state.suppressLocationInputEvent = true;
+  ui.locationInput.value = suggestion.value || suggestion.title || "";
+  state.suppressLocationInputEvent = false;
+  hideLocationSuggestions();
+
+  if (Number.isFinite(suggestion.lat) && Number.isFinite(suggestion.lon)) {
+    const resolved = {
+      lat: suggestion.lat,
+      lon: suggestion.lon,
+      label: suggestion.value || suggestion.title || ui.locationInput.value.trim(),
+      countryCode: suggestion.countryCode || "",
+      countryName: suggestion.countryName || "",
+    };
+    state.origin = resolved;
+    const queryKey = normalizeLocationQuery(resolved.label);
+    state.lastResolvedQueryKey = queryKey;
+    cacheResolvedOrigin(queryKey, resolved);
+    inferAndApplyMarket(resolved);
+    setLocationSelectionHint(
+      `Selected: ${resolved.label}${resolved.countryName ? ` (${resolved.countryName})` : ""}.`
+    );
+    return;
+  }
+
+  state.lastResolvedQueryKey = "";
+  setLocationSelectionHint("Suggestion selected. Press Compute Reach to resolve exact location.");
+}
+
+function selectLocationSuggestionAt(index) {
+  const suggestion = state.locationSuggestions[index];
+  if (!suggestion) return;
+  applyLocationSuggestion(suggestion);
+}
+
+async function fetchLiveLocationSuggestions(query, requestToken) {
+  const encoded = encodeURIComponent(query);
+  const response = await fetchWithTimeout(
+    `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&q=${encoded}&limit=${LOCATION_SUGGEST_LIMIT}`,
+    {},
+    LOCATION_SUGGEST_TIMEOUT_MS
+  );
+  if (requestToken !== state.locationSuggestionRequestToken) {
+    return [];
+  }
+  if (!response.ok) {
+    return [];
+  }
+  const data = await response.json();
+  if (!Array.isArray(data)) return [];
+  return data.map(mapNominatimSuggestion).filter((item) => item.value);
+}
+
+async function refreshLocationSuggestions(query) {
+  const trimmed = String(query || "").trim();
+  const recent = recentLocationSuggestions(trimmed);
+  if (trimmed.length < LOCATION_SUGGEST_MIN_CHARS) {
+    renderLocationSuggestions(recent);
+    if (!trimmed.length) {
+      setLocationSelectionHint("Type a city and pick a suggestion to lock country/market.");
+    }
+    return;
+  }
+
+  const requestToken = ++state.locationSuggestionRequestToken;
+  setLocationSelectionHint("Searching locations...");
+  try {
+    const live = await fetchLiveLocationSuggestions(trimmed, requestToken);
+    if (requestToken !== state.locationSuggestionRequestToken) return;
+    const merged = mergeLocationSuggestions(recent, live);
+    renderLocationSuggestions(merged);
+    if (merged.length === 0) {
+      setLocationSelectionHint("No suggestions yet. Keep typing or press Compute Reach.");
+    } else {
+      setLocationSelectionHint("Pick a location suggestion to set market instantly.");
+    }
+  } catch {
+    if (requestToken !== state.locationSuggestionRequestToken) return;
+    renderLocationSuggestions(recent);
+    setLocationSelectionHint("Suggestion lookup is slow. You can still press Compute Reach.");
+  }
+}
+
+function scheduleLocationSuggestions(query, immediate = false) {
+  clearLocationSuggestionTimer();
+  if (immediate) {
+    refreshLocationSuggestions(query);
+    return;
+  }
+  state.locationSuggestTimer = window.setTimeout(() => {
+    refreshLocationSuggestions(query);
+  }, LOCATION_SUGGEST_DEBOUNCE_MS);
+}
+
+function onLocationInputFocus() {
+  scheduleLocationSuggestions(ui.locationInput.value, true);
+}
+
+function onLocationInputBlur() {
+  window.setTimeout(() => {
+    hideLocationSuggestions();
+  }, 120);
+}
+
+function onLocationInputChanged() {
+  if (state.suppressLocationInputEvent) return;
+  state.lastResolvedQueryKey = "";
+  const trimmed = ui.locationInput.value.trim();
+  if (!trimmed) {
+    setLocationSelectionHint("Type a city and pick a suggestion to lock country/market.");
+  } else {
+    setLocationSelectionHint("Typing... choose a suggestion or press Compute Reach.");
+  }
+  scheduleLocationSuggestions(ui.locationInput.value);
+}
+
+function onLocationInputKeydown(event) {
+  const total = state.locationSuggestions.length;
+  if (!total) {
+    if (event.key === "Escape") hideLocationSuggestions();
+    return;
+  }
+
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    const next = state.activeLocationSuggestionIndex < 0 ? 0 : state.activeLocationSuggestionIndex + 1;
+    setActiveLocationSuggestion(next >= total ? 0 : next);
+    return;
+  }
+
+  if (event.key === "ArrowUp") {
+    event.preventDefault();
+    const prev = state.activeLocationSuggestionIndex < 0 ? total - 1 : state.activeLocationSuggestionIndex - 1;
+    setActiveLocationSuggestion(prev < 0 ? total - 1 : prev);
+    return;
+  }
+
+  if (event.key === "Enter" && state.activeLocationSuggestionIndex >= 0) {
+    event.preventDefault();
+    selectLocationSuggestionAt(state.activeLocationSuggestionIndex);
+    return;
+  }
+
+  if (event.key === "Escape") {
+    hideLocationSuggestions();
+  }
+}
+
+function onLocationSuggestionPointerDown(event) {
+  const button = event.target.closest(".location-suggestion-btn");
+  if (!button) return;
+  event.preventDefault();
+  const index = Number(button.dataset.index);
+  if (!Number.isFinite(index)) return;
+  selectLocationSuggestionAt(index);
 }
 
 // ── Share button ────────────────────────────────────────────────────────────
@@ -429,6 +733,7 @@ function initialize() {
   populateCarPresets();
   updateMarketHint();
   updateLocationDatalist();
+  setLocationSelectionHint("Type a city and pick a suggestion to lock country/market.");
   readUrlState();
 
   state.map = L.map("map").setView(DEFAULT_CENTER, DEFAULT_ZOOM);
@@ -472,6 +777,14 @@ function wireEvents() {
   ui.carModelSelect.addEventListener("change", () => onCarModelChange(true));
   ui.compareCarsSelect.addEventListener("change", onCompareCarsChange);
   ui.useLocationBtn.addEventListener("click", useCurrentLocation);
+  ui.locationInput.addEventListener("focus", onLocationInputFocus);
+  ui.locationInput.addEventListener("blur", onLocationInputBlur);
+  ui.locationInput.addEventListener("input", onLocationInputChanged);
+  ui.locationInput.addEventListener("keydown", onLocationInputKeydown);
+  if (ui.locationSuggestions) {
+    ui.locationSuggestions.addEventListener("mousedown", onLocationSuggestionPointerDown);
+    ui.locationSuggestions.addEventListener("click", onLocationSuggestionPointerDown);
+  }
   ui.verificationProfileSelect.addEventListener("change", onVerificationProfileChange);
   document.querySelectorAll(".controls-panel details").forEach((details) => {
     details.addEventListener("toggle", () => scheduleMapInvalidate(160));
@@ -502,16 +815,13 @@ function populateCarPresets() {
   customOption.textContent = "Custom (manual values)";
   ui.carModelSelect.append(customOption);
   const sorted = [...carPresets].sort((a, b) => a.label.localeCompare(b.label));
-  const { visiblePresets, hasMarketSpecific } = visiblePresetsForCurrentMarket(sorted);
+  const { visiblePresets, hasMarketSpecific, groupLabel } = visiblePresetsForCurrentMarket(sorted);
+  state.marketCatalogMode = state.marketCode === "GLOBAL" ? "All models" : groupLabel;
 
   if (state.marketCode === "GLOBAL") {
     appendPresetOptions(ui.carModelSelect, visiblePresets);
   } else {
-    appendPresetOptgroup(
-      ui.carModelSelect,
-      hasMarketSpecific ? "Available models" : "Global models",
-      visiblePresets
-    );
+    appendPresetOptgroup(ui.carModelSelect, hasMarketSpecific ? "Available models" : groupLabel, visiblePresets);
   }
 
   if ([...ui.carModelSelect.options].some((option) => option.value === previousSelection)) {
@@ -736,7 +1046,7 @@ function appendPresetOptgroup(parent, label, presets) {
 
 function visiblePresetsForCurrentMarket(sortedPresets) {
   if (state.marketCode === "GLOBAL") {
-    return { visiblePresets: sortedPresets, hasMarketSpecific: false };
+    return { visiblePresets: sortedPresets, hasMarketSpecific: false, groupLabel: "All models" };
   }
 
   const marketMatched = [];
@@ -755,19 +1065,20 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
     return {
       visiblePresets: marketMatched,
       hasMarketSpecific: true,
+      groupLabel: "Available models",
     };
   }
-
-  if (marketGlobal.length === 0) {
+  if (sortedPresets.length > marketGlobal.length) {
     return {
       visiblePresets: sortedPresets,
       hasMarketSpecific: false,
+      groupLabel: "Cross-market models",
     };
   }
-
   return {
     visiblePresets: marketGlobal,
     hasMarketSpecific: false,
+    groupLabel: "Global models",
   };
 }
 
@@ -836,7 +1147,7 @@ function inferAndApplyMarket(origin) {
 function updateMarketHint(countryName = "") {
   const countryText = countryName ? ` (${countryName})` : "";
   ui.marketHint.textContent =
-    `Market: ${state.marketLabel}${countryText}. Catalog: ${state.catalogCount} presets (${state.catalogSource}).`;
+    `Market: ${state.marketLabel}${countryText}. Showing: ${state.marketCatalogMode}. Catalog: ${state.catalogCount} presets (${state.catalogSource}).`;
 }
 
 function autoInferModelForMarket() {
@@ -859,7 +1170,8 @@ function findRecommendedPresetIdForMarket() {
     if (exact) return exact.id;
   }
   const global = sorted.find((item) => normalizeMarketArray(item.markets).length === 0);
-  return global ? global.id : null;
+  if (global) return global.id;
+  return sorted[0]?.id || null;
 }
 
 async function onPlanSubmit(event) {
@@ -1172,6 +1484,9 @@ async function resolveOrigin(locationQuery) {
   const cachedOrigin = state.geocodeCache.get(queryKey);
   if (cachedOrigin) {
     state.lastResolvedQueryKey = queryKey;
+    setLocationSelectionHint(
+      `Resolved: ${cachedOrigin.label}${cachedOrigin.countryName ? ` (${cachedOrigin.countryName})` : ""}.`
+    );
     return cachedOrigin;
   }
 
@@ -1201,6 +1516,9 @@ async function resolveOrigin(locationQuery) {
   };
   state.lastResolvedQueryKey = queryKey;
   cacheResolvedOrigin(queryKey, resolved);
+  setLocationSelectionHint(
+    `Resolved: ${resolved.label}${resolved.countryName ? ` (${resolved.countryName})` : ""}.`
+  );
   return resolved;
 }
 
@@ -1229,6 +1547,10 @@ async function useCurrentLocation() {
       cacheResolvedOrigin(queryKey, state.origin);
       inferAndApplyMarket(state.origin);
       ui.locationInput.value = place.label;
+      hideLocationSuggestions();
+      setLocationSelectionHint(
+        `GPS selected: ${place.label}${place.countryName ? ` (${place.countryName})` : ""}.`
+      );
       setSummary(`<p>GPS location set: ${escapeHtml(place.label)}</p>`);
       state.map.setView([lat, lon], 12);
       renderOrigin(state.origin);

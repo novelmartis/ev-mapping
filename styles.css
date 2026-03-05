@@ -141,6 +141,64 @@ h1 {
   gap: 0.5rem;
 }
 
+.location-autocomplete {
+  position: relative;
+  min-width: 0;
+}
+
+.location-autocomplete #location {
+  width: 100%;
+}
+
+.location-suggestions {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 0.2rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.24rem;
+  list-style: none;
+  max-height: 15rem;
+  overflow-y: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgb(16 34 70 / 18%);
+}
+
+.location-suggestion-btn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 0.4rem 0.45rem;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.12rem;
+  cursor: pointer;
+}
+
+.location-suggestion-btn:hover,
+.location-suggestion-btn.is-active,
+.location-suggestion-btn:focus-visible {
+  background: rgb(0 103 123 / 10%);
+  outline: none;
+}
+
+.location-suggestion-main {
+  display: block;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.location-suggestion-meta {
+  display: block;
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;

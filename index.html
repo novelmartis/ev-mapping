@@ -72,17 +72,26 @@
 
             <label for="location">Start location</label>
             <div class="location-row">
-              <input
-                id="location"
-                name="location"
-                type="text"
-                placeholder="City, address, or landmark"
-                list="location-history"
-                autocomplete="off"
-              />
+              <div class="location-autocomplete">
+                <input
+                  id="location"
+                  name="location"
+                  type="text"
+                  placeholder="City, address, or landmark"
+                  autocomplete="off"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded="false"
+                  aria-controls="location-suggestions"
+                />
+                <ul id="location-suggestions" class="location-suggestions" role="listbox" hidden></ul>
+              </div>
               <datalist id="location-history"></datalist>
               <button id="use-location" type="button">Use my GPS</button>
             </div>
+            <p id="location-selection-hint" class="hint">
+              Type at least 2 letters and pick a suggestion to lock country/market quickly.
+            </p>
 
             <div class="action-row">
               <button id="plan-btn" type="submit">Compute Reach</button>

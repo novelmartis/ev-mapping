@@ -181,6 +181,101 @@ def market_source_policy_errors(presets: list[dict[str, Any]], max_errors: int =
     return errors
 
 
+def model_label_signature(label: str) -> str:
+    text = str(label or "").lower()
+    text = re.sub(r"\([^)]*\)", " ", text)
+    text = re.sub(r"\b\d{4}\b", " ", text)
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def variant_conflict_key(preset: dict[str, Any]) -> str:
+    signature = model_label_signature(preset.get("label", ""))
+    battery = parse_float(preset.get("batteryKwh"))
+    if not signature or battery is None:
+        return ""
+    return f"{signature}|{round(battery, 1)}"
+
+
+def preset_source_priority(source_value: Any) -> int:
+    source = str(source_value or "").lower()
+    if "manual" in source:
+        return 5
+    if "seed" in source:
+        return 4
+    if "fueleconomy" in source:
+        return 3
+    if "afdc" in source:
+        return 2
+    if "cardekho" in source:
+        return 1
+    return 1 if source else 0
+
+
+def preset_market_set(preset: dict[str, Any]) -> set[str]:
+    markets = normalize_market_array(preset.get("markets"))
+    if not markets:
+        return {"GLOBAL"}
+    return set(markets)
+
+
+def presets_have_market_overlap(a: dict[str, Any], b: dict[str, Any]) -> bool:
+    a_set = preset_market_set(a)
+    b_set = preset_market_set(b)
+    if "GLOBAL" in a_set or "GLOBAL" in b_set:
+        return True
+    return bool(a_set & b_set)
+
+
+def group_has_market_overlap(group: list[dict[str, Any]]) -> bool:
+    for i in range(len(group)):
+        for j in range(i + 1, len(group)):
+            if presets_have_market_overlap(group[i], group[j]):
+                return True
+    return False
+
+
+def should_collapse_conflict_group(group: list[dict[str, Any]]) -> bool:
+    if len(group) <= 1:
+        return False
+    if not group_has_market_overlap(group):
+        return False
+    priorities = [preset_source_priority(item.get("source")) for item in group]
+    highest = max(priorities) if priorities else 0
+    lowest = min(priorities) if priorities else 0
+    # Collapse only when trust levels differ and at least one high-signal source exists.
+    return highest >= 3 and highest > lowest
+
+
+def variant_consistency_errors(presets: list[dict[str, Any]], max_errors: int = 25) -> list[str]:
+    errors: list[str] = []
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for preset in presets:
+        key = variant_conflict_key(preset)
+        if key:
+            grouped.setdefault(key, []).append(preset)
+
+    for key, group in grouped.items():
+        if len(group) <= 1:
+            continue
+        if not should_collapse_conflict_group(group):
+            continue
+        efficiencies = [parse_float(item.get("efficiency")) for item in group]
+        valid_eff = [value for value in efficiencies if value is not None]
+        if len(valid_eff) <= 1:
+            continue
+        spread = max(valid_eff) - min(valid_eff)
+        if spread < 1.0:
+            continue
+        ids = ", ".join(str(item.get("id", "")) for item in group)
+        errors.append(
+            f"conflicting near-duplicate variants ({key}) with efficiency spread {spread:.1f}: {ids}"
+        )
+        if len(errors) >= max(1, int(max_errors)):
+            return errors
+    return errors
+
+
 def validate_payload(payload: dict[str, Any], label: str) -> tuple[list[str], list[str], list[dict[str, Any]]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -355,6 +450,8 @@ def main() -> int:
             )
     for source_error in market_source_policy_errors(presets):
         errors.append("current: market source policy violation: " + source_error)
+    for consistency_error in variant_consistency_errors(presets):
+        errors.append("current: variant consistency violation: " + consistency_error)
 
     if manifest_path.exists():
         manifest_payload = load_payload(manifest_path)

@@ -787,6 +787,159 @@ def canonical_car_id(raw_id: str, markets: list[str]) -> str:
     return car_id
 
 
+def model_label_signature(label: str) -> str:
+    text = str(label or "").lower()
+    text = re.sub(r"\([^)]*\)", " ", text)
+    text = re.sub(r"\b\d{4}\b", " ", text)
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def has_explicit_battery_label(label: str) -> bool:
+    return bool(re.search(r"\(\s*\d+(?:\.\d+)?\s*kwh\s*\)", str(label or ""), flags=re.IGNORECASE))
+
+
+def preset_source_priority(source_value: Any) -> int:
+    source = str(source_value or "").lower()
+    if "manual" in source:
+        return 5
+    if "seed" in source:
+        return 4
+    if "fueleconomy" in source:
+        return 3
+    if "afdc" in source:
+        return 2
+    if "cardekho" in source:
+        return 1
+    return 1 if source else 0
+
+
+def variant_conflict_key(preset: dict[str, Any]) -> str:
+    signature = model_label_signature(str(preset.get("label", "")))
+    battery = parse_float(preset.get("batteryKwh"))
+    if not signature or battery is None:
+        return ""
+    return f"{signature}|{round1(battery)}"
+
+
+def preset_market_set(preset: dict[str, Any]) -> set[str]:
+    markets = normalize_market_array(preset.get("markets"))
+    if not markets:
+        return {"GLOBAL"}
+    return set(markets)
+
+
+def presets_have_market_overlap(a: dict[str, Any], b: dict[str, Any]) -> bool:
+    a_set = preset_market_set(a)
+    b_set = preset_market_set(b)
+    if "GLOBAL" in a_set or "GLOBAL" in b_set:
+        return True
+    return bool(a_set & b_set)
+
+
+def group_has_market_overlap(group: list[dict[str, Any]]) -> bool:
+    for i in range(len(group)):
+        for j in range(i + 1, len(group)):
+            if presets_have_market_overlap(group[i], group[j]):
+                return True
+    return False
+
+
+def should_collapse_conflict_group(group: list[dict[str, Any]]) -> bool:
+    if len(group) <= 1:
+        return False
+    if not group_has_market_overlap(group):
+        return False
+    priorities = [preset_source_priority(item.get("source")) for item in group]
+    highest = max(priorities) if priorities else 0
+    lowest = min(priorities) if priorities else 0
+    # Collapse only when trust levels differ and at least one high-signal source exists.
+    return highest >= 3 and highest > lowest
+
+
+def should_prefer_conflict_variant(candidate: dict[str, Any], existing: dict[str, Any]) -> bool:
+    candidate_explicit = has_explicit_battery_label(str(candidate.get("label", "")))
+    existing_explicit = has_explicit_battery_label(str(existing.get("label", "")))
+    if candidate_explicit != existing_explicit:
+        return candidate_explicit
+
+    candidate_source = preset_source_priority(candidate.get("source"))
+    existing_source = preset_source_priority(existing.get("source"))
+    if candidate_source != existing_source:
+        return candidate_source > existing_source
+
+    candidate_has_market_price = isinstance(candidate.get("marketPrices"), dict) and bool(candidate.get("marketPrices"))
+    existing_has_market_price = isinstance(existing.get("marketPrices"), dict) and bool(existing.get("marketPrices"))
+    if candidate_has_market_price != existing_has_market_price:
+        return candidate_has_market_price
+
+    candidate_has_price = isinstance(candidate.get("priceUsd"), int)
+    existing_has_price = isinstance(existing.get("priceUsd"), int)
+    if candidate_has_price != existing_has_price:
+        return candidate_has_price
+
+    return str(candidate.get("id", "")) < str(existing.get("id", ""))
+
+
+def collapse_variant_conflicts(presets: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for preset in presets:
+        key = variant_conflict_key(preset)
+        if not key:
+            continue
+        grouped.setdefault(key, []).append(preset)
+
+    collapsed_ids: set[str] = set()
+    out: list[dict[str, Any]] = []
+    for group in grouped.values():
+        if len(group) <= 1 or not should_collapse_conflict_group(group):
+            continue
+        best = group[0]
+        for candidate in group[1:]:
+            if should_prefer_conflict_variant(candidate, best):
+                best = candidate
+        out.append(best)
+        for item in group:
+            collapsed_ids.add(str(item.get("id", "")))
+
+    for preset in presets:
+        preset_id = str(preset.get("id", ""))
+        if preset_id in collapsed_ids:
+            continue
+        out.append(preset)
+
+    return sorted(out, key=lambda x: (x.get("label", ""), x.get("id", "")))
+
+
+def variant_consistency_errors(presets: list[dict[str, Any]], max_errors: int = 25) -> list[str]:
+    errors: list[str] = []
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for preset in presets:
+        key = variant_conflict_key(preset)
+        if key:
+            grouped.setdefault(key, []).append(preset)
+
+    for key, group in grouped.items():
+        if len(group) <= 1:
+            continue
+        if not should_collapse_conflict_group(group):
+            continue
+        efficiencies = [parse_float(item.get("efficiency")) for item in group]
+        valid_eff = [value for value in efficiencies if value is not None]
+        if len(valid_eff) <= 1:
+            continue
+        spread = max(valid_eff) - min(valid_eff)
+        if spread < 1.0:
+            continue
+        ids = ", ".join(str(item.get("id", "")) for item in group)
+        errors.append(
+            f"Conflicting near-duplicate variants ({key}) with efficiency spread {spread:.1f}: {ids}"
+        )
+        if len(errors) >= max(1, int(max_errors)):
+            return errors
+    return errors
+
+
 def normalize_vehicle_key(make: str, model: str) -> str:
     text = f"{make} {model}".strip().lower()
     text = re.sub(r"\s+", " ", text)
@@ -1199,7 +1352,8 @@ def merge_presets(*groups: list[dict[str, Any]], fx: FxResolver | None = None) -
 
             merged[car_id] = normalized
 
-    return sorted(merged.values(), key=lambda x: (x.get("label", ""), x.get("id", "")))
+    merged_list = sorted(merged.values(), key=lambda x: (x.get("label", ""), x.get("id", "")))
+    return collapse_variant_conflicts(merged_list)
 
 
 def collect_us_ev_presets(from_year: int, to_year: int, sleep_ms: int) -> list[dict[str, Any]]:
@@ -1588,8 +1742,11 @@ def validate_candidate_catalog(
 
     current_stats = catalog_stats(presets)
     source_policy_errors = market_source_policy_errors(presets)
+    consistency_errors = variant_consistency_errors(presets)
     for source_error in source_policy_errors:
         errors.append("Market source policy violation: " + source_error)
+    for consistency_error in consistency_errors:
+        errors.append("Variant consistency violation: " + consistency_error)
     for market_code, market_min in (min_market_presets or {}).items():
         if current_stats["markets"].get(market_code, 0) < max(0, int(market_min)):
             errors.append(

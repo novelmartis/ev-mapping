@@ -12,13 +12,13 @@
     "manual-presets",
     "row-native-seed"
   ],
-  "count": 30,
+  "count": 28,
   "stats": {
-    "total": 30,
-    "priced": 30,
+    "total": 28,
+    "priced": 28,
     "priceCoverage": 1.0,
     "markets": {
-      "IN": 30,
+      "IN": 28,
       "LK": 3
     },
     "marketCount": 2
@@ -277,27 +277,6 @@
       "source": "cardekho.com"
     },
     {
-      "id": "mahindra-be-6",
-      "label": "Mahindra BE 6",
-      "batteryKwh": 79.0,
-      "efficiency": 11.6,
-      "reserve": 10,
-      "markets": [
-        "IN"
-      ],
-      "priceUsd": 20620,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1890000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-03-06"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
       "id": "mahindra-be6-59",
       "label": "Mahindra BE 6 (59 kWh)",
       "batteryKwh": 59.0,
@@ -324,27 +303,6 @@
       "priceUsd": 32400,
       "priceSource": "india-market-multi-source",
       "source": "manual"
-    },
-    {
-      "id": "mahindra-xev-9e",
-      "label": "Mahindra XEV 9e",
-      "batteryKwh": 79.0,
-      "efficiency": 12.0,
-      "reserve": 10,
-      "markets": [
-        "IN"
-      ],
-      "priceUsd": 23893,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 2190000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-03-06"
-        }
-      },
-      "source": "cardekho.com"
     },
     {
       "id": "mahindra-xev-9e-79",

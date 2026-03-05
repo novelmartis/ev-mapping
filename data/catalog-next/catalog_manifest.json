@@ -12,11 +12,11 @@
     "manual-presets",
     "row-native-seed"
   ],
-  "uniquePresetCount": 707,
+  "uniquePresetCount": 705,
   "stats": {
-    "total": 707,
-    "priced": 149,
-    "priceCoverage": 0.2107,
+    "total": 705,
+    "priced": 147,
+    "priceCoverage": 0.2085,
     "markets": {
       "AU": 330,
       "CA": 527,
@@ -24,7 +24,7 @@
       "DE": 337,
       "EG": 303,
       "ID": 283,
-      "IN": 30,
+      "IN": 28,
       "JP": 301,
       "KR": 267,
       "LK": 3,
@@ -87,9 +87,9 @@
       "priceCoverage": 0.1696
     },
     "IN": {
-      "count": 30,
+      "count": 28,
       "file": "./data/catalog-next/markets/IN.json",
-      "sha256": "c1b59ec0b0fce4ac0c0584063e4ea0cb2d7a54555df76b25d22de6b20f1cd93e",
+      "sha256": "558798953e3aa709a4570c3e6c490111fe1d8574247e4710da62475cb59b225f",
       "priceCoverage": 1.0
     },
     "JP": {
@@ -172,7 +172,7 @@
     }
   },
   "checksums": {
-    "combined": "28f3ac0183312c4a53106b360d7a843172f0540a06680c37a9c009349bceb63d",
+    "combined": "1d8f5d0abadd0dd3583f39cef0f1bbc5995e04d1b63732b7ac8ef6c64adfafb6",
     "markets": {
       "AU": "880c8bf497f6fc7802065bb680233e55dd06f294559a4bf9af804dfaadd48a73",
       "CA": "ee61d78b53d690330a08671185c812d5fb70b460338948756a15c2127328ffb8",
@@ -180,7 +180,7 @@
       "DE": "c605325dc21a07aa0dccd336220a9ed36f4c21fb32c8b9e4d1b41c0b3e756eb0",
       "EG": "0a7748668ab393060ff567954d3f089cb5c9a14617f468b48a35839b1908f5d3",
       "ID": "50fcf49aad90553bb3f1f5c5a106fc159085ca558034f755867a620026165888",
-      "IN": "c1b59ec0b0fce4ac0c0584063e4ea0cb2d7a54555df76b25d22de6b20f1cd93e",
+      "IN": "558798953e3aa709a4570c3e6c490111fe1d8574247e4710da62475cb59b225f",
       "JP": "64e3f9a046a06b10417fc2097fd83430cf84d48d67b3b769d41e968c755b232e",
       "KR": "c264d191d31f3f980f3fb39804da7ee418f7cf33899ee2ec057fee3ad2ea41c9",
       "LK": "188254fe3d01cc837f8bf3a870d564799a5c52115788cdd52d77e151e2cb11de",

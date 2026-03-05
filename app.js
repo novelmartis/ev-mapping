@@ -1423,6 +1423,7 @@ function mergeCarPresets(basePresets, generatedPresets) {
       efficiency: round1(Number(item.efficiency)),
       reserve: Number.isFinite(Number(item.reserve)) ? Number(item.reserve) : 10,
       markets: normalizeMarketArray(item.markets),
+      source: String(item.source || "").trim(),
       priceUsd: Number.isFinite(priceUsdValue) ? Math.round(priceUsdValue) : null,
       marketPrices,
     };
@@ -1458,6 +1459,12 @@ function canonicalPresetId(id, markets) {
 }
 
 function shouldReplacePreset(existing, candidate) {
+  const existingSourcePriority = presetSourcePriority(existing?.source);
+  const candidateSourcePriority = presetSourcePriority(candidate?.source);
+  if (candidateSourcePriority !== existingSourcePriority) {
+    return candidateSourcePriority > existingSourcePriority;
+  }
+
   const existingMarketPricesCount = Object.keys(existing?.marketPrices || {}).length;
   const candidateMarketPricesCount = Object.keys(candidate?.marketPrices || {}).length;
   if (candidateMarketPricesCount !== existingMarketPricesCount) {
@@ -1481,6 +1488,17 @@ function shouldReplacePreset(existing, candidate) {
   return Number.isFinite(candidateBattery) && candidateBattery > existingBattery;
 }
 
+function presetSourcePriority(sourceValue) {
+  const source = String(sourceValue || "").toLowerCase();
+  if (!source) return 0;
+  if (source.includes("manual")) return 5;
+  if (source.includes("seed")) return 4;
+  if (source.includes("fueleconomy")) return 3;
+  if (source.includes("afdc")) return 2;
+  if (source.includes("cardekho")) return 1;
+  return 1;
+}
+
 function appendPresetOptions(parent, presets) {
   const fragment = document.createDocumentFragment();
   for (const preset of presets) {
@@ -1502,7 +1520,11 @@ function appendPresetOptgroup(parent, label, presets) {
 
 function visiblePresetsForCurrentMarket(sortedPresets) {
   if (state.marketCode === "GLOBAL") {
-    return { visiblePresets: sortedPresets, hasMarketSpecific: false, groupLabel: "All models" };
+    return {
+      visiblePresets: dedupeVisiblePresetVariants(sortedPresets),
+      hasMarketSpecific: false,
+      groupLabel: "All models",
+    };
   }
 
   const marketMatched = [];
@@ -1522,7 +1544,7 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
   if (marketMatched.length > 0) {
     if (!hasStrictSourcePolicy || marketMatched.length >= STRICT_LOCAL_MARKET_MIN_PRESETS) {
       return {
-        visiblePresets: marketMatched,
+        visiblePresets: dedupeVisiblePresetVariants(marketMatched),
         hasMarketSpecific: true,
         groupLabel: "Available models",
       };
@@ -1537,13 +1559,13 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
       if (marketMatched.length > 0) {
         const merged = dedupePresetsById([...marketMatched, ...proxyMatched]);
         return {
-          visiblePresets: merged,
+          visiblePresets: dedupeVisiblePresetVariants(merged),
           hasMarketSpecific: true,
           groupLabel: `Available + proxy models (${proxyLabel})`,
         };
       }
       return {
-        visiblePresets: proxyMatched,
+        visiblePresets: dedupeVisiblePresetVariants(proxyMatched),
         hasMarketSpecific: false,
         groupLabel: `Proxy models (${proxyLabel})`,
       };
@@ -1552,7 +1574,7 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
 
   if (marketMatched.length > 0) {
     return {
-      visiblePresets: marketMatched,
+      visiblePresets: dedupeVisiblePresetVariants(marketMatched),
       hasMarketSpecific: true,
       groupLabel: "Available models",
     };
@@ -1568,13 +1590,13 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
 
   if (sortedPresets.length > marketGlobal.length) {
     return {
-      visiblePresets: sortedPresets,
+      visiblePresets: dedupeVisiblePresetVariants(sortedPresets),
       hasMarketSpecific: false,
       groupLabel: "Cross-market models",
     };
   }
   return {
-    visiblePresets: marketGlobal,
+    visiblePresets: dedupeVisiblePresetVariants(marketGlobal),
     hasMarketSpecific: false,
     groupLabel: "Global models",
   };
@@ -1595,6 +1617,125 @@ function dedupePresetsById(presets) {
     out.push(preset);
   }
   return out;
+}
+
+function dedupeVisiblePresetVariants(presets) {
+  if (!Array.isArray(presets) || presets.length <= 1) return Array.isArray(presets) ? presets : [];
+  const grouped = new Map();
+  for (const preset of presets) {
+    const key = visiblePresetVariantKey(preset);
+    if (!key) continue;
+    const list = grouped.get(key) || [];
+    list.push(preset);
+    grouped.set(key, list);
+  }
+  const out = [];
+  for (const group of grouped.values()) {
+    if (group.length <= 1) {
+      out.push(group[0]);
+      continue;
+    }
+    if (!shouldCollapseVisibleVariantGroup(group)) {
+      out.push(...group);
+      continue;
+    }
+    let best = group[0];
+    for (const candidate of group.slice(1)) {
+      if (shouldPreferVisiblePresetVariant(candidate, best)) {
+        best = candidate;
+      }
+    }
+    out.push(best);
+  }
+  return out.sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function visiblePresetVariantKey(preset) {
+  if (!preset) return "";
+  const modelSignature = modelLabelSignature(preset.label);
+  const battery = Number(preset.batteryKwh);
+  if (!modelSignature || !Number.isFinite(battery)) return "";
+  const roundedBattery = Math.round(battery * 10) / 10;
+  return `${modelSignature}|${roundedBattery}`;
+}
+
+function modelLabelSignature(label) {
+  return String(label || "")
+    .toLowerCase()
+    .replace(/\([^)]*\)/g, " ")
+    .replace(/\b\d{4}\b/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function hasExplicitBatteryLabel(label) {
+  return /\(\s*\d+(?:\.\d+)?\s*kwh\s*\)/i.test(String(label || ""));
+}
+
+function presetMarketSet(preset) {
+  const markets = normalizeMarketArray(preset?.markets);
+  if (markets.length === 0) return new Set(["GLOBAL"]);
+  return new Set(markets);
+}
+
+function presetsHaveMarketOverlap(a, b) {
+  const aSet = presetMarketSet(a);
+  const bSet = presetMarketSet(b);
+  if (aSet.has("GLOBAL") || bSet.has("GLOBAL")) return true;
+  for (const code of aSet) {
+    if (bSet.has(code)) return true;
+  }
+  return false;
+}
+
+function groupHasMarketOverlap(group) {
+  for (let i = 0; i < group.length; i += 1) {
+    for (let j = i + 1; j < group.length; j += 1) {
+      if (presetsHaveMarketOverlap(group[i], group[j])) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function shouldCollapseVisibleVariantGroup(group) {
+  if (!Array.isArray(group) || group.length <= 1) return false;
+  if (!groupHasMarketOverlap(group)) return false;
+  const priorities = group.map((preset) => presetSourcePriority(preset?.source));
+  const highest = Math.max(...priorities);
+  const lowest = Math.min(...priorities);
+  // Collapse only when trust levels differ and at least one high-signal source exists.
+  return highest >= 3 && highest > lowest;
+}
+
+function shouldPreferVisiblePresetVariant(candidate, existing) {
+  const candidateHasExplicitBattery = hasExplicitBatteryLabel(candidate?.label);
+  const existingHasExplicitBattery = hasExplicitBatteryLabel(existing?.label);
+  if (candidateHasExplicitBattery !== existingHasExplicitBattery) {
+    return candidateHasExplicitBattery;
+  }
+
+  const candidateSource = presetSourcePriority(candidate?.source);
+  const existingSource = presetSourcePriority(existing?.source);
+  if (candidateSource !== existingSource) {
+    return candidateSource > existingSource;
+  }
+
+  const candidateMarketPricesCount = Object.keys(candidate?.marketPrices || {}).length;
+  const existingMarketPricesCount = Object.keys(existing?.marketPrices || {}).length;
+  if (candidateMarketPricesCount !== existingMarketPricesCount) {
+    return candidateMarketPricesCount > existingMarketPricesCount;
+  }
+
+  const candidateHasUsdPrice = Number.isFinite(Number(candidate?.priceUsd));
+  const existingHasUsdPrice = Number.isFinite(Number(existing?.priceUsd));
+  if (candidateHasUsdPrice !== existingHasUsdPrice) {
+    return candidateHasUsdPrice;
+  }
+
+  return String(candidate?.id || "").localeCompare(String(existing?.id || "")) < 0;
 }
 
 function isPresetSourceAllowedForMarket(preset, marketCode) {

@@ -130,6 +130,102 @@ class ValidateCatalogTests(unittest.TestCase):
         ]
         self.assertEqual(validate.market_source_policy_errors(presets), [])
 
+    def test_variant_consistency_errors_flags_cardekho_vs_manual_conflict(self):
+        presets = [
+            {
+                "id": "mahindra-be-6",
+                "label": "Mahindra BE 6",
+                "batteryKwh": 79,
+                "efficiency": 11.6,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "cardekho.com",
+            },
+            {
+                "id": "mahindra-be6-79",
+                "label": "Mahindra BE 6 (79 kWh)",
+                "batteryKwh": 79,
+                "efficiency": 16.4,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "manual",
+            },
+        ]
+        errors = validate.variant_consistency_errors(presets)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("conflicting near-duplicate variants", errors[0])
+
+    def test_variant_consistency_errors_flags_high_signal_vs_low_signal_conflict(self):
+        presets = [
+            {
+                "id": "sample-ev-scraped",
+                "label": "Sample EV",
+                "batteryKwh": 75,
+                "efficiency": 12.1,
+                "reserve": 10,
+                "markets": ["US"],
+                "source": "example-scraper.com",
+            },
+            {
+                "id": "sample-ev-fe",
+                "label": "Sample EV",
+                "batteryKwh": 75,
+                "efficiency": 16.8,
+                "reserve": 10,
+                "markets": ["US"],
+                "source": "fueleconomy.gov",
+            },
+        ]
+        errors = validate.variant_consistency_errors(presets)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("conflicting near-duplicate variants", errors[0])
+
+    def test_variant_consistency_errors_ignores_non_cardekho_variant_pair(self):
+        presets = [
+            {
+                "id": "2025-example-ev-lr",
+                "label": "2025 Example EV Long Range",
+                "batteryKwh": 75,
+                "efficiency": 16.2,
+                "reserve": 10,
+                "markets": ["US"],
+                "source": "fueleconomy.gov",
+            },
+            {
+                "id": "2026-example-ev-lr",
+                "label": "2026 Example EV Long Range",
+                "batteryKwh": 75,
+                "efficiency": 16.3,
+                "reserve": 10,
+                "markets": ["US"],
+                "source": "fueleconomy.gov",
+            },
+        ]
+        self.assertEqual(validate.variant_consistency_errors(presets), [])
+
+    def test_variant_consistency_errors_ignores_disjoint_market_duplicates(self):
+        presets = [
+            {
+                "id": "volvo-ex30-in",
+                "label": "Volvo EX30",
+                "batteryKwh": 69,
+                "efficiency": 14.4,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "cardekho.com",
+            },
+            {
+                "id": "volvo-ex30-asean",
+                "label": "Volvo EX30",
+                "batteryKwh": 69,
+                "efficiency": 16.3,
+                "reserve": 10,
+                "markets": ["SG", "TH", "MY"],
+                "source": "asean-native-seed",
+            },
+        ]
+        self.assertEqual(validate.variant_consistency_errors(presets), [])
+
     def test_validate_manifest_payload_accepts_matching_market_files(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)

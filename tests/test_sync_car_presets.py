@@ -203,6 +203,110 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertEqual(merged[0]["markets"], ["IN"])
         self.assertIn("marketPrices", merged[0])
 
+    def test_merge_presets_collapses_cardekho_conflict_when_manual_variant_exists(self):
+        cardekho = [
+            {
+                "id": "mahindra-be-6",
+                "label": "Mahindra BE 6",
+                "batteryKwh": 79,
+                "efficiency": 11.6,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "cardekho.com",
+            }
+        ]
+        manual = [
+            {
+                "id": "mahindra-be6-79",
+                "label": "Mahindra BE 6 (79 kWh)",
+                "batteryKwh": 79,
+                "efficiency": 16.4,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "manual",
+            }
+        ]
+        merged = sync.merge_presets(cardekho, manual)
+        self.assertEqual(len(merged), 1)
+        self.assertEqual(merged[0]["id"], "mahindra-be6-79")
+        self.assertEqual(merged[0]["efficiency"], 16.4)
+
+    def test_merge_presets_prefers_high_signal_source_on_near_duplicate_conflict(self):
+        low_signal = [
+            {
+                "id": "sample-ev-scraped",
+                "label": "Sample EV",
+                "batteryKwh": 75,
+                "efficiency": 12.1,
+                "reserve": 10,
+                "markets": ["US"],
+                "source": "example-scraper.com",
+            }
+        ]
+        high_signal = [
+            {
+                "id": "sample-ev-fe",
+                "label": "Sample EV",
+                "batteryKwh": 75,
+                "efficiency": 16.8,
+                "reserve": 10,
+                "markets": ["US"],
+                "source": "fueleconomy.gov",
+            }
+        ]
+        merged = sync.merge_presets(low_signal, high_signal)
+        self.assertEqual(len(merged), 1)
+        self.assertEqual(merged[0]["id"], "sample-ev-fe")
+        self.assertEqual(merged[0]["efficiency"], 16.8)
+
+    def test_merge_presets_keeps_non_conflict_same_battery_variants(self):
+        us_rows = [
+            {
+                "id": "2025-example-ev-lr",
+                "label": "2025 Example EV Long Range",
+                "batteryKwh": 75,
+                "efficiency": 16.2,
+                "reserve": 10,
+                "markets": ["US"],
+                "source": "fueleconomy.gov",
+            },
+            {
+                "id": "2026-example-ev-lr",
+                "label": "2026 Example EV Long Range",
+                "batteryKwh": 75,
+                "efficiency": 16.3,
+                "reserve": 10,
+                "markets": ["US"],
+                "source": "fueleconomy.gov",
+            },
+        ]
+        merged = sync.merge_presets(us_rows)
+        self.assertEqual(len(merged), 2)
+
+    def test_merge_presets_does_not_collapse_disjoint_market_duplicates(self):
+        disjoint = [
+            {
+                "id": "volvo-ex30-in",
+                "label": "Volvo EX30",
+                "batteryKwh": 69,
+                "efficiency": 14.4,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "cardekho.com",
+            },
+            {
+                "id": "volvo-ex30-asean",
+                "label": "Volvo EX30",
+                "batteryKwh": 69,
+                "efficiency": 16.3,
+                "reserve": 10,
+                "markets": ["SG", "TH", "MY"],
+                "source": "asean-native-seed",
+            },
+        ]
+        merged = sync.merge_presets(disjoint)
+        self.assertEqual(len(merged), 2)
+
     def test_parse_market_minimums_uses_defaults_and_overrides(self):
         minimums = sync.parse_market_minimums(["IN=25", "US=320", "bad", "JP=abc"])
         self.assertEqual(minimums["IN"], 25)

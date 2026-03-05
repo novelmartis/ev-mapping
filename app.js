@@ -11,6 +11,7 @@ const FAST_OVERPASS_TIMEOUT_MS = 5000;
 const FAST_OVERPASS_ENDPOINT_LIMIT = 1;
 const FAST_OVERPASS_ATTEMPTS = 1;
 const GEOCODE_CACHE_LIMIT = 10;
+const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
 const OVERPASS_ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
   "https://overpass.kumi.systems/api/interpreter",
@@ -140,6 +141,8 @@ const ui = {
   compareBtn: document.getElementById("compare-btn"),
   compareResults: document.getElementById("compare-results"),
   summary: document.getElementById("summary"),
+  mapElement: document.getElementById("map"),
+  mapPanel: document.querySelector(".map-panel"),
 };
 
 // ── URL state ──────────────────────────────────────────────────────────────
@@ -575,8 +578,13 @@ async function onPlanSubmit(event) {
   event.preventDefault();
   const submitMode = event.submitter?.id === "compare-btn" ? "compare" : "reach";
   const activeBtn = submitMode === "compare" ? ui.compareBtn : ui.planBtn;
+  const shouldGlow = submitMode === "reach";
   const originalBtnText = activeBtn.textContent;
+  if (shouldGlow) {
+    ui.planBtn.classList.add("is-loading");
+  }
   activeBtn.disabled = true;
+  activeBtn.setAttribute("aria-busy", "true");
   activeBtn.textContent = submitMode === "compare" ? "Comparing…" : "Computing…";
 
   state.lastSubmitMode = submitMode;
@@ -667,14 +675,30 @@ async function onPlanSubmit(event) {
       compareRows,
       submitMode
     );
+    if (submitMode === "reach") {
+      focusMapOnMobile();
+    }
     pushUrlState();
     saveRecentLocation(planInput.locationQuery);
   } catch (error) {
     setSummary(`<p class="warning">${escapeHtml(error.message)}</p>`);
   } finally {
     activeBtn.disabled = false;
+    activeBtn.removeAttribute("aria-busy");
+    if (shouldGlow) {
+      ui.planBtn.classList.remove("is-loading");
+    }
     activeBtn.textContent = originalBtnText;
   }
+}
+
+function focusMapOnMobile() {
+  if (!window.matchMedia(MOBILE_LAYOUT_QUERY).matches) return;
+  if (!ui.mapPanel || !ui.mapElement) return;
+  ui.mapPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  setTimeout(() => {
+    ui.mapElement.focus({ preventScroll: true });
+  }, 260);
 }
 
 function parsePlanInput() {

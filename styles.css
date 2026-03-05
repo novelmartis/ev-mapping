@@ -51,7 +51,8 @@ body::before {
   border: 1px solid rgb(255 255 255 / 70%);
   border-radius: 18px;
   padding: 1rem;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: var(--panel-glow);
   animation: rise-fade 420ms ease both;
 }
@@ -167,6 +168,7 @@ button:focus-visible {
 
 #compare-cars {
   min-height: 118px;
+  width: 100%;
 }
 
 .compare-panel {
@@ -177,6 +179,7 @@ button:focus-visible {
   box-shadow: 0 8px 20px rgb(16 34 70 / 4%);
   display: grid;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .compare-panel summary {
@@ -213,6 +216,8 @@ button:focus-visible {
   border-top: 1px dashed var(--line-strong);
   margin-top: 0.35rem;
   padding-top: 0.5rem;
+  overflow-x: hidden;
+  min-width: 0;
 }
 
 #compare-btn {
@@ -249,6 +254,11 @@ button {
 #plan-btn:hover {
   transform: translateY(-1px);
   filter: brightness(1.04);
+}
+
+#plan-btn.is-loading {
+  cursor: progress;
+  animation: compute-glow 1s ease-in-out infinite;
 }
 
 .summary {
@@ -297,6 +307,7 @@ button {
 
 .compare-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: 0.82rem;
 }
@@ -307,6 +318,8 @@ button {
   padding: 0.42rem 0.35rem;
   text-align: left;
   vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .compare-table th {
@@ -399,6 +412,11 @@ button {
   min-height: 460px;
 }
 
+#map:focus-visible {
+  outline: 3px solid rgb(30 167 157 / 42%);
+  outline-offset: -3px;
+}
+
 .legend {
   background: #fff;
   padding: 0.58rem 0.68rem;
@@ -451,6 +469,16 @@ button {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes compute-glow {
+  0%,
+  100% {
+    box-shadow: 0 10px 24px rgb(0 103 123 / 28%);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgb(30 167 157 / 22%), 0 12px 30px rgb(0 103 123 / 36%);
   }
 }
 
@@ -586,4 +614,11 @@ details[open] > summary::after {
   transform: none !important;
   filter: none !important;
   box-shadow: none;
+}
+
+#plan-btn.is-loading:disabled {
+  opacity: 1;
+  cursor: progress;
+  filter: brightness(1.03) !important;
+  box-shadow: 0 10px 24px rgb(0 103 123 / 28%) !important;
 }

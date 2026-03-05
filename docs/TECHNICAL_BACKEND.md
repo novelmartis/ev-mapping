@@ -27,6 +27,7 @@ Responsibilities:
 
 - Fetch US EV market data from `fueleconomy.gov`.
 - Enrich US MSRP from `afdc.energy.gov`.
+- Fetch India EV listing/spec+price data from `cardekho.com/electric-cars`.
 - Merge with manual regional presets from `data/car-presets.manual.json`.
 - Normalize local-currency manual prices into `priceUsd`.
 - Validate generated output against anti-regression thresholds.
@@ -41,8 +42,9 @@ Validation script:
 
 ### Catalog sync fallback
 
-- If live market sync fails, script falls back to manual presets.
-- If both live + manual are empty, script exits non-zero.
+- If one source fails (for example US or India), remaining sources continue.
+- If generated output fails guardrails, script preserves previous known-good catalog.
+- If no valid catalog exists at all, script exits non-zero.
 
 ### Frontend/runtime fallbacks
 

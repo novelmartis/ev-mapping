@@ -82,6 +82,34 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertEqual(sync.parse_usd("  $1,234.50 "), 1234.5)
         self.assertIsNone(sync.parse_usd("N/A"))
 
+    def test_parse_inr_amount_lakh_and_crore(self):
+        self.assertEqual(sync.parse_inr_amount("Rs 15.99 - 20.01 Lakh*"), 1599000.0)
+        self.assertEqual(sync.parse_inr_amount("Rs 2.05 - 2.58 Cr*"), 20500000.0)
+        self.assertIsNone(sync.parse_inr_amount("Price on request"))
+
+    def test_collect_india_ev_presets_parses_cardekho_like_html(self):
+        html = """
+        <html><body>
+        <div>Mahindra BE 6</div>
+        <div>Rs 18.90 - 26.90 Lakh*</div>
+        <div>557 - 683 km . 59 - 79 kWh</div>
+        <div>Tata Nexon EV</div>
+        <div>Rs 12.49 - 17.19 Lakh*</div>
+        <div>489 km . 30 - 45 kWh</div>
+        </body></html>
+        """
+        with patch.object(sync.urllib.request, "urlopen") as mock_urlopen:
+            mock_urlopen.return_value.__enter__.return_value.read.return_value = html.encode("utf-8")
+            presets = sync.collect_india_ev_presets(sync.FxResolver(timeout_ms=100))
+
+        self.assertGreaterEqual(len(presets), 2)
+        ids = {item["id"] for item in presets}
+        self.assertIn("mahindra-be-6-in", ids)
+        mahindra = next(item for item in presets if item["id"] == "mahindra-be-6-in")
+        self.assertEqual(mahindra["markets"], ["IN"])
+        self.assertIn("priceUsd", mahindra)
+        self.assertIn("marketPrices", mahindra)
+
     def test_merge_presets_last_source_wins(self):
         api_presets = [
             {
@@ -143,6 +171,8 @@ class SyncCarPresetsTests(unittest.TestCase):
             )
             with patch.object(sync, "parse_args", return_value=args), patch.object(
                 sync, "collect_us_ev_presets", side_effect=Exception("network down")
+            ), patch.object(
+                sync, "collect_india_ev_presets", return_value=[]
             ), patch.object(sync.Path, "cwd", return_value=root):
                 rc = sync.main()
 
@@ -170,6 +200,8 @@ class SyncCarPresetsTests(unittest.TestCase):
             )
             with patch.object(sync, "parse_args", return_value=args), patch.object(
                 sync, "collect_us_ev_presets", return_value=[]
+            ), patch.object(
+                sync, "collect_india_ev_presets", return_value=[]
             ), patch.object(sync.Path, "cwd", return_value=root):
                 rc = sync.main()
 

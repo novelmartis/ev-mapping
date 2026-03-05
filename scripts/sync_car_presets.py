@@ -31,6 +31,7 @@ from typing import Any
 BASE_URL = "https://www.fueleconomy.gov/ws/rest/vehicle"
 AFDC_DOWNLOAD_URL = "https://afdc.energy.gov/vehicles/search/download"
 FRANKFURTER_URL = "https://api.frankfurter.app/latest"
+CARDEKHO_IN_ELECTRIC_URL = "https://www.cardekho.com/electric-cars"
 USER_AGENT = "ev-mapping-catalog-sync/2.0"
 KWH_PER_GALLON_EQUIV = 33.705
 MILES_PER_100KM = 62.137119
@@ -187,6 +188,42 @@ def parse_money_amount(value: Any) -> float | None:
     return amount if math.isfinite(amount) else None
 
 
+def parse_inr_amount(value: str) -> float | None:
+    text = str(value or "").replace(",", "")
+    text = re.sub(r"\s+", " ", text).strip()
+    if not text:
+        return None
+
+    # Handles formats like:
+    # - "Rs 15.99 - 20.01 Lakh*"
+    # - "Rs 2.05 - 2.58 Cr*"
+    # - "Rs 69.90 Lakh*"
+    match = re.search(
+        r"Rs\.?\s*([0-9]+(?:\.[0-9]+)?)(?:\s*-\s*([0-9]+(?:\.[0-9]+)?))?\s*(Lakh|Lakhs|Cr|Crore|Crores)\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        low = parse_float(match.group(1) or "")
+        high = parse_float(match.group(2) or "")
+        unit = (match.group(3) or "").lower()
+        base = low if low is not None else high
+        if base is None:
+            return None
+        multiplier = 1.0
+        if unit.startswith("lakh"):
+            multiplier = 100_000.0
+        elif unit.startswith("cr") or unit.startswith("crore"):
+            multiplier = 10_000_000.0
+        return base * multiplier
+
+    # Fallback for plain rupee amount.
+    plain = parse_money_amount(text)
+    if plain is not None and plain > 1_000:
+        return plain
+    return None
+
+
 def slugify(text: str) -> str:
     clean = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
     return re.sub(r"-{2,}", "-", clean)
@@ -215,6 +252,55 @@ def normalize_vehicle_key(make: str, model: str) -> str:
 
 def strip_model_footnotes(model: str) -> str:
     return re.sub(r"\s*\d+\s*$", "", model).strip()
+
+
+def parse_range_km(text: str) -> float | None:
+    values: list[float] = []
+    for match in re.finditer(
+        r"([0-9]+(?:\.[0-9]+)?)(?:\s*-\s*([0-9]+(?:\.[0-9]+)?))?\s*km\b",
+        str(text or ""),
+        flags=re.IGNORECASE,
+    ):
+        low = parse_float(match.group(1) or "")
+        high = parse_float(match.group(2) or "")
+        if low is not None:
+            values.append(low)
+        if high is not None:
+            values.append(high)
+    if not values:
+        return None
+    return max(values)
+
+
+def parse_battery_kwh(text: str) -> float | None:
+    values: list[float] = []
+    for match in re.finditer(
+        r"([0-9]+(?:\.[0-9]+)?)(?:\s*-\s*([0-9]+(?:\.[0-9]+)?))?\s*kwh\b",
+        str(text or ""),
+        flags=re.IGNORECASE,
+    ):
+        low = parse_float(match.group(1) or "")
+        high = parse_float(match.group(2) or "")
+        if low is not None:
+            values.append(low)
+        if high is not None:
+            values.append(high)
+    if not values:
+        return None
+    return max(values)
+
+
+def looks_like_vehicle_label(line: str) -> bool:
+    text = str(line or "").strip()
+    if len(text) < 3 or len(text) > 80:
+        return False
+    if text.lower().startswith("electric car"):
+        return False
+    if text.lower().startswith("model ex-showroom"):
+        return False
+    if "Rs" in text or "km" in text.lower() or "kWh" in text:
+        return False
+    return bool(re.search(r"[A-Za-z]", text))
 
 
 class AfdcEvTableParser(HTMLParser):
@@ -451,6 +537,29 @@ def merge_presets(*groups: list[dict[str, Any]], fx: FxResolver | None = None) -
 
             if "priceSource" in item:
                 normalized["priceSource"] = str(item["priceSource"]).strip()
+            market_prices = item.get("marketPrices")
+            if isinstance(market_prices, dict):
+                normalized_market_prices: dict[str, dict[str, Any]] = {}
+                for market_code_raw, entry in market_prices.items():
+                    market_code = str(market_code_raw or "").strip().upper()
+                    if not re.fullmatch(r"[A-Z]{2}", market_code):
+                        continue
+                    if not isinstance(entry, dict):
+                        continue
+                    amount = parse_money_amount(entry.get("amount"))
+                    currency = str(entry.get("currency", "")).strip().upper()
+                    if amount is None or amount <= 0:
+                        continue
+                    if not re.fullmatch(r"[A-Z]{3}", currency):
+                        continue
+                    normalized_market_prices[market_code] = {
+                        "amount": int(round(amount)),
+                        "currency": currency,
+                        "source": str(entry.get("source", "")).strip(),
+                        "updatedAt": str(entry.get("updatedAt", "")).strip(),
+                    }
+                if normalized_market_prices:
+                    normalized["marketPrices"] = normalized_market_prices
             if "source" in item:
                 normalized["source"] = str(item["source"]).strip()
 
@@ -490,6 +599,82 @@ def collect_us_ev_presets(from_year: int, to_year: int, sleep_ms: int) -> list[d
                     if sleep_ms > 0:
                         time.sleep(sleep_ms / 1000.0)
     return sorted(best_by_id.values(), key=lambda x: x["label"])
+
+
+def html_to_lines(raw_html: str) -> list[str]:
+    # Keep parser minimal and resilient: strip scripts/styles then extract text blocks.
+    without_scripts = re.sub(r"<script\b[^>]*>.*?</script>", " ", raw_html, flags=re.IGNORECASE | re.DOTALL)
+    without_styles = re.sub(r"<style\b[^>]*>.*?</style>", " ", without_scripts, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r"<[^>]+>", "\n", without_styles)
+    text = html.unescape(text)
+    lines = [re.sub(r"\s+", " ", line).strip() for line in text.splitlines()]
+    return [line for line in lines if line]
+
+
+def collect_india_ev_presets(fx: FxResolver) -> list[dict[str, Any]]:
+    req = urllib.request.Request(
+        CARDEKHO_IN_ELECTRIC_URL,
+        headers={"User-Agent": USER_AGENT, "Accept": "text/html"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        page = resp.read().decode("utf-8", errors="ignore")
+
+    lines = html_to_lines(page)
+    by_id: dict[str, dict[str, Any]] = {}
+
+    for idx, line in enumerate(lines):
+        if not looks_like_vehicle_label(line):
+            continue
+        if idx + 2 >= len(lines):
+            continue
+
+        price_line = lines[idx + 1]
+        spec_line = lines[idx + 2]
+        if "Rs" not in price_line:
+            continue
+        if "km" not in spec_line.lower() or "kwh" not in spec_line.lower():
+            continue
+
+        battery_kwh = parse_battery_kwh(spec_line)
+        range_km = parse_range_km(spec_line)
+        price_inr = parse_inr_amount(price_line)
+        if battery_kwh is None or range_km is None or range_km <= 0:
+            continue
+
+        efficiency = (battery_kwh / range_km) * 100
+        efficiency = min(35.0, max(10.0, efficiency))
+        battery_kwh = min(220.0, max(20.0, battery_kwh))
+
+        model = line.strip()
+        model_id = slugify(f"{model}-in")
+
+        preset: dict[str, Any] = {
+            "id": model_id,
+            "label": model,
+            "batteryKwh": round1(battery_kwh),
+            "efficiency": round1(efficiency),
+            "reserve": 10,
+            "markets": ["IN"],
+            "source": "cardekho.com",
+        }
+
+        if price_inr is not None and price_inr > 0:
+            usd = fx.to_usd(price_inr, "INR")
+            if usd is not None:
+                preset["priceUsd"] = int(round(usd))
+            preset["priceSource"] = "cardekho.com"
+            preset["marketPrices"] = {
+                "IN": {
+                    "amount": int(round(price_inr)),
+                    "currency": "INR",
+                    "source": "cardekho.com",
+                    "updatedAt": dt.date.today().isoformat(),
+                }
+            }
+
+        by_id[model_id] = preset
+
+    return sorted(by_id.values(), key=lambda x: x["label"])
 
 
 class CatalogValidation:
@@ -648,12 +833,25 @@ def main() -> int:
     print(f"Collecting EV catalog for years {from_year}..{to_year} ...")
     live_us_error = ""
     us_presets: list[dict[str, Any]] = []
+    india_error = ""
+    india_presets: list[dict[str, Any]] = []
+    fx = FxResolver(timeout_ms=fx_timeout_ms)
     try:
         us_presets = collect_us_ev_presets(from_year, to_year, sleep_ms)
     except Exception as exc:  # pragma: no cover - network/runtime failures
         live_us_error = str(exc)
         print(
             f"Warning: live market sync failed ({exc}). Falling back to manual/previous data.",
+            file=sys.stderr,
+        )
+    try:
+        india_presets = collect_india_ev_presets(fx)
+        if india_presets:
+            print(f"Loaded {len(india_presets)} India EV presets from cardekho.com.")
+    except Exception as exc:  # pragma: no cover - network/runtime failures
+        india_error = str(exc)
+        print(
+            f"Warning: India sync failed ({exc}). Continuing with remaining sources.",
             file=sys.stderr,
         )
 
@@ -663,8 +861,7 @@ def main() -> int:
         print(f"Failed to read manual presets: {exc}", file=sys.stderr)
         manual_presets = []
 
-    fx = FxResolver(timeout_ms=fx_timeout_ms)
-    combined = merge_presets(us_presets, manual_presets, fx=fx)
+    combined = merge_presets(us_presets, india_presets, manual_presets, fx=fx)
 
     validation = validate_candidate_catalog(
         combined,
@@ -680,8 +877,8 @@ def main() -> int:
     if validation.ok:
         payload = build_payload(
             combined,
-            source_label="fueleconomy.gov + AFDC + manual presets",
-            source_tags=["fueleconomy.gov", "afdc.energy.gov", "manual-presets"],
+            source_label="fueleconomy.gov + AFDC + Cardekho + manual presets",
+            source_tags=["fueleconomy.gov", "afdc.energy.gov", "cardekho.com", "manual-presets"],
         )
         write_payload(out_path, payload)
         print(
@@ -701,7 +898,8 @@ def main() -> int:
         )
         fallback_reason = (
             "; ".join(validation.errors)
-            + (f"; live sync error: {live_us_error}" if live_us_error else "")
+            + (f"; live US sync error: {live_us_error}" if live_us_error else "")
+            + (f"; India sync error: {india_error}" if india_error else "")
         )
         fallback_payload = dict(previous_payload)
         fallback_payload["fallbackMode"] = True

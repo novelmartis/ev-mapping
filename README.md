@@ -78,6 +78,7 @@ Input sources:
 
 - US market EV list/specs from `fueleconomy.gov` API
 - US MSRP enrichment from `afdc.energy.gov`
+- India EV listing/spec+price extraction from `cardekho.com/electric-cars`
 - Manual regional overrides from `data/car-presets.manual.json` (including market-specific models and prices)
 
 Output:

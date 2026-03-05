@@ -182,6 +182,38 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertEqual(minimums["US"], 320)
         self.assertEqual(minimums.get("JP"), None)
 
+    def test_extract_make_from_label_handles_year_and_hyphenated_make(self):
+        self.assertEqual(sync.extract_make_from_label("2025 Mercedes-Benz EQE 350+"), "mercedes-benz")
+        self.assertEqual(sync.extract_make_from_label("BMW i4 eDrive40"), "bmw")
+
+    def test_augment_regional_market_coverage_adds_de_sg_cn_for_supported_models(self):
+        presets = [
+            {
+                "id": "2025-bmw-i4",
+                "label": "2025 BMW i4 eDrive40",
+                "batteryKwh": 83.9,
+                "efficiency": 18.8,
+                "reserve": 10,
+                "markets": ["US"],
+            },
+            {
+                "id": "2025-ford-f150-lightning",
+                "label": "2025 Ford F-150 Lightning",
+                "batteryKwh": 131,
+                "efficiency": 27,
+                "reserve": 12,
+                "markets": ["US"],
+            },
+        ]
+        augmented = sync.augment_regional_market_coverage(presets)
+        by_id = {item["id"]: item for item in augmented}
+        self.assertIn("DE", by_id["2025-bmw-i4"]["markets"])
+        self.assertIn("SG", by_id["2025-bmw-i4"]["markets"])
+        self.assertIn("CN", by_id["2025-bmw-i4"]["markets"])
+        self.assertNotIn("DE", by_id["2025-ford-f150-lightning"]["markets"])
+        self.assertNotIn("SG", by_id["2025-ford-f150-lightning"]["markets"])
+        self.assertNotIn("CN", by_id["2025-ford-f150-lightning"]["markets"])
+
     def test_main_falls_back_to_manual_when_live_sync_fails(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
@@ -207,7 +239,7 @@ class SyncCarPresetsTests(unittest.TestCase):
                 manual_file="data/car-presets.manual.json",
                 out="data/car-presets.generated.json",
                 sleep_ms=0,
-                min_market_preset=["US=0", "IN=0"],
+                min_market_preset=["US=0", "IN=0", "DE=0", "SG=0", "CN=0"],
             )
             with patch.object(sync, "parse_args", return_value=args), patch.object(
                 sync, "collect_us_ev_presets", side_effect=Exception("network down")
@@ -237,7 +269,7 @@ class SyncCarPresetsTests(unittest.TestCase):
                 manual_file="data/car-presets.manual.json",
                 out="data/car-presets.generated.json",
                 sleep_ms=0,
-                min_market_preset=["US=0", "IN=0"],
+                min_market_preset=["US=0", "IN=0", "DE=0", "SG=0", "CN=0"],
             )
             with patch.object(sync, "parse_args", return_value=args), patch.object(
                 sync, "collect_us_ev_presets", return_value=[]

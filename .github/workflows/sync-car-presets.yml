@@ -41,7 +41,10 @@ jobs:
             --min-price-coverage 0.03 \
             --max-count-drop-ratio 0.45 \
             --min-market-preset US=300 \
-            --min-market-preset IN=20
+            --min-market-preset IN=20 \
+            --min-market-preset DE=20 \
+            --min-market-preset SG=12 \
+            --min-market-preset CN=12
 
       - name: Run unit tests for catalog scripts
         run: |
@@ -54,10 +57,13 @@ jobs:
             --previous /tmp/car-presets.previous.json \
             --min-count 50 \
             --min-price-coverage 0.03 \
-            --min-market-count 2 \
+            --min-market-count 5 \
             --max-drop-ratio 0.45 \
             --min-market-preset US=300 \
-            --min-market-preset IN=20
+            --min-market-preset IN=20 \
+            --min-market-preset DE=20 \
+            --min-market-preset SG=12 \
+            --min-market-preset CN=12
 
       - name: Commit and push if changed
         run: |

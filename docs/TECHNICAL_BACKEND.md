@@ -33,6 +33,7 @@ Responsibilities:
 - Enrich US MSRP from `afdc.energy.gov`.
 - Fetch India EV listing/spec+price data from `cardekho.com/electric-cars`.
 - Merge with manual regional presets from `data/car-presets.manual.json`.
+- Expand deterministic regional market buckets for `DE` (EU proxy dataset), `SG`, and `CN`.
 - Normalize local-currency manual prices into `priceUsd`.
 - Validate generated output against anti-regression thresholds.
 - Fall back to previous known-good catalog if fresh output is suspicious/degraded.
@@ -53,9 +54,10 @@ Validation script:
 ### Frontend/runtime fallbacks
 
 - Overpass uses multiple endpoints + retries.
-- Auto provider mode merges OpenChargeMap + Overpass and deduplicates.
+- Auto provider mode issues a fast parallel OpenChargeMap + Overpass fetch and deduplicates.
 - Official profile falls back to curated source behavior.
 - App now uses request timeouts (`fetchWithTimeout`) to avoid hanging.
+- Reach circles render immediately while charger providers resolve, reducing perceived wait time.
 - If charger fetch fails but prior nearby data exists, cached chargers are used.
 - If no cached data exists, reach circles still render without pins with warning text.
 

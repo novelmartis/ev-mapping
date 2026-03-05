@@ -40,7 +40,71 @@ DEFAULT_MIN_PRESET_COUNT = 50
 DEFAULT_MAX_COUNT_DROP_RATIO = 0.45
 DEFAULT_MIN_PRICE_COVERAGE = 0.03
 DEFAULT_FX_TIMEOUT_MS = 3000
-DEFAULT_MIN_MARKET_PRESETS = {"US": 300, "IN": 20}
+DEFAULT_MIN_MARKET_PRESETS = {"US": 300, "IN": 20, "DE": 20, "SG": 12, "CN": 12}
+REGIONAL_SOURCE_MARKETS = {"US", "IN"}
+REGIONAL_LABEL_BLOCKLIST = re.compile(
+    r"\b(f-?150|silverado|escalade|hummer|bolt|corvette|camaro|sierra|super duty)\b",
+    flags=re.IGNORECASE,
+)
+REGIONAL_MARKET_EXPANSION_RULES = {
+    "DE": {
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mini",
+            "nissan",
+            "polestar",
+            "porsche",
+            "tesla",
+            "volkswagen",
+            "volvo",
+            "mg",
+            "jaguar",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "SG": {
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "tesla",
+            "volkswagen",
+            "volvo",
+            "mahindra",
+            "tata",
+        },
+        "max_battery_kwh": 110.0,
+    },
+    "CN": {
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "nissan",
+            "tesla",
+            "volkswagen",
+            "volvo",
+            "mahindra",
+            "tata",
+        },
+        "max_battery_kwh": 130.0,
+    },
+}
 
 # Conservative static fallback rates, used only when online FX lookup fails.
 FALLBACK_USD_RATE_BY_CURRENCY = {
@@ -285,6 +349,53 @@ def normalize_vehicle_key(make: str, model: str) -> str:
     text = f"{make} {model}".strip().lower()
     text = re.sub(r"\s+", " ", text)
     return re.sub(r"[^a-z0-9 ]+", "", text).strip()
+
+
+def extract_make_from_label(label: str) -> str:
+    text = re.sub(r"^\s*\d{4}\s+", "", str(label or "").strip().lower())
+    if not text:
+        return ""
+    for multi in ("mercedes-benz", "land rover", "alfa romeo", "aston martin"):
+        if text.startswith(multi):
+            return multi
+    return re.split(r"\s+", text, maxsplit=1)[0]
+
+
+def should_expand_to_market(preset: dict[str, Any], target_market: str) -> bool:
+    markets = set(normalize_market_array(preset.get("markets")))
+    if target_market in markets:
+        return False
+    if not (markets & REGIONAL_SOURCE_MARKETS):
+        return False
+
+    label = str(preset.get("label", ""))
+    if REGIONAL_LABEL_BLOCKLIST.search(label):
+        return False
+
+    battery = parse_float(str(preset.get("batteryKwh", ""))) or 0.0
+    make = extract_make_from_label(label)
+    rules = REGIONAL_MARKET_EXPANSION_RULES.get(target_market, {})
+    allowlist = set(rules.get("make_allowlist", set()))
+    max_battery_kwh = float(rules.get("max_battery_kwh", 220.0))
+
+    if allowlist and make not in allowlist:
+        return False
+    if battery <= 0 or battery > max_battery_kwh:
+        return False
+    return True
+
+
+def augment_regional_market_coverage(presets: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    for preset in presets:
+        normalized = dict(preset)
+        markets = normalize_market_array(normalized.get("markets"))
+        for market_code in REGIONAL_MARKET_EXPANSION_RULES.keys():
+            if should_expand_to_market({**normalized, "markets": markets}, market_code):
+                markets.append(market_code)
+        normalized["markets"] = normalize_market_array(markets)
+        out.append(normalized)
+    return out
 
 
 def strip_model_footnotes(model: str) -> str:
@@ -935,6 +1046,7 @@ def main() -> int:
         manual_presets = []
 
     combined = merge_presets(us_presets, india_presets, manual_presets, fx=fx)
+    combined = augment_regional_market_coverage(combined)
 
     validation = validate_candidate_catalog(
         combined,

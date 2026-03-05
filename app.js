@@ -7,9 +7,10 @@ const NETWORK_TIMEOUT_MS = 10000;
 const MAX_CHARGER_SEARCH_KM = 140;
 const CHARGER_MAX_DISTANCE_KM = 150;
 const OFFICIAL_RANGE_BUFFER = 0.9;
-const FAST_OVERPASS_TIMEOUT_MS = 5000;
 const FAST_OVERPASS_ENDPOINT_LIMIT = 1;
 const FAST_OVERPASS_ATTEMPTS = 1;
+const AUTO_FAST_OVERPASS_TIMEOUT_MS = 4500;
+const OCM_TIMEOUT_MS = 6000;
 const GEOCODE_CACHE_LIMIT = 10;
 const LOCATION_SUGGEST_MIN_CHARS = 2;
 const LOCATION_SUGGEST_LIMIT = 6;
@@ -39,12 +40,16 @@ const MARKET_LABELS = {
   US: "United States",
   SG: "Singapore",
   CN: "China",
+  DE: "Europe Proxy",
 };
 const MARKET_CURRENCY_BY_CODE = {
   IN: "INR",
   US: "USD",
+  SG: "SGD",
+  CN: "CNY",
+  DE: "EUR",
 };
-const CORE_MARKET_CODES = new Set(["US", "IN"]);
+const CORE_MARKET_CODES = new Set(["US", "IN", "SG", "CN", "DE"]);
 const MARKET_CLUSTER_LABELS = {
   GLOBAL: "Global",
   NA: "North America",
@@ -116,13 +121,13 @@ const MARKET_CLUSTER_BY_COUNTRY = {
 const MARKET_PROXY_BY_CLUSTER = {
   GLOBAL: ["US"],
   NA: ["US"],
-  LATAM: ["US"],
-  EU: ["US"],
-  SA: ["IN", "US"],
-  SEA: ["US"],
-  EA: ["US"],
-  MEA: ["US"],
-  OC: ["US"],
+  LATAM: ["DE", "US"],
+  EU: ["DE", "US"],
+  SA: ["IN", "SG", "DE", "US"],
+  SEA: ["SG", "IN", "DE", "US"],
+  EA: ["CN", "SG", "DE", "US"],
+  MEA: ["DE", "US"],
+  OC: ["DE", "US"],
 };
 const BASE_CAR_PRESETS = [
   { id: "tesla-model-3-rwd", label: "Tesla Model 3 RWD", batteryKwh: 60, efficiency: 13.5, reserve: 10 },
@@ -1360,6 +1365,11 @@ async function onPlanSubmit(event) {
     state.lastVerificationProfile = planInput.verificationProfile;
     inferAndApplyMarket(origin);
     const fxLoadPromise = ensureMarketCurrencyRate(state.marketCode);
+    state.oneWayRangeKm = baseRangeKm;
+    state.lastCarModelLabel = planInput.carModelLabel;
+    renderOrigin(origin);
+    renderRangeCircles(origin, baseRangeKm);
+    setSummary("<p>Reach zones ready. Loading nearby chargers...</p>");
 
     let chargers = [];
     let visibleChargers = [];
@@ -1408,8 +1418,9 @@ async function onPlanSubmit(event) {
 
     state.oneWayRangeKm = effectiveRangeKm;
     state.lastCarModelLabel = effectiveVehicleLabel;
-    renderOrigin(origin);
-    renderRangeCircles(origin, effectiveRangeKm);
+    if (Math.abs(effectiveRangeKm - baseRangeKm) > 0.05) {
+      renderRangeCircles(origin, effectiveRangeKm);
+    }
     state.lastChargers = chargers;
     if (visibleChargers.length > 0) {
       renderChargers(visibleChargers, effectiveRangeKm);
@@ -1773,31 +1784,19 @@ async function getNearbyChargers(origin, oneWayRangeKm, input) {
     return trimmed;
   }
 
-  let ocmList = [];
-  let ocmError = null;
-  try {
-    ocmList = await fetchOpenChargeMap(origin, searchRadiusKm, input.maxResults);
-  } catch (error) {
-    ocmError = error;
-  }
-
-  let overpassList = [];
-  let overpassError = null;
-  if (ocmList.length < input.maxResults) {
-    const overpassOptions =
-      ocmList.length > 0
-        ? {
-            endpointLimit: FAST_OVERPASS_ENDPOINT_LIMIT,
-            maxAttemptsPerEndpoint: FAST_OVERPASS_ATTEMPTS,
-            requestTimeoutMs: FAST_OVERPASS_TIMEOUT_MS,
-          }
-        : {};
-    try {
-      overpassList = await fetchOverpass(origin, searchRadiusKm, input.maxResults, overpassOptions);
-    } catch (error) {
-      overpassError = error;
-    }
-  }
+  const overpassOptions = {
+    endpointLimit: FAST_OVERPASS_ENDPOINT_LIMIT,
+    maxAttemptsPerEndpoint: FAST_OVERPASS_ATTEMPTS,
+    requestTimeoutMs: AUTO_FAST_OVERPASS_TIMEOUT_MS,
+  };
+  const [ocmResult, overpassResult] = await Promise.allSettled([
+    fetchOpenChargeMap(origin, searchRadiusKm, input.maxResults),
+    fetchOverpass(origin, searchRadiusKm, input.maxResults, overpassOptions),
+  ]);
+  const ocmList = ocmResult.status === "fulfilled" ? ocmResult.value : [];
+  const overpassList = overpassResult.status === "fulfilled" ? overpassResult.value : [];
+  const ocmError = ocmResult.status === "rejected" ? ocmResult.reason : null;
+  const overpassError = overpassResult.status === "rejected" ? overpassResult.reason : null;
 
   const merged = sortAndTrimChargers(
     origin,
@@ -1858,7 +1857,7 @@ function getCachedChargersFallback(origin, oneWayRangeKm) {
   });
 }
 
-async function fetchOpenChargeMap(origin, radiusKm, maxResults) {
+async function fetchOpenChargeMap(origin, radiusKm, maxResults, requestTimeoutMs = OCM_TIMEOUT_MS) {
   const url = new URL("https://api.openchargemap.io/v3/poi/");
   url.searchParams.set("output", "json");
   url.searchParams.set("latitude", String(origin.lat));
@@ -1873,7 +1872,7 @@ async function fetchOpenChargeMap(origin, radiusKm, maxResults) {
     headers: {
       Accept: "application/json",
     },
-  });
+  }, requestTimeoutMs);
 
   if (!response.ok) {
     throw new Error("OpenChargeMap request failed.");

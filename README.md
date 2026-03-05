@@ -71,11 +71,17 @@ python3 scripts/sync_car_presets.py \
   --from-year 2025 \
   --to-year 2026 \
   --min-market-preset US=300 \
-  --min-market-preset IN=20
+  --min-market-preset IN=20 \
+  --min-market-preset DE=20 \
+  --min-market-preset SG=12 \
+  --min-market-preset CN=12
 python3 scripts/validate_car_catalog.py \
   --catalog data/car-presets.generated.json \
   --min-market-preset US=300 \
-  --min-market-preset IN=20
+  --min-market-preset IN=20 \
+  --min-market-preset DE=20 \
+  --min-market-preset SG=12 \
+  --min-market-preset CN=12
 ```
 
 If live API access is unavailable, the script still succeeds using manual presets only.
@@ -87,6 +93,7 @@ Input sources:
 - US MSRP enrichment from `afdc.energy.gov`
 - India EV listing/spec+price extraction from `cardekho.com/electric-cars`
 - Manual regional overrides from `data/car-presets.manual.json` (including market-specific models and prices)
+- Deterministic regional expansion into `DE` (EU proxy dataset), `SG`, and `CN` market buckets
 
 Output:
 
@@ -97,12 +104,14 @@ Guardrails included:
 - schema + integrity validation (`scripts/validate_car_catalog.py`)
 - anti-regression checks against previous catalog snapshot
 - per-market minimum count checks (`--min-market-preset`) for emerging-market resilience
+- regional expansion to keep Europe/Singapore/China buckets available from maintained source markets
 - minimum preset count, market coverage, and price coverage checks in CI
 - fallback-to-last-good behavior when live sources fail or become suspicious
 
 ## Notes
 
 - Public APIs can rate-limit or vary in data freshness/coverage.
+- Compute Reach is optimized to render reach circles first, then fill charger pins as providers return.
 - `Max chargers fetched (API cap)` limits retrieval volume (higher values may be slower but improve coverage).
 - In `Official channels` mode, the app avoids overpass-only community queries and prioritizes curated feeds.
 - Range circles are estimates; actual drivable reach depends on terrain, weather, speed, and traffic.

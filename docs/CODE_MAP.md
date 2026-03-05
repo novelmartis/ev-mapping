@@ -41,6 +41,8 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `MARKET_PROXY_BY_CLUSTER` in `app.js`
 - Core strict markets:
   - `CORE_MARKET_CODES` in `app.js`
+- Current dedicated runtime market buckets include:
+  - `US`, `IN`, `DE` (EU proxy dataset), `SG`, `CN`
 
 ### 2.3 Classification helper functions
 
@@ -166,6 +168,10 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `collect_india_ev_presets(fx)`
 - Merge source groups:
   - `merge_presets(*groups, fx=...)`
+- Regional market expansion (precompute step):
+  - `augment_regional_market_coverage(presets)`
+  - `should_expand_to_market(preset, target_market)`
+  - `extract_make_from_label(label)`
 - Canonicalization in sync pipeline:
   - `canonical_car_id(raw_id, markets)`
 - Per-market guardrail parsing:
@@ -206,12 +212,31 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `staleWhileRevalidate(request)`
   - in `sw.js`
 
-## 7) What To Edit For Common Changes
+## 7) Runtime Speed Path (Compute Reach)
+
+- Main flow:
+  - `onPlanSubmit(event)` in `app.js`
+- Perceived-speed optimization:
+  - Reach circles render immediately after location resolve (`renderOrigin`, `renderRangeCircles`) before charger fetch completes.
+- Charger fetch strategy in auto mode:
+  - `getNearbyChargers(origin, oneWayRangeKm, input)` in `app.js`
+  - OpenChargeMap + Overpass fast path runs concurrently via `Promise.allSettled(...)`
+  - Fast Overpass options:
+    - `AUTO_FAST_OVERPASS_TIMEOUT_MS`
+    - `FAST_OVERPASS_ENDPOINT_LIMIT`
+    - `FAST_OVERPASS_ATTEMPTS`
+    - in `app.js`
+  - OCM request timeout:
+    - `OCM_TIMEOUT_MS` in `app.js`
+
+## 8) What To Edit For Common Changes
 
 - Add a new country classification:
   - update `MARKET_CLUSTER_BY_COUNTRY` in `app.js`
 - Change cluster proxy strategy:
   - update `MARKET_PROXY_BY_CLUSTER` in `app.js`
+- Change precomputed regional bucket logic (`DE/SG/CN`):
+  - update `REGIONAL_MARKET_EXPANSION_RULES` in `scripts/sync_car_presets.py`
 - Change suggestion performance:
   - tune `LOCATION_SUGGEST_*` constants in `app.js`
 - Tighten or loosen market count guardrails:
@@ -219,7 +244,7 @@ This document maps runtime behavior directly to the exact code symbols/files.
 - Change dropdown layering:
   - edit z-index rules in `styles.css`
 
-## 8) Test Map
+## 9) Test Map
 
 - Sync + parser + canonicalization tests:
   - `tests/test_sync_car_presets.py`

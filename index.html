@@ -180,7 +180,9 @@
         <div id="map" aria-label="Reachability map"></div>
         <aside class="ad-slot ad-slot-map" aria-label="Sponsored placement">
           <p class="ad-label">Sponsored</p>
-          <div class="ad-placeholder">Map footer ad slot (recommended: 728x90 or responsive)</div>
+          <div id="map-ad-container" class="ad-placeholder">
+            Ad space (loads automatically after AdSense is configured)
+          </div>
         </aside>
       </section>
     </main>
@@ -191,5 +193,7 @@
       crossorigin=""
     ></script>
     <script src="./app.js" type="module"></script>
+    <script src="./ads-config.js"></script>
+    <script src="./ads.js"></script>
   </body>
 </html>

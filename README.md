@@ -85,3 +85,32 @@ Run backend/catalog sync tests:
 ```bash
 python3 -m unittest discover -s tests -p "test_*.py" -v
 ```
+
+## Ads (Single Map Footer Slot)
+
+A single non-intrusive ad slot is placed below the map.
+
+Files:
+
+- `ads-config.js` (toggle + IDs)
+- `ads.js` (runtime injection)
+- `ads.txt` (publisher declaration template)
+
+To enable ads:
+
+1. Update `ads-config.js`:
+   - set `enabled` to `true`
+   - set `client` to your `ca-pub-...`
+   - set `mapFooterSlot` to your ad slot ID
+2. Replace placeholder publisher ID in `ads.txt`.
+
+## Automated Daily Catalog Refresh
+
+A GitHub Actions workflow is included at:
+
+- `.github/workflows/sync-car-presets.yml`
+
+It runs daily and on manual trigger, regenerates `data/car-presets.generated.json`, and commits only when:
+
+- the file changed, and
+- generated `count` is at least 50 (guard against fallback-only output).

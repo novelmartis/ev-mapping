@@ -1,5 +1,5 @@
-const CACHE = "ev-mapping-v1";
-const PRECACHE = ["./", "./index.html", "./app.js", "./styles.css", "./icon.svg"];
+const CACHE = "ev-mapping-v2";
+const PRECACHE = ["./", "./index.html", "./app.js", "./styles.css", "./icon.svg", "./ads-config.js", "./ads.js", "./ads.txt"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)));

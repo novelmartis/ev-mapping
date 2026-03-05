@@ -1499,7 +1499,6 @@ function renderComparisonTable(compareRows) {
         <tr class="${isBest ? "compare-best" : ""}">
           <td>
             ${escapeHtml(row.label)}
-            ${isBest ? '<span class="compare-pill">Best reach</span>' : ""}
           </td>
           <td>${row.oneWayKm.toFixed(1)}</td>
           <td>${row.kmPerKwh.toFixed(2)}</td>

@@ -100,6 +100,36 @@ class ValidateCatalogTests(unittest.TestCase):
         parsed = validate.parse_market_minimums(["IN=20", "US=300", "bad", "EU=abc"])
         self.assertEqual(parsed, {"IN": 20, "US": 300})
 
+    def test_market_source_policy_errors_flags_cross_market_inflation(self):
+        presets = [
+            {
+                "id": "us-imported-to-india",
+                "label": "Imported EV",
+                "batteryKwh": 75,
+                "efficiency": 18,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "fueleconomy.gov",
+            }
+        ]
+        errors = validate.market_source_policy_errors(presets)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("disallowed source", errors[0])
+
+    def test_market_source_policy_errors_accepts_local_source(self):
+        presets = [
+            {
+                "id": "india-local-ev",
+                "label": "India EV",
+                "batteryKwh": 60,
+                "efficiency": 16,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "cardekho.com",
+            }
+        ]
+        self.assertEqual(validate.market_source_policy_errors(presets), [])
+
     def test_validate_manifest_payload_accepts_matching_market_files(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)

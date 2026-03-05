@@ -11,6 +11,11 @@ import re
 from pathlib import Path
 from typing import Any
 
+MARKET_ALLOWED_SOURCE_TOKENS = {
+    "IN": ("cardekho.com", "in-native-seed", "manual"),
+    "LK": ("cardekho.com", "in-native-seed", "row-native-seed", "manual"),
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate generated EV car catalog JSON.")
@@ -149,6 +154,31 @@ def catalog_stats(presets: list[dict[str, Any]]) -> dict[str, Any]:
         "priceCoverage": (priced / total) if total else 0.0,
         "marketBuckets": markets,
     }
+
+
+def market_source_policy_errors(presets: list[dict[str, Any]], max_errors: int = 25) -> list[str]:
+    errors: list[str] = []
+    for preset in presets:
+        car_id = str(preset.get("id", "")).strip() or "<missing-id>"
+        source = str(preset.get("source", "")).strip().lower()
+        market_prices = preset.get("marketPrices")
+        price_by_market = market_prices if isinstance(market_prices, dict) else {}
+        for market_code in normalize_market_array(preset.get("markets")):
+            allowed_tokens = MARKET_ALLOWED_SOURCE_TOKENS.get(market_code)
+            if not allowed_tokens:
+                continue
+            if not source:
+                continue
+            if isinstance(price_by_market.get(market_code), dict):
+                continue
+            if any(token in source for token in allowed_tokens):
+                continue
+            errors.append(
+                f"{car_id} has market {market_code} with disallowed source '{source}'."
+            )
+            if len(errors) >= max(1, int(max_errors)):
+                return errors
+    return errors
 
 
 def validate_payload(payload: dict[str, Any], label: str) -> tuple[list[str], list[str], list[dict[str, Any]]]:
@@ -323,6 +353,8 @@ def main() -> int:
                 f"current: {market_code} market count too low "
                 f"({current_count} < {max(0, int(market_min))})"
             )
+    for source_error in market_source_policy_errors(presets):
+        errors.append("current: market source policy violation: " + source_error)
 
     if manifest_path.exists():
         manifest_payload = load_payload(manifest_path)

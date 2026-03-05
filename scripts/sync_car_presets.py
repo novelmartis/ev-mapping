@@ -77,7 +77,7 @@ REGIONAL_LABEL_BLOCKLIST = re.compile(
 )
 REGIONAL_MARKET_EXPANSION_RULES = {
     "IN": {
-        "source_markets": {"US", "IN"},
+        "source_markets": {"IN"},
         "make_allowlist": {
             "audi",
             "bmw",
@@ -229,7 +229,7 @@ REGIONAL_MARKET_EXPANSION_RULES = {
         "max_battery_kwh": 130.0,
     },
     "LK": {
-        "source_markets": {"IN"},
+        "source_markets": {"IN", "LK"},
         "make_allowlist": {
             "audi",
             "bmw",
@@ -468,6 +468,10 @@ FALLBACK_USD_RATE_BY_CURRENCY = {
     "CAD": 0.74,
 }
 AU_GVG_PURE_ELECTRIC_FUEL_TYPE = "15"
+MARKET_ALLOWED_SOURCE_TOKENS = {
+    "IN": ("cardekho.com", "in-native-seed", "manual"),
+    "LK": ("cardekho.com", "in-native-seed", "row-native-seed", "manual"),
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -1487,6 +1491,31 @@ def collect_australia_ev_presets(from_year: int, to_year: int) -> list[dict[str,
     return sorted(best_by_id.values(), key=lambda x: (x["label"], x["id"]))
 
 
+def market_source_policy_errors(presets: list[dict[str, Any]], max_errors: int = 25) -> list[str]:
+    errors: list[str] = []
+    for preset in presets:
+        car_id = str(preset.get("id", "")).strip() or "<missing-id>"
+        source = str(preset.get("source", "")).strip().lower()
+        market_prices = preset.get("marketPrices")
+        price_by_market = market_prices if isinstance(market_prices, dict) else {}
+        for market_code in normalize_market_array(preset.get("markets")):
+            allowed_tokens = MARKET_ALLOWED_SOURCE_TOKENS.get(market_code)
+            if not allowed_tokens:
+                continue
+            if not source:
+                continue
+            if isinstance(price_by_market.get(market_code), dict):
+                continue
+            if any(token in source for token in allowed_tokens):
+                continue
+            errors.append(
+                f"{car_id} has market {market_code} with disallowed source '{source}'."
+            )
+            if len(errors) >= max(1, int(max_errors)):
+                return errors
+    return errors
+
+
 class CatalogValidation:
     def __init__(self, ok: bool, errors: list[str], warnings: list[str]) -> None:
         self.ok = ok
@@ -1558,6 +1587,9 @@ def validate_candidate_catalog(
         )
 
     current_stats = catalog_stats(presets)
+    source_policy_errors = market_source_policy_errors(presets)
+    for source_error in source_policy_errors:
+        errors.append("Market source policy violation: " + source_error)
     for market_code, market_min in (min_market_presets or {}).items():
         if current_stats["markets"].get(market_code, 0) < max(0, int(market_min)):
             errors.append(

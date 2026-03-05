@@ -189,6 +189,28 @@ const MARKET_PROXY_BY_CLUSTER = {
   MEA: ["ZA", "MA", "EG", "TR", "DE", "US"],
   OC: ["AU", "NZ", "DE", "US"],
 };
+const MARKET_LOCAL_SOURCE_TOKENS = {
+  US: ["fueleconomy.gov", "manual"],
+  CA: ["fueleconomy.gov", "row-native-seed", "manual"],
+  DE: ["eu-native-seed", "manual"],
+  TR: ["eu-native-seed", "manual"],
+  ZA: ["row-native-seed", "manual"],
+  MA: ["row-native-seed", "manual"],
+  EG: ["row-native-seed", "manual"],
+  IN: ["cardekho.com", "in-native-seed", "manual"],
+  LK: ["cardekho.com", "in-native-seed", "row-native-seed", "manual"],
+  SG: ["asean-native-seed", "manual"],
+  TH: ["asean-native-seed", "manual"],
+  MY: ["asean-native-seed", "manual"],
+  ID: ["asean-native-seed", "manual"],
+  VN: ["asean-native-seed", "manual"],
+  PH: ["asean-native-seed", "manual"],
+  CN: ["jpkr-native-seed", "manual"],
+  JP: ["jpkr-native-seed", "manual"],
+  KR: ["jpkr-native-seed", "manual"],
+  AU: ["greenvehicleguide.gov.au", "row-native-seed", "manual"],
+  NZ: ["greenvehicleguide.gov.au", "row-native-seed", "manual"],
+};
 const BASE_CAR_PRESETS = [
   { id: "tesla-model-3-rwd", label: "Tesla Model 3 RWD", batteryKwh: 60, efficiency: 13.5, reserve: 10 },
   { id: "tesla-model-y-rwd", label: "Tesla Model Y RWD", batteryKwh: 60, efficiency: 15.0, reserve: 10 },
@@ -1446,10 +1468,11 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
   const marketMatched = [];
   const marketGlobal = [];
   const marketCounts = marketCountsByCode(sortedPresets);
+  const hasStrictSourcePolicy = Array.isArray(MARKET_LOCAL_SOURCE_TOKENS[state.marketCode]);
 
   for (const preset of sortedPresets) {
     const markets = normalizeMarketArray(preset.markets);
-    if (markets.includes(state.marketCode)) {
+    if (markets.includes(state.marketCode) && isPresetSourceAllowedForMarket(preset, state.marketCode)) {
       marketMatched.push(preset);
     } else if (markets.length === 0) {
       marketGlobal.push(preset);
@@ -1461,6 +1484,14 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
       visiblePresets: marketMatched,
       hasMarketSpecific: true,
       groupLabel: "Available models",
+    };
+  }
+
+  if (hasStrictSourcePolicy) {
+    return {
+      visiblePresets: [],
+      hasMarketSpecific: false,
+      groupLabel: "No verified local models",
     };
   }
 
@@ -1497,6 +1528,24 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
 function normalizeMarketArray(markets) {
   if (!Array.isArray(markets)) return [];
   return [...new Set(markets.map((value) => String(value || "").toUpperCase()).filter(Boolean))];
+}
+
+function isPresetSourceAllowedForMarket(preset, marketCode) {
+  const code = String(marketCode || "").toUpperCase();
+  const allowedTokens = MARKET_LOCAL_SOURCE_TOKENS[code];
+  if (!Array.isArray(allowedTokens) || allowedTokens.length === 0) return true;
+
+  const markets = normalizeMarketArray(preset?.markets);
+  if (!markets.includes(code)) return false;
+
+  const marketPrices = preset?.marketPrices;
+  if (marketPrices && typeof marketPrices === "object" && marketPrices[code]) {
+    return true;
+  }
+
+  const source = String(preset?.source || "").trim().toLowerCase();
+  if (!source) return true;
+  return allowedTokens.some((token) => source.includes(token));
 }
 
 function normalizeMarketPrices(marketPrices) {
@@ -1625,14 +1674,23 @@ function autoInferModelForMarket() {
 
 function findRecommendedPresetIdForMarket() {
   const sorted = [...carPresets].sort((a, b) => a.label.localeCompare(b.label));
+  const hasStrictSourcePolicy = Array.isArray(MARKET_LOCAL_SOURCE_TOKENS[state.marketCode]);
   if (state.marketCode !== "GLOBAL") {
-    const exact = sorted.find((item) => normalizeMarketArray(item.markets).includes(state.marketCode));
+    const exact = sorted.find(
+      (item) =>
+        normalizeMarketArray(item.markets).includes(state.marketCode) &&
+        isPresetSourceAllowedForMarket(item, state.marketCode)
+    );
     if (exact) return exact.id;
 
-    const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCountsByCode(sorted));
-    for (const proxyCode of proxyCodes) {
-      const proxyMatch = sorted.find((item) => normalizeMarketArray(item.markets).includes(proxyCode));
-      if (proxyMatch) return proxyMatch.id;
+    if (!hasStrictSourcePolicy) {
+      const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCountsByCode(sorted));
+      for (const proxyCode of proxyCodes) {
+        const proxyMatch = sorted.find((item) => normalizeMarketArray(item.markets).includes(proxyCode));
+        if (proxyMatch) return proxyMatch.id;
+      }
+    } else {
+      return null;
     }
   }
   const global = sorted.find((item) => normalizeMarketArray(item.markets).length === 0);

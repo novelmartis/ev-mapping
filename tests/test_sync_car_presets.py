@@ -215,6 +215,22 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertTrue(isinstance(defaults, list))
         self.assertTrue(len(defaults) > 0)
 
+    def test_market_source_policy_errors_flags_disallowed_source(self):
+        presets = [
+            {
+                "id": "imported-ev",
+                "label": "Imported EV",
+                "batteryKwh": 70,
+                "efficiency": 17,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "fueleconomy.gov",
+            }
+        ]
+        errors = sync.market_source_policy_errors(presets)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("disallowed source", errors[0])
+
     def test_extract_make_from_label_handles_year_and_hyphenated_make(self):
         self.assertEqual(sync.extract_make_from_label("2025 Mercedes-Benz EQE 350+"), "mercedes-benz")
         self.assertEqual(sync.extract_make_from_label("BMW i4 eDrive40"), "bmw")
@@ -247,7 +263,7 @@ class SyncCarPresetsTests(unittest.TestCase):
             missing = Path(tmp_dir) / "missing.json"
             self.assertIsNone(sync.seed_age_days(missing))
 
-    def test_augment_regional_market_coverage_adds_de_sg_cn_for_supported_models(self):
+    def test_augment_regional_market_coverage_keeps_india_non_native_guardrail(self):
         presets = [
             {
                 "id": "2025-bmw-i4",
@@ -268,9 +284,12 @@ class SyncCarPresetsTests(unittest.TestCase):
         ]
         augmented = sync.augment_regional_market_coverage(presets)
         by_id = {item["id"]: item for item in augmented}
+        self.assertIn("CA", by_id["2025-bmw-i4"]["markets"])
         self.assertIn("DE", by_id["2025-bmw-i4"]["markets"])
         self.assertIn("SG", by_id["2025-bmw-i4"]["markets"])
         self.assertIn("CN", by_id["2025-bmw-i4"]["markets"])
+        self.assertNotIn("IN", by_id["2025-bmw-i4"]["markets"])
+        self.assertNotIn("IN", by_id["2025-ford-f150-lightning"]["markets"])
         self.assertNotIn("DE", by_id["2025-ford-f150-lightning"]["markets"])
         self.assertNotIn("SG", by_id["2025-ford-f150-lightning"]["markets"])
         self.assertNotIn("CN", by_id["2025-ford-f150-lightning"]["markets"])

@@ -41,6 +41,22 @@ Then open:
 
 http://localhost:8080
 
+## Deploy on Vercel
+
+This project is a static site (no build step), and is configured for Vercel with `vercel.json`.
+
+1. In Vercel, click **Add New Project** and import this GitHub repository.
+2. Keep framework preset as **Other**.
+3. Leave **Build Command** empty and set **Output Directory** to `.` (project root), if prompted.
+4. Deploy.
+
+For migration from Netlify:
+
+1. Point your custom domain to Vercel in your DNS provider (remove old Netlify DNS records first).
+2. Remove the site from Netlify once DNS is serving the Vercel deployment.
+
+After this, pushes to `main` (including the daily catalog sync workflow commits) will auto-deploy on Vercel.
+
 ## Car Catalog Sync
 
 The app auto-loads `data/car-presets.generated.json` (if present) and merges it with built-in presets.

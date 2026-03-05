@@ -1,11 +1,12 @@
-const STATIC_CACHE = "ev-mapping-static-v6";
-const RUNTIME_CACHE = "ev-mapping-runtime-v6";
+const STATIC_CACHE = "ev-mapping-static-v7";
+const RUNTIME_CACHE = "ev-mapping-runtime-v7";
 const PRECACHE = [
   "./",
   "./index.html",
   "./app.js",
   "./styles.css",
   "./icon.svg",
+  "./ad-placeholder.svg",
   "./manifest.json",
   "./data/car-presets.generated.json",
   "./data/catalog/catalog_manifest.json",

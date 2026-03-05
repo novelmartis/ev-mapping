@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Sponsored Placeholder</title>
+  <desc id="desc">Placeholder graphic shown until a sponsored ad is available.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f7fbff" />
+      <stop offset="100%" stop-color="#edf7f2" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1200" height="320" fill="url(#bg)" />
+  <rect x="28" y="28" width="1144" height="264" rx="18" fill="#ffffff" stroke="#d7dfeb" />
+  <rect x="58" y="62" width="152" height="40" rx="20" fill="#e8f3ff" stroke="#d7dfeb" />
+  <text x="134" y="88" text-anchor="middle" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="20" fill="#3f566f" font-weight="700">Sponsored</text>
+  <text x="70" y="156" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="34" fill="#122236" font-weight="800">Trusted EV partners may appear here</text>
+  <text x="70" y="200" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="24" fill="#566579">This space stays subtle until an approved ad is served.</text>
+  <circle cx="1036" cy="160" r="64" fill="#e7faf4" stroke="#c5e8de" />
+  <path d="M1034 116c-5-2-10 1-12 6l-36 64c-2 3 0 8 4 8h26l-7 39c-1 5 5 9 9 5l49-63c2-3 0-8-4-8h-25l8-42c1-4-2-8-6-9z" fill="#1ea79d"/>
+</svg>

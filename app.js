@@ -10,6 +10,9 @@ const OFFICIAL_RANGE_BUFFER = 0.9;
 const FAST_OVERPASS_ENDPOINT_LIMIT = 1;
 const FAST_OVERPASS_ATTEMPTS = 1;
 const AUTO_FAST_OVERPASS_TIMEOUT_MS = 4500;
+const AUTO_RETRY_TIMEOUT_MS = 12000;
+const AUTO_RETRY_OVERPASS_ATTEMPTS = 2;
+const AUTO_RETRY_MIN_RADIUS_KM = 45;
 const OCM_TIMEOUT_MS = 6000;
 const GEOCODE_CACHE_LIMIT = 10;
 const LOCATION_SUGGEST_MIN_CHARS = 2;
@@ -1920,6 +1923,14 @@ async function onPlanSubmit(event) {
       }
     }
 
+    if (visibleChargers.length === 0 && chargers.length > 0) {
+      const nearestFallbackCount = Math.min(12, chargers.length);
+      visibleChargers = chargers.slice(0, nearestFallbackCount);
+      warning = warning
+        ? `${warning} No chargers are inside one-way reach; showing nearest nearby chargers.`
+        : "No chargers are inside one-way reach; showing nearest nearby chargers.";
+    }
+
     state.oneWayRangeKm = effectiveRangeKm;
     state.lastCarModelLabel = effectiveVehicleLabel;
     if (Math.abs(effectiveRangeKm - baseRangeKm) > 0.05) {
@@ -2282,35 +2293,60 @@ async function getNearbyChargers(origin, oneWayRangeKm, input) {
     return trimmed;
   }
 
-  const overpassOptions = {
-    endpointLimit: FAST_OVERPASS_ENDPOINT_LIMIT,
-    maxAttemptsPerEndpoint: FAST_OVERPASS_ATTEMPTS,
-    requestTimeoutMs: AUTO_FAST_OVERPASS_TIMEOUT_MS,
-  };
-  const [ocmResult, overpassResult] = await Promise.allSettled([
-    fetchOpenChargeMap(origin, searchRadiusKm, input.maxResults),
-    fetchOverpass(origin, searchRadiusKm, input.maxResults, overpassOptions),
-  ]);
-  const ocmList = ocmResult.status === "fulfilled" ? ocmResult.value : [];
-  const overpassList = overpassResult.status === "fulfilled" ? overpassResult.value : [];
-  const ocmError = ocmResult.status === "rejected" ? ocmResult.reason : null;
-  const overpassError = overpassResult.status === "rejected" ? overpassResult.reason : null;
-
-  const merged = sortAndTrimChargers(
-    origin,
-    dedupeChargers([...ocmList, ...overpassList]),
-    input.maxResults
-  );
-  if (merged.length > 0) {
-    cacheChargersByQuery(queryKey, merged);
-    return merged;
+  const fastResult = await fetchAutoMergedChargers(origin, searchRadiusKm, input.maxResults, {
+    ocmTimeoutMs: OCM_TIMEOUT_MS,
+    overpassOptions: {
+      endpointLimit: FAST_OVERPASS_ENDPOINT_LIMIT,
+      maxAttemptsPerEndpoint: FAST_OVERPASS_ATTEMPTS,
+      requestTimeoutMs: AUTO_FAST_OVERPASS_TIMEOUT_MS,
+    },
+  });
+  if (fastResult.merged.length > 0) {
+    cacheChargersByQuery(queryKey, fastResult.merged);
+    return fastResult.merged;
   }
 
-  if (ocmError && overpassError) {
-    throw new Error("Open data providers are currently unavailable. Please retry.");
+  // If both quick providers fail, retry with slower but more resilient settings.
+  if (fastResult.ocmError && fastResult.overpassError) {
+    const retryRadiusKm = Math.min(
+      CHARGER_MAX_DISTANCE_KM,
+      Math.max(searchRadiusKm, AUTO_RETRY_MIN_RADIUS_KM)
+    );
+    const retryResult = await fetchAutoMergedChargers(origin, retryRadiusKm, input.maxResults, {
+      ocmTimeoutMs: AUTO_RETRY_TIMEOUT_MS,
+      overpassOptions: {
+        endpointLimit: OVERPASS_ENDPOINTS.length,
+        maxAttemptsPerEndpoint: AUTO_RETRY_OVERPASS_ATTEMPTS,
+        requestTimeoutMs: AUTO_RETRY_TIMEOUT_MS,
+      },
+    });
+    if (retryResult.merged.length > 0) {
+      cacheChargersByQuery(queryKey, retryResult.merged);
+      return retryResult.merged;
+    }
+    if (retryResult.ocmError && retryResult.overpassError) {
+      throw new Error("Live charger feeds are currently unavailable. Please retry shortly.");
+    }
   }
 
   throw new Error("No charging stations found for this area/range with current data sources.");
+}
+
+async function fetchAutoMergedChargers(origin, searchRadiusKm, maxResults, options = {}) {
+  const ocmTimeoutMs = Math.max(2000, Number(options.ocmTimeoutMs || OCM_TIMEOUT_MS));
+  const overpassOptions = options.overpassOptions || {};
+  const [ocmResult, overpassResult] = await Promise.allSettled([
+    fetchOpenChargeMap(origin, searchRadiusKm, maxResults, ocmTimeoutMs),
+    fetchOverpass(origin, searchRadiusKm, maxResults, overpassOptions),
+  ]);
+  const ocmList = ocmResult.status === "fulfilled" ? ocmResult.value : [];
+  const overpassList = overpassResult.status === "fulfilled" ? overpassResult.value : [];
+  const merged = sortAndTrimChargers(origin, dedupeChargers([...ocmList, ...overpassList]), maxResults);
+  return {
+    merged,
+    ocmError: ocmResult.status === "rejected" ? ocmResult.reason : null,
+    overpassError: overpassResult.status === "rejected" ? overpassResult.reason : null,
+  };
 }
 
 function dedupeChargers(chargers) {
@@ -2576,12 +2612,14 @@ function makePopupHtml(charger, distanceKm, status) {
 
 function getReachabilityStatus(distanceKm, oneWayRangeKm) {
   if (distanceKm <= oneWayRangeKm / 2) return "round-trip";
-  return "one-way";
+  if (distanceKm <= oneWayRangeKm) return "one-way";
+  return "outside";
 }
 
 function reachabilityLabel(status) {
   if (status === "round-trip") return "Estimated round-trip capable";
-  return "Inside one-way reach zone";
+  if (status === "one-way") return "Inside one-way reach zone";
+  return "Outside one-way reach zone";
 }
 
 async function routeToCharger(charger, oneWayRangeKm) {
@@ -2645,14 +2683,18 @@ function renderSummary(
   compareRows = [],
   submitMode = "reach"
 ) {
-  const reachableRoundTrip = chargers.filter((c) => {
+  const shownInRoundTrip = visibleChargers.filter((c) => {
     const distanceKm = haversineDistanceKm(origin.lat, origin.lon, c.lat, c.lon);
     return distanceKm <= oneWayRangeKm / 2;
   }).length;
-  const reachableOneWay = chargers.filter((c) => {
+  const shownInOneWay = visibleChargers.filter((c) => {
     const distanceKm = haversineDistanceKm(origin.lat, origin.lon, c.lat, c.lon);
     return distanceKm <= oneWayRangeKm;
   }).length;
+  const shownLabel =
+    shownInOneWay === visibleChargers.length
+      ? `${visibleChargers.length} in one-way zone`
+      : `${visibleChargers.length} total (${shownInOneWay} in one-way zone)`;
 
   const compareHint =
     submitMode === "compare" && compareRows.length > 1
@@ -2664,7 +2706,7 @@ function renderSummary(
     <p><strong>Vehicle on map:</strong> ${escapeHtml(carModelLabel)}</p>
     <p><strong>One-way reach:</strong> ${oneWayRangeKm.toFixed(1)} km</p>
     <p><strong>Round-trip reach:</strong> ${(oneWayRangeKm / 2).toFixed(1)} km</p>
-    <p><strong>Chargers shown:</strong> ${visibleChargers.length} in one-way zone (${reachableRoundTrip} in round-trip zone)</p>
+    <p><strong>Chargers shown:</strong> ${shownLabel} (${shownInRoundTrip} in round-trip zone)</p>
     <p><strong>Fetched:</strong> ${chargers.length} (cap ${maxResults}) via ${escapeHtml(providerLabel(provider, chargers, verificationProfile))}</p>
     ${compareHint}
     ${warningMessage ? `<p class="warning">${escapeHtml(warningMessage)}</p>` : ""}

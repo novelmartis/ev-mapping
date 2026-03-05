@@ -2,6 +2,14 @@
   const cfg = window.EV_ADS_CONFIG || {};
   const container = document.getElementById("map-ad-container");
   if (!container) return;
+  const placeholderSrc = "./ad-placeholder.svg";
+
+  function renderPlaceholderOnly() {
+    container.innerHTML =
+      '<img class="ad-fallback-image" src="' +
+      placeholderSrc +
+      '" alt="Sponsored placeholder" loading="lazy" decoding="async">';
+  }
 
   const isConfigured =
     cfg.enabled === true &&
@@ -11,12 +19,21 @@
     typeof cfg.mapFooterSlot === "string" &&
     /^\d+$/.test(cfg.mapFooterSlot);
 
+  renderPlaceholderOnly();
   if (!isConfigured) {
-    container.textContent = "Sponsored slot disabled.";
     return;
   }
 
   const isLocalPreview = /^localhost$|^127\.0\.0\.1$/.test(window.location.hostname);
+  container.innerHTML =
+    '<div class="ad-runtime" id="ad-runtime">' +
+    '<img class="ad-fallback-image" src="' +
+    placeholderSrc +
+    '" alt="Sponsored placeholder" loading="lazy" decoding="async">' +
+    "</div>";
+  const runtime = document.getElementById("ad-runtime");
+  if (!runtime) return;
+
   const ins = document.createElement("ins");
   ins.className = "adsbygoogle";
   ins.style.display = "block";
@@ -27,14 +44,30 @@
   if (isLocalPreview) {
     ins.setAttribute("data-adtest", "on");
   }
-  container.innerHTML = "";
-  container.append(ins);
+  runtime.append(ins);
+
+  const monitorFillState = function () {
+    const start = Date.now();
+    const interval = window.setInterval(() => {
+      const status = String(ins.getAttribute("data-ad-status") || "").toLowerCase();
+      if (status === "filled") {
+        runtime.classList.add("is-filled");
+        window.clearInterval(interval);
+        return;
+      }
+      if (status === "unfilled" || Date.now() - start > 20000) {
+        runtime.classList.remove("is-filled");
+        window.clearInterval(interval);
+      }
+    }, 600);
+  };
 
   const pushAd = function () {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
+      monitorFillState();
     } catch {
-      container.textContent = "Sponsored slot configured. Ad may appear after AdSense activation.";
+      runtime.classList.remove("is-filled");
     }
   };
 
@@ -53,7 +86,7 @@
   adScript.crossOrigin = "anonymous";
   adScript.onload = pushAd;
   adScript.onerror = function () {
-    container.textContent = "Sponsored slot configured. Ad network script unavailable.";
+    runtime.classList.remove("is-filled");
   };
   document.head.appendChild(adScript);
 })();

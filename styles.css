@@ -462,12 +462,37 @@ button {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: linear-gradient(180deg, #fff, #f8fbff);
-  display: grid;
-  place-items: center;
-  text-align: center;
   padding: 0.65rem;
-  color: var(--muted);
-  font-size: 0.79rem;
+  overflow: hidden;
+}
+
+.ad-runtime {
+  position: relative;
+  min-height: 82px;
+}
+
+.ad-fallback-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.ad-runtime .adsbygoogle {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.ad-runtime.is-filled .adsbygoogle {
+  opacity: 1;
+}
+
+.ad-runtime.is-filled .ad-fallback-image {
+  display: none;
 }
 
 .map-panel {

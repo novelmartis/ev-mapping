@@ -110,6 +110,33 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertIn("priceUsd", mahindra)
         self.assertIn("marketPrices", mahindra)
 
+    def test_parse_au_gvg_vehicle_rows_parses_pure_electric_rows(self):
+        html = """
+        <table>
+          <tr class="vehicle-item">
+            <td class="details always-show" data-sort="Tesla Model Y RWD"></td>
+            <td class="details" data-sort="2025"></td>
+            <td class="details" data-sort="Pure Electric"></td>
+            <td class="energy-consumption" data-sort="145"></td>
+            <td class="electric-range" data-sort="455"></td>
+          </tr>
+          <tr class="vehicle-item">
+            <td class="details always-show" data-sort="Toyota Hybrid X"></td>
+            <td class="details" data-sort="2025"></td>
+            <td class="details" data-sort="Hybrid"></td>
+            <td class="energy-consumption" data-sort="70"></td>
+            <td class="electric-range" data-sort="10"></td>
+          </tr>
+        </table>
+        """
+        rows = sync.parse_au_gvg_vehicle_rows(html)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["id"], "tesla-model-y-rwd")
+        self.assertEqual(rows[0]["markets"], ["AU"])
+        self.assertEqual(rows[0]["source"], "greenvehicleguide.gov.au")
+        self.assertGreater(rows[0]["batteryKwh"], 20)
+        self.assertLess(rows[0]["efficiency"], 35)
+
     def test_merge_presets_last_source_wins(self):
         api_presets = [
             {
@@ -180,11 +207,45 @@ class SyncCarPresetsTests(unittest.TestCase):
         minimums = sync.parse_market_minimums(["IN=25", "US=320", "bad", "JP=abc"])
         self.assertEqual(minimums["IN"], 25)
         self.assertEqual(minimums["US"], 320)
-        self.assertEqual(minimums.get("JP"), None)
+        self.assertEqual(minimums.get("JP"), sync.DEFAULT_MIN_MARKET_PRESETS.get("JP"))
+
+    def test_parse_bootstrap_markets_defaults_and_overrides(self):
+        self.assertEqual(sync.parse_bootstrap_markets(["in", "US", "bad"]), ["IN", "US"])
+        defaults = sync.parse_bootstrap_markets([])
+        self.assertTrue(isinstance(defaults, list))
+        self.assertTrue(len(defaults) > 0)
 
     def test_extract_make_from_label_handles_year_and_hyphenated_make(self):
         self.assertEqual(sync.extract_make_from_label("2025 Mercedes-Benz EQE 350+"), "mercedes-benz")
         self.assertEqual(sync.extract_make_from_label("BMW i4 eDrive40"), "bmw")
+
+    def test_load_region_native_seed_presets_sets_source_and_markets(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            seed_path = Path(tmp_dir) / "seed.json"
+            seed_path.write_text(
+                json.dumps(
+                    [
+                        {
+                            "id": "sample-ev",
+                            "label": "Sample EV",
+                            "batteryKwh": 50,
+                            "efficiency": 16,
+                            "reserve": 10,
+                            "markets": ["de", "tr"],
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            presets = sync.load_region_native_seed_presets(seed_path, "eu-native-seed")
+            self.assertEqual(len(presets), 1)
+            self.assertEqual(presets[0]["source"], "eu-native-seed")
+            self.assertEqual(presets[0]["markets"], ["DE", "TR"])
+
+    def test_seed_age_days_returns_none_for_missing(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            missing = Path(tmp_dir) / "missing.json"
+            self.assertIsNone(sync.seed_age_days(missing))
 
     def test_augment_regional_market_coverage_adds_de_sg_cn_for_supported_models(self):
         presets = [
@@ -214,6 +275,76 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertNotIn("SG", by_id["2025-ford-f150-lightning"]["markets"])
         self.assertNotIn("CN", by_id["2025-ford-f150-lightning"]["markets"])
 
+    def test_split_presets_by_market_uses_global_bucket(self):
+        split = sync.split_presets_by_market(
+            [
+                {
+                    "id": "ev-a",
+                    "label": "EV A",
+                    "batteryKwh": 50,
+                    "efficiency": 15,
+                    "reserve": 10,
+                    "markets": ["US", "CA"],
+                },
+                {
+                    "id": "ev-b",
+                    "label": "EV B",
+                    "batteryKwh": 45,
+                    "efficiency": 14,
+                    "reserve": 10,
+                    "markets": [],
+                },
+            ]
+        )
+        self.assertIn("US", split)
+        self.assertIn("CA", split)
+        self.assertIn("GLOBAL", split)
+        self.assertEqual(len(split["GLOBAL"]), 1)
+
+    def test_write_market_split_outputs_writes_manifest_and_files(self):
+        payload = {
+            "generatedAt": "2026-03-05T00:00:00Z",
+            "source": "test-source",
+            "sources": ["test"],
+            "count": 2,
+            "stats": {},
+            "presets": [
+                {
+                    "id": "ev-a",
+                    "label": "EV A",
+                    "batteryKwh": 50,
+                    "efficiency": 15,
+                    "reserve": 10,
+                    "markets": ["US", "CA"],
+                },
+                {
+                    "id": "ev-b",
+                    "label": "EV B",
+                    "batteryKwh": 45,
+                    "efficiency": 14,
+                    "reserve": 10,
+                    "markets": [],
+                },
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            split_dir = root / "data" / "catalog" / "markets"
+            manifest_path = root / "data" / "catalog" / "catalog_manifest.json"
+            with patch.object(sync.Path, "cwd", return_value=root):
+                manifest = sync.write_market_split_outputs(
+                    combined_payload=payload,
+                    split_dir=split_dir,
+                    manifest_path=manifest_path,
+                    bootstrap_markets=["US", "IN"],
+                )
+            self.assertTrue(manifest_path.exists())
+            self.assertIn("US", manifest["markets"])
+            self.assertIn("GLOBAL", manifest["markets"])
+            self.assertEqual(manifest["bootstrapMarkets"][0], "US")
+            us_file = root / manifest["markets"]["US"]["file"].replace("./", "")
+            self.assertTrue(us_file.exists())
+
     def test_main_falls_back_to_manual_when_live_sync_fails(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
@@ -238,13 +369,17 @@ class SyncCarPresetsTests(unittest.TestCase):
                 to_year=2026,
                 manual_file="data/car-presets.manual.json",
                 out="data/car-presets.generated.json",
+                manifest_out="data/catalog/catalog_manifest.json",
+                split_dir="data/catalog/markets",
                 sleep_ms=0,
-                min_market_preset=["US=0", "IN=0", "DE=0", "SG=0", "CN=0"],
+                min_market_preset=[f"{code}=0" for code in sync.DEFAULT_MIN_MARKET_PRESETS],
             )
             with patch.object(sync, "parse_args", return_value=args), patch.object(
                 sync, "collect_us_ev_presets", side_effect=Exception("network down")
             ), patch.object(
                 sync, "collect_india_ev_presets", return_value=[]
+            ), patch.object(
+                sync, "collect_australia_ev_presets", return_value=[]
             ), patch.object(sync.Path, "cwd", return_value=root):
                 rc = sync.main()
 
@@ -254,6 +389,8 @@ class SyncCarPresetsTests(unittest.TestCase):
             payload = json.loads(generated_path.read_text(encoding="utf-8"))
             self.assertEqual(payload["count"], 1)
             self.assertEqual(payload["presets"][0]["id"], "mahindra-be6-79")
+            manifest_path = root / "data" / "catalog" / "catalog_manifest.json"
+            self.assertTrue(manifest_path.exists())
 
     def test_main_fails_when_no_data_sources_available(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -268,13 +405,17 @@ class SyncCarPresetsTests(unittest.TestCase):
                 to_year=2026,
                 manual_file="data/car-presets.manual.json",
                 out="data/car-presets.generated.json",
+                manifest_out="data/catalog/catalog_manifest.json",
+                split_dir="data/catalog/markets",
                 sleep_ms=0,
-                min_market_preset=["US=0", "IN=0", "DE=0", "SG=0", "CN=0"],
+                min_market_preset=[f"{code}=0" for code in sync.DEFAULT_MIN_MARKET_PRESETS],
             )
             with patch.object(sync, "parse_args", return_value=args), patch.object(
                 sync, "collect_us_ev_presets", return_value=[]
             ), patch.object(
                 sync, "collect_india_ev_presets", return_value=[]
+            ), patch.object(
+                sync, "collect_australia_ev_presets", return_value=[]
             ), patch.object(sync.Path, "cwd", return_value=root):
                 rc = sync.main()
 

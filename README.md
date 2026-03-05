@@ -59,8 +59,22 @@ After this, pushes to `main` (including the scheduled catalog sync workflow comm
 
 ## Car Catalog Sync
 
-The app auto-loads `data/car-presets.generated.json` (if present) and merges it with built-in presets.
+The app auto-loads a split generated catalog:
+
+- `data/catalog/catalog_manifest.json`
+- `data/catalog/markets/<MARKET>.json` (per-market slices)
+- fallback: `data/car-presets.generated.json` (single-file snapshot)
+- canary channel:
+  - `data/catalog-next/catalog_manifest.json`
+  - `data/catalog-next/markets/<MARKET>.json`
+  - fallback: `data/car-presets.generated.next.json`
+
+At runtime it merges these with built-in presets and lazily loads relevant market slices based on resolved country.
 Market detection and model auto-inference happen entirely client-side in the browser after location lookup.
+
+Canary preview:
+
+- add `?catalog=next` to URL to load canary catalog channel for smoke checks before promotion.
 
 This lets you refresh market availability and pricing automatically instead of maintaining a static dropdown.
 
@@ -70,41 +84,74 @@ Generate/update catalog:
 python3 scripts/sync_car_presets.py \
   --from-year 2025 \
   --to-year 2026 \
+  --max-seed-age-days 60 \
+  --bootstrap-market US \
+  --bootstrap-market IN \
+  --bootstrap-market DE \
+  --bootstrap-market SG \
+  --bootstrap-market CN \
+  --bootstrap-market CA \
+  --bootstrap-market AU \
   --min-market-preset US=300 \
   --min-market-preset IN=20 \
+  --min-market-preset AU=20 \
   --min-market-preset DE=20 \
   --min-market-preset SG=12 \
   --min-market-preset CN=12
 python3 scripts/validate_car_catalog.py \
   --catalog data/car-presets.generated.json \
+  --manifest data/catalog/catalog_manifest.json \
+  --require-manifest \
   --min-market-preset US=300 \
   --min-market-preset IN=20 \
+  --min-market-preset AU=20 \
   --min-market-preset DE=20 \
   --min-market-preset SG=12 \
   --min-market-preset CN=12
 ```
 
-If live API access is unavailable, the script still succeeds using manual presets only.
-If a newly generated catalog looks degraded versus the previous snapshot, sync keeps the last known-good data.
+If live API access is unavailable, the script still succeeds by falling back to the last known-good catalog and re-emits fresh split market files + manifest from that snapshot.
+If a newly generated catalog looks degraded versus the previous snapshot, sync refuses publishing the degraded candidate.
 
 Input sources:
 
 - US market EV list/specs from `fueleconomy.gov` API
 - US MSRP enrichment from `afdc.energy.gov`
 - India EV listing/spec+price extraction from `cardekho.com/electric-cars`
+- Australia EV listing/spec extraction from `greenvehicleguide.gov.au`
+- Region-native maintained seed sources:
+  - `data/sources/eu-native.seed.json`
+  - `data/sources/asean-native.seed.json`
+  - `data/sources/jpkr-native.seed.json`
+  - `data/sources/row-native.seed.json` (Canada/Africa/ANZ)
 - Manual regional overrides from `data/car-presets.manual.json` (including market-specific models and prices)
-- Deterministic regional expansion into `DE` (EU proxy dataset), `SG`, and `CN` market buckets
+- Deterministic regional expansion into:
+  - `US`, `CA`
+  - `DE` (EU proxy), `TR`
+  - `ZA`, `MA`, `EG`
+  - `IN`, `LK`
+  - `SG`, `TH`, `MY`, `ID`, `VN`, `PH`
+  - `CN`, `JP`, `KR`
+  - `AU`, `NZ`
 
 Output:
 
 - `data/car-presets.generated.json`
+- `data/catalog/catalog_manifest.json`
+- `data/catalog/markets/*.json`
+- `data/car-presets.generated.next.json`
+- `data/catalog-next/catalog_manifest.json`
+- `data/catalog-next/markets/*.json`
+- `data/sources/*.seed.json`
 
 Guardrails included:
 
 - schema + integrity validation (`scripts/validate_car_catalog.py`)
+- split-file + checksum validation against manifest
 - anti-regression checks against previous catalog snapshot
+- seed freshness guardrail (`--max-seed-age-days`) to force periodic region-native source refresh
 - per-market minimum count checks (`--min-market-preset`) for emerging-market resilience
-- regional expansion to keep Europe/Singapore/China buckets available from maintained source markets
+- regional expansion across global market buckets with deterministic make/battery guardrails
 - minimum preset count, market coverage, and price coverage checks in CI
 - fallback-to-last-good behavior when live sources fail or become suspicious
 
@@ -122,6 +169,7 @@ Guardrails included:
 - User guide: [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
 - Technical backend notes: [`docs/TECHNICAL_BACKEND.md`](docs/TECHNICAL_BACKEND.md)
 - Code-to-behavior map: [`docs/CODE_MAP.md`](docs/CODE_MAP.md)
+- Market cluster policy + references: [`docs/MARKET_CLUSTER_POLICY.md`](docs/MARKET_CLUSTER_POLICY.md)
 
 ## Unit Tests
 
@@ -151,11 +199,22 @@ To enable ads:
 
 ## Automated Catalog Refresh
 
-A GitHub Actions workflow is included at:
+Two GitHub Actions workflows implement canary -> promote:
 
-- `.github/workflows/sync-car-presets.yml`
+- Canary sync: `.github/workflows/sync-car-presets.yml`
+- Stable promotion: `.github/workflows/promote-car-presets.yml`
 
-It runs every 12 hours and on manual trigger, regenerates `data/car-presets.generated.json`, runs unit tests, and commits only when:
+Canary workflow:
 
-- the file changed, and
-- catalog validation and anti-regression checks pass.
+- runs every 12 hours and on manual trigger,
+- regenerates `catalog-next` outputs,
+- runs unit tests + validator,
+- commits canary only when changed.
+
+Promotion workflow:
+
+- runs every 12 hours (offset from canary) and on manual trigger,
+- validates canary again,
+- promotes canary files to stable paths via `scripts/promote_catalog.py`,
+- validates promoted stable catalog,
+- commits stable only when changed.

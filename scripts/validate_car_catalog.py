@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import re
@@ -17,6 +18,16 @@ def parse_args() -> argparse.Namespace:
         "--catalog",
         default="data/car-presets.generated.json",
         help="Path to generated catalog JSON.",
+    )
+    parser.add_argument(
+        "--manifest",
+        default="data/catalog/catalog_manifest.json",
+        help="Path to market manifest JSON.",
+    )
+    parser.add_argument(
+        "--require-manifest",
+        action="store_true",
+        help="Fail validation when manifest or split market files are missing/invalid.",
     )
     parser.add_argument(
         "--previous",
@@ -64,6 +75,21 @@ def load_payload(path: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise SystemExit(f"Catalog root must be an object: {path}")
     return payload
+
+
+def json_sha256(payload: Any) -> str:
+    canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def resolve_repo_path(raw_path: str) -> Path:
+    text = str(raw_path or "").strip()
+    if text.startswith("./"):
+        text = text[2:]
+    path = Path(text)
+    if path.is_absolute():
+        return path
+    return Path.cwd() / path
 
 
 def normalize_market_array(markets: Any) -> list[str]:
@@ -177,9 +203,98 @@ def validate_payload(payload: dict[str, Any], label: str) -> tuple[list[str], li
     return errors, warnings, presets
 
 
+def validate_manifest_payload(
+    manifest_payload: dict[str, Any],
+    current_stats: dict[str, Any],
+) -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    unique_count = manifest_payload.get("uniquePresetCount")
+    if isinstance(unique_count, int) and unique_count != current_stats["count"]:
+        errors.append(
+            "manifest: uniquePresetCount mismatch "
+            f"({unique_count} != {current_stats['count']})"
+        )
+
+    markets = manifest_payload.get("markets")
+    if not isinstance(markets, dict) or not markets:
+        errors.append("manifest: markets must be a non-empty object")
+        return errors, warnings
+
+    expected_market_counts = dict(current_stats["marketBuckets"])
+    for market_code, expected_count in expected_market_counts.items():
+        manifest_meta = markets.get(market_code)
+        if not isinstance(manifest_meta, dict):
+            errors.append(f"manifest: missing market entry for {market_code}")
+            continue
+        manifest_count = manifest_meta.get("count")
+        if not isinstance(manifest_count, int):
+            errors.append(f"manifest: {market_code} count must be an integer")
+            continue
+        if manifest_count != expected_count:
+            errors.append(
+                f"manifest: {market_code} count mismatch ({manifest_count} != {expected_count})"
+            )
+
+        file_ref = str(manifest_meta.get("file", "")).strip()
+        if not file_ref:
+            errors.append(f"manifest: {market_code} is missing file path")
+            continue
+        market_file = resolve_repo_path(file_ref)
+        if not market_file.exists():
+            errors.append(f"manifest: {market_code} file missing: {market_file}")
+            continue
+
+        market_payload = load_payload(market_file)
+        market_errors, market_warnings, market_presets = validate_payload(
+            market_payload, f"manifest:{market_code}"
+        )
+        errors.extend(market_errors)
+        warnings.extend(market_warnings)
+
+        if market_payload.get("market") != market_code:
+            warnings.append(
+                f"manifest:{market_code} payload market mismatch ({market_payload.get('market')})"
+            )
+        if len(market_presets) != manifest_count:
+            errors.append(
+                f"manifest:{market_code} file count mismatch "
+                f"({len(market_presets)} != {manifest_count})"
+            )
+
+        for item in market_presets:
+            listed_markets = normalize_market_array(item.get("markets"))
+            if market_code == "GLOBAL":
+                if listed_markets:
+                    errors.append(f"manifest:GLOBAL includes non-global preset {item.get('id')}")
+            elif market_code not in listed_markets:
+                errors.append(
+                    f"manifest:{market_code} includes preset outside market: {item.get('id')}"
+                )
+
+        expected_sha = str(manifest_meta.get("sha256", "")).strip().lower()
+        if expected_sha:
+            actual_sha = json_sha256(market_payload)
+            if expected_sha != actual_sha:
+                errors.append(
+                    f"manifest:{market_code} checksum mismatch ({expected_sha} != {actual_sha})"
+                )
+
+    bootstrap = manifest_payload.get("bootstrapMarkets")
+    if isinstance(bootstrap, list):
+        for code in bootstrap:
+            normalized = str(code or "").upper()
+            if normalized not in markets:
+                warnings.append(f"manifest: bootstrap market not available in markets map: {normalized}")
+
+    return errors, warnings
+
+
 def main() -> int:
     args = parse_args()
     catalog_path = Path(args.catalog)
+    manifest_path = Path(args.manifest)
     previous_path = Path(args.previous) if args.previous else None
 
     payload = load_payload(catalog_path)
@@ -208,6 +323,16 @@ def main() -> int:
                 f"current: {market_code} market count too low "
                 f"({current_count} < {max(0, int(market_min))})"
             )
+
+    if manifest_path.exists():
+        manifest_payload = load_payload(manifest_path)
+        manifest_errors, manifest_warnings = validate_manifest_payload(manifest_payload, current_stats)
+        errors.extend(manifest_errors)
+        warnings.extend(manifest_warnings)
+    elif args.require_manifest:
+        errors.append(f"current: required manifest missing ({manifest_path})")
+    else:
+        warnings.append(f"current: manifest missing ({manifest_path})")
 
     if previous_path and previous_path.exists():
         previous_payload = load_payload(previous_path)

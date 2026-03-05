@@ -14,9 +14,16 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `sw.js`
 - Generated catalog data:
   - `data/car-presets.generated.json`
+  - `data/catalog/catalog_manifest.json`
+  - `data/catalog/markets/*.json`
+  - `data/car-presets.generated.next.json`
+  - `data/catalog-next/catalog_manifest.json`
+  - `data/catalog-next/markets/*.json`
+  - `data/sources/*.seed.json`
 - Catalog generation pipeline:
   - `scripts/sync_car_presets.py`
   - `scripts/validate_car_catalog.py`
+  - `scripts/promote_catalog.py`
 
 ## 2) City -> Country -> Market Classification
 
@@ -39,10 +46,14 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `MARKET_CLUSTER_LABELS` in `app.js`
 - Cluster -> proxy market priority:
   - `MARKET_PROXY_BY_CLUSTER` in `app.js`
-- Core strict markets:
-  - `CORE_MARKET_CODES` in `app.js`
 - Current dedicated runtime market buckets include:
-  - `US`, `IN`, `DE` (EU proxy dataset), `SG`, `CN`
+  - `US`, `CA`
+  - `DE`, `TR`
+  - `ZA`, `MA`, `EG`
+  - `IN`, `LK`
+  - `SG`, `TH`, `MY`, `ID`, `VN`, `PH`
+  - `CN`, `JP`, `KR`
+  - `AU`, `NZ`
 
 ### 2.3 Classification helper functions
 
@@ -50,7 +61,7 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `marketClusterForCountry(code)` in `app.js`
 - Market counts from loaded catalog:
   - `marketCountsByCode(presets)` in `app.js`
-- Pick proxy market code for non-core countries:
+- Pick proxy market codes by cluster (up to `MAX_PROXY_MARKET_CODES`):
   - `proxyMarketCodesForCountry(code, counts)` in `app.js`
 
 ### 2.4 Car list selection behavior
@@ -60,7 +71,7 @@ This document maps runtime behavior directly to the exact code symbols/files.
 - Exact match path:
   - If `markets[]` contains detected country code, show only that market.
 - Proxy path:
-  - For non-core countries without exact market entries, use cluster proxy market list.
+  - For countries without exact market entries, use cluster proxy market list.
 - Final fallback:
   - If no proxy is usable, show cross-market list.
 - Recommended auto-selected model:
@@ -134,12 +145,27 @@ This document maps runtime behavior directly to the exact code symbols/files.
 
 - Network/catalog bootstrap:
   - `refreshCatalogInBackground()` in `app.js`
-- Fetch + validate catalog payload:
+- Fetch + validate full fallback payload:
   - `loadGeneratedCarCatalog()`
   - `isCatalogPayloadValid(payload)`
   - in `app.js`
+- Fetch + validate split manifest + slices:
+  - `loadCatalogManifest()`
+  - `isCatalogManifestValid(payload)`
+  - `desiredCatalogMarketsForCountry(countryCode, manifest)`
+  - `ensureCatalogMarketsLoaded(marketCodes, manifest)`
+  - `rebuildCatalogFromSlices()`
+  - in `app.js`
+- Catalog channel switching:
+  - `CATALOG_CHANNELS`
+  - `ACTIVE_CATALOG_CHANNEL`
+  - `activeCatalogChannelConfig()`
+  - `scopedCatalogCacheKey(baseKey)`
+  - in `app.js`
 - Browser cache key/TTL:
   - `CATALOG_CACHE_KEY`
+  - `CATALOG_MANIFEST_CACHE_KEY`
+  - `CATALOG_MARKET_CACHE_KEY`
   - `CATALOG_CACHE_TTL_MS`
   - in `app.js`
 
@@ -166,16 +192,30 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `collect_us_ev_presets(...)`
 - India presets collection:
   - `collect_india_ev_presets(fx)`
+- Australia presets collection:
+  - `collect_australia_ev_presets(from_year, to_year)`
+  - `parse_au_gvg_vehicle_rows(html_text, include_non_current=False)`
+- Region-native seed ingestion:
+  - `load_region_native_seed_presets(path, source_name)`
+  - seed files: `data/sources/*.seed.json`
 - Merge source groups:
   - `merge_presets(*groups, fx=...)`
 - Regional market expansion (precompute step):
   - `augment_regional_market_coverage(presets)`
   - `should_expand_to_market(preset, target_market)`
   - `extract_make_from_label(label)`
+- Split output + manifest emission:
+  - `split_presets_by_market(presets)`
+  - `write_market_split_outputs(...)`
+  - `build_market_payload(...)`
 - Canonicalization in sync pipeline:
   - `canonical_car_id(raw_id, markets)`
 - Per-market guardrail parsing:
   - `parse_market_minimums(values)`
+  - `parse_bootstrap_markets(values)`
+- Seed freshness guardrail:
+  - `seed_age_days(path, today=None)`
+  - `--max-seed-age-days`
 - Validation before publish:
   - `validate_candidate_catalog(...)`
 
@@ -187,6 +227,8 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `parse_market_minimums(values)`
 - Payload validation:
   - `validate_payload(payload, label)`
+- Split manifest validation:
+  - `validate_manifest_payload(manifest_payload, current_stats)`
 - Stats + threshold checks:
   - `catalog_stats(presets)`
 
@@ -194,10 +236,14 @@ This document maps runtime behavior directly to the exact code symbols/files.
 
 - Schedule and publish pipeline:
   - `.github/workflows/sync-car-presets.yml`
+- Canary-to-stable promotion pipeline:
+  - `.github/workflows/promote-car-presets.yml`
 - Current cadence:
-  - every 12 hours + manual trigger
+  - every 12 hours + manual trigger (canary)
+  - every 12 hours offset + manual trigger (promotion)
 - Steps:
-  - regenerate -> unit tests -> validate guardrails -> commit if changed
+  - canary regenerate -> unit tests -> validate guardrails -> commit canary if changed
+  - promote workflow validates canary -> promotes -> validates stable -> commits stable if changed
 
 ## 6) Service Worker and Cache Invalidation
 
@@ -235,8 +281,12 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - update `MARKET_CLUSTER_BY_COUNTRY` in `app.js`
 - Change cluster proxy strategy:
   - update `MARKET_PROXY_BY_CLUSTER` in `app.js`
-- Change precomputed regional bucket logic (`DE/SG/CN`):
+- Change precomputed regional bucket logic:
   - update `REGIONAL_MARKET_EXPANSION_RULES` in `scripts/sync_car_presets.py`
+- Change bootstrap market loading order:
+  - update `DEFAULT_BOOTSTRAP_MARKETS` in `scripts/sync_car_presets.py`
+- Change frontend split-catalog bootstrap/fallback:
+  - update `desiredCatalogMarketsForCountry(...)` and `MARKET_PROXY_BY_CLUSTER` in `app.js`
 - Change suggestion performance:
   - tune `LOCATION_SUGGEST_*` constants in `app.js`
 - Tighten or loosen market count guardrails:

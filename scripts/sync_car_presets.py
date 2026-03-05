@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import html
 import json
 import math
@@ -32,6 +33,12 @@ BASE_URL = "https://www.fueleconomy.gov/ws/rest/vehicle"
 AFDC_DOWNLOAD_URL = "https://afdc.energy.gov/vehicles/search/download"
 FRANKFURTER_URL = "https://api.frankfurter.app/latest"
 CARDEKHO_IN_ELECTRIC_URL = "https://www.cardekho.com/electric-cars"
+AU_GVG_SEARCH_URL = "https://www.greenvehicleguide.gov.au/Vehicle/Search"
+AU_GVG_NAMES_URL = "https://www.greenvehicleguide.gov.au/Vehicle/GetNamesForSelectList"
+EU_NATIVE_SEED_FILE = "data/sources/eu-native.seed.json"
+ASEAN_NATIVE_SEED_FILE = "data/sources/asean-native.seed.json"
+JPKR_NATIVE_SEED_FILE = "data/sources/jpkr-native.seed.json"
+ROW_NATIVE_SEED_FILE = "data/sources/row-native.seed.json"
 USER_AGENT = "ev-mapping-catalog-sync/2.0"
 KWH_PER_GALLON_EQUIV = 33.705
 MILES_PER_100KM = 62.137119
@@ -40,14 +47,88 @@ DEFAULT_MIN_PRESET_COUNT = 50
 DEFAULT_MAX_COUNT_DROP_RATIO = 0.45
 DEFAULT_MIN_PRICE_COVERAGE = 0.03
 DEFAULT_FX_TIMEOUT_MS = 3000
-DEFAULT_MIN_MARKET_PRESETS = {"US": 300, "IN": 20, "DE": 20, "SG": 12, "CN": 12}
+DEFAULT_MIN_MARKET_PRESETS = {
+    "US": 300,
+    "CA": 120,
+    "DE": 80,
+    "TR": 30,
+    "ZA": 20,
+    "MA": 20,
+    "EG": 20,
+    "IN": 20,
+    "LK": 10,
+    "SG": 20,
+    "CN": 20,
+    "TH": 20,
+    "MY": 18,
+    "ID": 18,
+    "VN": 18,
+    "PH": 12,
+    "AU": 25,
+    "NZ": 20,
+    "JP": 24,
+    "KR": 20,
+}
+DEFAULT_BOOTSTRAP_MARKETS = ["US", "IN", "DE", "SG", "CN", "CA"]
 REGIONAL_SOURCE_MARKETS = {"US", "IN"}
 REGIONAL_LABEL_BLOCKLIST = re.compile(
     r"\b(f-?150|silverado|escalade|hummer|bolt|corvette|camaro|sierra|super duty)\b",
     flags=re.IGNORECASE,
 )
 REGIONAL_MARKET_EXPANSION_RULES = {
+    "IN": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "jaguar",
+            "kia",
+            "mahindra",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "porsche",
+            "tata",
+            "tesla",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 140.0,
+    },
+    "CA": {
+        "source_markets": {"US"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "cadillac",
+            "chevrolet",
+            "ford",
+            "genesis",
+            "gmc",
+            "hyundai",
+            "jaguar",
+            "kia",
+            "lucid",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "polestar",
+            "porsche",
+            "rivian",
+            "tesla",
+            "toyota",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 160.0,
+    },
     "DE": {
+        "source_markets": {"US"},
         "make_allowlist": {
             "audi",
             "bmw",
@@ -67,7 +148,107 @@ REGIONAL_MARKET_EXPANSION_RULES = {
         },
         "max_battery_kwh": 130.0,
     },
+    "TR": {
+        "source_markets": {"US"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "polestar",
+            "tesla",
+            "toyota",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "ZA": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "polestar",
+            "tesla",
+            "toyota",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "MA": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "polestar",
+            "tesla",
+            "toyota",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "EG": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "polestar",
+            "tesla",
+            "toyota",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "LK": {
+        "source_markets": {"IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mahindra",
+            "mercedes-benz",
+            "mg",
+            "nissan",
+            "tata",
+            "tesla",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 120.0,
+    },
     "SG": {
+        "source_markets": {"US", "IN"},
         "make_allowlist": {
             "audi",
             "bmw",
@@ -81,12 +262,11 @@ REGIONAL_MARKET_EXPANSION_RULES = {
             "tesla",
             "volkswagen",
             "volvo",
-            "mahindra",
-            "tata",
         },
         "max_battery_kwh": 110.0,
     },
     "CN": {
+        "source_markets": {"US", "IN"},
         "make_allowlist": {
             "audi",
             "bmw",
@@ -96,11 +276,181 @@ REGIONAL_MARKET_EXPANSION_RULES = {
             "mercedes-benz",
             "mg",
             "nissan",
+            "toyota",
             "tesla",
             "volkswagen",
             "volvo",
-            "mahindra",
-            "tata",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "TH": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "nissan",
+            "toyota",
+            "tesla",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "MY": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "nissan",
+            "toyota",
+            "tesla",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "ID": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "nissan",
+            "toyota",
+            "tesla",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "VN": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "nissan",
+            "toyota",
+            "tesla",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "PH": {
+        "source_markets": {"US", "IN"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "nissan",
+            "toyota",
+            "tesla",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "AU": {
+        "source_markets": {"US"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "ford",
+            "genesis",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "polestar",
+            "tesla",
+            "toyota",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 150.0,
+    },
+    "NZ": {
+        "source_markets": {"US"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "ford",
+            "genesis",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "mg",
+            "mini",
+            "nissan",
+            "polestar",
+            "tesla",
+            "toyota",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 150.0,
+    },
+    "JP": {
+        "source_markets": {"US"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "honda",
+            "hyundai",
+            "kia",
+            "lexus",
+            "mercedes-benz",
+            "mazda",
+            "nissan",
+            "subaru",
+            "tesla",
+            "toyota",
+            "volkswagen",
+            "volvo",
+        },
+        "max_battery_kwh": 130.0,
+    },
+    "KR": {
+        "source_markets": {"US"},
+        "make_allowlist": {
+            "audi",
+            "bmw",
+            "byd",
+            "genesis",
+            "hyundai",
+            "kia",
+            "mercedes-benz",
+            "tesla",
+            "volkswagen",
+            "volvo",
         },
         "max_battery_kwh": 130.0,
     },
@@ -117,6 +467,7 @@ FALLBACK_USD_RATE_BY_CURRENCY = {
     "AUD": 0.66,
     "CAD": 0.74,
 }
+AU_GVG_PURE_ELECTRIC_FUEL_TYPE = "15"
 
 
 def parse_args() -> argparse.Namespace:
@@ -130,9 +481,48 @@ def parse_args() -> argparse.Namespace:
         help="Manual JSON presets file (default: data/car-presets.manual.json)",
     )
     parser.add_argument(
+        "--eu-seed-file",
+        default=EU_NATIVE_SEED_FILE,
+        help="EU native source seed JSON file.",
+    )
+    parser.add_argument(
+        "--asean-seed-file",
+        default=ASEAN_NATIVE_SEED_FILE,
+        help="ASEAN native source seed JSON file.",
+    )
+    parser.add_argument(
+        "--jpkr-seed-file",
+        default=JPKR_NATIVE_SEED_FILE,
+        help="Japan/Korea native source seed JSON file.",
+    )
+    parser.add_argument(
+        "--row-seed-file",
+        default=ROW_NATIVE_SEED_FILE,
+        help="Rest-of-world native source seed JSON file (Africa/ANZ/Canada).",
+    )
+    parser.add_argument(
         "--out",
         default="data/car-presets.generated.json",
         help="Output JSON path (default: data/car-presets.generated.json)",
+    )
+    parser.add_argument(
+        "--manifest-out",
+        default="data/catalog/catalog_manifest.json",
+        help="Output path for market manifest JSON.",
+    )
+    parser.add_argument(
+        "--split-dir",
+        default="data/catalog/markets",
+        help="Directory for per-market split catalog files.",
+    )
+    parser.add_argument(
+        "--bootstrap-market",
+        action="append",
+        default=[],
+        help=(
+            "Preferred startup market code for frontend preloading. "
+            "Can be passed multiple times."
+        ),
     )
     parser.add_argument(
         "--previous-catalog",
@@ -173,6 +563,12 @@ def parse_args() -> argparse.Namespace:
         help="Timeout for FX conversion lookups for manual regional price entries.",
     )
     parser.add_argument(
+        "--max-seed-age-days",
+        type=int,
+        default=60,
+        help="Maximum allowed age (in days) for region-native seed files before sync fails.",
+    )
+    parser.add_argument(
         "--min-market-preset",
         action="append",
         default=[],
@@ -205,6 +601,37 @@ def request_json(url: str, timeout_s: float = 10.0) -> Any:
     with urllib.request.urlopen(req, timeout=timeout_s) as resp:
         payload = resp.read().decode("utf-8")
     return json.loads(payload)
+
+
+def request_json_post(url: str, form_data: dict[str, Any], timeout_s: float = 15.0) -> Any:
+    encoded = urllib.parse.urlencode(form_data).encode("utf-8")
+    req = urllib.request.Request(
+        url,
+        data=encoded,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=timeout_s) as resp:
+        payload = resp.read().decode("utf-8")
+    return json.loads(payload)
+
+
+def request_html_post(url: str, form_data: dict[str, Any], timeout_s: float = 20.0) -> str:
+    encoded = urllib.parse.urlencode(form_data).encode("utf-8")
+    req = urllib.request.Request(
+        url,
+        data=encoded,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml",
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=timeout_s) as resp:
+        return resp.read().decode("utf-8", errors="ignore")
 
 
 def node_text(node: ET.Element, tag: str) -> str:
@@ -336,6 +763,17 @@ def parse_market_minimums(values: list[str] | None) -> dict[str, int]:
     return out
 
 
+def parse_bootstrap_markets(values: list[str] | None) -> list[str]:
+    out: list[str] = []
+    for raw in values or []:
+        code = str(raw or "").strip().upper()
+        if re.fullmatch(r"[A-Z]{2}", code) and code not in out:
+            out.append(code)
+    if out:
+        return out
+    return list(DEFAULT_BOOTSTRAP_MARKETS)
+
+
 def canonical_car_id(raw_id: str, markets: list[str]) -> str:
     car_id = str(raw_id or "").strip()
     if not car_id:
@@ -365,22 +803,28 @@ def should_expand_to_market(preset: dict[str, Any], target_market: str) -> bool:
     markets = set(normalize_market_array(preset.get("markets")))
     if target_market in markets:
         return False
-    if not (markets & REGIONAL_SOURCE_MARKETS):
-        return False
 
     label = str(preset.get("label", ""))
     if REGIONAL_LABEL_BLOCKLIST.search(label):
         return False
 
+    rules = REGIONAL_MARKET_EXPANSION_RULES.get(target_market, {})
+    source_markets = set(rules.get("source_markets", REGIONAL_SOURCE_MARKETS))
+    if source_markets and not (markets & source_markets):
+        return False
+
     battery = parse_float(str(preset.get("batteryKwh", ""))) or 0.0
     make = extract_make_from_label(label)
-    rules = REGIONAL_MARKET_EXPANSION_RULES.get(target_market, {})
     allowlist = set(rules.get("make_allowlist", set()))
+    blocklist = set(rules.get("make_blocklist", set()))
     max_battery_kwh = float(rules.get("max_battery_kwh", 220.0))
+    min_battery_kwh = float(rules.get("min_battery_kwh", 20.0))
 
     if allowlist and make not in allowlist:
         return False
-    if battery <= 0 or battery > max_battery_kwh:
+    if blocklist and make in blocklist:
+        return False
+    if battery <= 0 or battery < min_battery_kwh or battery > max_battery_kwh:
         return False
     return True
 
@@ -626,6 +1070,42 @@ def load_manual_presets(path: Path) -> list[dict[str, Any]]:
     return data
 
 
+def load_region_native_seed_presets(path: Path, source_name: str) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            data = json.load(handle)
+    except Exception:
+        return []
+    if not isinstance(data, list):
+        return []
+
+    out: list[dict[str, Any]] = []
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+        normalized = dict(item)
+        normalized["source"] = str(item.get("source") or source_name).strip() or source_name
+        markets = normalize_market_array(item.get("markets"))
+        if markets:
+            normalized["markets"] = markets
+        out.append(normalized)
+    return out
+
+
+def seed_age_days(path: Path, today: dt.date | None = None) -> int | None:
+    if not path.exists():
+        return None
+    today = today or dt.date.today()
+    try:
+        modified = dt.datetime.fromtimestamp(path.stat().st_mtime, tz=dt.UTC).date()
+    except Exception:
+        return None
+    delta = (today - modified).days
+    return max(0, int(delta))
+
+
 def load_previous_payload(path: Path) -> dict[str, Any] | None:
     if not path.exists():
         return None
@@ -853,6 +1333,160 @@ def collect_india_ev_presets(fx: FxResolver) -> list[dict[str, Any]]:
     return sorted(by_id.values(), key=lambda x: x["label"])
 
 
+def clean_vehicle_label(label: str) -> str:
+    text = re.sub(r"\s+", " ", str(label or "").strip())
+    text = re.sub(r"\s+\((released [0-9]{4})\)\s*$", "", text, flags=re.IGNORECASE)
+    return text.strip()
+
+
+def parse_au_gvg_vehicle_rows(html_text: str, include_non_current: bool = False) -> list[dict[str, Any]]:
+    rows = re.findall(r'<tr class="vehicle-item">.*?</tr>', str(html_text or ""), flags=re.IGNORECASE | re.DOTALL)
+    best_by_id: dict[str, dict[str, Any]] = {}
+
+    for row in rows:
+        if not include_non_current and "non-current-model" in row:
+            continue
+
+        details = re.findall(
+            r'<td class="details(?: always-show)?"[^>]*data-sort="([^"]*)"',
+            row,
+            flags=re.IGNORECASE,
+        )
+        if len(details) < 3:
+            continue
+
+        label = clean_vehicle_label(html.unescape(details[0]))
+        fuel = str(details[2] or "").strip().lower()
+        if fuel != "pure electric":
+            continue
+
+        energy_match = re.search(
+            r'<td class="energy-consumption"[^>]*data-sort="([^"]*)"',
+            row,
+            flags=re.IGNORECASE,
+        )
+        range_match = re.search(
+            r'<td class="electric-range"[^>]*data-sort="([^"]*)"',
+            row,
+            flags=re.IGNORECASE,
+        )
+        energy_raw = parse_float(html.unescape(energy_match.group(1) if energy_match else ""))
+        range_km = parse_float(html.unescape(range_match.group(1) if range_match else ""))
+
+        if not label or not energy_raw or not range_km or range_km <= 0:
+            continue
+
+        # GVG energy field is Wh/km for EVs in the result table (e.g., 117 -> 11.7 kWh/100km).
+        efficiency = float(energy_raw)
+        if efficiency > 60:
+            efficiency = efficiency / 10.0
+        efficiency = min(35.0, max(10.0, efficiency))
+        battery_kwh = min(220.0, max(20.0, (range_km * efficiency) / 100.0))
+
+        car_id = slugify(label)
+        if not car_id:
+            continue
+        preset = {
+            "id": car_id,
+            "label": label,
+            "batteryKwh": round1(battery_kwh),
+            "efficiency": round1(efficiency),
+            "reserve": 10,
+            "markets": ["AU"],
+            "source": "greenvehicleguide.gov.au",
+        }
+        existing = best_by_id.get(car_id)
+        if existing:
+            existing_battery = parse_float(str(existing.get("batteryKwh", ""))) or 0.0
+            if battery_kwh <= existing_battery:
+                continue
+        best_by_id[car_id] = preset
+
+    return sorted(best_by_id.values(), key=lambda x: (x["label"], x["id"]))
+
+
+def fetch_au_gvg_manufacturers(start_year: int, end_year: int, current_only: bool) -> list[str]:
+    payload = request_json_post(
+        AU_GVG_NAMES_URL,
+        {
+            "startYear": str(start_year),
+            "endYear": str(end_year),
+            "manufacturerId": "-1",
+            "showCurrentOnly": "true" if current_only else "false",
+            "isPublicSearchOption": "true",
+        },
+        timeout_s=20.0,
+    )
+    if not isinstance(payload, list):
+        return []
+    out: list[str] = []
+    for item in payload:
+        if not isinstance(item, dict):
+            continue
+        value = str(item.get("Value", "")).strip()
+        if not value or value == "-1":
+            continue
+        if value not in out:
+            out.append(value)
+    return out
+
+
+def fetch_au_gvg_search_html(
+    *,
+    start_year: int,
+    end_year: int,
+    manufacturer_id: str,
+) -> str:
+    form_data = {
+        "VehicleSearchParameterList.Index": "4",
+        "SearchType": "0",
+        "VehicleSearchParameterList[4].SelectedYearStart": str(start_year),
+        "VehicleSearchParameterList[4].SelectedYearEnd": str(end_year),
+        "VehicleSearchParameterList[4].SelectedManufacturer": str(manufacturer_id),
+        "VehicleSearchParameterList[4].VehicleModel": "-1",
+        "VehicleSearchParameterList[4].Variant": "-1",
+        "VehicleSearchParameterList[4].FuelType": AU_GVG_PURE_ELECTRIC_FUEL_TYPE,
+        "VehicleSearchParameterList[4].Transmission": "-1",
+        "VehicleSearchParameterList[4].DrivenWheels": "-1",
+        "VehicleSearchParameterList[4].VehicleClass": "-1",
+        "VehicleSearchParameterList[4].BodyStyle": "-1",
+        "VehicleSearchParameterList[4].SeatingCapacity": "-1",
+        "submitType": "Search vehicles",
+    }
+    return request_html_post(AU_GVG_SEARCH_URL, form_data, timeout_s=30.0)
+
+
+def collect_australia_ev_presets(from_year: int, to_year: int) -> list[dict[str, Any]]:
+    start_year = max(2015, min(from_year, to_year))
+    end_year = max(start_year, max(to_year, dt.date.today().year))
+    manufacturer_ids = fetch_au_gvg_manufacturers(start_year, end_year, current_only=True)
+    best_by_id: dict[str, dict[str, Any]] = {}
+
+    for idx, manufacturer_id in enumerate(manufacturer_ids):
+        try:
+            page = fetch_au_gvg_search_html(
+                start_year=start_year,
+                end_year=end_year,
+                manufacturer_id=manufacturer_id,
+            )
+            rows = parse_au_gvg_vehicle_rows(page, include_non_current=False)
+            for item in rows:
+                existing = best_by_id.get(item["id"])
+                if not existing:
+                    best_by_id[item["id"]] = item
+                    continue
+                existing_battery = parse_float(str(existing.get("batteryKwh", ""))) or 0.0
+                candidate_battery = parse_float(str(item.get("batteryKwh", ""))) or 0.0
+                if candidate_battery > existing_battery:
+                    best_by_id[item["id"]] = item
+        except Exception:
+            continue
+        if idx % 10 == 0:
+            time.sleep(0.02)
+
+    return sorted(best_by_id.values(), key=lambda x: (x["label"], x["id"]))
+
+
 class CatalogValidation:
     def __init__(self, ok: bool, errors: list[str], warnings: list[str]) -> None:
         self.ok = ok
@@ -986,6 +1620,110 @@ def write_payload(path: Path, payload: dict[str, Any]) -> None:
         handle.write("\n")
 
 
+def json_sha256(payload: Any) -> str:
+    canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def split_presets_by_market(presets: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    split: dict[str, list[dict[str, Any]]] = {}
+    for preset in presets:
+        listed_markets = normalize_market_array(preset.get("markets"))
+        market_bucket = listed_markets if listed_markets else ["GLOBAL"]
+        for market_code in market_bucket:
+            split.setdefault(market_code, []).append(preset)
+    for market_code, items in split.items():
+        split[market_code] = sorted(items, key=lambda x: (str(x.get("label", "")), str(x.get("id", ""))))
+    return dict(sorted(split.items(), key=lambda kv: kv[0]))
+
+
+def build_market_payload(
+    market_code: str,
+    presets: list[dict[str, Any]],
+    source_label: str,
+    source_tags: list[str],
+    generated_at: str,
+) -> dict[str, Any]:
+    return {
+        "generatedAt": generated_at,
+        "market": market_code,
+        "source": source_label,
+        "sources": list(source_tags),
+        "count": len(presets),
+        "stats": catalog_stats(presets),
+        "presets": presets,
+    }
+
+
+def write_market_split_outputs(
+    *,
+    combined_payload: dict[str, Any],
+    split_dir: Path,
+    manifest_path: Path,
+    bootstrap_markets: list[str],
+) -> dict[str, Any]:
+    generated_at = str(combined_payload.get("generatedAt", ""))
+    source_label = str(combined_payload.get("source", "Generated catalog"))
+    source_tags = list(combined_payload.get("sources", []))
+    presets = list(combined_payload.get("presets", []))
+    split = split_presets_by_market(presets)
+
+    split_dir.mkdir(parents=True, exist_ok=True)
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+
+    market_meta: dict[str, dict[str, Any]] = {}
+    market_checksums: dict[str, str] = {}
+    for market_code, market_presets in split.items():
+        market_payload = build_market_payload(
+            market_code=market_code,
+            presets=market_presets,
+            source_label=source_label,
+            source_tags=source_tags,
+            generated_at=generated_at,
+        )
+        market_file = split_dir / f"{market_code}.json"
+        write_payload(market_file, market_payload)
+        market_checksum = json_sha256(market_payload)
+        market_checksums[market_code] = market_checksum
+        market_meta[market_code] = {
+            "count": len(market_presets),
+            "file": "./" + market_file.relative_to(Path.cwd()).as_posix(),
+            "sha256": market_checksum,
+            "priceCoverage": market_payload["stats"]["priceCoverage"],
+        }
+
+    available_bootstrap = [code for code in bootstrap_markets if code in market_meta]
+    if not available_bootstrap:
+        available_bootstrap = [code for code in DEFAULT_BOOTSTRAP_MARKETS if code in market_meta]
+    if "GLOBAL" in market_meta and "GLOBAL" not in available_bootstrap:
+        available_bootstrap.append("GLOBAL")
+
+    qa_summary = {
+        "marketCount": len(market_meta),
+        "marketsBelowTenPresets": sorted(
+            [code for code, meta in market_meta.items() if int(meta.get("count", 0)) < 10]
+        ),
+    }
+
+    manifest_payload: dict[str, Any] = {
+        "catalogVersion": generated_at,
+        "generatedAt": generated_at,
+        "source": source_label,
+        "sources": source_tags,
+        "uniquePresetCount": len(presets),
+        "stats": combined_payload.get("stats", {}),
+        "bootstrapMarkets": available_bootstrap,
+        "markets": market_meta,
+        "checksums": {
+            "combined": json_sha256(combined_payload),
+            "markets": market_checksums,
+        },
+        "qaSummary": qa_summary,
+    }
+    write_payload(manifest_path, manifest_payload)
+    return manifest_payload
+
+
 def main() -> int:
     args = parse_args()
 
@@ -993,14 +1731,22 @@ def main() -> int:
     from_year = int(getattr(args, "from_year", dt.date.today().year - 1))
     to_year = int(getattr(args, "to_year", dt.date.today().year + 1))
     manual_file = str(getattr(args, "manual_file", "data/car-presets.manual.json"))
+    eu_seed_file = str(getattr(args, "eu_seed_file", EU_NATIVE_SEED_FILE))
+    asean_seed_file = str(getattr(args, "asean_seed_file", ASEAN_NATIVE_SEED_FILE))
+    jpkr_seed_file = str(getattr(args, "jpkr_seed_file", JPKR_NATIVE_SEED_FILE))
+    row_seed_file = str(getattr(args, "row_seed_file", ROW_NATIVE_SEED_FILE))
     out_file = str(getattr(args, "out", "data/car-presets.generated.json"))
+    manifest_file = str(getattr(args, "manifest_out", "data/catalog/catalog_manifest.json"))
+    split_dir_raw = str(getattr(args, "split_dir", "data/catalog/markets"))
     previous_file = str(getattr(args, "previous_catalog", out_file))
     sleep_ms = int(getattr(args, "sleep_ms", 80))
     min_preset_count = int(getattr(args, "min_preset_count", 1))
     max_count_drop_ratio = float(getattr(args, "max_count_drop_ratio", DEFAULT_MAX_COUNT_DROP_RATIO))
     min_price_coverage = float(getattr(args, "min_price_coverage", DEFAULT_MIN_PRICE_COVERAGE))
     fx_timeout_ms = int(getattr(args, "fx_timeout_ms", DEFAULT_FX_TIMEOUT_MS))
+    max_seed_age_days = int(getattr(args, "max_seed_age_days", 60))
     min_market_presets = parse_market_minimums(getattr(args, "min_market_preset", []))
+    bootstrap_markets = parse_bootstrap_markets(getattr(args, "bootstrap_market", []))
 
     if from_year > to_year:
         print("--from-year must be <= --to-year", file=sys.stderr)
@@ -1008,7 +1754,13 @@ def main() -> int:
 
     root = Path.cwd()
     manual_path = root / manual_file
+    eu_seed_path = root / eu_seed_file
+    asean_seed_path = root / asean_seed_file
+    jpkr_seed_path = root / jpkr_seed_file
+    row_seed_path = root / row_seed_file
     out_path = root / out_file
+    manifest_path = root / manifest_file
+    split_dir = root / split_dir_raw
     previous_path = root / previous_file
 
     previous_payload = load_previous_payload(previous_path)
@@ -1019,6 +1771,8 @@ def main() -> int:
     us_presets: list[dict[str, Any]] = []
     india_error = ""
     india_presets: list[dict[str, Any]] = []
+    australia_error = ""
+    australia_presets: list[dict[str, Any]] = []
     fx = FxResolver(timeout_ms=fx_timeout_ms)
     try:
         us_presets = collect_us_ev_presets(from_year, to_year, sleep_ms)
@@ -1038,6 +1792,19 @@ def main() -> int:
             f"Warning: India sync failed ({exc}). Continuing with remaining sources.",
             file=sys.stderr,
         )
+    try:
+        australia_presets = collect_australia_ev_presets(from_year, to_year)
+        if australia_presets:
+            print(
+                "Loaded "
+                f"{len(australia_presets)} Australia EV presets from greenvehicleguide.gov.au."
+            )
+    except Exception as exc:  # pragma: no cover - network/runtime failures
+        australia_error = str(exc)
+        print(
+            f"Warning: Australia sync failed ({exc}). Continuing with remaining sources.",
+            file=sys.stderr,
+        )
 
     try:
         manual_presets = load_manual_presets(manual_path)
@@ -1045,7 +1812,51 @@ def main() -> int:
         print(f"Failed to read manual presets: {exc}", file=sys.stderr)
         manual_presets = []
 
-    combined = merge_presets(us_presets, india_presets, manual_presets, fx=fx)
+    eu_native_presets = load_region_native_seed_presets(eu_seed_path, "eu-native-seed")
+    asean_native_presets = load_region_native_seed_presets(asean_seed_path, "asean-native-seed")
+    jpkr_native_presets = load_region_native_seed_presets(jpkr_seed_path, "jpkr-native-seed")
+    row_native_presets = load_region_native_seed_presets(row_seed_path, "row-native-seed")
+    seed_age_errors: list[str] = []
+    seed_age_warnings: list[str] = []
+    seed_files = [
+        ("EU seed", eu_seed_path),
+        ("ASEAN seed", asean_seed_path),
+        ("JP/KR seed", jpkr_seed_path),
+        ("ROW seed", row_seed_path),
+    ]
+    for seed_label, seed_path in seed_files:
+        age_days = seed_age_days(seed_path)
+        if age_days is None:
+            seed_age_warnings.append(f"{seed_label} missing or unreadable: {seed_path}")
+            continue
+        if age_days > max(0, max_seed_age_days):
+            seed_age_errors.append(
+                f"{seed_label} too old ({age_days}d > {max(0, max_seed_age_days)}d): {seed_path}"
+            )
+        elif age_days > max(0, int(max_seed_age_days * 0.6)):
+            seed_age_warnings.append(
+                f"{seed_label} getting old ({age_days}d): {seed_path}"
+            )
+    if eu_native_presets:
+        print(f"Loaded {len(eu_native_presets)} EU native presets from seed.")
+    if asean_native_presets:
+        print(f"Loaded {len(asean_native_presets)} ASEAN native presets from seed.")
+    if jpkr_native_presets:
+        print(f"Loaded {len(jpkr_native_presets)} JP/KR native presets from seed.")
+    if row_native_presets:
+        print(f"Loaded {len(row_native_presets)} ROW native presets from seed.")
+
+    combined = merge_presets(
+        us_presets,
+        india_presets,
+        australia_presets,
+        eu_native_presets,
+        asean_native_presets,
+        jpkr_native_presets,
+        row_native_presets,
+        manual_presets,
+        fx=fx,
+    )
     combined = augment_regional_market_coverage(combined)
 
     validation = validate_candidate_catalog(
@@ -1057,25 +1868,74 @@ def main() -> int:
         min_market_presets=min_market_presets,
     )
 
+    validation.warnings.extend(seed_age_warnings)
+    if seed_age_errors:
+        validation.errors.extend(seed_age_errors)
+        validation.ok = False
+
     for warning in validation.warnings:
         print(f"Warning: {warning}", file=sys.stderr)
 
     if validation.ok:
+        source_parts: list[str] = []
+        source_tags: list[str] = []
+        if us_presets:
+            source_parts.extend(["fueleconomy.gov", "AFDC"])
+            source_tags.extend(["fueleconomy.gov", "afdc.energy.gov"])
+        if india_presets:
+            source_parts.append("Cardekho")
+            source_tags.append("cardekho.com")
+        if australia_presets:
+            source_parts.append("Australia GVG")
+            source_tags.append("greenvehicleguide.gov.au")
+        if eu_native_presets:
+            source_parts.append("EU seed")
+            source_tags.append("eu-native-seed")
+        if asean_native_presets:
+            source_parts.append("ASEAN seed")
+            source_tags.append("asean-native-seed")
+        if jpkr_native_presets:
+            source_parts.append("JP/KR seed")
+            source_tags.append("jpkr-native-seed")
+        if row_native_presets:
+            source_parts.append("ROW seed")
+            source_tags.append("row-native-seed")
+        if manual_presets:
+            source_parts.append("manual presets")
+            source_tags.append("manual-presets")
+        if not source_parts:
+            source_parts = ["generated catalog"]
+        if not source_tags:
+            source_tags = ["generated-catalog"]
         payload = build_payload(
             combined,
-            source_label="fueleconomy.gov + AFDC + Cardekho + manual presets",
-            source_tags=["fueleconomy.gov", "afdc.energy.gov", "cardekho.com", "manual-presets"],
+            source_label=" + ".join(source_parts),
+            source_tags=source_tags,
+        )
+        manifest_payload = write_market_split_outputs(
+            combined_payload=payload,
+            split_dir=split_dir,
+            manifest_path=manifest_path,
+            bootstrap_markets=bootstrap_markets,
         )
         write_payload(out_path, payload)
         print(
             "Done. "
             f"Wrote {len(combined)} presets to {out_path}. "
-            f"Price coverage: {payload['stats']['priceCoverage']:.2%}."
+            f"Price coverage: {payload['stats']['priceCoverage']:.2%}. "
+            f"Split markets: {len(manifest_payload.get('markets', {}))} -> {manifest_path}."
         )
         return 0
 
     for error in validation.errors:
         print(f"Error: {error}", file=sys.stderr)
+
+    if seed_age_errors:
+        print(
+            "Seed freshness guardrail failed; update region-native seed files before publishing.",
+            file=sys.stderr,
+        )
+        return 1
 
     if previous_payload and previous_presets:
         print(
@@ -1086,14 +1946,51 @@ def main() -> int:
             "; ".join(validation.errors)
             + (f"; live US sync error: {live_us_error}" if live_us_error else "")
             + (f"; India sync error: {india_error}" if india_error else "")
+            + (f"; Australia sync error: {australia_error}" if australia_error else "")
         )
-        fallback_payload = dict(previous_payload)
-        fallback_payload["fallbackMode"] = True
-        fallback_payload["fallbackReason"] = fallback_reason[:400]
+        fallback_presets = merge_presets(
+            previous_presets,
+            australia_presets,
+            eu_native_presets,
+            asean_native_presets,
+            jpkr_native_presets,
+            row_native_presets,
+            manual_presets,
+            fx=fx,
+        )
+        fallback_presets = augment_regional_market_coverage(fallback_presets)
+        fallback_source_tags = set(previous_payload.get("sources", []))
+        if eu_native_presets:
+            fallback_source_tags.add("eu-native-seed")
+        if asean_native_presets:
+            fallback_source_tags.add("asean-native-seed")
+        if jpkr_native_presets:
+            fallback_source_tags.add("jpkr-native-seed")
+        if row_native_presets:
+            fallback_source_tags.add("row-native-seed")
+        if australia_presets:
+            fallback_source_tags.add("greenvehicleguide.gov.au")
+        if manual_presets:
+            fallback_source_tags.add("manual-presets")
+        fallback_payload = build_payload(
+            fallback_presets,
+            source_label=str(previous_payload.get("source", "fallback-catalog")),
+            source_tags=sorted(fallback_source_tags) if fallback_source_tags else ["fallback-catalog"],
+            fallback_mode=True,
+            fallback_reason=fallback_reason[:400],
+        )
 
-        # Keep file unchanged when out and previous paths are identical to avoid churn commits.
-        if out_path.resolve() != previous_path.resolve():
-            write_payload(out_path, fallback_payload)
+        try:
+            write_market_split_outputs(
+                combined_payload=fallback_payload,
+                split_dir=split_dir,
+                manifest_path=manifest_path,
+                bootstrap_markets=bootstrap_markets,
+            )
+        except Exception as exc:
+            print(f"Warning: failed to refresh split outputs from fallback catalog ({exc}).", file=sys.stderr)
+
+        write_payload(out_path, fallback_payload)
         return 0
 
     print("No previous catalog available for fallback; failing sync.", file=sys.stderr)

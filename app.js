@@ -22,8 +22,12 @@ const COUNTRY_CURRENCY_TIMEOUT_MS = 1500;
 const FX_CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const CATALOG_CACHE_TTL_MS = 14 * 24 * 60 * 60 * 1000;
 const CATALOG_CACHE_KEY = "ev-mapping-catalog-cache-v2";
+const CATALOG_MANIFEST_CACHE_KEY = "ev-mapping-catalog-manifest-cache-v1";
+const CATALOG_MARKET_CACHE_KEY = "ev-mapping-catalog-market-cache-v1";
 const FX_CACHE_KEY = "ev-mapping-fx-cache-v1";
 const CURRENCY_CACHE_KEY = "ev-mapping-market-currency-cache-v1";
+const MAX_CACHED_MARKET_SLICES = 8;
+const MAX_PROXY_MARKET_CODES = 2;
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
 const MARKER_RENDER_BATCH_SIZE = 24;
 const REGION_DISPLAY_NAMES =
@@ -35,31 +39,83 @@ const OVERPASS_ENDPOINTS = [
   "https://overpass.kumi.systems/api/interpreter",
   "https://overpass.openstreetmap.fr/api/interpreter",
 ];
+const CATALOG_CHANNELS = {
+  stable: {
+    key: "stable",
+    label: "stable",
+    fallbackPath: "./data/car-presets.generated.json",
+    manifestPath: "./data/catalog/catalog_manifest.json",
+  },
+  next: {
+    key: "next",
+    label: "canary",
+    fallbackPath: "./data/car-presets.generated.next.json",
+    manifestPath: "./data/catalog-next/catalog_manifest.json",
+  },
+};
+const CATALOG_CHANNEL_QUERY_PARAM = "catalog";
+const ACTIVE_CATALOG_CHANNEL = (() => {
+  try {
+    const value = new URLSearchParams(window.location.search).get(CATALOG_CHANNEL_QUERY_PARAM);
+    return String(value || "").trim().toLowerCase() === "next" ? "next" : "stable";
+  } catch {
+    return "stable";
+  }
+})();
 const MARKET_LABELS = {
   IN: "India",
+  LK: "Sri Lanka",
   US: "United States",
+  CA: "Canada",
   SG: "Singapore",
+  TH: "Thailand",
+  MY: "Malaysia",
+  ID: "Indonesia",
+  VN: "Vietnam",
+  PH: "Philippines",
   CN: "China",
-  DE: "Europe Proxy",
+  JP: "Japan",
+  KR: "South Korea",
+  DE: "Europe",
+  TR: "Turkey",
+  ZA: "South Africa",
+  MA: "Morocco",
+  EG: "Egypt",
+  AU: "Australia",
+  NZ: "New Zealand",
 };
 const MARKET_CURRENCY_BY_CODE = {
   IN: "INR",
+  LK: "LKR",
   US: "USD",
+  CA: "CAD",
   SG: "SGD",
+  TH: "THB",
+  MY: "MYR",
+  ID: "IDR",
+  VN: "VND",
+  PH: "PHP",
   CN: "CNY",
+  JP: "JPY",
+  KR: "KRW",
   DE: "EUR",
+  TR: "TRY",
+  ZA: "ZAR",
+  MA: "MAD",
+  EG: "EGP",
+  AU: "AUD",
+  NZ: "NZD",
 };
-const CORE_MARKET_CODES = new Set(["US", "IN", "SG", "CN", "DE"]);
 const MARKET_CLUSTER_LABELS = {
   GLOBAL: "Global",
-  NA: "North America",
+  NA: "USMCA North America",
   LATAM: "Latin America",
-  EU: "Europe",
+  EU: "EU+EFTA+UK Corridor",
   SA: "South Asia",
-  SEA: "Southeast Asia",
-  EA: "East Asia",
-  MEA: "Middle East & Africa",
-  OC: "Oceania",
+  SEA: "ASEAN Southeast Asia",
+  EA: "East Asia (China/JP/KR)",
+  MEA: "Africa/Middle East",
+  OC: "Australia-New Zealand",
 };
 const MARKET_CLUSTER_BY_COUNTRY = {
   US: "NA",
@@ -95,6 +151,7 @@ const MARKET_CLUSTER_BY_COUNTRY = {
   LK: "SA",
   NP: "SA",
   SG: "SEA",
+  BN: "SEA",
   TH: "SEA",
   MY: "SEA",
   ID: "SEA",
@@ -114,20 +171,23 @@ const MARKET_CLUSTER_BY_COUNTRY = {
   IL: "MEA",
   EG: "MEA",
   MA: "MEA",
+  KE: "MEA",
+  NG: "MEA",
   ZA: "MEA",
   AU: "OC",
   NZ: "OC",
+  TR: "EU",
 };
 const MARKET_PROXY_BY_CLUSTER = {
-  GLOBAL: ["US"],
-  NA: ["US"],
-  LATAM: ["DE", "US"],
-  EU: ["DE", "US"],
-  SA: ["IN", "SG", "DE", "US"],
-  SEA: ["SG", "IN", "DE", "US"],
-  EA: ["CN", "SG", "DE", "US"],
-  MEA: ["DE", "US"],
-  OC: ["DE", "US"],
+  GLOBAL: ["US", "DE", "IN"],
+  NA: ["US", "CA", "DE"],
+  LATAM: ["US", "DE", "CA"],
+  EU: ["DE", "TR", "US"],
+  SA: ["IN", "LK", "SG", "TH", "DE", "US"],
+  SEA: ["SG", "TH", "MY", "ID", "VN", "PH", "IN", "CN", "DE"],
+  EA: ["CN", "JP", "KR", "SG", "DE", "US"],
+  MEA: ["ZA", "MA", "EG", "TR", "DE", "US"],
+  OC: ["AU", "NZ", "DE", "US"],
 };
 const BASE_CAR_PRESETS = [
   { id: "tesla-model-3-rwd", label: "Tesla Model 3 RWD", batteryKwh: 60, efficiency: 13.5, reserve: 10 },
@@ -252,6 +312,10 @@ const state = {
   marketCatalogMode: "All models",
   catalogSource: "Built-in",
   catalogCount: BASE_CAR_PRESETS.length,
+  catalogChannel: ACTIVE_CATALOG_CHANNEL,
+  catalogManifest: null,
+  catalogSliceByMarket: new Map(),
+  catalogSliceLoadByMarket: new Map(),
   presetById: new Map(),
   userSelectedCarModel: false,
   geocodeCache: new Map(),
@@ -330,6 +394,9 @@ function readUrlState() {
 
 function pushUrlState() {
   const params = new URLSearchParams();
+  if (state.catalogChannel === "next") {
+    params.set(CATALOG_CHANNEL_QUERY_PARAM, "next");
+  }
   const car = ui.carModelSelect.value;
   if (car && car !== "custom") params.set("car", car);
   const loc = ui.locationInput.value.trim();
@@ -850,6 +917,20 @@ function initialize() {
 }
 
 async function refreshCatalogInBackground() {
+  const manifest = await loadCatalogManifest();
+  if (manifest) {
+    state.catalogManifest = manifest;
+    state.catalogSource = manifest.source || "Generated catalog (split)";
+    const bootstrap = Array.isArray(manifest.bootstrapMarkets) ? manifest.bootstrapMarkets : [];
+    const preferred =
+      bootstrap.length > 0 ? bootstrap : desiredCatalogMarketsForCountry(state.marketCode, manifest);
+    const loaded = await ensureCatalogMarketsLoaded(preferred, manifest);
+    if (loaded || state.catalogSliceByMarket.size > 0) {
+      rebuildCatalogFromSlices();
+      return;
+    }
+  }
+
   const generatedCatalog = await loadGeneratedCarCatalog();
   if (!generatedCatalog) return;
 
@@ -989,10 +1070,18 @@ function onVerificationProfileChange() {
   }
 }
 
+function activeCatalogChannelConfig() {
+  return CATALOG_CHANNELS[state.catalogChannel] || CATALOG_CHANNELS.stable;
+}
+
+function scopedCatalogCacheKey(baseKey) {
+  return `${baseKey}:${state.catalogChannel}`;
+}
+
 async function loadGeneratedCarCatalog() {
   const cached = readCatalogFromStorage();
   try {
-    const response = await fetch("./data/car-presets.generated.json", {
+    const response = await fetch(activeCatalogChannelConfig().fallbackPath, {
       cache: "no-store",
     });
     if (!response.ok) {
@@ -1009,6 +1098,223 @@ async function loadGeneratedCarCatalog() {
   }
 }
 
+async function loadCatalogManifest() {
+  const cached = readCatalogManifestFromStorage();
+  try {
+    const response = await fetch(activeCatalogChannelConfig().manifestPath, {
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      return cached;
+    }
+    const payload = await response.json();
+    if (!isCatalogManifestValid(payload)) {
+      return cached;
+    }
+    writeCatalogManifestToStorage(payload);
+    return payload;
+  } catch {
+    return cached;
+  }
+}
+
+function isCatalogManifestValid(payload) {
+  if (!payload || typeof payload !== "object") return false;
+  if (!payload.markets || typeof payload.markets !== "object") return false;
+  const entries = Object.entries(payload.markets);
+  if (entries.length === 0) return false;
+  return entries.every(([code, meta]) => {
+    if (!/^[A-Z]{2,6}$/.test(String(code || "").toUpperCase())) return false;
+    if (!meta || typeof meta !== "object") return false;
+    if (!Number.isFinite(Number(meta.count)) || Number(meta.count) <= 0) return false;
+    if (typeof meta.file !== "string" || !meta.file.trim()) return false;
+    return true;
+  });
+}
+
+function writeCatalogManifestToStorage(payload) {
+  writeJsonToStorage(scopedCatalogCacheKey(CATALOG_MANIFEST_CACHE_KEY), {
+    storedAt: Date.now(),
+    payload,
+  });
+}
+
+function readCatalogManifestFromStorage() {
+  const cached = readJsonFromStorage(scopedCatalogCacheKey(CATALOG_MANIFEST_CACHE_KEY));
+  if (!cached || typeof cached !== "object") return null;
+  const storedAt = Number(cached.storedAt);
+  if (!Number.isFinite(storedAt)) return null;
+  if (Date.now() - storedAt > CATALOG_CACHE_TTL_MS) return null;
+  if (!isCatalogManifestValid(cached.payload)) return null;
+  return cached.payload;
+}
+
+function readCatalogMarketCache() {
+  const cached = readJsonFromStorage(scopedCatalogCacheKey(CATALOG_MARKET_CACHE_KEY));
+  if (!cached || typeof cached !== "object") return {};
+  const storedAt = Number(cached.storedAt);
+  if (!Number.isFinite(storedAt)) return {};
+  if (Date.now() - storedAt > CATALOG_CACHE_TTL_MS) return {};
+  if (!cached.payload || typeof cached.payload !== "object") return {};
+  return cached.payload;
+}
+
+function writeCatalogMarketCache(cachePayload) {
+  writeJsonToStorage(scopedCatalogCacheKey(CATALOG_MARKET_CACHE_KEY), {
+    storedAt: Date.now(),
+    payload: cachePayload,
+  });
+}
+
+function readCatalogMarketSliceFromStorage(marketCode, meta) {
+  const cache = readCatalogMarketCache();
+  const entry = cache[String(marketCode || "").toUpperCase()];
+  if (!entry || typeof entry !== "object") return null;
+  if (String(entry.sha256 || "") !== String(meta?.sha256 || "")) return null;
+  if (!isCatalogPayloadValid(entry.payload)) return null;
+  return entry.payload;
+}
+
+function writeCatalogMarketSliceToStorage(marketCode, meta, payload) {
+  const key = String(marketCode || "").toUpperCase();
+  const cache = readCatalogMarketCache();
+  const next = {
+    ...cache,
+    [key]: {
+      sha256: String(meta?.sha256 || ""),
+      file: String(meta?.file || ""),
+      payload,
+    },
+  };
+  const orderedKeys = Object.keys(next).sort((a, b) => a.localeCompare(b));
+  while (orderedKeys.length > MAX_CACHED_MARKET_SLICES) {
+    const victim = orderedKeys.shift();
+    if (!victim) break;
+    delete next[victim];
+  }
+  writeCatalogMarketCache(next);
+}
+
+function manifestMarketCountsByCode(manifest) {
+  const counts = new Map();
+  if (!manifest || typeof manifest !== "object" || !manifest.markets) {
+    return counts;
+  }
+  for (const [marketCode, meta] of Object.entries(manifest.markets)) {
+    const normalized = String(marketCode || "").toUpperCase();
+    const count = Number(meta?.count);
+    if (!/^[A-Z]{2,6}$/.test(normalized)) continue;
+    if (!Number.isFinite(count) || count <= 0) continue;
+    counts.set(normalized, Math.round(count));
+  }
+  return counts;
+}
+
+function desiredCatalogMarketsForCountry(countryCode, manifest = state.catalogManifest) {
+  if (!manifest || typeof manifest !== "object" || !manifest.markets) return [];
+  const availableMarkets = manifest.markets;
+  const normalizedCountryCode = String(countryCode || "").toUpperCase();
+  const desired = [];
+
+  if (normalizedCountryCode && availableMarkets[normalizedCountryCode]) {
+    desired.push(normalizedCountryCode);
+  }
+
+  const proxyCounts = manifestMarketCountsByCode(manifest);
+  const { codes: proxyCodes } = proxyMarketCodesForCountry(normalizedCountryCode, proxyCounts);
+  for (const code of proxyCodes) {
+    if (availableMarkets[code]) {
+      desired.push(code);
+    }
+  }
+
+  if (desired.length === 0 && Array.isArray(manifest.bootstrapMarkets)) {
+    for (const codeRaw of manifest.bootstrapMarkets) {
+      const code = String(codeRaw || "").toUpperCase();
+      if (availableMarkets[code]) {
+        desired.push(code);
+      }
+    }
+  }
+
+  if (availableMarkets.GLOBAL) {
+    desired.push("GLOBAL");
+  }
+
+  return [...new Set(desired)];
+}
+
+async function loadCatalogMarketSlice(marketCode, manifest = state.catalogManifest) {
+  const code = String(marketCode || "").toUpperCase();
+  if (!code || !manifest?.markets || !manifest.markets[code]) return false;
+  const meta = manifest.markets[code];
+  const cached = readCatalogMarketSliceFromStorage(code, meta);
+  if (cached) {
+    state.catalogSliceByMarket.set(code, cached.presets || []);
+    return true;
+  }
+
+  try {
+    const response = await fetch(meta.file, { cache: "no-store" });
+    if (!response.ok) {
+      return false;
+    }
+    const payload = await response.json();
+    if (!isCatalogPayloadValid(payload)) {
+      return false;
+    }
+    state.catalogSliceByMarket.set(code, payload.presets || []);
+    writeCatalogMarketSliceToStorage(code, meta, payload);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function ensureCatalogMarketsLoaded(marketCodes, manifest = state.catalogManifest) {
+  let changed = false;
+  for (const rawCode of marketCodes || []) {
+    const code = String(rawCode || "").toUpperCase();
+    if (!code) continue;
+    if (state.catalogSliceByMarket.has(code)) continue;
+
+    const inFlight = state.catalogSliceLoadByMarket.get(code);
+    if (inFlight) {
+      const wasLoaded = await inFlight;
+      changed = changed || wasLoaded;
+      continue;
+    }
+
+    const pending = loadCatalogMarketSlice(code, manifest)
+      .catch(() => false)
+      .finally(() => {
+        state.catalogSliceLoadByMarket.delete(code);
+      });
+    state.catalogSliceLoadByMarket.set(code, pending);
+    const wasLoaded = await pending;
+    changed = changed || wasLoaded;
+  }
+  return changed;
+}
+
+function rebuildCatalogFromSlices() {
+  const generatedPresets = [];
+  for (const code of [...state.catalogSliceByMarket.keys()].sort((a, b) => a.localeCompare(b))) {
+    const items = state.catalogSliceByMarket.get(code);
+    if (Array.isArray(items)) {
+      generatedPresets.push(...items);
+    }
+  }
+  carPresets = mergeCarPresets(BASE_CAR_PRESETS, generatedPresets);
+  setPresetIndex();
+  const loadedMarkets = [...state.catalogSliceByMarket.keys()].sort((a, b) => a.localeCompare(b));
+  const source = state.catalogManifest?.source || "Generated catalog (split)";
+  state.catalogSource = `${source} [${loadedMarkets.join(", ")}]`;
+  state.catalogCount = carPresets.length;
+  populateCarPresets();
+  updateMarketHint(state.origin?.countryName || "");
+}
+
 function isCatalogPayloadValid(payload) {
   if (!payload || typeof payload !== "object") return false;
   if (!Array.isArray(payload.presets)) return false;
@@ -1018,14 +1324,14 @@ function isCatalogPayloadValid(payload) {
 }
 
 function writeCatalogToStorage(payload) {
-  writeJsonToStorage(CATALOG_CACHE_KEY, {
+  writeJsonToStorage(scopedCatalogCacheKey(CATALOG_CACHE_KEY), {
     storedAt: Date.now(),
     payload,
   });
 }
 
 function readCatalogFromStorage() {
-  const cached = readJsonFromStorage(CATALOG_CACHE_KEY);
+  const cached = readJsonFromStorage(scopedCatalogCacheKey(CATALOG_CACHE_KEY));
   if (!cached || typeof cached !== "object") return null;
   const storedAt = Number(cached.storedAt);
   if (!Number.isFinite(storedAt)) return null;
@@ -1159,7 +1465,7 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
   }
 
   const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCounts);
-  if (proxyCodes.length > 0 && !CORE_MARKET_CODES.has(state.marketCode)) {
+  if (proxyCodes.length > 0) {
     const proxyMatched = sortedPresets.filter((preset) => {
       const markets = normalizeMarketArray(preset.markets);
       return markets.some((code) => proxyCodes.includes(code));
@@ -1248,7 +1554,9 @@ function proxyMarketCodesForCountry(code, counts) {
   for (const marketCode of preferred) {
     if ((counts.get(marketCode) || 0) > 0) {
       available.push(marketCode);
-      break;
+      if (available.length >= MAX_PROXY_MARKET_CODES) {
+        break;
+      }
     }
   }
   return {
@@ -1267,6 +1575,9 @@ function inferAndApplyMarket(origin) {
     state.marketClusterLabel = "Global";
     populateCarPresets();
     updateMarketHint();
+    ensureCatalogMarketsLoaded(desiredCatalogMarketsForCountry("GLOBAL")).then((loaded) => {
+      if (loaded) rebuildCatalogFromSlices();
+    });
     if (shouldAutoInferModel) {
       autoInferModelForMarket();
     }
@@ -1279,6 +1590,9 @@ function inferAndApplyMarket(origin) {
   state.marketClusterLabel = MARKET_CLUSTER_LABELS[state.marketCluster] || state.marketCluster;
   populateCarPresets();
   updateMarketHint(origin.countryName || "");
+  ensureCatalogMarketsLoaded(desiredCatalogMarketsForCountry(code)).then((loaded) => {
+    if (loaded) rebuildCatalogFromSlices();
+  });
   ensureMarketCurrencyRate(code).catch(() => {});
   if (shouldAutoInferModel) {
     autoInferModelForMarket();
@@ -1291,8 +1605,9 @@ function updateMarketHint(countryName = "") {
     state.marketCode === "GLOBAL"
       ? ""
       : ` Cluster: ${state.marketClusterLabel}.`;
+  const catalogChannelLabel = activeCatalogChannelConfig().label;
   ui.marketHint.textContent =
-    `Market: ${state.marketLabel}${countryText}.${clusterText} Showing: ${state.marketCatalogMode}. Catalog: ${state.catalogCount} presets (${state.catalogSource}).`;
+    `Market: ${state.marketLabel}${countryText}.${clusterText} Showing: ${state.marketCatalogMode}. Catalog: ${state.catalogCount} presets (${state.catalogSource}, ${catalogChannelLabel}).`;
 }
 
 function autoInferModelForMarket() {
@@ -1315,11 +1630,9 @@ function findRecommendedPresetIdForMarket() {
     if (exact) return exact.id;
 
     const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCountsByCode(sorted));
-    if (!CORE_MARKET_CODES.has(state.marketCode)) {
-      for (const proxyCode of proxyCodes) {
-        const proxyMatch = sorted.find((item) => normalizeMarketArray(item.markets).includes(proxyCode));
-        if (proxyMatch) return proxyMatch.id;
-      }
+    for (const proxyCode of proxyCodes) {
+      const proxyMatch = sorted.find((item) => normalizeMarketArray(item.markets).includes(proxyCode));
+      if (proxyMatch) return proxyMatch.id;
     }
   }
   const global = sorted.find((item) => normalizeMarketArray(item.markets).length === 0);

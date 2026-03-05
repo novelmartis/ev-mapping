@@ -3,6 +3,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 def load_validate_module():
@@ -98,6 +99,70 @@ class ValidateCatalogTests(unittest.TestCase):
     def test_parse_market_minimums(self):
         parsed = validate.parse_market_minimums(["IN=20", "US=300", "bad", "EU=abc"])
         self.assertEqual(parsed, {"IN": 20, "US": 300})
+
+    def test_validate_manifest_payload_accepts_matching_market_files(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            market_dir = root / "data" / "catalog" / "markets"
+            market_dir.mkdir(parents=True, exist_ok=True)
+
+            us_payload = {
+                "market": "US",
+                "count": 1,
+                "presets": [
+                    {
+                        "id": "ev-a",
+                        "label": "EV A",
+                        "batteryKwh": 50,
+                        "efficiency": 15,
+                        "reserve": 10,
+                        "markets": ["US"],
+                    }
+                ],
+            }
+            in_payload = {
+                "market": "IN",
+                "count": 1,
+                "presets": [
+                    {
+                        "id": "ev-b",
+                        "label": "EV B",
+                        "batteryKwh": 40,
+                        "efficiency": 14,
+                        "reserve": 10,
+                        "markets": ["IN"],
+                    }
+                ],
+            }
+            (market_dir / "US.json").write_text(json.dumps(us_payload), encoding="utf-8")
+            (market_dir / "IN.json").write_text(json.dumps(in_payload), encoding="utf-8")
+
+            current_stats = {
+                "count": 2,
+                "priced": 0,
+                "priceCoverage": 0.0,
+                "marketBuckets": {"US": 1, "IN": 1},
+            }
+            manifest = {
+                "uniquePresetCount": 2,
+                "markets": {
+                    "US": {
+                        "count": 1,
+                        "file": "./data/catalog/markets/US.json",
+                        "sha256": validate.json_sha256(us_payload),
+                    },
+                    "IN": {
+                        "count": 1,
+                        "file": "./data/catalog/markets/IN.json",
+                        "sha256": validate.json_sha256(in_payload),
+                    },
+                },
+                "bootstrapMarkets": ["US"],
+            }
+            with patch.object(validate.Path, "cwd", return_value=root):
+                errors, warnings = validate.validate_manifest_payload(manifest, current_stats)
+            self.assertEqual(errors, [])
+            self.assertEqual(warnings, [])
 
 
 if __name__ == "__main__":

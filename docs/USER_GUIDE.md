@@ -74,9 +74,9 @@ What happens:
 
 ## Market behavior
 
-- If your country has direct market catalog coverage (for example `US`, `IN`), the EV dropdown shows that market's models.
+- If your country has direct market catalog coverage (for example `US`, `IN`, `CA`, `DE`, `SG`, `CN`), the EV dropdown shows that market's models.
 - If your country does not have direct catalog coverage yet, the app uses a proxy market strategy and labels it in the market hint text.
-- This prevents cross-region mixing from random sources while still keeping worldwide usability.
+- Proxy selection is cluster-based (USMCA, Europe corridor, ASEAN, East Asia, South Asia, Africa/Middle-East, ANZ) for predictable global behavior.
 
 ## Tips for better results
 
@@ -90,3 +90,8 @@ What happens:
 - Reach is an estimate, not a guarantee.
 - Real-world range varies with speed, terrain, weather, traffic, and driving style.
 - Public APIs can rate-limit or temporarily fail.
+
+## Canary catalog (optional)
+
+- For pre-release catalog checks, open the app with `?catalog=next` in the URL.
+- This loads the canary market catalog channel before it is promoted to stable.

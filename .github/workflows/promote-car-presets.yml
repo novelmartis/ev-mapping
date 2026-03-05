@@ -1,19 +1,19 @@
-name: Sync EV Car Presets (Canary)
+name: Promote EV Car Presets (Canary -> Stable)
 
 on:
   schedule:
-    - cron: "30 */12 * * *"
+    - cron: "50 */12 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: sync-car-presets
+  group: promote-car-presets
   cancel-in-progress: false
 
 jobs:
-  canary:
+  promote:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,38 +32,7 @@ jobs:
         run: |
           cp data/car-presets.generated.json /tmp/car-presets.previous.json || true
 
-      - name: Regenerate canary catalog
-        run: |
-          python3 scripts/sync_car_presets.py \
-            --from-year 2025 \
-            --to-year 2026 \
-            --out data/car-presets.generated.next.json \
-            --previous-catalog data/car-presets.generated.json \
-            --manifest-out data/catalog-next/catalog_manifest.json \
-            --split-dir data/catalog-next/markets \
-            --max-seed-age-days 60 \
-            --min-preset-count 50 \
-            --min-price-coverage 0.03 \
-            --max-count-drop-ratio 0.45 \
-            --bootstrap-market US \
-            --bootstrap-market IN \
-            --bootstrap-market DE \
-            --bootstrap-market SG \
-            --bootstrap-market CN \
-            --bootstrap-market CA \
-            --bootstrap-market AU \
-            --min-market-preset US=300 \
-            --min-market-preset IN=20 \
-            --min-market-preset AU=20 \
-            --min-market-preset DE=20 \
-            --min-market-preset SG=12 \
-            --min-market-preset CN=12
-
-      - name: Run unit tests for catalog scripts
-        run: |
-          python3 -m unittest discover -s tests -p "test_*.py" -v
-
-      - name: Validate canary catalog integrity and anti-regression guardrails
+      - name: Validate canary catalog before promotion
         run: |
           python3 scripts/validate_car_catalog.py \
             --catalog data/car-presets.generated.next.json \
@@ -81,17 +50,44 @@ jobs:
             --min-market-preset SG=12 \
             --min-market-preset CN=12
 
-      - name: Commit and push canary if changed
+      - name: Promote canary catalog to stable paths
         run: |
-          if git diff --quiet -- data/car-presets.generated.next.json data/catalog-next/; then
-            echo "No canary catalog changes."
+          python3 scripts/promote_catalog.py \
+            --canary-catalog data/car-presets.generated.next.json \
+            --canary-manifest data/catalog-next/catalog_manifest.json \
+            --stable-catalog data/car-presets.generated.json \
+            --stable-manifest data/catalog/catalog_manifest.json \
+            --stable-markets-dir data/catalog/markets
+
+      - name: Validate promoted stable catalog
+        run: |
+          python3 scripts/validate_car_catalog.py \
+            --catalog data/car-presets.generated.json \
+            --manifest data/catalog/catalog_manifest.json \
+            --require-manifest \
+            --previous /tmp/car-presets.previous.json \
+            --min-count 50 \
+            --min-price-coverage 0.03 \
+            --min-market-count 5 \
+            --max-drop-ratio 0.45 \
+            --min-market-preset US=300 \
+            --min-market-preset IN=20 \
+            --min-market-preset AU=20 \
+            --min-market-preset DE=20 \
+            --min-market-preset SG=12 \
+            --min-market-preset CN=12
+
+      - name: Commit and push promoted stable catalog if changed
+        run: |
+          if git diff --quiet -- data/car-presets.generated.json data/catalog/; then
+            echo "No stable catalog changes after promotion."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/car-presets.generated.next.json data/catalog-next/
-          git commit -m "chore: refresh EV canary catalog"
+          git add data/car-presets.generated.json data/catalog/
+          git commit -m "chore: promote EV canary catalog to stable"
 
           for attempt in 1 2 3; do
             if git pull --rebase origin main && git push origin HEAD:main; then

@@ -114,6 +114,8 @@ const state = {
   roundTripCircle: null,
   chargerLayer: null,
   routeLayer: null,
+  mapResizeObserver: null,
+  mapResizeTimer: null,
   origin: null,
   oneWayRangeKm: 0,
   lastChargers: [],
@@ -342,6 +344,10 @@ async function initialize() {
 
   state.chargerLayer = L.layerGroup().addTo(state.map);
   state.routeLayer = L.layerGroup().addTo(state.map);
+  if ("ResizeObserver" in window && ui.mapPanel) {
+    state.mapResizeObserver = new ResizeObserver(() => scheduleMapInvalidate(80));
+    state.mapResizeObserver.observe(ui.mapPanel);
+  }
 
   addLegend();
   wireEvents();
@@ -358,11 +364,25 @@ function wireEvents() {
   ui.compareCarsSelect.addEventListener("change", onCompareCarsChange);
   ui.useLocationBtn.addEventListener("click", useCurrentLocation);
   ui.verificationProfileSelect.addEventListener("change", onVerificationProfileChange);
+  document.querySelectorAll(".controls-panel details").forEach((details) => {
+    details.addEventListener("toggle", () => scheduleMapInvalidate(160));
+  });
+  window.addEventListener("resize", () => scheduleMapInvalidate(120));
   onVerificationProfileChange();
   ui.summary.addEventListener("click", (e) => {
     const btn = e.target.closest(".share-btn");
     if (btn) onShareBtnClick(btn);
   });
+}
+
+function scheduleMapInvalidate(delayMs = 120) {
+  if (!state.map) return;
+  if (state.mapResizeTimer) {
+    clearTimeout(state.mapResizeTimer);
+  }
+  state.mapResizeTimer = setTimeout(() => {
+    state.map.invalidateSize({ pan: false, animate: false });
+  }, delayMs);
 }
 
 function populateCarPresets() {
@@ -1566,13 +1586,16 @@ function renderComparisonTable(compareRows) {
 function renderComparisonResults(compareRows, submitMode) {
   if (submitMode !== "compare") {
     ui.compareResults.innerHTML = '<p class="hint">Press Compare Cars to view side-by-side results.</p>';
+    scheduleMapInvalidate(120);
     return;
   }
   if (!Array.isArray(compareRows) || compareRows.length <= 1) {
     ui.compareResults.innerHTML = '<p class="hint">Select at least one car to compare.</p>';
+    scheduleMapInvalidate(120);
     return;
   }
   ui.compareResults.innerHTML = renderComparisonTable(compareRows);
+  scheduleMapInvalidate(120);
 }
 
 function pickBestReachRowIndex(compareRows) {

@@ -108,6 +108,8 @@ python3 scripts/validate_car_catalog.py \
   --min-market-preset DE=20 \
   --min-market-preset SG=12 \
   --min-market-preset CN=12
+python3 scripts/check_market_smoke.py \
+  --catalog data/car-presets.generated.json
 ```
 
 If live API access is unavailable, the script still succeeds by falling back to the last known-good catalog and re-emits fresh split market files + manifest from that snapshot.

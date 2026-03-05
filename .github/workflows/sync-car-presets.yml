@@ -81,6 +81,11 @@ jobs:
             --min-market-preset SG=12 \
             --min-market-preset CN=12
 
+      - name: Run market smoke checks (canary)
+        run: |
+          python3 scripts/check_market_smoke.py \
+            --catalog data/car-presets.generated.next.json
+
       - name: Commit and push canary if changed
         run: |
           if git diff --quiet -- data/car-presets.generated.next.json data/catalog-next/; then

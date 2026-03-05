@@ -27,9 +27,10 @@ const CATALOG_MARKET_CACHE_KEY = "ev-mapping-catalog-market-cache-v1";
 const FX_CACHE_KEY = "ev-mapping-fx-cache-v1";
 const CURRENCY_CACHE_KEY = "ev-mapping-market-currency-cache-v1";
 const MAX_CACHED_MARKET_SLICES = 8;
-const MAX_PROXY_MARKET_CODES = 2;
+const MAX_PROXY_MARKET_CODES = 3;
+const STRICT_LOCAL_MARKET_MIN_PRESETS = 8;
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
-const MARKER_RENDER_BATCH_SIZE = 24;
+const MARKER_RENDER_BATCH_SIZE = 10;
 const REGION_DISPLAY_NAMES =
   typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function"
     ? new Intl.DisplayNames(undefined, { type: "region" })
@@ -182,12 +183,12 @@ const MARKET_PROXY_BY_CLUSTER = {
   GLOBAL: ["US", "DE", "IN"],
   NA: ["US", "CA", "DE"],
   LATAM: ["US", "DE", "CA"],
-  EU: ["DE", "TR", "US"],
-  SA: ["IN", "LK", "SG", "TH", "DE", "US"],
-  SEA: ["SG", "TH", "MY", "ID", "VN", "PH", "IN", "CN", "DE"],
-  EA: ["CN", "JP", "KR", "SG", "DE", "US"],
-  MEA: ["ZA", "MA", "EG", "TR", "DE", "US"],
-  OC: ["AU", "NZ", "DE", "US"],
+  EU: ["DE", "TR"],
+  SA: ["IN", "LK", "SG", "TH"],
+  SEA: ["SG", "TH", "MY", "ID", "VN", "PH", "CN"],
+  EA: ["CN", "JP", "KR", "SG"],
+  MEA: ["ZA", "MA", "EG", "TR", "DE"],
+  OC: ["AU", "NZ", "JP"],
 };
 const MARKET_LOCAL_SOURCE_TOKENS = {
   US: ["fueleconomy.gov", "manual"],
@@ -332,6 +333,7 @@ const state = {
   marketCluster: "GLOBAL",
   marketClusterLabel: "Global",
   marketCatalogMode: "All models",
+  visiblePresets: [],
   catalogSource: "Built-in",
   catalogCount: BASE_CAR_PRESETS.length,
   catalogChannel: ACTIVE_CATALOG_CHANNEL,
@@ -998,6 +1000,14 @@ function scheduleMapInvalidate(delayMs = 120) {
   }, delayMs);
 }
 
+function resetChargerLayer() {
+  if (!state.map) return;
+  if (state.chargerLayer) {
+    state.map.removeLayer(state.chargerLayer);
+  }
+  state.chargerLayer = L.layerGroup().addTo(state.map);
+}
+
 function populateCarPresets() {
   const previousSelection = ui.carModelSelect.value || "custom";
   ui.carModelSelect.innerHTML = "";
@@ -1007,6 +1017,7 @@ function populateCarPresets() {
   ui.carModelSelect.append(customOption);
   const sorted = [...carPresets].sort((a, b) => a.label.localeCompare(b.label));
   const { visiblePresets, hasMarketSpecific, groupLabel } = visiblePresetsForCurrentMarket(sorted);
+  state.visiblePresets = visiblePresets;
   state.marketCatalogMode = state.marketCode === "GLOBAL" ? "All models" : groupLabel;
 
   if (state.marketCode === "GLOBAL") {
@@ -1032,14 +1043,16 @@ function onCarModelChange(userInitiated = false) {
   const presetId = ui.carModelSelect.value;
   if (presetId === "custom") {
     ui.carHint.textContent = "Custom mode enabled. Enter your own battery and efficiency values.";
-    populateCompareCarOptions();
+    syncCompareSelectionExclusions("custom");
+    onCompareCarsChange();
     return;
   }
 
   const preset = getPresetById(presetId);
   if (!preset) {
     ui.carHint.textContent = "Preset not found. You can continue with manual values.";
-    populateCompareCarOptions();
+    syncCompareSelectionExclusions("custom");
+    onCompareCarsChange();
     return;
   }
 
@@ -1048,7 +1061,8 @@ function onCarModelChange(userInitiated = false) {
   ui.reserveInput.value = String(preset.reserve);
   ui.carHint.textContent =
     `${preset.label} loaded: ${preset.batteryKwh} kWh, ${preset.efficiency} kWh/100 km.`;
-  populateCompareCarOptions();
+  syncCompareSelectionExclusions(presetId);
+  onCompareCarsChange();
 }
 
 function populateCompareCarOptions() {
@@ -1056,8 +1070,10 @@ function populateCompareCarOptions() {
   const currentCarId = ui.carModelSelect.value;
   ui.compareCarsSelect.length = 0;
 
-  const sorted = [...carPresets].sort((a, b) => a.label.localeCompare(b.label));
-  const { visiblePresets } = visiblePresetsForCurrentMarket(sorted);
+  const visiblePresets =
+    Array.isArray(state.visiblePresets) && state.visiblePresets.length > 0
+      ? state.visiblePresets
+      : visiblePresetsForCurrentMarket([...carPresets].sort((a, b) => a.label.localeCompare(b.label))).visiblePresets;
   const fragment = document.createDocumentFragment();
 
   for (const preset of visiblePresets) {
@@ -1070,7 +1086,19 @@ function populateCompareCarOptions() {
   }
   ui.compareCarsSelect.append(fragment);
 
+  syncCompareSelectionExclusions(currentCarId);
   onCompareCarsChange();
+}
+
+function syncCompareSelectionExclusions(currentCarId) {
+  const currentId = String(currentCarId || "custom");
+  for (const option of ui.compareCarsSelect.options) {
+    const shouldHide = currentId !== "custom" && option.value === currentId;
+    option.hidden = shouldHide;
+    if (shouldHide) {
+      option.selected = false;
+    }
+  }
 }
 
 function onCompareCarsChange() {
@@ -1480,6 +1508,37 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
   }
 
   if (marketMatched.length > 0) {
+    if (!hasStrictSourcePolicy || marketMatched.length >= STRICT_LOCAL_MARKET_MIN_PRESETS) {
+      return {
+        visiblePresets: marketMatched,
+        hasMarketSpecific: true,
+        groupLabel: "Available models",
+      };
+    }
+  }
+
+  const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCounts);
+  if (proxyCodes.length > 0) {
+    const proxyMatched = collectProxyMatchedPresets(sortedPresets, proxyCodes);
+    if (proxyMatched.length > 0) {
+      const proxyLabel = proxyCodes.map((code) => marketLabelFromCode(code)).join(" + ");
+      if (marketMatched.length > 0) {
+        const merged = dedupePresetsById([...marketMatched, ...proxyMatched]);
+        return {
+          visiblePresets: merged,
+          hasMarketSpecific: true,
+          groupLabel: `Available + proxy models (${proxyLabel})`,
+        };
+      }
+      return {
+        visiblePresets: proxyMatched,
+        hasMarketSpecific: false,
+        groupLabel: `Proxy models (${proxyLabel})`,
+      };
+    }
+  }
+
+  if (marketMatched.length > 0) {
     return {
       visiblePresets: marketMatched,
       hasMarketSpecific: true,
@@ -1493,22 +1552,6 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
       hasMarketSpecific: false,
       groupLabel: "No verified local models",
     };
-  }
-
-  const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCounts);
-  if (proxyCodes.length > 0) {
-    const proxyMatched = sortedPresets.filter((preset) => {
-      const markets = normalizeMarketArray(preset.markets);
-      return markets.some((code) => proxyCodes.includes(code));
-    });
-    if (proxyMatched.length > 0) {
-      const proxyLabel = proxyCodes.map((code) => marketLabelFromCode(code)).join(" + ");
-      return {
-        visiblePresets: proxyMatched,
-        hasMarketSpecific: false,
-        groupLabel: `Proxy models (${proxyLabel})`,
-      };
-    }
   }
 
   if (sortedPresets.length > marketGlobal.length) {
@@ -1530,6 +1573,18 @@ function normalizeMarketArray(markets) {
   return [...new Set(markets.map((value) => String(value || "").toUpperCase()).filter(Boolean))];
 }
 
+function dedupePresetsById(presets) {
+  const out = [];
+  const seen = new Set();
+  for (const preset of presets) {
+    const id = String(preset?.id || "");
+    if (!id || seen.has(id)) continue;
+    seen.add(id);
+    out.push(preset);
+  }
+  return out;
+}
+
 function isPresetSourceAllowedForMarket(preset, marketCode) {
   const code = String(marketCode || "").toUpperCase();
   const allowedTokens = MARKET_LOCAL_SOURCE_TOKENS[code];
@@ -1546,6 +1601,20 @@ function isPresetSourceAllowedForMarket(preset, marketCode) {
   const source = String(preset?.source || "").trim().toLowerCase();
   if (!source) return true;
   return allowedTokens.some((token) => source.includes(token));
+}
+
+function collectProxyMatchedPresets(sortedPresets, proxyCodes) {
+  const out = [];
+  const seen = new Set();
+  for (const preset of sortedPresets) {
+    const matched = proxyCodes.some((proxyCode) => isPresetSourceAllowedForMarket(preset, proxyCode));
+    if (!matched) continue;
+    const id = String(preset?.id || "");
+    if (!id || seen.has(id)) continue;
+    seen.add(id);
+    out.push(preset);
+  }
+  return out;
 }
 
 function normalizeMarketPrices(marketPrices) {
@@ -1683,13 +1752,15 @@ function findRecommendedPresetIdForMarket() {
     );
     if (exact) return exact.id;
 
-    if (!hasStrictSourcePolicy) {
-      const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCountsByCode(sorted));
-      for (const proxyCode of proxyCodes) {
-        const proxyMatch = sorted.find((item) => normalizeMarketArray(item.markets).includes(proxyCode));
-        if (proxyMatch) return proxyMatch.id;
+    const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCountsByCode(sorted));
+    if (proxyCodes.length > 0) {
+      const proxyMatched = collectProxyMatchedPresets(sorted, proxyCodes);
+      if (proxyMatched.length > 0) {
+        return proxyMatched[0].id;
       }
-    } else {
+    }
+
+    if (hasStrictSourcePolicy) {
       return null;
     }
   }
@@ -1720,7 +1791,7 @@ async function onPlanSubmit(event) {
 
   clearRoute();
   cancelChargerRender();
-  state.chargerLayer.clearLayers();
+  resetChargerLayer();
 
   try {
     const planInput = parsePlanInput();
@@ -2409,7 +2480,11 @@ function renderChargers(chargers, oneWayRangeKm) {
   const renderToken = state.chargerRenderToken + 1;
   cancelChargerRender();
   state.chargerRenderToken = renderToken;
-  state.chargerLayer.clearLayers();
+  if (!state.chargerLayer) {
+    state.chargerLayer = L.layerGroup().addTo(state.map);
+  } else {
+    state.chargerLayer.clearLayers();
+  }
 
   let index = 0;
   const step = () => {

@@ -992,67 +992,14 @@ function wireEvents() {
     if (btn) onShareBtnClick(btn);
   });
   if (ui.appResetBtn) {
-    ui.appResetBtn.addEventListener("click", resetAppToGroundState);
+    ui.appResetBtn.addEventListener("click", hardRefreshApp);
   }
 }
 
-function resetAppToGroundState() {
-  cancelChargerRender();
-  clearRoute();
-  if (state.chargerLayer) {
-    state.chargerLayer.clearLayers();
-  }
-  if (state.locationMarker && state.map) {
-    state.map.removeLayer(state.locationMarker);
-    state.locationMarker = null;
-  }
-  if (state.oneWayCircle && state.map) {
-    state.map.removeLayer(state.oneWayCircle);
-    state.oneWayCircle = null;
-  }
-  if (state.roundTripCircle && state.map) {
-    state.map.removeLayer(state.roundTripCircle);
-    state.roundTripCircle = null;
-  }
-
-  state.origin = null;
-  state.oneWayRangeKm = 0;
-  state.lastChargers = [];
-  state.lastSubmitMode = "reach";
-  state.lastResolvedQueryKey = "";
-  state.userSelectedCarModel = false;
-  state.marketCode = "GLOBAL";
-  state.marketLabel = "Global";
-  state.marketCluster = "GLOBAL";
-  state.marketClusterLabel = "Global";
-  state.activeCurrency = "USD";
-
-  ui.locationInput.value = "";
-  hideLocationSuggestions();
-  setLocationSelectionHint("Type a city and pick a suggestion to lock country/market.");
-
-  ui.batteryInput.value = "60";
-  ui.socInput.value = "100";
-  ui.efficiencyInput.value = "16";
-  ui.reserveInput.value = "10";
-  ui.providerSelect.value = "auto";
-  ui.verificationProfileSelect.value = "independent";
-  ui.maxResultsInput.value = String(DEFAULT_MAX_RESULTS);
-  onVerificationProfileChange();
-
-  populateCarPresets();
-  ui.carModelSelect.value = "custom";
-  onCarModelChange(false);
-  renderComparisonResults([], "reach");
-  setSummary("<h2>Summary</h2><p>Enter values and compute reach.</p>");
-
-  if (state.map) {
-    state.map.closePopup();
-    state.map.setView(DEFAULT_CENTER, DEFAULT_ZOOM);
-  }
-
-  updateMarketHint();
-  pushUrlState();
+function hardRefreshApp() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("_r", String(Date.now()));
+  window.location.replace(url.toString());
 }
 
 function scheduleMapInvalidate(delayMs = 120) {

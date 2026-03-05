@@ -1,6 +1,5 @@
 window.EV_ADS_CONFIG = {
-  // Set to true after adding valid AdSense IDs below.
-  enabled: false,
-  client: "ca-pub-XXXXXXXXXXXXXXXX",
-  mapFooterSlot: "1234567890",
+  enabled: true,
+  client: "ca-pub-2653530519112130",
+  mapFooterSlot: "7898389749",
 };

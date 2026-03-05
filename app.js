@@ -12,6 +12,9 @@ const FAST_OVERPASS_ENDPOINT_LIMIT = 1;
 const FAST_OVERPASS_ATTEMPTS = 1;
 const GEOCODE_CACHE_LIMIT = 10;
 const CHARGER_QUERY_CACHE_LIMIT = 12;
+const FX_TIMEOUT_MS = 2500;
+const COUNTRY_CURRENCY_TIMEOUT_MS = 1500;
+const FX_CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
 const OVERPASS_ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
@@ -21,6 +24,10 @@ const OVERPASS_ENDPOINTS = [
 const MARKET_LABELS = {
   IN: "India",
   US: "United States",
+};
+const MARKET_CURRENCY_BY_CODE = {
+  IN: "INR",
+  US: "USD",
 };
 const BASE_CAR_PRESETS = [
   { id: "tesla-model-3-rwd", label: "Tesla Model 3 RWD", batteryKwh: 60, efficiency: 13.5, reserve: 10 },
@@ -121,6 +128,9 @@ const state = {
   userSelectedCarModel: false,
   geocodeCache: new Map(),
   chargerQueryCache: new Map(),
+  fxByCurrency: new Map(),
+  currencyByMarket: new Map(Object.entries(MARKET_CURRENCY_BY_CODE)),
+  activeCurrency: "USD",
   lastResolvedQueryKey: "",
 };
 
@@ -639,6 +649,7 @@ async function onPlanSubmit(event) {
     state.origin = origin;
     state.lastVerificationProfile = planInput.verificationProfile;
     inferAndApplyMarket(origin);
+    const fxLoadPromise = ensureMarketCurrencyRate(state.marketCode);
 
     let chargers = [];
     let visibleChargers = [];
@@ -690,6 +701,7 @@ async function onPlanSubmit(event) {
     if (visibleChargers.length > 0) {
       renderChargers(visibleChargers, effectiveRangeKm);
     }
+    await fxLoadPromise.catch(() => {});
     renderComparisonResults(compareRows, submitMode);
     renderSummary(
       origin,
@@ -1405,6 +1417,78 @@ function verificationLabel(value) {
   return "Independent parties (community/open data)";
 }
 
+async function resolveMarketCurrencyCode(code) {
+  const marketCode = String(code || "").toUpperCase();
+  if (!marketCode) return "USD";
+  const cached = state.currencyByMarket.get(marketCode);
+  if (cached) return cached;
+  if (!/^[A-Z]{2}$/.test(marketCode)) return "USD";
+
+  try {
+    const response = await fetchWithTimeout(
+      `https://restcountries.com/v3.1/alpha/${encodeURIComponent(marketCode)}?fields=currencies`,
+      {},
+      COUNTRY_CURRENCY_TIMEOUT_MS
+    );
+    if (!response.ok) {
+      throw new Error("Country currency lookup failed");
+    }
+    const payload = await response.json();
+    const record = Array.isArray(payload) ? payload[0] : payload;
+    const currencies = record?.currencies;
+    const currencyCode = currencies ? Object.keys(currencies)[0] : "";
+    const normalized = String(currencyCode || "").toUpperCase();
+    if (/^[A-Z]{3}$/.test(normalized)) {
+      state.currencyByMarket.set(marketCode, normalized);
+      return normalized;
+    }
+  } catch {
+    // Fallback to USD below.
+  }
+  return "USD";
+}
+
+async function ensureMarketCurrencyRate(marketCode) {
+  const currency = await resolveMarketCurrencyCode(marketCode);
+  state.activeCurrency = currency;
+  if (currency === "USD") return 1;
+
+  const cached = state.fxByCurrency.get(currency);
+  if (cached && Date.now() - cached.fetchedAt < FX_CACHE_TTL_MS) {
+    return cached.rate;
+  }
+
+  try {
+    const response = await fetchWithTimeout(
+      `https://api.frankfurter.app/latest?from=USD&to=${encodeURIComponent(currency)}`,
+      {},
+      FX_TIMEOUT_MS
+    );
+    if (!response.ok) {
+      throw new Error("FX lookup failed");
+    }
+    const payload = await response.json();
+    const rate = Number(payload?.rates?.[currency]);
+    if (!Number.isFinite(rate) || rate <= 0) {
+      throw new Error("Invalid FX rate");
+    }
+    state.fxByCurrency.set(currency, { rate, fetchedAt: Date.now() });
+    return rate;
+  } catch {
+    state.activeCurrency = "USD";
+    return 1;
+  }
+}
+
+function currentFxRateForActiveCurrency() {
+  if (state.activeCurrency === "USD") return 1;
+  const cached = state.fxByCurrency.get(state.activeCurrency);
+  if (!cached || Date.now() - cached.fetchedAt >= FX_CACHE_TTL_MS) {
+    return 1;
+  }
+  return cached.rate;
+}
+
 function renderComparisonTable(compareRows) {
   if (!Array.isArray(compareRows) || compareRows.length <= 1) return "";
   const bestIndex = pickBestReachRowIndex(compareRows);
@@ -1419,7 +1503,7 @@ function renderComparisonTable(compareRows) {
           </td>
           <td>${row.oneWayKm.toFixed(1)}</td>
           <td>${row.kmPerKwh.toFixed(2)}</td>
-          <td>${formatUsdPrice(row.priceUsd)}</td>
+          <td>${formatPriceForMarket(row.priceUsd)}</td>
         </tr>
       `;
     })
@@ -1477,9 +1561,20 @@ function pickBestReachRowIndex(compareRows) {
   return bestIndex;
 }
 
-function formatUsdPrice(priceUsd) {
+function formatPriceForMarket(priceUsd) {
   if (!Number.isFinite(priceUsd)) return "N/A";
-  return `$${Number(priceUsd).toLocaleString("en-US")}`;
+  const rate = currentFxRateForActiveCurrency();
+  const currency = state.activeCurrency || "USD";
+  const amount = Number(priceUsd) * rate;
+  try {
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  } catch {
+    return `$${Number(priceUsd).toLocaleString("en-US")}`;
+  }
 }
 
 function clearRoute() {

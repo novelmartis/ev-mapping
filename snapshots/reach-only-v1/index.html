@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EV Mapping</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="controls-panel">
+        <h1>EV Mapping</h1>
+        <p class="subtitle">
+          Estimate one-way and round-trip range, then inspect nearby charging options.
+        </p>
+
+        <form id="planner-form" class="planner-form">
+          <section class="quick-card">
+            <label for="car-model">EV model</label>
+            <select id="car-model" name="car-model">
+              <option value="custom" selected>Custom (manual values)</option>
+            </select>
+            <p id="car-hint" class="hint">Pick a model to auto-fill battery and efficiency.</p>
+            <p id="market-hint" class="hint">Market: Auto (set after location lookup)</p>
+
+            <label for="location">Start location</label>
+            <div class="location-row">
+              <input
+                id="location"
+                name="location"
+                type="text"
+                placeholder="City, address, or landmark"
+              />
+              <button id="use-location" type="button">Use my GPS</button>
+            </div>
+
+            <div class="action-row">
+              <button id="plan-btn" type="submit">Compute Reach</button>
+              <span class="hint">Default assumptions: 100% charge, round-trip shown.</span>
+            </div>
+          </section>
+
+          <details class="advanced-panel">
+            <summary>Advanced Settings</summary>
+            <div class="grid advanced-grid">
+              <label for="battery-kwh">Battery capacity (kWh)</label>
+              <input
+                id="battery-kwh"
+                name="battery-kwh"
+                type="number"
+                min="1"
+                step="0.1"
+                value="60"
+                required
+              />
+
+              <label for="soc">Current charge (%)</label>
+              <input id="soc" name="soc" type="number" min="1" max="100" value="100" required />
+
+              <label for="efficiency">Consumption (kWh/100 km)</label>
+              <input
+                id="efficiency"
+                name="efficiency"
+                type="number"
+                min="5"
+                step="0.1"
+                value="16"
+                required
+              />
+
+              <label for="reserve">Battery reserve (%)</label>
+              <input
+                id="reserve"
+                name="reserve"
+                type="number"
+                min="0"
+                max="50"
+                value="10"
+                required
+              />
+
+              <label for="provider">Charging data source</label>
+              <select id="provider" name="provider">
+                <option value="auto">Auto (merge OpenChargeMap + Overpass)</option>
+                <option value="openchargemap">OpenChargeMap only</option>
+                <option value="overpass">OpenStreetMap Overpass only</option>
+              </select>
+
+              <label for="verification-profile">Reach verification profile</label>
+              <select id="verification-profile" name="verification-profile">
+                <option value="independent">Independent parties (community/open data)</option>
+                <option value="official">Official channels (conservative)</option>
+              </select>
+              <p class="hint">
+                Official mode applies a conservative reach buffer and prefers official/provider-curated
+                feeds.
+              </p>
+
+              <label for="max-results">Max chargers fetched (API cap)</label>
+              <input
+                id="max-results"
+                name="max-results"
+                type="number"
+                min="20"
+                max="500"
+                step="10"
+                value="220"
+              />
+              <p class="hint">Higher cap can surface more stations, but may be slower.</p>
+            </div>
+          </details>
+        </form>
+
+        <section id="summary" class="summary">
+          <h2>Summary</h2>
+          <p>Enter values and plan to see estimated range and charger reachability.</p>
+        </section>
+
+        <p class="note">
+          Uses open data providers and public APIs. Results are estimates and may vary with weather,
+          speed, terrain, and traffic.
+        </p>
+      </section>
+
+      <section class="map-panel">
+        <div id="map" aria-label="Reachability map"></div>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

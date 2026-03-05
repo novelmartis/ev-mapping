@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-03-05T10:30:57Z",
+  "market": "US + manual",
+  "source": "fueleconomy.gov + manual presets",
+  "count": 3,
+  "presets": [
+    {
+      "id": "mahindra-be6-59",
+      "label": "Mahindra BE 6 (59 kWh)",
+      "batteryKwh": 59.0,
+      "efficiency": 15.8,
+      "reserve": 10,
+      "markets": [
+        "IN"
+      ],
+      "source": "manual"
+    },
+    {
+      "id": "mahindra-be6-79",
+      "label": "Mahindra BE 6 (79 kWh)",
+      "batteryKwh": 79.0,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "IN"
+      ],
+      "source": "manual"
+    },
+    {
+      "id": "mahindra-xev-9e-79",
+      "label": "Mahindra XEV 9e (79 kWh)",
+      "batteryKwh": 79.0,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "IN"
+      ],
+      "source": "manual"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+# EV Mapping
+
+> Free, open-source EV range estimator and charging station finder — plan your EV trip with live open data.
+
+EV Mapping answers one core question: "How far can I go from here with this EV?" It plots one-way and round-trip reach circles on an interactive map and shows nearby charging stations — all in the browser, no login required.
+
+## Features
+
+- Range circles on an interactive OpenStreetMap map (outer = one-way, inner = round-trip)
+- 640+ EV model presets with auto-fill (battery kWh, efficiency) sourced from fueleconomy.gov
+- Market-aware preset grouping: US, India, and Global
+- Nearby charger discovery via OpenChargeMap + OpenStreetMap Overpass (merged, de-duplicated)
+- Car comparison: benchmark up to 3 EVs on range and charger availability side-by-side
+- Route planning: click any charger pin for real road distance and drive time (OSRM)
+- Verification profiles: Independent (open data, wider coverage) vs Official (conservative, curated feeds)
+- GPS location support via browser geolocation
+- URL-based state sharing — share a specific EV setup via link
+- Recent location history (localStorage)
+- Installable as a PWA (offline-capable)
+
+## URL Parameters (for sharing and deep-linking)
+
+- `car` — EV preset ID (e.g. `tesla-model-3-rwd`, `2025-ford-mustang-mach-e`)
+- `loc` — Start location string (e.g. `San Francisco, CA`)
+- `soc` — State of charge % (default: `100`)
+- `batt` — Battery kWh, for custom mode only
+- `eff` — Consumption kWh/100km, for custom mode only
+- `res` — Battery reserve % (default: `10`)
+- `src` — Data source: `auto` | `openchargemap` | `overpass` (default: `auto`)
+- `vp` — Verification profile: `independent` | `official` (default: `independent`)
+
+## Data Sources
+
+- [OpenChargeMap](https://openchargemap.org) — global EV charging station registry
+- [OpenStreetMap Overpass](https://overpass-api.de) — community-mapped charging stations
+- [fueleconomy.gov](https://www.fueleconomy.gov) — US EV efficiency data (2025–2026)
+- [Nominatim](https://nominatim.openstreetmap.org) — geocoding (OpenStreetMap)
+- [OSRM](https://project-osrm.org) — open-source road routing
+
+## Tech Stack
+
+- Plain HTML + CSS + JavaScript (ES modules, no framework, no build step)
+- [Leaflet](https://leafletjs.com) for map rendering
+- Static site — deployable to Netlify, Vercel, GitHub Pages, S3+CloudFront
+- Service worker for offline-first caching
+
+## Key Files
+
+- `index.html` — app shell and UI markup
+- `app.js` — all client logic (map, charger fetch, range calc, URL state, share)
+- `styles.css` — layout and visual design
+- `data/car-presets.generated.json` — periodically synced EV catalog
+- `data/car-presets.manual.json` — manual presets (India-specific and other non-US models)
+- `scripts/sync_car_presets.py` — catalog sync script (fueleconomy.gov → JSON)
+- `sw.js` — service worker for offline support
+
+## Limitations
+
+- Range is an estimate; real-world range varies with speed, terrain, weather, and driving style
+- Charger data comes from public APIs — coverage varies by region and may lag real-world availability
+- Public APIs may rate-limit; the app falls back to cached data or shows reach circles without pins

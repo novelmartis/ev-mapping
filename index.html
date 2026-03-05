@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Estimate EV range and find nearby charging stations on an interactive map. Free, open-source, powered by OpenStreetMap." />
+    <meta name="keywords" content="EV range calculator, electric vehicle range, EV charger finder, EV trip planning, electric car range map, charging stations near me" />
+    <meta property="og:title" content="EV Mapping — EV Range &amp; Charger Finder" />
+    <meta property="og:description" content="Plan your EV trip: estimate one-way and round-trip range, find nearby chargers. Free, open-source, no login." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="EV Mapping — EV Range &amp; Charger Finder" />
+    <meta name="twitter:description" content="Estimate EV range and map nearby charging stations. Free, open-source." />
+    <meta name="theme-color" content="#00677b" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <link rel="manifest" href="./manifest.json" />
+    <title>EV Mapping — EV Range &amp; Charger Finder</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "EV Mapping",
+      "description": "Estimate EV range and find nearby charging stations on an interactive map. Free, open-source.",
+      "applicationCategory": "TravelApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": "EV range estimation, charging station finder, 640+ EV presets, car comparison, route planning, URL sharing"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="controls-panel">
+        <h1><svg class="brand-bolt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z"/></svg>EV Mapping</h1>
+        <p class="subtitle">
+          Estimate one-way and round-trip range, then inspect nearby charging options.
+        </p>
+
+        <form id="planner-form" class="planner-form">
+          <section class="quick-card">
+            <label for="car-model">EV model</label>
+            <select id="car-model" name="car-model">
+              <option value="custom" selected>Custom (manual values)</option>
+            </select>
+            <p id="car-hint" class="hint">Pick a model to auto-fill battery and efficiency.</p>
+            <p id="market-hint" class="hint">Market: Auto (set after location lookup)</p>
+
+            <label for="location">Start location</label>
+            <div class="location-row">
+              <input
+                id="location"
+                name="location"
+                type="text"
+                placeholder="City, address, or landmark"
+                list="location-history"
+                autocomplete="off"
+              />
+              <datalist id="location-history"></datalist>
+              <button id="use-location" type="button">Use my GPS</button>
+            </div>
+
+            <div class="action-row">
+              <button id="plan-btn" type="submit">Compute Reach</button>
+              <span class="hint">Default assumptions: 100% charge, round-trip shown.</span>
+            </div>
+          </section>
+
+          <details class="advanced-panel">
+            <summary>Advanced Settings</summary>
+            <div class="grid advanced-grid">
+              <label for="battery-kwh">Battery capacity (kWh)</label>
+              <input
+                id="battery-kwh"
+                name="battery-kwh"
+                type="number"
+                min="1"
+                step="0.1"
+                value="60"
+                required
+              />
+
+              <label for="soc">Current charge (%)</label>
+              <input id="soc" name="soc" type="number" min="1" max="100" value="100" required />
+
+              <label for="efficiency">Consumption (kWh/100 km)</label>
+              <input
+                id="efficiency"
+                name="efficiency"
+                type="number"
+                min="5"
+                step="0.1"
+                value="16"
+                required
+              />
+
+              <label for="reserve">Battery reserve (%)</label>
+              <input
+                id="reserve"
+                name="reserve"
+                type="number"
+                min="0"
+                max="50"
+                value="10"
+                required
+              />
+
+              <label for="provider">Charging data source</label>
+              <select id="provider" name="provider">
+                <option value="auto">Auto (merge OpenChargeMap + Overpass)</option>
+                <option value="openchargemap">OpenChargeMap only</option>
+                <option value="overpass">OpenStreetMap Overpass only</option>
+              </select>
+
+              <label for="verification-profile">Reach verification profile</label>
+              <select id="verification-profile" name="verification-profile">
+                <option value="independent">Independent parties (community/open data)</option>
+                <option value="official">Official channels (conservative)</option>
+              </select>
+              <p class="hint">
+                Official mode applies a conservative reach buffer and prefers official/provider-curated
+                feeds.
+              </p>
+
+              <label for="max-results">Max chargers fetched (API cap)</label>
+              <input
+                id="max-results"
+                name="max-results"
+                type="number"
+                min="20"
+                max="500"
+                step="10"
+                value="220"
+              />
+              <p class="hint">Higher cap can surface more stations, but may be slower.</p>
+
+              <section id="summary" class="summary compact-summary" role="status" aria-live="polite" aria-atomic="false">
+                <h2>Summary</h2>
+                <p>Enter values and compute reach.</p>
+              </section>
+            </div>
+          </details>
+
+          <details class="compare-panel">
+            <summary>Car Comparison (Optional)</summary>
+            <label for="compare-cars">Select up to 3 cars</label>
+            <select id="compare-cars" name="compare-cars" multiple size="5"></select>
+            <p class="hint">
+              Secondary view: benchmark one-way/round-trip reach and charger availability.
+            </p>
+            <div class="compare-actions">
+              <button id="compare-btn" type="submit">Compare Cars</button>
+            </div>
+            <div id="compare-results" class="compare-results">
+              <p class="hint">Press Compare Cars to view side-by-side results.</p>
+            </div>
+          </details>
+        </form>
+
+        <p class="note">
+          Uses open data providers and public APIs. Results are estimates and may vary with weather,
+          speed, terrain, and traffic.
+        </p>
+      </section>
+
+      <section class="map-panel">
+        <div id="map" aria-label="Reachability map"></div>
+        <aside class="ad-slot ad-slot-map" aria-label="Sponsored placement">
+          <p class="ad-label">Sponsored</p>
+          <div class="ad-placeholder">Map footer ad slot (recommended: 728x90 or responsive)</div>
+        </aside>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

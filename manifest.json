@@ -1,0 +1,18 @@
+{
+  "name": "EV Mapping",
+  "short_name": "EV Mapping",
+  "description": "EV range estimator and charging station finder. Free, open-source.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f2f7ff",
+  "theme_color": "#00677b",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["travel", "utilities", "navigation"]
+}

@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# LLM crawlers — see /llms.txt for a structured project description
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemap: https://yoursite.com/sitemap.xml

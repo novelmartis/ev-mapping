@@ -112,6 +112,7 @@ Guardrails included:
 
 - User guide: [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
 - Technical backend notes: [`docs/TECHNICAL_BACKEND.md`](docs/TECHNICAL_BACKEND.md)
+- Code-to-behavior map: [`docs/CODE_MAP.md`](docs/CODE_MAP.md)
 
 ## Unit Tests
 

@@ -16,7 +16,9 @@ It is optimized for:
 
 1. Open the app.
 2. Select your `EV model`.
-3. Set your `Start location` (type an address or click `Use my GPS`).
+3. Set your `Start location`:
+   - Type at least 2 letters and pick a suggestion from the dropdown, or
+   - Click `Use my GPS`.
 4. Click `Compute Reach`.
 
 Defaults are tuned for quick checks:
@@ -24,6 +26,10 @@ Defaults are tuned for quick checks:
 - `Current charge`: 100%
 - Range map shows both one-way (outer) and round-trip (inner) reach
 - Chargers displayed as simple pins inside one-way reach
+
+Location tip:
+
+- Selecting a suggestion immediately locks city/country context and speeds up market detection.
 
 ## Reading the map
 
@@ -65,6 +71,12 @@ What happens:
 - Charger data comes from open/public APIs and coverage varies by location.
 - If providers are slow/down, the app still renders reach circles and shows warnings.
 - If a previous successful fetch exists nearby, cached chargers may be shown as fallback.
+
+## Market behavior
+
+- If your country has direct market catalog coverage (for example `US`, `IN`), the EV dropdown shows that market's models.
+- If your country does not have direct catalog coverage yet, the app uses a proxy market strategy and labels it in the market hint text.
+- This prevents cross-region mixing from random sources while still keeping worldwide usability.
 
 ## Tips for better results
 

@@ -10,6 +10,10 @@ This project has a static frontend and a lightweight data-sync backend.
 
 There is no always-on API server required for core app functionality.
 
+For a direct function/constant-to-behavior index, see:
+
+- `docs/CODE_MAP.md`
+
 ## Data flow
 
 1. User loads static app.
@@ -81,7 +85,7 @@ python3 -m unittest discover -s tests -p "test_*.py" -v
 Recommended production setup:
 
 1. Host static app on Vercel (or equivalent static host).
-2. Run catalog sync daily via GitHub Actions/cron.
+2. Run catalog sync every 12 hours via GitHub Actions/cron.
 3. Validate catalog integrity and anti-regression thresholds before publish.
 4. Commit updated `data/car-presets.generated.json` only when checks pass.
 

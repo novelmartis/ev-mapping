@@ -37,10 +37,92 @@ const OVERPASS_ENDPOINTS = [
 const MARKET_LABELS = {
   IN: "India",
   US: "United States",
+  SG: "Singapore",
+  CN: "China",
 };
 const MARKET_CURRENCY_BY_CODE = {
   IN: "INR",
   US: "USD",
+};
+const CORE_MARKET_CODES = new Set(["US", "IN"]);
+const MARKET_CLUSTER_LABELS = {
+  GLOBAL: "Global",
+  NA: "North America",
+  LATAM: "Latin America",
+  EU: "Europe",
+  SA: "South Asia",
+  SEA: "Southeast Asia",
+  EA: "East Asia",
+  MEA: "Middle East & Africa",
+  OC: "Oceania",
+};
+const MARKET_CLUSTER_BY_COUNTRY = {
+  US: "NA",
+  CA: "NA",
+  MX: "LATAM",
+  BR: "LATAM",
+  AR: "LATAM",
+  CL: "LATAM",
+  CO: "LATAM",
+  PE: "LATAM",
+  GB: "EU",
+  IE: "EU",
+  DE: "EU",
+  FR: "EU",
+  ES: "EU",
+  IT: "EU",
+  NL: "EU",
+  BE: "EU",
+  PT: "EU",
+  NO: "EU",
+  SE: "EU",
+  FI: "EU",
+  DK: "EU",
+  CH: "EU",
+  AT: "EU",
+  PL: "EU",
+  CZ: "EU",
+  HU: "EU",
+  RO: "EU",
+  IN: "SA",
+  PK: "SA",
+  BD: "SA",
+  LK: "SA",
+  NP: "SA",
+  SG: "SEA",
+  TH: "SEA",
+  MY: "SEA",
+  ID: "SEA",
+  PH: "SEA",
+  VN: "SEA",
+  CN: "EA",
+  JP: "EA",
+  KR: "EA",
+  TW: "EA",
+  HK: "EA",
+  AE: "MEA",
+  SA: "MEA",
+  QA: "MEA",
+  KW: "MEA",
+  OM: "MEA",
+  BH: "MEA",
+  IL: "MEA",
+  EG: "MEA",
+  MA: "MEA",
+  ZA: "MEA",
+  AU: "OC",
+  NZ: "OC",
+};
+const MARKET_PROXY_BY_CLUSTER = {
+  GLOBAL: ["US"],
+  NA: ["US"],
+  LATAM: ["US"],
+  EU: ["US"],
+  SA: ["IN", "US"],
+  SEA: ["US"],
+  EA: ["US"],
+  MEA: ["US"],
+  OC: ["US"],
 };
 const BASE_CAR_PRESETS = [
   { id: "tesla-model-3-rwd", label: "Tesla Model 3 RWD", batteryKwh: 60, efficiency: 13.5, reserve: 10 },
@@ -160,6 +242,8 @@ const state = {
   lastSubmitMode: "reach",
   marketCode: "GLOBAL",
   marketLabel: "Global",
+  marketCluster: "GLOBAL",
+  marketClusterLabel: "Global",
   marketCatalogMode: "All models",
   catalogSource: "Built-in",
   catalogCount: BASE_CAR_PRESETS.length,
@@ -783,7 +867,6 @@ function wireEvents() {
   ui.locationInput.addEventListener("keydown", onLocationInputKeydown);
   if (ui.locationSuggestions) {
     ui.locationSuggestions.addEventListener("mousedown", onLocationSuggestionPointerDown);
-    ui.locationSuggestions.addEventListener("click", onLocationSuggestionPointerDown);
   }
   ui.verificationProfileSelect.addEventListener("change", onVerificationProfileChange);
   document.querySelectorAll(".controls-panel details").forEach((details) => {
@@ -1051,6 +1134,7 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
 
   const marketMatched = [];
   const marketGlobal = [];
+  const marketCounts = marketCountsByCode(sortedPresets);
 
   for (const preset of sortedPresets) {
     const markets = normalizeMarketArray(preset.markets);
@@ -1068,6 +1152,23 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
       groupLabel: "Available models",
     };
   }
+
+  const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCounts);
+  if (proxyCodes.length > 0 && !CORE_MARKET_CODES.has(state.marketCode)) {
+    const proxyMatched = sortedPresets.filter((preset) => {
+      const markets = normalizeMarketArray(preset.markets);
+      return markets.some((code) => proxyCodes.includes(code));
+    });
+    if (proxyMatched.length > 0) {
+      const proxyLabel = proxyCodes.map((code) => marketLabelFromCode(code)).join(" + ");
+      return {
+        visiblePresets: proxyMatched,
+        hasMarketSpecific: false,
+        groupLabel: `Proxy models (${proxyLabel})`,
+      };
+    }
+  }
+
   if (sortedPresets.length > marketGlobal.length) {
     return {
       visiblePresets: sortedPresets,
@@ -1120,12 +1221,45 @@ function marketLabelFromCode(code) {
   return code;
 }
 
+function marketClusterForCountry(code) {
+  const normalized = String(code || "").toUpperCase();
+  return MARKET_CLUSTER_BY_COUNTRY[normalized] || "GLOBAL";
+}
+
+function marketCountsByCode(presets) {
+  const counts = new Map();
+  for (const preset of presets) {
+    for (const code of normalizeMarketArray(preset.markets)) {
+      counts.set(code, (counts.get(code) || 0) + 1);
+    }
+  }
+  return counts;
+}
+
+function proxyMarketCodesForCountry(code, counts) {
+  const cluster = marketClusterForCountry(code);
+  const preferred = MARKET_PROXY_BY_CLUSTER[cluster] || MARKET_PROXY_BY_CLUSTER.GLOBAL;
+  const available = [];
+  for (const marketCode of preferred) {
+    if ((counts.get(marketCode) || 0) > 0) {
+      available.push(marketCode);
+      break;
+    }
+  }
+  return {
+    cluster,
+    codes: available,
+  };
+}
+
 function inferAndApplyMarket(origin) {
   const shouldAutoInferModel = !state.userSelectedCarModel && ui.carModelSelect.value === "custom";
   const code = String(origin?.countryCode || "").toUpperCase();
   if (!code) {
     state.marketCode = "GLOBAL";
     state.marketLabel = "Global";
+    state.marketCluster = "GLOBAL";
+    state.marketClusterLabel = "Global";
     populateCarPresets();
     updateMarketHint();
     if (shouldAutoInferModel) {
@@ -1136,6 +1270,8 @@ function inferAndApplyMarket(origin) {
 
   state.marketCode = code;
   state.marketLabel = marketLabelFromCode(code);
+  state.marketCluster = marketClusterForCountry(code);
+  state.marketClusterLabel = MARKET_CLUSTER_LABELS[state.marketCluster] || state.marketCluster;
   populateCarPresets();
   updateMarketHint(origin.countryName || "");
   ensureMarketCurrencyRate(code).catch(() => {});
@@ -1146,8 +1282,12 @@ function inferAndApplyMarket(origin) {
 
 function updateMarketHint(countryName = "") {
   const countryText = countryName ? ` (${countryName})` : "";
+  const clusterText =
+    state.marketCode === "GLOBAL"
+      ? ""
+      : ` Cluster: ${state.marketClusterLabel}.`;
   ui.marketHint.textContent =
-    `Market: ${state.marketLabel}${countryText}. Showing: ${state.marketCatalogMode}. Catalog: ${state.catalogCount} presets (${state.catalogSource}).`;
+    `Market: ${state.marketLabel}${countryText}.${clusterText} Showing: ${state.marketCatalogMode}. Catalog: ${state.catalogCount} presets (${state.catalogSource}).`;
 }
 
 function autoInferModelForMarket() {
@@ -1168,6 +1308,14 @@ function findRecommendedPresetIdForMarket() {
   if (state.marketCode !== "GLOBAL") {
     const exact = sorted.find((item) => normalizeMarketArray(item.markets).includes(state.marketCode));
     if (exact) return exact.id;
+
+    const { codes: proxyCodes } = proxyMarketCodesForCountry(state.marketCode, marketCountsByCode(sorted));
+    if (!CORE_MARKET_CODES.has(state.marketCode)) {
+      for (const proxyCode of proxyCodes) {
+        const proxyMatch = sorted.find((item) => normalizeMarketArray(item.markets).includes(proxyCode));
+        if (proxyMatch) return proxyMatch.id;
+      }
+    }
   }
   const global = sorted.find((item) => normalizeMarketArray(item.markets).length === 0);
   if (global) return global.id;

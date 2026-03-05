@@ -91,6 +91,8 @@ h1 {
 }
 
 .quick-card {
+  position: relative;
+  z-index: 6;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: #fff;
@@ -114,6 +116,8 @@ h1 {
 }
 
 .advanced-panel {
+  position: relative;
+  z-index: 2;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: #fff;
@@ -143,6 +147,7 @@ h1 {
 
 .location-autocomplete {
   position: relative;
+  z-index: 18;
   min-width: 0;
 }
 

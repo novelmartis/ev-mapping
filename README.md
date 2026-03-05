@@ -55,7 +55,7 @@ For migration from Netlify:
 1. Point your custom domain to Vercel in your DNS provider (remove old Netlify DNS records first).
 2. Remove the site from Netlify once DNS is serving the Vercel deployment.
 
-After this, pushes to `main` (including the daily catalog sync workflow commits) will auto-deploy on Vercel.
+After this, pushes to `main` (including the scheduled catalog sync workflow commits) will auto-deploy on Vercel.
 
 ## Car Catalog Sync
 
@@ -67,8 +67,15 @@ This lets you refresh market availability and pricing automatically instead of m
 Generate/update catalog:
 
 ```bash
-python3 scripts/sync_car_presets.py --from-year 2025 --to-year 2026
-python3 scripts/validate_car_catalog.py --catalog data/car-presets.generated.json
+python3 scripts/sync_car_presets.py \
+  --from-year 2025 \
+  --to-year 2026 \
+  --min-market-preset US=300 \
+  --min-market-preset IN=20
+python3 scripts/validate_car_catalog.py \
+  --catalog data/car-presets.generated.json \
+  --min-market-preset US=300 \
+  --min-market-preset IN=20
 ```
 
 If live API access is unavailable, the script still succeeds using manual presets only.
@@ -89,6 +96,7 @@ Guardrails included:
 
 - schema + integrity validation (`scripts/validate_car_catalog.py`)
 - anti-regression checks against previous catalog snapshot
+- per-market minimum count checks (`--min-market-preset`) for emerging-market resilience
 - minimum preset count, market coverage, and price coverage checks in CI
 - fallback-to-last-good behavior when live sources fail or become suspicious
 
@@ -131,13 +139,13 @@ To enable ads:
    - set `mapFooterSlot` to your ad slot ID
 2. Replace placeholder publisher ID in `ads.txt`.
 
-## Automated Daily Catalog Refresh
+## Automated Catalog Refresh
 
 A GitHub Actions workflow is included at:
 
 - `.github/workflows/sync-car-presets.yml`
 
-It runs daily and on manual trigger, regenerates `data/car-presets.generated.json`, and commits only when:
+It runs every 12 hours and on manual trigger, regenerates `data/car-presets.generated.json`, runs unit tests, and commits only when:
 
 - the file changed, and
 - catalog validation and anti-regression checks pass.

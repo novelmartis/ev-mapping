@@ -104,8 +104,8 @@ class SyncCarPresetsTests(unittest.TestCase):
 
         self.assertGreaterEqual(len(presets), 2)
         ids = {item["id"] for item in presets}
-        self.assertIn("mahindra-be-6-in", ids)
-        mahindra = next(item for item in presets if item["id"] == "mahindra-be-6-in")
+        self.assertIn("mahindra-be-6", ids)
+        mahindra = next(item for item in presets if item["id"] == "mahindra-be-6")
         self.assertEqual(mahindra["markets"], ["IN"])
         self.assertIn("priceUsd", mahindra)
         self.assertIn("marketPrices", mahindra)
@@ -143,6 +143,45 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertEqual(merged[0]["priceUsd"], 39000)
         self.assertEqual(merged[0]["priceSource"], "manual")
 
+    def test_merge_presets_canonicalizes_india_suffix_ids(self):
+        presets = [
+            {
+                "id": "bmw-i4-in",
+                "label": "BMW i4",
+                "batteryKwh": 83.9,
+                "efficiency": 18.8,
+                "reserve": 10,
+                "markets": ["IN"],
+            },
+            {
+                "id": "bmw-i4",
+                "label": "BMW i4",
+                "batteryKwh": 83.9,
+                "efficiency": 18.8,
+                "reserve": 10,
+                "markets": ["IN"],
+                "marketPrices": {
+                    "IN": {
+                        "amount": 7245000,
+                        "currency": "INR",
+                        "source": "cardekho.com",
+                        "updatedAt": "2026-03-05",
+                    }
+                },
+            },
+        ]
+        merged = sync.merge_presets(presets)
+        self.assertEqual(len(merged), 1)
+        self.assertEqual(merged[0]["id"], "bmw-i4")
+        self.assertEqual(merged[0]["markets"], ["IN"])
+        self.assertIn("marketPrices", merged[0])
+
+    def test_parse_market_minimums_uses_defaults_and_overrides(self):
+        minimums = sync.parse_market_minimums(["IN=25", "US=320", "bad", "JP=abc"])
+        self.assertEqual(minimums["IN"], 25)
+        self.assertEqual(minimums["US"], 320)
+        self.assertEqual(minimums.get("JP"), None)
+
     def test_main_falls_back_to_manual_when_live_sync_fails(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
@@ -168,6 +207,7 @@ class SyncCarPresetsTests(unittest.TestCase):
                 manual_file="data/car-presets.manual.json",
                 out="data/car-presets.generated.json",
                 sleep_ms=0,
+                min_market_preset=["US=0", "IN=0"],
             )
             with patch.object(sync, "parse_args", return_value=args), patch.object(
                 sync, "collect_us_ev_presets", side_effect=Exception("network down")
@@ -197,6 +237,7 @@ class SyncCarPresetsTests(unittest.TestCase):
                 manual_file="data/car-presets.manual.json",
                 out="data/car-presets.generated.json",
                 sleep_ms=0,
+                min_market_preset=["US=0", "IN=0"],
             )
             with patch.object(sync, "parse_args", return_value=args), patch.object(
                 sync, "collect_us_ev_presets", return_value=[]

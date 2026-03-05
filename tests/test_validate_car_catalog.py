@@ -95,6 +95,10 @@ class ValidateCatalogTests(unittest.TestCase):
         )
         self.assertEqual(stats["marketBuckets"].get("GLOBAL"), 1)
 
+    def test_parse_market_minimums(self):
+        parsed = validate.parse_market_minimums(["IN=20", "US=300", "bad", "EU=abc"])
+        self.assertEqual(parsed, {"IN": 20, "US": 300})
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -40,6 +40,7 @@ DEFAULT_MIN_PRESET_COUNT = 50
 DEFAULT_MAX_COUNT_DROP_RATIO = 0.45
 DEFAULT_MIN_PRICE_COVERAGE = 0.03
 DEFAULT_FX_TIMEOUT_MS = 3000
+DEFAULT_MIN_MARKET_PRESETS = {"US": 300, "IN": 20}
 
 # Conservative static fallback rates, used only when online FX lookup fails.
 FALLBACK_USD_RATE_BY_CURRENCY = {
@@ -106,6 +107,15 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=DEFAULT_FX_TIMEOUT_MS,
         help="Timeout for FX conversion lookups for manual regional price entries.",
+    )
+    parser.add_argument(
+        "--min-market-preset",
+        action="append",
+        default=[],
+        help=(
+            "Per-market minimum count guardrail in CODE=COUNT format. "
+            "Can be passed multiple times."
+        ),
     )
     return parser.parse_args()
 
@@ -242,6 +252,33 @@ def normalize_market_array(markets: Any) -> list[str]:
         if code and code not in out:
             out.append(code)
     return out
+
+
+def parse_market_minimums(values: list[str] | None) -> dict[str, int]:
+    out = dict(DEFAULT_MIN_MARKET_PRESETS)
+    for raw in values or []:
+        text = str(raw or "").strip()
+        if not text:
+            continue
+        code, sep, count_text = text.partition("=")
+        code = code.strip().upper()
+        count = parse_float(count_text.strip()) if sep else None
+        if not sep or not re.fullmatch(r"[A-Z]{2}", code) or count is None:
+            continue
+        count_int = int(count)
+        if count_int < 0:
+            continue
+        out[code] = count_int
+    return out
+
+
+def canonical_car_id(raw_id: str, markets: list[str]) -> str:
+    car_id = str(raw_id or "").strip()
+    if not car_id:
+        return ""
+    if car_id.endswith("-in") and "IN" in markets and "US" not in markets:
+        return car_id[:-3]
+    return car_id
 
 
 def normalize_vehicle_key(make: str, model: str) -> str:
@@ -513,7 +550,9 @@ def merge_presets(*groups: list[dict[str, Any]], fx: FxResolver | None = None) -
     merged: dict[str, dict[str, Any]] = {}
     for group in groups:
         for item in group:
-            car_id = str(item.get("id", "")).strip()
+            raw_id = str(item.get("id", "")).strip()
+            markets = normalize_market_array(item.get("markets"))
+            car_id = canonical_car_id(raw_id, markets)
             if not car_id:
                 continue
             battery = parse_float(str(item.get("batteryKwh", "")))
@@ -528,7 +567,7 @@ def merge_presets(*groups: list[dict[str, Any]], fx: FxResolver | None = None) -
                 "batteryKwh": round1(battery),
                 "efficiency": round1(efficiency),
                 "reserve": int(reserve) if reserve is not None else 10,
-                "markets": normalize_market_array(item.get("markets")),
+                "markets": markets,
             }
 
             price_usd = normalize_price_usd(item, fx)
@@ -611,6 +650,12 @@ def html_to_lines(raw_html: str) -> list[str]:
     return [line for line in lines if line]
 
 
+def strip_html_tags(raw_html: str) -> str:
+    text = re.sub(r"<[^>]+>", " ", raw_html)
+    text = html.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def collect_india_ev_presets(fx: FxResolver) -> list[dict[str, Any]]:
     req = urllib.request.Request(
         CARDEKHO_IN_ELECTRIC_URL,
@@ -619,39 +664,33 @@ def collect_india_ev_presets(fx: FxResolver) -> list[dict[str, Any]]:
     with urllib.request.urlopen(req, timeout=30) as resp:
         page = resp.read().decode("utf-8", errors="ignore")
 
-    lines = html_to_lines(page)
     by_id: dict[str, dict[str, Any]] = {}
 
-    for idx, line in enumerate(lines):
-        if not looks_like_vehicle_label(line):
-            continue
-        if idx + 2 >= len(lines):
-            continue
+    card_pattern = re.compile(
+        r'<a[^>]*class="[^"]*\btitle\b[^"]*"[^>]*>(?P<name>[^<]+)</a>.*?'
+        r'<div class="price">(?P<price_html>.*?)</div>.*?'
+        r'<div class="dotlist[^"]*">(?P<spec_html>.*?)</div>',
+        flags=re.IGNORECASE | re.DOTALL,
+    )
 
-        price_line = lines[idx + 1]
-        spec_line = lines[idx + 2]
-        if "Rs" not in price_line:
-            continue
-        if "km" not in spec_line.lower() or "kwh" not in spec_line.lower():
-            continue
-
-        battery_kwh = parse_battery_kwh(spec_line)
-        range_km = parse_range_km(spec_line)
-        price_inr = parse_inr_amount(price_line)
+    def try_add_entry(model: str, price_text: str, spec_text: str) -> None:
+        if not model:
+            return
+        battery_kwh = parse_battery_kwh(spec_text)
+        range_km = parse_range_km(spec_text)
+        price_inr = parse_inr_amount(price_text)
         if battery_kwh is None or range_km is None or range_km <= 0:
-            continue
+            return
 
         efficiency = (battery_kwh / range_km) * 100
         efficiency = min(35.0, max(10.0, efficiency))
-        battery_kwh = min(220.0, max(20.0, battery_kwh))
-
-        model = line.strip()
-        model_id = slugify(f"{model}-in")
+        battery_kwh_normalized = min(220.0, max(20.0, battery_kwh))
+        model_id = slugify(model)
 
         preset: dict[str, Any] = {
             "id": model_id,
-            "label": model,
-            "batteryKwh": round1(battery_kwh),
+            "label": model.strip(),
+            "batteryKwh": round1(battery_kwh_normalized),
             "efficiency": round1(efficiency),
             "reserve": 10,
             "markets": ["IN"],
@@ -672,7 +711,33 @@ def collect_india_ev_presets(fx: FxResolver) -> list[dict[str, Any]]:
                 }
             }
 
+        existing = by_id.get(model_id)
+        if existing:
+            existing_battery = parse_float(str(existing.get("batteryKwh", ""))) or 0.0
+            if battery_kwh_normalized < existing_battery:
+                return
         by_id[model_id] = preset
+
+    for match in card_pattern.finditer(page):
+        model = html.unescape(match.group("name") or "").strip()
+        price_text = strip_html_tags(match.group("price_html") or "")
+        spec_text = strip_html_tags(match.group("spec_html") or "")
+        try_add_entry(model, price_text, spec_text)
+
+    # Fallback parser path for layout shifts.
+    lines = html_to_lines(page)
+    for idx, line in enumerate(lines):
+        if not looks_like_vehicle_label(line):
+            continue
+        if idx + 2 >= len(lines):
+            continue
+        price_line = lines[idx + 1]
+        spec_line = lines[idx + 2]
+        if "Rs" not in price_line:
+            continue
+        if "km" not in spec_line.lower() or "kwh" not in spec_line.lower():
+            continue
+        try_add_entry(line.strip(), price_line, spec_line)
 
     return sorted(by_id.values(), key=lambda x: x["label"])
 
@@ -712,6 +777,7 @@ def validate_candidate_catalog(
     min_preset_count: int,
     max_count_drop_ratio: float,
     min_price_coverage: float,
+    min_market_presets: dict[str, int] | None = None,
 ) -> CatalogValidation:
     errors: list[str] = []
     warnings: list[str] = []
@@ -747,6 +813,12 @@ def validate_candidate_catalog(
         )
 
     current_stats = catalog_stats(presets)
+    for market_code, market_min in (min_market_presets or {}).items():
+        if current_stats["markets"].get(market_code, 0) < max(0, int(market_min)):
+            errors.append(
+                f"Catalog {market_code} market count too low: "
+                f"{current_stats['markets'].get(market_code, 0)} < {max(0, int(market_min))}."
+            )
     if current_stats["priceCoverage"] < max(0.0, float(min_price_coverage)):
         warnings.append(
             "Low price coverage: "
@@ -817,6 +889,7 @@ def main() -> int:
     max_count_drop_ratio = float(getattr(args, "max_count_drop_ratio", DEFAULT_MAX_COUNT_DROP_RATIO))
     min_price_coverage = float(getattr(args, "min_price_coverage", DEFAULT_MIN_PRICE_COVERAGE))
     fx_timeout_ms = int(getattr(args, "fx_timeout_ms", DEFAULT_FX_TIMEOUT_MS))
+    min_market_presets = parse_market_minimums(getattr(args, "min_market_preset", []))
 
     if from_year > to_year:
         print("--from-year must be <= --to-year", file=sys.stderr)
@@ -869,6 +942,7 @@ def main() -> int:
         min_preset_count=min_preset_count,
         max_count_drop_ratio=max_count_drop_ratio,
         min_price_coverage=min_price_coverage,
+        min_market_presets=min_market_presets,
     )
 
     for warning in validation.warnings:

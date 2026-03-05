@@ -15,9 +15,8 @@ const CHARGER_QUERY_CACHE_LIMIT = 12;
 const FX_TIMEOUT_MS = 2500;
 const COUNTRY_CURRENCY_TIMEOUT_MS = 1500;
 const FX_CACHE_TTL_MS = 12 * 60 * 60 * 1000;
-const CATALOG_FETCH_TIMEOUT_MS = 5000;
 const CATALOG_CACHE_TTL_MS = 14 * 24 * 60 * 60 * 1000;
-const CATALOG_CACHE_KEY = "ev-mapping-catalog-cache-v1";
+const CATALOG_CACHE_KEY = "ev-mapping-catalog-cache-v2";
 const FX_CACHE_KEY = "ev-mapping-fx-cache-v1";
 const CURRENCY_CACHE_KEY = "ev-mapping-market-currency-cache-v1";
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
@@ -595,9 +594,9 @@ function onVerificationProfileChange() {
 async function loadGeneratedCarCatalog() {
   const cached = readCatalogFromStorage();
   try {
-    const response = await fetchWithTimeout("./data/car-presets.generated.json", {
+    const response = await fetch("./data/car-presets.generated.json", {
       cache: "no-store",
-    }, CATALOG_FETCH_TIMEOUT_MS);
+    });
     if (!response.ok) {
       return cached;
     }
@@ -661,10 +660,59 @@ function mergeCarPresets(basePresets, generatedPresets) {
       priceUsd: Number.isFinite(priceUsdValue) ? Math.round(priceUsdValue) : null,
       marketPrices,
     };
-    mergedById.set(normalized.id, normalized);
+    const canonicalId = canonicalPresetId(normalized.id, normalized.markets);
+    const existing = mergedById.get(canonicalId);
+    if (!existing || shouldReplacePreset(existing, normalized)) {
+      mergedById.set(canonicalId, {
+        ...normalized,
+        id: canonicalId,
+      });
+    }
   }
 
-  return Array.from(mergedById.values());
+  return Array.from(mergedById.values()).sort((a, b) => {
+    const labelCompare = a.label.localeCompare(b.label);
+    if (labelCompare !== 0) return labelCompare;
+    return a.id.localeCompare(b.id);
+  });
+}
+
+function canonicalPresetId(id, markets) {
+  const raw = String(id || "").trim();
+  if (!raw) return raw;
+  const normalizedMarkets = normalizeMarketArray(markets);
+  if (
+    raw.endsWith("-in") &&
+    normalizedMarkets.includes("IN") &&
+    !normalizedMarkets.includes("US")
+  ) {
+    return raw.slice(0, -3);
+  }
+  return raw;
+}
+
+function shouldReplacePreset(existing, candidate) {
+  const existingMarketPricesCount = Object.keys(existing?.marketPrices || {}).length;
+  const candidateMarketPricesCount = Object.keys(candidate?.marketPrices || {}).length;
+  if (candidateMarketPricesCount !== existingMarketPricesCount) {
+    return candidateMarketPricesCount > existingMarketPricesCount;
+  }
+
+  const existingHasUsdPrice = Number.isFinite(Number(existing?.priceUsd));
+  const candidateHasUsdPrice = Number.isFinite(Number(candidate?.priceUsd));
+  if (candidateHasUsdPrice !== existingHasUsdPrice) {
+    return candidateHasUsdPrice;
+  }
+
+  const existingMarketCount = normalizeMarketArray(existing?.markets).length;
+  const candidateMarketCount = normalizeMarketArray(candidate?.markets).length;
+  if (candidateMarketCount !== existingMarketCount) {
+    return candidateMarketCount > existingMarketCount;
+  }
+
+  const existingBattery = Number(existing?.batteryKwh);
+  const candidateBattery = Number(candidate?.batteryKwh);
+  return Number.isFinite(candidateBattery) && candidateBattery > existingBattery;
 }
 
 function appendPresetOptions(parent, presets) {

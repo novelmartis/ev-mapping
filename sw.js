@@ -1,5 +1,5 @@
-const STATIC_CACHE = "ev-mapping-static-v3";
-const RUNTIME_CACHE = "ev-mapping-runtime-v3";
+const STATIC_CACHE = "ev-mapping-static-v4";
+const RUNTIME_CACHE = "ev-mapping-runtime-v4";
 const PRECACHE = [
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const PRECACHE = [
   "./styles.css",
   "./icon.svg",
   "./manifest.json",
+  "./data/car-presets.generated.json",
   "./ads-config.js",
   "./ads.js",
   "./ads.txt",
@@ -34,6 +35,7 @@ self.addEventListener("activate", (event) => {
 
 function isNetworkFirstPath(pathname) {
   if (pathname === "/" || pathname.endsWith(".html")) return true;
+  if (pathname === "/app.js") return true;
   if (pathname === "/data/car-presets.generated.json") return true;
   return false;
 }

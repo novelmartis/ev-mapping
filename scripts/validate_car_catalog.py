@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 from pathlib import Path
 from typing import Any
 
@@ -40,6 +41,15 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=2,
         help="Minimum number of market buckets (including GLOBAL when markets[] is empty).",
+    )
+    parser.add_argument(
+        "--min-market-preset",
+        action="append",
+        default=[],
+        help=(
+            "Per-market minimum count guardrail in CODE=COUNT format. "
+            "Can be passed multiple times."
+        ),
     )
     return parser.parse_args()
 
@@ -77,6 +87,24 @@ def parse_float(value: Any) -> float | None:
     if not math.isfinite(parsed):
         return None
     return parsed
+
+
+def parse_market_minimums(values: list[str] | None) -> dict[str, int]:
+    out: dict[str, int] = {}
+    for raw in values or []:
+        text = str(raw or "").strip()
+        if not text:
+            continue
+        code, sep, count_text = text.partition("=")
+        code = code.strip().upper()
+        count = parse_float(count_text.strip()) if sep else None
+        if not sep or not re.fullmatch(r"[A-Z]{2}", code) or count is None:
+            continue
+        count_int = int(count)
+        if count_int < 0:
+            continue
+        out[code] = count_int
+    return out
 
 
 def catalog_stats(presets: list[dict[str, Any]]) -> dict[str, Any]:
@@ -172,6 +200,14 @@ def main() -> int:
             "current: market bucket coverage too low "
             f"({len(current_stats['marketBuckets'])} < {max(1, args.min_market_count)})"
         )
+    min_market_presets = parse_market_minimums(args.min_market_preset)
+    for market_code, market_min in min_market_presets.items():
+        current_count = current_stats["marketBuckets"].get(market_code, 0)
+        if current_count < max(0, int(market_min)):
+            errors.append(
+                f"current: {market_code} market count too low "
+                f"({current_count} < {max(0, int(market_min))})"
+            )
 
     if previous_path and previous_path.exists():
         previous_payload = load_payload(previous_path)

@@ -2,7 +2,7 @@ name: Sync EV Car Presets
 
 on:
   schedule:
-    - cron: "30 2 * * *"
+    - cron: "30 */12 * * *"
   workflow_dispatch:
 
 permissions:
@@ -39,7 +39,13 @@ jobs:
             --to-year 2026 \
             --min-preset-count 50 \
             --min-price-coverage 0.03 \
-            --max-count-drop-ratio 0.45
+            --max-count-drop-ratio 0.45 \
+            --min-market-preset US=300 \
+            --min-market-preset IN=20
+
+      - name: Run unit tests for catalog scripts
+        run: |
+          python3 -m unittest discover -s tests -p "test_*.py" -v
 
       - name: Validate catalog integrity and anti-regression guardrails
         run: |
@@ -49,7 +55,9 @@ jobs:
             --min-count 50 \
             --min-price-coverage 0.03 \
             --min-market-count 2 \
-            --max-drop-ratio 0.45
+            --max-drop-ratio 0.45 \
+            --min-market-preset US=300 \
+            --min-market-preset IN=20
 
       - name: Commit and push if changed
         run: |

@@ -21,6 +21,7 @@ const CATALOG_CACHE_KEY = "ev-mapping-catalog-cache-v1";
 const FX_CACHE_KEY = "ev-mapping-fx-cache-v1";
 const CURRENCY_CACHE_KEY = "ev-mapping-market-currency-cache-v1";
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
+const MARKER_RENDER_BATCH_SIZE = 24;
 const REGION_DISPLAY_NAMES =
   typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function"
     ? new Intl.DisplayNames(undefined, { type: "region" })
@@ -145,6 +146,8 @@ const state = {
   routeLayer: null,
   mapResizeObserver: null,
   mapResizeTimer: null,
+  chargerRenderToken: 0,
+  chargerRenderHandle: 0,
   origin: null,
   oneWayRangeKm: 0,
   lastChargers: [],
@@ -555,6 +558,7 @@ function populateCompareCarOptions() {
 
   const sorted = [...carPresets].sort((a, b) => a.label.localeCompare(b.label));
   const { visiblePresets } = visiblePresetsForCurrentMarket(sorted);
+  const fragment = document.createDocumentFragment();
 
   for (const preset of visiblePresets) {
     if (preset.id === currentCarId) continue;
@@ -562,8 +566,9 @@ function populateCompareCarOptions() {
     option.value = preset.id;
     option.textContent = preset.label;
     option.selected = selectedBefore.includes(preset.id);
-    ui.compareCarsSelect.append(option);
+    fragment.append(option);
   }
+  ui.compareCarsSelect.append(fragment);
 
   onCompareCarsChange();
 }
@@ -663,12 +668,14 @@ function mergeCarPresets(basePresets, generatedPresets) {
 }
 
 function appendPresetOptions(parent, presets) {
+  const fragment = document.createDocumentFragment();
   for (const preset of presets) {
     const option = document.createElement("option");
     option.value = preset.id;
     option.textContent = preset.label;
-    parent.append(option);
+    fragment.append(option);
   }
+  parent.append(fragment);
 }
 
 function appendPresetOptgroup(parent, label, presets) {
@@ -772,9 +779,7 @@ function inferAndApplyMarket(origin) {
   state.marketLabel = marketLabelFromCode(code);
   populateCarPresets();
   updateMarketHint(origin.countryName || "");
-  ensureMarketCurrencyRate(code)
-    .then(() => populateCarPresets())
-    .catch(() => {});
+  ensureMarketCurrencyRate(code).catch(() => {});
   if (shouldAutoInferModel) {
     autoInferModelForMarket();
   }
@@ -830,6 +835,7 @@ async function onPlanSubmit(event) {
   );
 
   clearRoute();
+  cancelChargerRender();
   state.chargerLayer.clearLayers();
 
   try {
@@ -899,9 +905,10 @@ async function onPlanSubmit(event) {
     state.lastChargers = chargers;
     if (visibleChargers.length > 0) {
       renderChargers(visibleChargers, effectiveRangeKm);
+    } else {
+      cancelChargerRender();
     }
     await fxLoadPromise.catch(() => {});
-    populateCarPresets();
     renderComparisonResults(compareRows, submitMode);
     renderSummary(
       origin,
@@ -1484,26 +1491,52 @@ function filterVisibleChargers(chargers, oneWayRangeKm) {
   });
 }
 
+function cancelChargerRender() {
+  state.chargerRenderToken += 1;
+  if (state.chargerRenderHandle) {
+    cancelAnimationFrame(state.chargerRenderHandle);
+    state.chargerRenderHandle = 0;
+  }
+}
+
+function addChargerMarker(charger, oneWayRangeKm) {
+  const distanceKm = haversineDistanceKm(state.origin.lat, state.origin.lon, charger.lat, charger.lon);
+  const status = getReachabilityStatus(distanceKm, oneWayRangeKm);
+  const marker = L.marker([charger.lat, charger.lon], { title: charger.name });
+
+  marker.bindPopup(makePopupHtml(charger, distanceKm, status));
+  marker.on("click", () => {
+    routeToCharger(charger, oneWayRangeKm);
+  });
+  marker.on("popupclose", () => {
+    clearRoute();
+    if (state.lastPlanSummaryHtml) {
+      setSummary(state.lastPlanSummaryHtml);
+    }
+  });
+  marker.addTo(state.chargerLayer);
+}
+
 function renderChargers(chargers, oneWayRangeKm) {
+  const renderToken = state.chargerRenderToken + 1;
+  cancelChargerRender();
+  state.chargerRenderToken = renderToken;
   state.chargerLayer.clearLayers();
 
-  chargers.forEach((charger) => {
-    const distanceKm = haversineDistanceKm(state.origin.lat, state.origin.lon, charger.lat, charger.lon);
-    const status = getReachabilityStatus(distanceKm, oneWayRangeKm);
-    const marker = L.marker([charger.lat, charger.lon], { title: charger.name });
-
-    marker.bindPopup(makePopupHtml(charger, distanceKm, status));
-    marker.on("click", () => {
-      routeToCharger(charger, oneWayRangeKm);
-    });
-    marker.on("popupclose", () => {
-      clearRoute();
-      if (state.lastPlanSummaryHtml) {
-        setSummary(state.lastPlanSummaryHtml);
-      }
-    });
-    marker.addTo(state.chargerLayer);
-  });
+  let index = 0;
+  const step = () => {
+    if (renderToken !== state.chargerRenderToken) return;
+    const end = Math.min(index + MARKER_RENDER_BATCH_SIZE, chargers.length);
+    for (; index < end; index += 1) {
+      addChargerMarker(chargers[index], oneWayRangeKm);
+    }
+    if (index < chargers.length) {
+      state.chargerRenderHandle = requestAnimationFrame(step);
+    } else {
+      state.chargerRenderHandle = 0;
+    }
+  };
+  state.chargerRenderHandle = requestAnimationFrame(step);
 }
 
 function makePopupHtml(charger, distanceKm, status) {

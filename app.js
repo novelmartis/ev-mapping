@@ -70,7 +70,15 @@ const BASE_CAR_PRESETS = [
   { id: "audi-q4-etron", label: "Audi Q4 e-tron", batteryKwh: 82, efficiency: 19.2, reserve: 10 },
   { id: "mercedes-eqe-350", label: "Mercedes EQE 350+", batteryKwh: 90.6, efficiency: 18.8, reserve: 10 },
   { id: "porsche-taycan-4s", label: "Porsche Taycan 4S", batteryKwh: 93.4, efficiency: 22.0, reserve: 10 },
-  { id: "mg-zs-ev", label: "MG ZS EV", batteryKwh: 50.3, efficiency: 16.7, reserve: 10 },
+  {
+    id: "mg-zs-ev",
+    label: "MG ZS EV",
+    batteryKwh: 50.3,
+    efficiency: 16.7,
+    reserve: 10,
+    markets: ["IN"],
+    priceUsd: 21700,
+  },
   {
     id: "mahindra-be6-59",
     label: "Mahindra BE 6 (59 kWh)",
@@ -78,6 +86,7 @@ const BASE_CAR_PRESETS = [
     efficiency: 15.8,
     reserve: 10,
     markets: ["IN"],
+    priceUsd: 22800,
   },
   {
     id: "mahindra-be6-79",
@@ -86,8 +95,17 @@ const BASE_CAR_PRESETS = [
     efficiency: 16.4,
     reserve: 10,
     markets: ["IN"],
+    priceUsd: 32400,
   },
-  { id: "byd-atto-3", label: "BYD Atto 3", batteryKwh: 60.5, efficiency: 16.8, reserve: 10 },
+  {
+    id: "byd-atto-3",
+    label: "BYD Atto 3",
+    batteryKwh: 60.5,
+    efficiency: 16.8,
+    reserve: 10,
+    markets: ["IN"],
+    priceUsd: 30100,
+  },
   {
     id: "tata-nexon-ev",
     label: "Tata Nexon EV",
@@ -95,6 +113,7 @@ const BASE_CAR_PRESETS = [
     efficiency: 15.9,
     reserve: 10,
     markets: ["IN"],
+    priceUsd: 15000,
   },
   {
     id: "tata-punch-ev-lr",
@@ -103,6 +122,7 @@ const BASE_CAR_PRESETS = [
     efficiency: 14.8,
     reserve: 10,
     markets: ["IN"],
+    priceUsd: 15600,
   },
 ];
 let carPresets = [...BASE_CAR_PRESETS];
@@ -389,34 +409,18 @@ function populateCarPresets() {
   const previousSelection = ui.carModelSelect.value || "custom";
   ui.carModelSelect.length = 1;
   const sorted = [...carPresets].sort((a, b) => a.label.localeCompare(b.label));
-  const marketMatched = [];
-  const marketGlobal = [];
-  const otherMarkets = [];
-
-  for (const preset of sorted) {
-    const markets = normalizeMarketArray(preset.markets);
-    if (state.marketCode === "GLOBAL") {
-      marketGlobal.push(preset);
-      continue;
-    }
-    if (markets.length === 0) {
-      marketGlobal.push(preset);
-    } else if (markets.includes(state.marketCode)) {
-      marketMatched.push(preset);
-    } else {
-      otherMarkets.push(preset);
-    }
-  }
+  const { visiblePresets, hasMarketSpecific } = visiblePresetsForCurrentMarket(sorted);
 
   if (state.marketCode === "GLOBAL") {
-    appendPresetOptions(ui.carModelSelect, marketGlobal);
+    appendPresetOptions(ui.carModelSelect, visiblePresets);
   } else {
     appendPresetOptgroup(
       ui.carModelSelect,
-      `Recommended in ${state.marketLabel}`,
-      [...marketMatched, ...marketGlobal]
+      hasMarketSpecific
+        ? `Recommended in ${state.marketLabel}`
+        : "Global presets (market-specific catalog unavailable)",
+      visiblePresets
     );
-    appendPresetOptgroup(ui.carModelSelect, "Other markets", otherMarkets);
   }
 
   if ([...ui.carModelSelect.options].some((option) => option.value === previousSelection)) {
@@ -461,35 +465,13 @@ function populateCompareCarOptions() {
   ui.compareCarsSelect.length = 0;
 
   const sorted = [...carPresets].sort((a, b) => a.label.localeCompare(b.label));
-  const marketMatched = [];
-  const marketGlobal = [];
-  const otherMarkets = [];
+  const { visiblePresets } = visiblePresetsForCurrentMarket(sorted);
 
-  for (const preset of sorted) {
-    const markets = normalizeMarketArray(preset.markets);
-    if (state.marketCode === "GLOBAL") {
-      marketGlobal.push(preset);
-      continue;
-    }
-    if (markets.length === 0) {
-      marketGlobal.push(preset);
-    } else if (markets.includes(state.marketCode)) {
-      marketMatched.push(preset);
-    } else {
-      otherMarkets.push(preset);
-    }
-  }
-
-  const ordered =
-    state.marketCode === "GLOBAL"
-      ? marketGlobal
-      : [...marketMatched, ...marketGlobal, ...otherMarkets];
-
-  for (const preset of ordered) {
+  for (const preset of visiblePresets) {
     if (preset.id === currentCarId) continue;
     const option = document.createElement("option");
     option.value = preset.id;
-    option.textContent = preset.label;
+    option.textContent = presetOptionLabel(preset);
     option.selected = selectedBefore.includes(preset.id);
     ui.compareCarsSelect.append(option);
   }
@@ -558,7 +540,7 @@ function appendPresetOptions(parent, presets) {
   for (const preset of presets) {
     const option = document.createElement("option");
     option.value = preset.id;
-    option.textContent = preset.label;
+    option.textContent = presetOptionLabel(preset);
     parent.append(option);
   }
 }
@@ -569,6 +551,47 @@ function appendPresetOptgroup(parent, label, presets) {
   group.label = label;
   appendPresetOptions(group, presets);
   parent.append(group);
+}
+
+function visiblePresetsForCurrentMarket(sortedPresets) {
+  if (state.marketCode === "GLOBAL") {
+    return { visiblePresets: sortedPresets, hasMarketSpecific: false };
+  }
+
+  const marketMatched = [];
+  const marketGlobal = [];
+
+  for (const preset of sortedPresets) {
+    const markets = normalizeMarketArray(preset.markets);
+    if (markets.includes(state.marketCode)) {
+      marketMatched.push(preset);
+    } else if (markets.length === 0) {
+      marketGlobal.push(preset);
+    }
+  }
+
+  if (marketMatched.length > 0) {
+    return {
+      visiblePresets: marketMatched,
+      hasMarketSpecific: true,
+    };
+  }
+
+  if (marketGlobal.length === 0) {
+    return {
+      visiblePresets: sortedPresets,
+      hasMarketSpecific: false,
+    };
+  }
+
+  return {
+    visiblePresets: marketGlobal,
+    hasMarketSpecific: false,
+  };
+}
+
+function presetOptionLabel(preset) {
+  return `${preset.label} (${formatPriceForMarket(preset.priceUsd)})`;
 }
 
 function normalizeMarketArray(markets) {
@@ -725,6 +748,7 @@ async function onPlanSubmit(event) {
       renderChargers(visibleChargers, effectiveRangeKm);
     }
     await fxLoadPromise.catch(() => {});
+    populateCarPresets();
     renderComparisonResults(compareRows, submitMode);
     renderSummary(
       origin,

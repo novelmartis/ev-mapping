@@ -10,7 +10,8 @@ A lightweight web app that estimates EV reachability from your current battery s
 - Infers market from resolved location/GPS on the client and auto-selects a recommended model preset.
 - Computes estimated one-way range and round-trip radius.
 - Visualizes reachability rings on a map (`Reach`: one-way outer ring, round-trip inner ring).
-- Uses pin markers for known charging stations inside your one-way reach zone.
+- Uses pin markers for known charging stations and labels whether they are round-trip, one-way, or outside one-way reach.
+- If none are inside one-way reach, the map can still show nearest nearby chargers as fallback context.
 - Supports verification profiles:
   - `Independent parties`: wider open-data coverage
   - `Official channels`: conservative reach estimate + official/provider-curated source preference
@@ -19,6 +20,7 @@ A lightweight web app that estimates EV reachability from your current battery s
   - OpenStreetMap Overpass API
   - Auto mode merges both sources and de-duplicates nearby duplicates
 - Lets you click a charger and estimate road distance/time via OSRM routing.
+- Clicking the `EV Mapping` title performs a hard refresh of the app.
 
 ## Stack
 
@@ -163,6 +165,7 @@ Guardrails included:
 - Compute Reach is optimized to render reach circles first, then fill charger pins as providers return.
 - `Max chargers fetched (API cap)` limits retrieval volume (higher values may be slower but improve coverage).
 - In `Official channels` mode, the app avoids overpass-only community queries and prioritizes curated feeds.
+- In `Auto` mode, charger fetch uses a fast parallel pass first, then a slower resilient retry path when providers are transiently unavailable.
 - Range circles are estimates; actual drivable reach depends on terrain, weather, speed, and traffic.
 - Route checks use OSRM road distance, which is more realistic than straight-line marker distance.
 
@@ -198,6 +201,11 @@ To enable ads:
    - set `client` to your `ca-pub-...`
    - set `mapFooterSlot` to your ad slot ID
 2. Replace placeholder publisher ID in `ads.txt`.
+
+Runtime ad behavior:
+
+- Until AdSense serves a filled ad, the slot shows a subtle placeholder image.
+- Once an ad is filled, the placeholder automatically hides.
 
 ## Automated Catalog Refresh
 

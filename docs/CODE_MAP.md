@@ -10,6 +10,10 @@ This document maps runtime behavior directly to the exact code symbols/files.
   - `app.js`
 - UI styling:
   - `styles.css`
+- Ads runtime:
+  - `ads-config.js`
+  - `ads.js`
+  - `ad-placeholder.svg`
 - Offline/cache behavior:
   - `sw.js`
 - Generated catalog data:
@@ -267,6 +271,8 @@ This document maps runtime behavior directly to the exact code symbols/files.
 - Charger fetch strategy in auto mode:
   - `getNearbyChargers(origin, oneWayRangeKm, input)` in `app.js`
   - OpenChargeMap + Overpass fast path runs concurrently via `Promise.allSettled(...)`
+  - Shared merge helper:
+    - `fetchAutoMergedChargers(origin, searchRadiusKm, maxResults, options)` in `app.js`
   - Fast Overpass options:
     - `AUTO_FAST_OVERPASS_TIMEOUT_MS`
     - `FAST_OVERPASS_ENDPOINT_LIMIT`
@@ -274,8 +280,24 @@ This document maps runtime behavior directly to the exact code symbols/files.
     - in `app.js`
   - OCM request timeout:
     - `OCM_TIMEOUT_MS` in `app.js`
+  - Resilient retry path (when both fast providers fail):
+    - `AUTO_RETRY_TIMEOUT_MS`
+    - `AUTO_RETRY_OVERPASS_ATTEMPTS`
+    - `AUTO_RETRY_MIN_RADIUS_KM`
+    - in `app.js`
+- If fetched chargers are all outside one-way reach, nearest nearby chargers are shown as fallback context:
+  - logic in `onPlanSubmit(event)` and `renderSummary(...)` in `app.js`
 
-## 8) What To Edit For Common Changes
+## 8) Title Refresh Behavior
+
+- Top-left title button:
+  - `#app-reset-btn` in `index.html`
+- Runtime handler:
+  - `hardRefreshApp()` in `app.js`
+- Behavior:
+  - App reloads with cache-busting query param (`_r=<timestamp>`).
+
+## 9) What To Edit For Common Changes
 
 - Add a new country classification:
   - update `MARKET_CLUSTER_BY_COUNTRY` in `app.js`
@@ -294,7 +316,7 @@ This document maps runtime behavior directly to the exact code symbols/files.
 - Change dropdown layering:
   - edit z-index rules in `styles.css`
 
-## 9) Test Map
+## 10) Test Map
 
 - Sync + parser + canonicalization tests:
   - `tests/test_sync_car_presets.py`

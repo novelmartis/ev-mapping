@@ -81,11 +81,13 @@ Validation script:
 
 - Overpass uses multiple endpoints + retries.
 - Auto provider mode issues a fast parallel OpenChargeMap + Overpass fetch and deduplicates.
+- If both fast providers fail, auto mode retries with slower but more resilient timeout/endpoint settings.
 - Official profile falls back to curated source behavior.
 - App now uses request timeouts (`fetchWithTimeout`) to avoid hanging.
 - Reach circles render immediately while charger providers resolve, reducing perceived wait time.
 - If charger fetch fails but prior nearby data exists, cached chargers are used.
-- If no cached data exists, reach circles still render without pins with warning text.
+- If chargers are fetched but none are inside one-way reach, nearest nearby chargers are shown as context.
+- If no cached data exists and providers fail, reach circles still render without pins with warning text.
 
 ## Unit tests
 

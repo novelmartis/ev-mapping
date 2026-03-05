@@ -25,7 +25,7 @@ Defaults are tuned for quick checks:
 
 - `Current charge`: 100%
 - Range map shows both one-way (outer) and round-trip (inner) reach
-- Chargers displayed as simple pins inside one-way reach
+- Chargers displayed as simple pins with reachability labels (round-trip, one-way, or outside one-way)
 
 Location tip:
 
@@ -39,6 +39,10 @@ Location tip:
 - Charger pins: known charging stations within one-way reach
 
 Click any pin to view details and estimated road distance.
+
+UI shortcut:
+
+- Clicking `EV Mapping` in the top-left performs a hard refresh of the page.
 
 ## Advanced Settings
 
@@ -71,6 +75,7 @@ What happens:
 - Charger data comes from open/public APIs and coverage varies by location.
 - If providers are slow/down, the app still renders reach circles and shows warnings.
 - If a previous successful fetch exists nearby, cached chargers may be shown as fallback.
+- If no chargers are inside one-way reach, the app may show nearest nearby chargers for context.
 
 ## Market behavior
 

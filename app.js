@@ -665,6 +665,7 @@ async function onPlanSubmit(event) {
         const bestRow = compareRows[bestIndex];
         effectiveRangeKm = bestRow.oneWayKm;
         effectiveVehicleLabel = bestRow.label;
+        syncPrimaryVehicleFromComparison(bestRow);
       }
       visibleChargers = filterVisibleChargers(chargers, effectiveRangeKm);
     } catch (error) {
@@ -678,6 +679,7 @@ async function onPlanSubmit(event) {
           const bestRow = compareRows[bestIndex];
           effectiveRangeKm = bestRow.oneWayKm;
           effectiveVehicleLabel = bestRow.label;
+          syncPrimaryVehicleFromComparison(bestRow);
         }
         visibleChargers = filterVisibleChargers(chargers, effectiveRangeKm);
         warning += " Showing cached chargers from your last successful fetch.";
@@ -688,6 +690,7 @@ async function onPlanSubmit(event) {
           const bestRow = compareRows[bestIndex];
           effectiveRangeKm = bestRow.oneWayKm;
           effectiveVehicleLabel = bestRow.label;
+          syncPrimaryVehicleFromComparison(bestRow);
         }
         warning += " Reach zones are shown without charger pins.";
       }
@@ -740,6 +743,31 @@ function focusMapOnMobile() {
   setTimeout(() => {
     ui.mapElement.focus({ preventScroll: true });
   }, 260);
+}
+
+function syncPrimaryVehicleFromComparison(bestRow) {
+  if (!bestRow || !bestRow.carId) return;
+
+  if (bestRow.carId === "custom") {
+    ui.carModelSelect.value = "custom";
+    if (Number.isFinite(bestRow.batteryKwh)) {
+      ui.batteryInput.value = String(round1(bestRow.batteryKwh));
+    }
+    if (Number.isFinite(bestRow.efficiency)) {
+      ui.efficiencyInput.value = String(round1(bestRow.efficiency));
+    }
+    if (Number.isFinite(bestRow.reserve)) {
+      ui.reserveInput.value = String(Math.round(bestRow.reserve));
+    }
+    ui.carHint.textContent = `Best comparison match now on map: ${bestRow.label}.`;
+    populateCompareCarOptions();
+    return;
+  }
+
+  const hasPresetOption = [...ui.carModelSelect.options].some((option) => option.value === bestRow.carId);
+  if (!hasPresetOption) return;
+  ui.carModelSelect.value = bestRow.carId;
+  onCarModelChange(false);
 }
 
 function parsePlanInput() {
@@ -829,9 +857,13 @@ function buildComparisonRows(planInput, baseOneWayRangeKm) {
   const rows = [
     {
       label: baseLabel,
+      carId: planInput.selectedCarId || "custom",
       oneWayKm: baseOneWayRangeKm,
       kmPerKwh: efficiencyToKmPerKwh(planInput.efficiency),
       priceUsd: Number.isFinite(selectedPreset?.priceUsd) ? selectedPreset.priceUsd : null,
+      batteryKwh: planInput.batteryKwh,
+      efficiency: planInput.efficiency,
+      reserve: planInput.reserve,
       isBase: true,
     },
   ];
@@ -849,9 +881,13 @@ function buildComparisonRows(planInput, baseOneWayRangeKm) {
     });
     rows.push({
       label: preset.label,
+      carId: preset.id,
       oneWayKm,
       kmPerKwh: efficiencyToKmPerKwh(preset.efficiency),
       priceUsd: Number.isFinite(preset.priceUsd) ? preset.priceUsd : null,
+      batteryKwh: preset.batteryKwh,
+      efficiency: preset.efficiency,
+      reserve: preset.reserve,
       isBase: false,
     });
   }

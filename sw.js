@@ -1,36 +1,84 @@
-const CACHE = "ev-mapping-v2";
-const PRECACHE = ["./", "./index.html", "./app.js", "./styles.css", "./icon.svg", "./ads-config.js", "./ads.js", "./ads.txt"];
+const STATIC_CACHE = "ev-mapping-static-v3";
+const RUNTIME_CACHE = "ev-mapping-runtime-v3";
+const PRECACHE = [
+  "./",
+  "./index.html",
+  "./app.js",
+  "./styles.css",
+  "./icon.svg",
+  "./manifest.json",
+  "./ads-config.js",
+  "./ads.js",
+  "./ads.txt",
+];
 
-self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)));
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(PRECACHE)));
   self.skipWaiting();
 });
 
-self.addEventListener("activate", (e) => {
-  e.waitUntil(
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key !== STATIC_CACHE && key !== RUNTIME_CACHE)
+            .map((key) => caches.delete(key))
+        )
+      )
       .then(() => self.clients.claim())
   );
 });
 
-// Network-first for same-origin assets; falls back to cache when offline.
-// Cross-origin requests (APIs, map tiles) are never intercepted.
-self.addEventListener("fetch", (e) => {
-  if (e.request.method !== "GET") return;
-  const url = new URL(e.request.url);
+function isNetworkFirstPath(pathname) {
+  if (pathname === "/" || pathname.endsWith(".html")) return true;
+  if (pathname === "/data/car-presets.generated.json") return true;
+  return false;
+}
+
+async function networkFirst(request) {
+  const cache = await caches.open(RUNTIME_CACHE);
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) {
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch {
+    return (await cache.match(request)) || caches.match(request);
+  }
+}
+
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(STATIC_CACHE);
+  const cached = await cache.match(request);
+  const networkFetch = fetch(request)
+    .then((response) => {
+      if (response && response.ok) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    })
+    .catch(() => null);
+
+  if (cached) {
+    return cached;
+  }
+  const networkResponse = await networkFetch;
+  return networkResponse || Response.error();
+}
+
+self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  e.respondWith(
-    fetch(e.request)
-      .then((response) => {
-        if (response && response.status === 200) {
-          const copy = response.clone();
-          caches.open(CACHE).then((c) => c.put(e.request, copy));
-        }
-        return response;
-      })
-      .catch(() => caches.match(e.request))
-  );
+  if (isNetworkFirstPath(url.pathname)) {
+    event.respondWith(networkFirst(event.request));
+    return;
+  }
+
+  event.respondWith(staleWhileRevalidate(event.request));
 });

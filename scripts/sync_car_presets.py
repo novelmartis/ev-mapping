@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
-"""Generate EV car presets from market data.
+"""Generate EV car presets from market data with production-grade guardrails.
 
-Primary source: fueleconomy.gov WS REST API (US market).
-Manual additions: data/car-presets.manual.json (for models not in the US feed).
+Primary live source: fueleconomy.gov WS REST API (US market).
+Price enrichment: afdc.energy.gov EV downloadable table.
+Regional extensions: manual presets in data/car-presets.manual.json.
+
+Design goals:
+- Never publish a catastrophically degraded catalog when upstream APIs are flaky.
+- Keep a predictable, validated JSON schema for frontend/runtime stability.
+- Allow region-specific manual prices in local currency with automatic USD conversion.
 """
 
 from __future__ import annotations
@@ -11,6 +17,7 @@ import argparse
 import datetime as dt
 import html
 import json
+import math
 import re
 import sys
 import time
@@ -23,10 +30,27 @@ from typing import Any
 
 BASE_URL = "https://www.fueleconomy.gov/ws/rest/vehicle"
 AFDC_DOWNLOAD_URL = "https://afdc.energy.gov/vehicles/search/download"
-USER_AGENT = "ev-mapping-catalog-sync/1.0"
+FRANKFURTER_URL = "https://api.frankfurter.app/latest"
+USER_AGENT = "ev-mapping-catalog-sync/2.0"
 KWH_PER_GALLON_EQUIV = 33.705
 MILES_PER_100KM = 62.137119
 KWH100KM_PER_MPGE = KWH_PER_GALLON_EQUIV * MILES_PER_100KM
+DEFAULT_MIN_PRESET_COUNT = 50
+DEFAULT_MAX_COUNT_DROP_RATIO = 0.45
+DEFAULT_MIN_PRICE_COVERAGE = 0.03
+DEFAULT_FX_TIMEOUT_MS = 3000
+
+# Conservative static fallback rates, used only when online FX lookup fails.
+FALLBACK_USD_RATE_BY_CURRENCY = {
+    "USD": 1.0,
+    "EUR": 1.08,
+    "GBP": 1.27,
+    "INR": 0.012,
+    "JPY": 0.0067,
+    "CNY": 0.14,
+    "AUD": 0.66,
+    "CAD": 0.74,
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -45,10 +69,42 @@ def parse_args() -> argparse.Namespace:
         help="Output JSON path (default: data/car-presets.generated.json)",
     )
     parser.add_argument(
+        "--previous-catalog",
+        default="data/car-presets.generated.json",
+        help=(
+            "Path to previous known-good generated catalog. "
+            "Used as fallback when live sync output looks degraded."
+        ),
+    )
+    parser.add_argument(
         "--sleep-ms",
         type=int,
         default=80,
-        help="Delay between requests to avoid hammering public APIs.",
+        help="Delay between vehicle detail requests to avoid hammering public APIs.",
+    )
+    parser.add_argument(
+        "--min-preset-count",
+        type=int,
+        default=DEFAULT_MIN_PRESET_COUNT,
+        help="Hard minimum preset count for generated output.",
+    )
+    parser.add_argument(
+        "--max-count-drop-ratio",
+        type=float,
+        default=DEFAULT_MAX_COUNT_DROP_RATIO,
+        help="Maximum allowed fractional drop vs previous catalog count.",
+    )
+    parser.add_argument(
+        "--min-price-coverage",
+        type=float,
+        default=DEFAULT_MIN_PRICE_COVERAGE,
+        help="Minimum required share of presets with priceUsd (0..1).",
+    )
+    parser.add_argument(
+        "--fx-timeout-ms",
+        type=int,
+        default=DEFAULT_FX_TIMEOUT_MS,
+        help="Timeout for FX conversion lookups for manual regional price entries.",
     )
     return parser.parse_args()
 
@@ -64,6 +120,16 @@ def request_xml(path: str, params: dict[str, Any] | None = None) -> ET.Element:
     with urllib.request.urlopen(req, timeout=30) as resp:
         payload = resp.read()
     return ET.fromstring(payload)
+
+
+def request_json(url: str, timeout_s: float = 10.0) -> Any:
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=timeout_s) as resp:
+        payload = resp.read().decode("utf-8")
+    return json.loads(payload)
 
 
 def node_text(node: ET.Element, tag: str) -> str:
@@ -83,7 +149,7 @@ def parse_menu_values(root: ET.Element) -> list[str]:
 def parse_float(value: str) -> float | None:
     if value is None:
         return None
-    value = value.strip()
+    value = str(value).strip()
     if not value:
         return None
     try:
@@ -95,13 +161,30 @@ def parse_float(value: str) -> float | None:
 def parse_usd(value: str) -> float | None:
     if value is None:
         return None
-    cleaned = re.sub(r"[^0-9.]", "", value.strip())
+    cleaned = re.sub(r"[^0-9.]", "", str(value).strip())
     if not cleaned:
         return None
     try:
         return float(cleaned)
     except ValueError:
         return None
+
+
+def parse_money_amount(value: Any) -> float | None:
+    if isinstance(value, (int, float)):
+        if math.isfinite(float(value)):
+            return float(value)
+        return None
+    if value is None:
+        return None
+    cleaned = re.sub(r"[^0-9.]", "", str(value).strip())
+    if not cleaned:
+        return None
+    try:
+        amount = float(cleaned)
+    except ValueError:
+        return None
+    return amount if math.isfinite(amount) else None
 
 
 def slugify(text: str) -> str:
@@ -176,6 +259,48 @@ class AfdcEvTableParser(HTMLParser):
             self._cell_buf.append(data)
 
 
+class FxResolver:
+    """Resolve local-currency manual prices into USD with caching + static fallback."""
+
+    def __init__(self, timeout_ms: int = DEFAULT_FX_TIMEOUT_MS) -> None:
+        self.timeout_ms = max(500, int(timeout_ms))
+        self._usd_rate_by_currency: dict[str, float] = {}
+
+    def to_usd(self, amount: float, currency: str) -> float | None:
+        if not math.isfinite(amount) or amount <= 0:
+            return None
+        code = str(currency or "USD").strip().upper() or "USD"
+        rate = self._usd_rate(code)
+        if rate is None or not math.isfinite(rate) or rate <= 0:
+            return None
+        return amount * rate
+
+    def _usd_rate(self, currency: str) -> float | None:
+        if currency in self._usd_rate_by_currency:
+            return self._usd_rate_by_currency[currency]
+
+        if currency == "USD":
+            self._usd_rate_by_currency[currency] = 1.0
+            return 1.0
+
+        timeout_s = max(0.5, self.timeout_ms / 1000.0)
+        try:
+            params = urllib.parse.urlencode({"from": currency, "to": "USD"})
+            payload = request_json(f"{FRANKFURTER_URL}?{params}", timeout_s=timeout_s)
+            rate = parse_float(str(payload.get("rates", {}).get("USD", "")))
+            if rate and rate > 0:
+                self._usd_rate_by_currency[currency] = rate
+                return rate
+        except Exception:
+            pass
+
+        fallback = FALLBACK_USD_RATE_BY_CURRENCY.get(currency)
+        if fallback and fallback > 0:
+            self._usd_rate_by_currency[currency] = fallback
+            return fallback
+        return None
+
+
 def fetch_afdc_ev_prices() -> dict[str, int]:
     """Trusted source: AFDC (US DOE) EV downloadable table with Base MSRP."""
     req = urllib.request.Request(
@@ -242,7 +367,7 @@ def vehicle_to_preset(
         price_key = normalize_vehicle_key(make, model)
         price_usd = afdc_prices_by_make_model.get(price_key)
 
-    preset = {
+    preset: dict[str, Any] = {
         "id": slugify(model_label),
         "label": model_label,
         "batteryKwh": round1(battery_kwh),
@@ -267,7 +392,38 @@ def load_manual_presets(path: Path) -> list[dict[str, Any]]:
     return data
 
 
-def merge_presets(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def load_previous_payload(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if not isinstance(payload.get("presets"), list):
+        return None
+    return payload
+
+
+def normalize_price_usd(item: dict[str, Any], fx: FxResolver) -> int | None:
+    explicit_usd = parse_money_amount(item.get("priceUsd", item.get("price_usd")))
+    if explicit_usd is not None and explicit_usd > 0:
+        return int(round(explicit_usd))
+
+    raw_price = parse_money_amount(item.get("price"))
+    if raw_price is None or raw_price <= 0:
+        return None
+
+    currency = str(item.get("priceCurrency", "USD")).strip().upper() or "USD"
+    usd_value = fx.to_usd(raw_price, currency)
+    if usd_value is None:
+        return None
+    return int(round(usd_value))
+
+
+def merge_presets(*groups: list[dict[str, Any]], fx: FxResolver | None = None) -> list[dict[str, Any]]:
+    fx = fx or FxResolver()
     merged: dict[str, dict[str, Any]] = {}
     for group in groups:
         for item in group:
@@ -279,7 +435,8 @@ def merge_presets(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
             reserve = parse_float(str(item.get("reserve", "10")))
             if battery is None or efficiency is None:
                 continue
-            normalized = {
+
+            normalized: dict[str, Any] = {
                 "id": car_id,
                 "label": str(item.get("label", car_id)).strip() or car_id,
                 "batteryKwh": round1(battery),
@@ -287,15 +444,19 @@ def merge_presets(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "reserve": int(reserve) if reserve is not None else 10,
                 "markets": normalize_market_array(item.get("markets")),
             }
-            price_usd = parse_usd(str(item.get("priceUsd", item.get("price", ""))))
+
+            price_usd = normalize_price_usd(item, fx)
             if price_usd is not None:
-                normalized["priceUsd"] = int(round(price_usd))
+                normalized["priceUsd"] = price_usd
+
             if "priceSource" in item:
                 normalized["priceSource"] = str(item["priceSource"]).strip()
             if "source" in item:
-                normalized["source"] = str(item["source"])
+                normalized["source"] = str(item["source"]).strip()
+
             merged[car_id] = normalized
-    return sorted(merged.values(), key=lambda x: x["label"])
+
+    return sorted(merged.values(), key=lambda x: (x.get("label", ""), x.get("id", "")))
 
 
 def collect_us_ev_presets(from_year: int, to_year: int, sleep_ms: int) -> list[dict[str, Any]]:
@@ -331,47 +492,228 @@ def collect_us_ev_presets(from_year: int, to_year: int, sleep_ms: int) -> list[d
     return sorted(best_by_id.values(), key=lambda x: x["label"])
 
 
+class CatalogValidation:
+    def __init__(self, ok: bool, errors: list[str], warnings: list[str]) -> None:
+        self.ok = ok
+        self.errors = errors
+        self.warnings = warnings
+
+
+def catalog_stats(presets: list[dict[str, Any]]) -> dict[str, Any]:
+    total = len(presets)
+    priced = 0
+    markets: dict[str, int] = {}
+
+    for preset in presets:
+        if isinstance(preset.get("priceUsd"), int):
+            priced += 1
+        listed_markets = normalize_market_array(preset.get("markets"))
+        bucket = listed_markets if listed_markets else ["GLOBAL"]
+        for code in bucket:
+            markets[code] = markets.get(code, 0) + 1
+
+    return {
+        "total": total,
+        "priced": priced,
+        "priceCoverage": round((priced / total), 4) if total else 0.0,
+        "markets": dict(sorted(markets.items())),
+        "marketCount": len(markets),
+    }
+
+
+def validate_candidate_catalog(
+    presets: list[dict[str, Any]],
+    previous_presets: list[dict[str, Any]],
+    min_preset_count: int,
+    max_count_drop_ratio: float,
+    min_price_coverage: float,
+) -> CatalogValidation:
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    if not presets:
+        errors.append("Generated catalog is empty.")
+        return CatalogValidation(ok=False, errors=errors, warnings=warnings)
+
+    seen_ids: set[str] = set()
+    for item in presets:
+        car_id = str(item.get("id", "")).strip()
+        if not car_id:
+            errors.append("Catalog contains preset with empty id.")
+            continue
+        if car_id in seen_ids:
+            errors.append(f"Duplicate preset id detected: {car_id}")
+        seen_ids.add(car_id)
+
+        battery = parse_float(str(item.get("batteryKwh", "")))
+        efficiency = parse_float(str(item.get("efficiency", "")))
+        reserve = parse_float(str(item.get("reserve", "")))
+        if battery is None or battery <= 0:
+            errors.append(f"Invalid batteryKwh for {car_id}: {item.get('batteryKwh')}")
+        if efficiency is None or efficiency <= 0:
+            errors.append(f"Invalid efficiency for {car_id}: {item.get('efficiency')}")
+        if reserve is None or reserve < 0 or reserve > 50:
+            errors.append(f"Invalid reserve for {car_id}: {item.get('reserve')}")
+
+    current_count = len(presets)
+    if current_count < max(1, int(min_preset_count)):
+        errors.append(
+            f"Catalog count too low: {current_count} < minimum {max(1, int(min_preset_count))}."
+        )
+
+    current_stats = catalog_stats(presets)
+    if current_stats["priceCoverage"] < max(0.0, float(min_price_coverage)):
+        warnings.append(
+            "Low price coverage: "
+            f"{current_stats['priceCoverage']:.2%} < configured floor {float(min_price_coverage):.2%}."
+        )
+
+    if previous_presets:
+        previous_count = len(previous_presets)
+        min_allowed = int(previous_count * (1 - max(0.0, float(max_count_drop_ratio))))
+        if current_count < min_allowed:
+            errors.append(
+                "Catalog count dropped too much vs previous snapshot: "
+                f"{current_count} < {min_allowed} (previous={previous_count})."
+            )
+
+        prev_markets = set(catalog_stats(previous_presets)["markets"].keys())
+        curr_markets = set(current_stats["markets"].keys())
+        missing_markets = sorted(m for m in prev_markets if m not in curr_markets)
+        if missing_markets:
+            warnings.append(
+                "Some previously covered market buckets disappeared: " + ", ".join(missing_markets)
+            )
+
+    return CatalogValidation(ok=not errors, errors=errors, warnings=warnings)
+
+
+def build_payload(
+    presets: list[dict[str, Any]],
+    source_label: str,
+    source_tags: list[str],
+    fallback_mode: bool = False,
+    fallback_reason: str = "",
+) -> dict[str, Any]:
+    stats = catalog_stats(presets)
+    payload: dict[str, Any] = {
+        "generatedAt": dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "market": "US + regional manual",
+        "source": source_label,
+        "sources": source_tags,
+        "count": len(presets),
+        "stats": stats,
+        "presets": presets,
+    }
+    if fallback_mode:
+        payload["fallbackMode"] = True
+        payload["fallbackReason"] = fallback_reason
+    return payload
+
+
+def write_payload(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle, indent=2)
+        handle.write("\n")
+
+
 def main() -> int:
     args = parse_args()
-    if args.from_year > args.to_year:
+
+    # Keep backward compatibility with tests that patch older arg namespace shapes.
+    from_year = int(getattr(args, "from_year", dt.date.today().year - 1))
+    to_year = int(getattr(args, "to_year", dt.date.today().year + 1))
+    manual_file = str(getattr(args, "manual_file", "data/car-presets.manual.json"))
+    out_file = str(getattr(args, "out", "data/car-presets.generated.json"))
+    previous_file = str(getattr(args, "previous_catalog", out_file))
+    sleep_ms = int(getattr(args, "sleep_ms", 80))
+    min_preset_count = int(getattr(args, "min_preset_count", 1))
+    max_count_drop_ratio = float(getattr(args, "max_count_drop_ratio", DEFAULT_MAX_COUNT_DROP_RATIO))
+    min_price_coverage = float(getattr(args, "min_price_coverage", DEFAULT_MIN_PRICE_COVERAGE))
+    fx_timeout_ms = int(getattr(args, "fx_timeout_ms", DEFAULT_FX_TIMEOUT_MS))
+
+    if from_year > to_year:
         print("--from-year must be <= --to-year", file=sys.stderr)
         return 1
 
     root = Path.cwd()
-    manual_path = root / args.manual_file
-    out_path = root / args.out
+    manual_path = root / manual_file
+    out_path = root / out_file
+    previous_path = root / previous_file
 
-    print(f"Collecting EV catalog for years {args.from_year}..{args.to_year} ...")
+    previous_payload = load_previous_payload(previous_path)
+    previous_presets = previous_payload.get("presets", []) if previous_payload else []
+
+    print(f"Collecting EV catalog for years {from_year}..{to_year} ...")
+    live_us_error = ""
+    us_presets: list[dict[str, Any]] = []
     try:
-        us_presets = collect_us_ev_presets(args.from_year, args.to_year, args.sleep_ms)
+        us_presets = collect_us_ev_presets(from_year, to_year, sleep_ms)
     except Exception as exc:  # pragma: no cover - network/runtime failures
+        live_us_error = str(exc)
         print(
-            f"Warning: live market sync failed ({exc}). Falling back to manual presets only.",
+            f"Warning: live market sync failed ({exc}). Falling back to manual/previous data.",
             file=sys.stderr,
         )
-        us_presets = []
-    manual_presets = load_manual_presets(manual_path)
-    combined = merge_presets(us_presets, manual_presets)
 
-    if not combined:
-        print("No presets available from API or manual files.", file=sys.stderr)
-        return 1
+    try:
+        manual_presets = load_manual_presets(manual_path)
+    except Exception as exc:
+        print(f"Failed to read manual presets: {exc}", file=sys.stderr)
+        manual_presets = []
 
-    payload = {
-        "generatedAt": dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-        "market": "US + manual",
-        "source": "fueleconomy.gov + manual presets",
-        "count": len(combined),
-        "presets": combined,
-    }
+    fx = FxResolver(timeout_ms=fx_timeout_ms)
+    combined = merge_presets(us_presets, manual_presets, fx=fx)
 
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with out_path.open("w", encoding="utf-8") as handle:
-        json.dump(payload, handle, indent=2)
-        handle.write("\n")
+    validation = validate_candidate_catalog(
+        combined,
+        previous_presets=previous_presets,
+        min_preset_count=min_preset_count,
+        max_count_drop_ratio=max_count_drop_ratio,
+        min_price_coverage=min_price_coverage,
+    )
 
-    print(f"Done. Wrote {len(combined)} presets to {out_path}.")
-    return 0
+    for warning in validation.warnings:
+        print(f"Warning: {warning}", file=sys.stderr)
+
+    if validation.ok:
+        payload = build_payload(
+            combined,
+            source_label="fueleconomy.gov + AFDC + manual presets",
+            source_tags=["fueleconomy.gov", "afdc.energy.gov", "manual-presets"],
+        )
+        write_payload(out_path, payload)
+        print(
+            "Done. "
+            f"Wrote {len(combined)} presets to {out_path}. "
+            f"Price coverage: {payload['stats']['priceCoverage']:.2%}."
+        )
+        return 0
+
+    for error in validation.errors:
+        print(f"Error: {error}", file=sys.stderr)
+
+    if previous_payload and previous_presets:
+        print(
+            "Validation failed; retaining previous known-good catalog snapshot.",
+            file=sys.stderr,
+        )
+        fallback_reason = (
+            "; ".join(validation.errors)
+            + (f"; live sync error: {live_us_error}" if live_us_error else "")
+        )
+        fallback_payload = dict(previous_payload)
+        fallback_payload["fallbackMode"] = True
+        fallback_payload["fallbackReason"] = fallback_reason[:400]
+
+        # Keep file unchanged when out and previous paths are identical to avoid churn commits.
+        if out_path.resolve() != previous_path.resolve():
+            write_payload(out_path, fallback_payload)
+        return 0
+
+    print("No previous catalog available for fallback; failing sync.", file=sys.stderr)
+    return 1
 
 
 if __name__ == "__main__":

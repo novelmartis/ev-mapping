@@ -62,24 +62,34 @@ After this, pushes to `main` (including the daily catalog sync workflow commits)
 The app auto-loads `data/car-presets.generated.json` (if present) and merges it with built-in presets.
 Market detection and model auto-inference happen entirely client-side in the browser after location lookup.
 
-This lets you periodically refresh market availability instead of maintaining a static dropdown.
+This lets you refresh market availability and pricing automatically instead of maintaining a static dropdown.
 
 Generate/update catalog:
 
 ```bash
 python3 scripts/sync_car_presets.py --from-year 2025 --to-year 2026
+python3 scripts/validate_car_catalog.py --catalog data/car-presets.generated.json
 ```
 
 If live API access is unavailable, the script still succeeds using manual presets only.
+If a newly generated catalog looks degraded versus the previous snapshot, sync keeps the last known-good data.
 
 Input sources:
 
-- US market EV list from `fueleconomy.gov` API
-- Manual overrides from `data/car-presets.manual.json` (for region-specific entries like Mahindra)
+- US market EV list/specs from `fueleconomy.gov` API
+- US MSRP enrichment from `afdc.energy.gov`
+- Manual regional overrides from `data/car-presets.manual.json` (including market-specific models and prices)
 
 Output:
 
 - `data/car-presets.generated.json`
+
+Guardrails included:
+
+- schema + integrity validation (`scripts/validate_car_catalog.py`)
+- anti-regression checks against previous catalog snapshot
+- minimum preset count, market coverage, and price coverage checks in CI
+- fallback-to-last-good behavior when live sources fail or become suspicious
 
 ## Notes
 
@@ -129,4 +139,4 @@ A GitHub Actions workflow is included at:
 It runs daily and on manual trigger, regenerates `data/car-presets.generated.json`, and commits only when:
 
 - the file changed, and
-- generated `count` is at least 50 (guard against fallback-only output).
+- catalog validation and anti-regression checks pass.

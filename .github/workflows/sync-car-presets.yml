@@ -28,30 +28,28 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Snapshot previous catalog
+        run: |
+          cp data/car-presets.generated.json /tmp/car-presets.previous.json || true
+
       - name: Regenerate catalog
         run: |
-          python3 scripts/sync_car_presets.py --from-year 2025 --to-year 2026
+          python3 scripts/sync_car_presets.py \
+            --from-year 2025 \
+            --to-year 2026 \
+            --min-preset-count 50 \
+            --min-price-coverage 0.03 \
+            --max-count-drop-ratio 0.45
 
-      - name: Guard against fallback-only catalog
-        env:
-          MIN_PRESET_COUNT: "50"
+      - name: Validate catalog integrity and anti-regression guardrails
         run: |
-          python3 - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
-          path = Path("data/car-presets.generated.json")
-          data = json.loads(path.read_text())
-          count = int(data.get("count", 0))
-          print(f"Catalog count: {count}")
-
-          min_count = int(os.environ["MIN_PRESET_COUNT"])
-          if count < min_count:
-              raise SystemExit(
-                  f"Refusing to commit fallback/suspicious catalog: count={count} < {min_count}"
-              )
-          PY
+          python3 scripts/validate_car_catalog.py \
+            --catalog data/car-presets.generated.json \
+            --previous /tmp/car-presets.previous.json \
+            --min-count 50 \
+            --min-price-coverage 0.03 \
+            --min-market-count 2 \
+            --max-drop-ratio 0.45
 
       - name: Commit and push if changed
         run: |

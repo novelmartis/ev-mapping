@@ -21,13 +21,21 @@ There is no always-on API server required for core app functionality.
 
 Script path:
 
-- `/Users/sushrutthorat/Documents/ev-mapping/scripts/sync_car_presets.py`
+- `scripts/sync_car_presets.py`
 
 Responsibilities:
 
 - Fetch US EV market data from `fueleconomy.gov`.
-- Merge with manual presets from `data/car-presets.manual.json`.
+- Enrich US MSRP from `afdc.energy.gov`.
+- Merge with manual regional presets from `data/car-presets.manual.json`.
+- Normalize local-currency manual prices into `priceUsd`.
+- Validate generated output against anti-regression thresholds.
+- Fall back to previous known-good catalog if fresh output is suspicious/degraded.
 - Write normalized output to `data/car-presets.generated.json`.
+
+Validation script:
+
+- `scripts/validate_car_catalog.py`
 
 ## Fallback strategy
 
@@ -49,7 +57,8 @@ Responsibilities:
 
 Test file:
 
-- `/Users/sushrutthorat/Documents/ev-mapping/tests/test_sync_car_presets.py`
+- `tests/test_sync_car_presets.py`
+- `tests/test_validate_car_catalog.py`
 
 Covered:
 
@@ -69,16 +78,18 @@ python3 -m unittest discover -s tests -p "test_*.py" -v
 
 Recommended production setup:
 
-1. Host static app on Netlify/Vercel/S3+CloudFront/GitHub Pages.
+1. Host static app on Vercel (or equivalent static host).
 2. Run catalog sync daily via GitHub Actions/cron.
-3. Commit or publish updated `data/car-presets.generated.json`.
+3. Validate catalog integrity and anti-regression thresholds before publish.
+4. Commit updated `data/car-presets.generated.json` only when checks pass.
 
 This keeps runtime simple and resilient.
 
 ## Operational guardrails
 
 - Keep `car-presets.manual.json` as a guaranteed minimum catalog.
-- Monitor sync job logs for upstream API failures.
+- Keep `data/car-presets.generated.json` in git as last-known-good fallback.
+- Monitor sync job logs for upstream API failures and fallback mode flags.
 - Keep API caps conservative by default to avoid client-side latency spikes.
 - Expect occasional public API rate limits and keep UX warnings explicit.
 

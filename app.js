@@ -15,7 +15,16 @@ const CHARGER_QUERY_CACHE_LIMIT = 12;
 const FX_TIMEOUT_MS = 2500;
 const COUNTRY_CURRENCY_TIMEOUT_MS = 1500;
 const FX_CACHE_TTL_MS = 12 * 60 * 60 * 1000;
+const CATALOG_FETCH_TIMEOUT_MS = 5000;
+const CATALOG_CACHE_TTL_MS = 14 * 24 * 60 * 60 * 1000;
+const CATALOG_CACHE_KEY = "ev-mapping-catalog-cache-v1";
+const FX_CACHE_KEY = "ev-mapping-fx-cache-v1";
+const CURRENCY_CACHE_KEY = "ev-mapping-market-currency-cache-v1";
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
+const REGION_DISPLAY_NAMES =
+  typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function"
+    ? new Intl.DisplayNames(undefined, { type: "region" })
+    : null;
 const OVERPASS_ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
   "https://overpass.kumi.systems/api/interpreter",
@@ -147,6 +156,7 @@ const state = {
   marketLabel: "Global",
   catalogSource: "Built-in",
   catalogCount: BASE_CAR_PRESETS.length,
+  presetById: new Map(),
   userSelectedCarModel: false,
   geocodeCache: new Map(),
   chargerQueryCache: new Map(),
@@ -338,17 +348,80 @@ function cacheChargersByQuery(key, chargers) {
   }
 }
 
+function setPresetIndex() {
+  const byId = new Map();
+  for (const preset of carPresets) {
+    if (!preset?.id) continue;
+    byId.set(preset.id, preset);
+  }
+  state.presetById = byId;
+}
+
+function getPresetById(presetId) {
+  return state.presetById.get(presetId) || null;
+}
+
+function readJsonFromStorage(key) {
+  try {
+    return JSON.parse(localStorage.getItem(key) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function writeJsonToStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Ignore storage quota / privacy mode issues.
+  }
+}
+
+function hydrateFxCachesFromStorage() {
+  const fxPayload = readJsonFromStorage(FX_CACHE_KEY);
+  if (fxPayload && typeof fxPayload === "object") {
+    for (const [currency, record] of Object.entries(fxPayload)) {
+      const rate = Number(record?.rate);
+      const fetchedAt = Number(record?.fetchedAt);
+      if (!Number.isFinite(rate) || rate <= 0) continue;
+      if (!Number.isFinite(fetchedAt)) continue;
+      if (Date.now() - fetchedAt >= FX_CACHE_TTL_MS) continue;
+      state.fxByCurrency.set(currency, { rate, fetchedAt });
+    }
+  }
+
+  const currencyPayload = readJsonFromStorage(CURRENCY_CACHE_KEY);
+  if (currencyPayload && typeof currencyPayload === "object") {
+    for (const [marketCode, currency] of Object.entries(currencyPayload)) {
+      const normalizedMarket = String(marketCode || "").toUpperCase();
+      const normalizedCurrency = String(currency || "").toUpperCase();
+      if (!/^[A-Z]{2}$/.test(normalizedMarket)) continue;
+      if (!/^[A-Z]{3}$/.test(normalizedCurrency)) continue;
+      state.currencyByMarket.set(normalizedMarket, normalizedCurrency);
+    }
+  }
+}
+
+function persistFxCachesToStorage() {
+  const fxPayload = {};
+  for (const [currency, record] of state.fxByCurrency.entries()) {
+    if (!record) continue;
+    fxPayload[currency] = {
+      rate: record.rate,
+      fetchedAt: record.fetchedAt,
+    };
+  }
+  writeJsonToStorage(FX_CACHE_KEY, fxPayload);
+  writeJsonToStorage(CURRENCY_CACHE_KEY, Object.fromEntries(state.currencyByMarket.entries()));
+}
+
 initialize();
 
-async function initialize() {
-  const generatedCatalog = await loadGeneratedCarCatalog();
-  if (generatedCatalog) {
-    carPresets = mergeCarPresets(BASE_CAR_PRESETS, generatedCatalog.presets || []);
-    state.catalogSource = generatedCatalog.source || "Generated catalog";
-  } else {
-    carPresets = [...BASE_CAR_PRESETS];
-    state.catalogSource = "Built-in defaults";
-  }
+function initialize() {
+  hydrateFxCachesFromStorage();
+  carPresets = [...BASE_CAR_PRESETS];
+  setPresetIndex();
+  state.catalogSource = "Built-in defaults";
   state.catalogCount = carPresets.length;
 
   populateCarPresets();
@@ -376,6 +449,20 @@ async function initialize() {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./sw.js").catch(() => {});
   }
+
+  refreshCatalogInBackground();
+}
+
+async function refreshCatalogInBackground() {
+  const generatedCatalog = await loadGeneratedCarCatalog();
+  if (!generatedCatalog) return;
+
+  carPresets = mergeCarPresets(BASE_CAR_PRESETS, generatedCatalog.presets || []);
+  setPresetIndex();
+  state.catalogSource = generatedCatalog.source || "Generated catalog";
+  state.catalogCount = carPresets.length;
+  populateCarPresets();
+  updateMarketHint(state.origin?.countryName || "");
 }
 
 function wireEvents() {
@@ -407,7 +494,11 @@ function scheduleMapInvalidate(delayMs = 120) {
 
 function populateCarPresets() {
   const previousSelection = ui.carModelSelect.value || "custom";
-  ui.carModelSelect.length = 1;
+  ui.carModelSelect.innerHTML = "";
+  const customOption = document.createElement("option");
+  customOption.value = "custom";
+  customOption.textContent = "Custom (manual values)";
+  ui.carModelSelect.append(customOption);
   const sorted = [...carPresets].sort((a, b) => a.label.localeCompare(b.label));
   const { visiblePresets, hasMarketSpecific } = visiblePresetsForCurrentMarket(sorted);
 
@@ -416,9 +507,7 @@ function populateCarPresets() {
   } else {
     appendPresetOptgroup(
       ui.carModelSelect,
-      hasMarketSpecific
-        ? `Recommended in ${state.marketLabel}`
-        : "Global presets (market-specific catalog unavailable)",
+      hasMarketSpecific ? "Available models" : "Global models",
       visiblePresets
     );
   }
@@ -444,7 +533,7 @@ function onCarModelChange(userInitiated = false) {
     return;
   }
 
-  const preset = carPresets.find((item) => item.id === presetId);
+  const preset = getPresetById(presetId);
   if (!preset) {
     ui.carHint.textContent = "Preset not found. You can continue with manual values.";
     populateCompareCarOptions();
@@ -471,7 +560,7 @@ function populateCompareCarOptions() {
     if (preset.id === currentCarId) continue;
     const option = document.createElement("option");
     option.value = preset.id;
-    option.textContent = presetOptionLabel(preset);
+    option.textContent = preset.label;
     option.selected = selectedBefore.includes(preset.id);
     ui.compareCarsSelect.append(option);
   }
@@ -499,17 +588,51 @@ function onVerificationProfileChange() {
 }
 
 async function loadGeneratedCarCatalog() {
+  const cached = readCatalogFromStorage();
   try {
     const response = await fetchWithTimeout("./data/car-presets.generated.json", {
       cache: "no-store",
-    });
-    if (!response.ok) return null;
+    }, CATALOG_FETCH_TIMEOUT_MS);
+    if (!response.ok) {
+      return cached;
+    }
     const data = await response.json();
-    if (!Array.isArray(data?.presets)) return null;
+    if (!isCatalogPayloadValid(data)) {
+      return cached;
+    }
+    writeCatalogToStorage(data);
     return data;
   } catch {
-    return null;
+    return cached;
   }
+}
+
+function isCatalogPayloadValid(payload) {
+  if (!payload || typeof payload !== "object") return false;
+  if (!Array.isArray(payload.presets)) return false;
+  if (payload.presets.length === 0) return false;
+  if (payload.presets.length > 20000) return false;
+  return payload.presets.every((item) => item && typeof item.id === "string");
+}
+
+function writeCatalogToStorage(payload) {
+  writeJsonToStorage(CATALOG_CACHE_KEY, {
+    storedAt: Date.now(),
+    payload,
+  });
+}
+
+function readCatalogFromStorage() {
+  const cached = readJsonFromStorage(CATALOG_CACHE_KEY);
+  if (!cached || typeof cached !== "object") return null;
+  const storedAt = Number(cached.storedAt);
+  if (!Number.isFinite(storedAt)) return null;
+  if (Date.now() - storedAt > CATALOG_CACHE_TTL_MS) return null;
+  if (!isCatalogPayloadValid(cached.payload)) return null;
+  return {
+    ...cached.payload,
+    source: `${cached.payload.source || "Generated catalog"} (cached)`,
+  };
 }
 
 function mergeCarPresets(basePresets, generatedPresets) {
@@ -520,7 +643,9 @@ function mergeCarPresets(basePresets, generatedPresets) {
     if (!item || typeof item.id !== "string") continue;
     if (!Number.isFinite(Number(item.batteryKwh))) continue;
     if (!Number.isFinite(Number(item.efficiency))) continue;
-    const priceUsdValue = Number(item.priceUsd ?? item.price);
+    const marketPrices = normalizeMarketPrices(item.marketPrices);
+    const fallbackUsdFromMarket = Number(marketPrices.USD?.amount);
+    const priceUsdValue = Number(item.priceUsd ?? item.price ?? fallbackUsdFromMarket);
     const normalized = {
       id: item.id,
       label: item.label || item.id,
@@ -529,6 +654,7 @@ function mergeCarPresets(basePresets, generatedPresets) {
       reserve: Number.isFinite(Number(item.reserve)) ? Number(item.reserve) : 10,
       markets: normalizeMarketArray(item.markets),
       priceUsd: Number.isFinite(priceUsdValue) ? Math.round(priceUsdValue) : null,
+      marketPrices,
     };
     mergedById.set(normalized.id, normalized);
   }
@@ -540,7 +666,7 @@ function appendPresetOptions(parent, presets) {
   for (const preset of presets) {
     const option = document.createElement("option");
     option.value = preset.id;
-    option.textContent = presetOptionLabel(preset);
+    option.textContent = preset.label;
     parent.append(option);
   }
 }
@@ -590,18 +716,42 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
   };
 }
 
-function presetOptionLabel(preset) {
-  return `${preset.label} (${formatPriceForMarket(preset.priceUsd)})`;
-}
-
 function normalizeMarketArray(markets) {
   if (!Array.isArray(markets)) return [];
   return [...new Set(markets.map((value) => String(value || "").toUpperCase()).filter(Boolean))];
 }
 
+function normalizeMarketPrices(marketPrices) {
+  if (!marketPrices || typeof marketPrices !== "object") return {};
+  const normalized = {};
+  for (const [marketCodeRaw, value] of Object.entries(marketPrices)) {
+    const marketCode = String(marketCodeRaw || "").toUpperCase();
+    const amount = Number(value?.amount);
+    const currency = String(value?.currency || "").toUpperCase();
+    if (!/^[A-Z]{2}$/.test(marketCode)) continue;
+    if (!Number.isFinite(amount) || amount <= 0) continue;
+    if (!/^[A-Z]{3}$/.test(currency)) continue;
+    normalized[marketCode] = {
+      amount: Math.round(amount),
+      currency,
+      source: String(value?.source || "").trim(),
+      updatedAt: String(value?.updatedAt || "").trim(),
+    };
+  }
+  return normalized;
+}
+
 function marketLabelFromCode(code) {
   if (!code || code === "GLOBAL") return "Global";
-  return MARKET_LABELS[code] || code;
+  if (MARKET_LABELS[code]) return MARKET_LABELS[code];
+  if (REGION_DISPLAY_NAMES) {
+    try {
+      return REGION_DISPLAY_NAMES.of(code) || code;
+    } catch {
+      return code;
+    }
+  }
+  return code;
 }
 
 function inferAndApplyMarket(origin) {
@@ -622,6 +772,9 @@ function inferAndApplyMarket(origin) {
   state.marketLabel = marketLabelFromCode(code);
   populateCarPresets();
   updateMarketHint(origin.countryName || "");
+  ensureMarketCurrencyRate(code)
+    .then(() => populateCarPresets())
+    .catch(() => {});
   if (shouldAutoInferModel) {
     autoInferModelForMarket();
   }
@@ -639,7 +792,7 @@ function autoInferModelForMarket() {
 
   ui.carModelSelect.value = presetId;
   onCarModelChange(false);
-  const preset = carPresets.find((item) => item.id === presetId);
+  const preset = getPresetById(presetId);
   if (preset) {
     ui.carHint.textContent =
       `Auto-inferred model for ${state.marketLabel}: ${preset.label}. You can change it anytime.`;
@@ -875,7 +1028,7 @@ function calculateRangeForSpecs({ batteryKwh, soc, efficiency, reserve, verifica
 function getMaxComparisonRangeKm(planInput, baseOneWayRangeKm) {
   let maxKm = baseOneWayRangeKm;
   for (const carId of planInput.compareCarIds) {
-    const preset = carPresets.find((item) => item.id === carId);
+    const preset = getPresetById(carId);
     if (!preset) continue;
     const km = calculateRangeForSpecs({
       batteryKwh: preset.batteryKwh,
@@ -894,7 +1047,7 @@ function getMaxComparisonRangeKm(planInput, baseOneWayRangeKm) {
 function buildComparisonRows(planInput, baseOneWayRangeKm) {
   const selectedPreset =
     planInput.selectedCarId && planInput.selectedCarId !== "custom"
-      ? carPresets.find((item) => item.id === planInput.selectedCarId)
+      ? getPresetById(planInput.selectedCarId)
       : null;
   const baseLabel =
     planInput.selectedCarId === "custom" ? "Current setup (custom)" : planInput.carModelLabel;
@@ -905,6 +1058,7 @@ function buildComparisonRows(planInput, baseOneWayRangeKm) {
       oneWayKm: baseOneWayRangeKm,
       kmPerKwh: efficiencyToKmPerKwh(planInput.efficiency),
       priceUsd: Number.isFinite(selectedPreset?.priceUsd) ? selectedPreset.priceUsd : null,
+      marketPrices: selectedPreset?.marketPrices || {},
       batteryKwh: planInput.batteryKwh,
       efficiency: planInput.efficiency,
       reserve: planInput.reserve,
@@ -913,7 +1067,7 @@ function buildComparisonRows(planInput, baseOneWayRangeKm) {
   ];
 
   for (const carId of planInput.compareCarIds) {
-    const preset = carPresets.find((item) => item.id === carId);
+    const preset = getPresetById(carId);
     if (!preset) continue;
 
     const oneWayKm = calculateRangeForSpecs({
@@ -929,6 +1083,7 @@ function buildComparisonRows(planInput, baseOneWayRangeKm) {
       oneWayKm,
       kmPerKwh: efficiencyToKmPerKwh(preset.efficiency),
       priceUsd: Number.isFinite(preset.priceUsd) ? preset.priceUsd : null,
+      marketPrices: preset.marketPrices || {},
       batteryKwh: preset.batteryKwh,
       efficiency: preset.efficiency,
       reserve: preset.reserve,
@@ -1520,6 +1675,7 @@ async function resolveMarketCurrencyCode(code) {
     const normalized = String(currencyCode || "").toUpperCase();
     if (/^[A-Z]{3}$/.test(normalized)) {
       state.currencyByMarket.set(marketCode, normalized);
+      persistFxCachesToStorage();
       return normalized;
     }
   } catch {
@@ -1553,6 +1709,7 @@ async function ensureMarketCurrencyRate(marketCode) {
       throw new Error("Invalid FX rate");
     }
     state.fxByCurrency.set(currency, { rate, fetchedAt: Date.now() });
+    persistFxCachesToStorage();
     return rate;
   } catch {
     state.activeCurrency = "USD";
@@ -1582,7 +1739,7 @@ function renderComparisonTable(compareRows) {
           </td>
           <td>${row.oneWayKm.toFixed(1)}</td>
           <td>${row.kmPerKwh.toFixed(2)}</td>
-          <td>${formatPriceForMarket(row.priceUsd)}</td>
+          <td>${formatPriceForPreset(row)}</td>
         </tr>
       `;
     })
@@ -1648,6 +1805,19 @@ function formatPriceForMarket(priceUsd) {
   const rate = currentFxRateForActiveCurrency();
   const currency = state.activeCurrency || "USD";
   const amount = Number(priceUsd) * rate;
+  return formatCurrencyAmount(amount, currency, Number(priceUsd));
+}
+
+function formatPriceForPreset(preset) {
+  const marketCode = String(state.marketCode || "").toUpperCase();
+  const marketPrice = preset?.marketPrices?.[marketCode];
+  if (marketPrice && Number.isFinite(Number(marketPrice.amount))) {
+    return formatCurrencyAmount(Number(marketPrice.amount), marketPrice.currency, Number(marketPrice.amount));
+  }
+  return formatPriceForMarket(preset?.priceUsd);
+}
+
+function formatCurrencyAmount(amount, currency, fallbackUsdAmount) {
   try {
     return new Intl.NumberFormat(undefined, {
       style: "currency",
@@ -1655,7 +1825,7 @@ function formatPriceForMarket(priceUsd) {
       maximumFractionDigits: 0,
     }).format(amount);
   } catch {
-    return `$${Number(priceUsd).toLocaleString("en-US")}`;
+    return `$${Number(fallbackUsdAmount || amount).toLocaleString("en-US")}`;
   }
 }
 

@@ -2,10 +2,15 @@ const DEFAULT_CENTER = [20.5937, 78.9629];
 const DEFAULT_ZOOM = 5;
 const RECENT_LOCATIONS_KEY = "ev-mapping-recent-locs";
 const RECENT_LOCATIONS_MAX = 6;
-const NETWORK_TIMEOUT_MS = 15000;
+const DEFAULT_MAX_RESULTS = 120;
+const NETWORK_TIMEOUT_MS = 10000;
 const MAX_CHARGER_SEARCH_KM = 140;
 const CHARGER_MAX_DISTANCE_KM = 150;
 const OFFICIAL_RANGE_BUFFER = 0.9;
+const FAST_OVERPASS_TIMEOUT_MS = 5000;
+const FAST_OVERPASS_ENDPOINT_LIMIT = 1;
+const FAST_OVERPASS_ATTEMPTS = 1;
+const GEOCODE_CACHE_LIMIT = 10;
 const OVERPASS_ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
   "https://overpass.kumi.systems/api/interpreter",
@@ -112,6 +117,8 @@ const state = {
   catalogSource: "Built-in",
   catalogCount: BASE_CAR_PRESETS.length,
   userSelectedCarModel: false,
+  geocodeCache: new Map(),
+  lastResolvedQueryKey: "",
 };
 
 const ui = {
@@ -250,6 +257,22 @@ function onShareBtnClick(btn) {
     } catch {
       fail();
     }
+  }
+}
+
+function normalizeLocationQuery(query) {
+  return String(query || "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function cacheResolvedOrigin(queryKey, origin) {
+  if (!queryKey || !origin) return;
+  if (state.geocodeCache.has(queryKey)) {
+    state.geocodeCache.delete(queryKey);
+  }
+  state.geocodeCache.set(queryKey, origin);
+  while (state.geocodeCache.size > GEOCODE_CACHE_LIMIT) {
+    const oldestKey = state.geocodeCache.keys().next().value;
+    state.geocodeCache.delete(oldestKey);
   }
 }
 
@@ -667,7 +690,7 @@ function parsePlanInput() {
   const reserve = Number(ui.reserveInput.value);
   const provider = ui.providerSelect.value;
   const verificationProfile = ui.verificationProfileSelect.value;
-  const maxResults = Math.max(20, Math.min(500, Number(ui.maxResultsInput.value || 220)));
+  const maxResults = Math.max(20, Math.min(500, Number(ui.maxResultsInput.value || DEFAULT_MAX_RESULTS)));
   const locationQuery = ui.locationInput.value.trim();
 
   if (Number.isNaN(batteryKwh) || batteryKwh <= 0) {
@@ -789,8 +812,19 @@ async function resolveOrigin(locationQuery) {
   if (state.origin && !locationQuery) {
     return state.origin;
   }
-  if (!locationQuery) {
+  const queryKey = normalizeLocationQuery(locationQuery);
+  if (!queryKey) {
     throw new Error("Provide a start location or use GPS.");
+  }
+
+  if (state.origin && state.lastResolvedQueryKey === queryKey) {
+    return state.origin;
+  }
+
+  const cachedOrigin = state.geocodeCache.get(queryKey);
+  if (cachedOrigin) {
+    state.lastResolvedQueryKey = queryKey;
+    return cachedOrigin;
   }
 
   const encoded = encodeURIComponent(locationQuery);
@@ -810,13 +844,16 @@ async function resolveOrigin(locationQuery) {
   const first = data[0];
   const lat = Number(first.lat);
   const lon = Number(first.lon);
-  return {
+  const resolved = {
     lat,
     lon,
     label: first.display_name || locationQuery,
     countryCode: first.address?.country_code?.toUpperCase() || "",
     countryName: first.address?.country || "",
   };
+  state.lastResolvedQueryKey = queryKey;
+  cacheResolvedOrigin(queryKey, resolved);
+  return resolved;
 }
 
 async function useCurrentLocation() {
@@ -839,6 +876,9 @@ async function useCurrentLocation() {
         countryCode: place.countryCode,
         countryName: place.countryName,
       };
+      const queryKey = normalizeLocationQuery(place.label);
+      state.lastResolvedQueryKey = queryKey;
+      cacheResolvedOrigin(queryKey, state.origin);
       inferAndApplyMarket(state.origin);
       ui.locationInput.value = place.label;
       setSummary(`<p>GPS location set: ${escapeHtml(place.label)}</p>`);
@@ -904,21 +944,42 @@ async function getNearbyChargers(origin, oneWayRangeKm, input) {
     return sortAndTrimChargers(origin, dedupeChargers(list), input.maxResults);
   }
 
-  const [ocmResult, osmResult] = await Promise.allSettled([
-    fetchOpenChargeMap(origin, searchRadiusKm, input.maxResults),
-    fetchOverpass(origin, searchRadiusKm, input.maxResults),
-  ]);
+  let ocmList = [];
+  let ocmError = null;
+  try {
+    ocmList = await fetchOpenChargeMap(origin, searchRadiusKm, input.maxResults);
+  } catch (error) {
+    ocmError = error;
+  }
 
-  const all = [];
-  if (ocmResult.status === "fulfilled") all.push(...ocmResult.value);
-  if (osmResult.status === "fulfilled") all.push(...osmResult.value);
+  let overpassList = [];
+  let overpassError = null;
+  if (ocmList.length < input.maxResults) {
+    const overpassOptions =
+      ocmList.length > 0
+        ? {
+            endpointLimit: FAST_OVERPASS_ENDPOINT_LIMIT,
+            maxAttemptsPerEndpoint: FAST_OVERPASS_ATTEMPTS,
+            requestTimeoutMs: FAST_OVERPASS_TIMEOUT_MS,
+          }
+        : {};
+    try {
+      overpassList = await fetchOverpass(origin, searchRadiusKm, input.maxResults, overpassOptions);
+    } catch (error) {
+      overpassError = error;
+    }
+  }
 
-  const merged = sortAndTrimChargers(origin, dedupeChargers(all), input.maxResults);
+  const merged = sortAndTrimChargers(
+    origin,
+    dedupeChargers([...ocmList, ...overpassList]),
+    input.maxResults
+  );
   if (merged.length > 0) {
     return merged;
   }
 
-  if (ocmResult.status === "rejected" && osmResult.status === "rejected") {
+  if (ocmError && overpassError) {
     throw new Error("Open data providers are currently unavailable. Please retry.");
   }
 
@@ -1007,7 +1068,11 @@ async function fetchOpenChargeMap(origin, radiusKm, maxResults) {
     .filter(Boolean);
 }
 
-async function fetchOverpass(origin, radiusKm, maxResults) {
+async function fetchOverpass(origin, radiusKm, maxResults, options = {}) {
+  const endpointLimit = Math.max(1, Number(options.endpointLimit || OVERPASS_ENDPOINTS.length));
+  const maxAttempts = Math.max(1, Number(options.maxAttemptsPerEndpoint || 2));
+  const requestTimeoutMs = Math.max(2000, Number(options.requestTimeoutMs || NETWORK_TIMEOUT_MS));
+  const endpoints = OVERPASS_ENDPOINTS.slice(0, endpointLimit);
   const radiusM = Math.round(Math.min(radiusKm, CHARGER_MAX_DISTANCE_KM) * 1000);
   const query = `
 [out:json][timeout:25];
@@ -1022,8 +1087,8 @@ async function fetchOverpass(origin, radiusKm, maxResults) {
 out center;
 `;
 
-  for (const endpoint of OVERPASS_ENDPOINTS) {
-    for (let attempt = 1; attempt <= 2; attempt += 1) {
+  for (const endpoint of endpoints) {
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
       try {
         const response = await fetchWithTimeout(endpoint, {
           method: "POST",
@@ -1031,11 +1096,11 @@ out center;
             "Content-Type": "text/plain;charset=UTF-8",
           },
           body: query,
-        });
+        }, requestTimeoutMs);
 
         if (!response.ok) {
           if (response.status === 429 || response.status >= 500) {
-            await sleep(500 * attempt);
+            await sleep(300 * attempt);
             continue;
           }
           continue;
@@ -1218,7 +1283,7 @@ function renderSummary(
   provider,
   warningMessage = "",
   carModelLabel = "Custom",
-  maxResults = 220,
+  maxResults = DEFAULT_MAX_RESULTS,
   verificationProfile = "independent",
   compareRows = [],
   submitMode = "reach"
@@ -1269,7 +1334,7 @@ function providerLabel(selectedProvider, chargers, verificationProfile = "indepe
   if (selectedProvider === "auto" && verificationProfile === "official") {
     return "OpenChargeMap (official profile)";
   }
-  if (selectedProvider === "auto") return "Merged OpenChargeMap + Overpass";
+  if (selectedProvider === "auto") return "Auto (OpenChargeMap + quick Overpass)";
   if (selectedProvider === "openchargemap") return "OpenChargeMap";
   if (selectedProvider === "overpass") return "Overpass/OSM";
   if (selectedProvider !== "auto") return selectedProvider;

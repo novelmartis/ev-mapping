@@ -188,6 +188,22 @@ button:focus-visible {
   padding: 0.45rem 0;
 }
 
+.beta-tag {
+  display: inline-block;
+  margin-inline: 0.35rem 0.2rem;
+  padding: 0.08rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid rgb(0 103 123 / 30%);
+  background: rgb(0 103 123 / 8%);
+  color: #0d5667;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
 .compare-actions {
   display: flex;
   justify-content: flex-start;

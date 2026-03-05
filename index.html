@@ -120,7 +120,7 @@
 
               <label for="provider">Charging data source</label>
               <select id="provider" name="provider">
-                <option value="auto">Auto (merge OpenChargeMap + Overpass)</option>
+                <option value="auto">Auto (OpenChargeMap first + quick Overpass merge)</option>
                 <option value="openchargemap">OpenChargeMap only</option>
                 <option value="overpass">OpenStreetMap Overpass only</option>
               </select>
@@ -143,7 +143,7 @@
                 min="20"
                 max="500"
                 step="10"
-                value="220"
+                value="120"
               />
               <p class="hint">Higher cap can surface more stations, but may be slower.</p>
 
@@ -155,7 +155,7 @@
           </details>
 
           <details class="compare-panel">
-            <summary>Car Comparison (Optional)</summary>
+            <summary>Car Comparison <span class="beta-tag">Beta</span> (Optional)</summary>
             <label for="compare-cars">Select up to 3 cars</label>
             <select id="compare-cars" name="compare-cars" multiple size="5"></select>
             <p class="hint">

@@ -42,7 +42,7 @@ body::before {
   grid-template-columns: minmax(320px, 430px) 1fr;
   gap: 1rem;
   padding: 1rem;
-  height: 100vh;
+  min-height: calc(100vh - 2.1rem);
 }
 
 .controls-panel {
@@ -621,4 +621,22 @@ details[open] > summary::after {
   cursor: progress;
   filter: brightness(1.03) !important;
   box-shadow: 0 10px 24px rgb(0 103 123 / 28%) !important;
+}
+
+.site-footnote {
+  text-align: center;
+  padding: 0.15rem 0 0.5rem;
+}
+
+.site-footnote a {
+  color: rgb(18 34 54 / 48%);
+  text-decoration: none;
+  font-size: 0.7rem;
+  letter-spacing: 0.01em;
+}
+
+.site-footnote a:hover,
+.site-footnote a:focus-visible {
+  color: rgb(18 34 54 / 78%);
+  text-decoration: underline;
 }

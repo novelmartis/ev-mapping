@@ -11,6 +11,7 @@ const FAST_OVERPASS_TIMEOUT_MS = 5000;
 const FAST_OVERPASS_ENDPOINT_LIMIT = 1;
 const FAST_OVERPASS_ATTEMPTS = 1;
 const GEOCODE_CACHE_LIMIT = 10;
+const CHARGER_QUERY_CACHE_LIMIT = 12;
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
 const OVERPASS_ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
@@ -119,6 +120,7 @@ const state = {
   catalogCount: BASE_CAR_PRESETS.length,
   userSelectedCarModel: false,
   geocodeCache: new Map(),
+  chargerQueryCache: new Map(),
   lastResolvedQueryKey: "",
 };
 
@@ -276,6 +278,31 @@ function cacheResolvedOrigin(queryKey, origin) {
   while (state.geocodeCache.size > GEOCODE_CACHE_LIMIT) {
     const oldestKey = state.geocodeCache.keys().next().value;
     state.geocodeCache.delete(oldestKey);
+  }
+}
+
+function chargerCacheKey(origin, searchRadiusKm, input) {
+  const lat = Number(origin.lat).toFixed(3);
+  const lon = Number(origin.lon).toFixed(3);
+  return [
+    lat,
+    lon,
+    Math.round(searchRadiusKm),
+    input.provider,
+    input.verificationProfile,
+    Math.round(input.maxResults),
+  ].join("|");
+}
+
+function cacheChargersByQuery(key, chargers) {
+  if (!key || !Array.isArray(chargers)) return;
+  if (state.chargerQueryCache.has(key)) {
+    state.chargerQueryCache.delete(key);
+  }
+  state.chargerQueryCache.set(key, chargers);
+  while (state.chargerQueryCache.size > CHARGER_QUERY_CACHE_LIMIT) {
+    const oldestKey = state.chargerQueryCache.keys().next().value;
+    state.chargerQueryCache.delete(oldestKey);
   }
 }
 
@@ -481,6 +508,7 @@ function mergeCarPresets(basePresets, generatedPresets) {
     if (!item || typeof item.id !== "string") continue;
     if (!Number.isFinite(Number(item.batteryKwh))) continue;
     if (!Number.isFinite(Number(item.efficiency))) continue;
+    const priceUsdValue = Number(item.priceUsd ?? item.price);
     const normalized = {
       id: item.id,
       label: item.label || item.id,
@@ -488,6 +516,7 @@ function mergeCarPresets(basePresets, generatedPresets) {
       efficiency: round1(Number(item.efficiency)),
       reserve: Number.isFinite(Number(item.reserve)) ? Number(item.reserve) : 10,
       markets: normalizeMarketArray(item.markets),
+      priceUsd: Number.isFinite(priceUsdValue) ? Math.round(priceUsdValue) : null,
     };
     mergedById.set(normalized.id, normalized);
   }
@@ -619,7 +648,7 @@ async function onPlanSubmit(event) {
     let effectiveVehicleLabel = planInput.carModelLabel;
     try {
       chargers = await getNearbyChargers(origin, fetchRangeKm, planInput);
-      compareRows = buildComparisonRows(planInput, baseRangeKm, chargers);
+      compareRows = buildComparisonRows(planInput, baseRangeKm);
       if (submitMode === "compare" && compareRows.length > 1) {
         const bestIndex = pickBestReachRowIndex(compareRows);
         const bestRow = compareRows[bestIndex];
@@ -632,7 +661,7 @@ async function onPlanSubmit(event) {
       warning = error.message;
       if (cachedFallbackChargers.length > 0) {
         chargers = cachedFallbackChargers;
-        compareRows = buildComparisonRows(planInput, baseRangeKm, chargers);
+        compareRows = buildComparisonRows(planInput, baseRangeKm);
         if (submitMode === "compare" && compareRows.length > 1) {
           const bestIndex = pickBestReachRowIndex(compareRows);
           const bestRow = compareRows[bestIndex];
@@ -642,7 +671,7 @@ async function onPlanSubmit(event) {
         visibleChargers = filterVisibleChargers(chargers, effectiveRangeKm);
         warning += " Showing cached chargers from your last successful fetch.";
       } else {
-        compareRows = buildComparisonRows(planInput, baseRangeKm, []);
+        compareRows = buildComparisonRows(planInput, baseRangeKm);
         if (submitMode === "compare" && compareRows.length > 1) {
           const bestIndex = pickBestReachRowIndex(compareRows);
           const bestRow = compareRows[bestIndex];
@@ -778,18 +807,19 @@ function getMaxComparisonRangeKm(planInput, baseOneWayRangeKm) {
   return maxKm;
 }
 
-function buildComparisonRows(planInput, baseOneWayRangeKm, chargers) {
-  const baseCounts = countChargersForRange(state.origin, chargers, baseOneWayRangeKm);
+function buildComparisonRows(planInput, baseOneWayRangeKm) {
+  const selectedPreset =
+    planInput.selectedCarId && planInput.selectedCarId !== "custom"
+      ? carPresets.find((item) => item.id === planInput.selectedCarId)
+      : null;
   const baseLabel =
     planInput.selectedCarId === "custom" ? "Current setup (custom)" : planInput.carModelLabel;
   const rows = [
     {
       label: baseLabel,
       oneWayKm: baseOneWayRangeKm,
-      roundTripKm: baseOneWayRangeKm / 2,
-      oneWayChargers: baseCounts.oneWay,
-      roundTripChargers: baseCounts.roundTrip,
-      deltaKm: 0,
+      kmPerKwh: efficiencyToKmPerKwh(planInput.efficiency),
+      priceUsd: Number.isFinite(selectedPreset?.priceUsd) ? selectedPreset.priceUsd : null,
       isBase: true,
     },
   ];
@@ -805,14 +835,11 @@ function buildComparisonRows(planInput, baseOneWayRangeKm, chargers) {
       reserve: preset.reserve,
       verificationProfile: planInput.verificationProfile,
     });
-    const counts = countChargersForRange(state.origin, chargers, oneWayKm);
     rows.push({
       label: preset.label,
       oneWayKm,
-      roundTripKm: oneWayKm / 2,
-      oneWayChargers: counts.oneWay,
-      roundTripChargers: counts.roundTrip,
-      deltaKm: oneWayKm - baseOneWayRangeKm,
+      kmPerKwh: efficiencyToKmPerKwh(preset.efficiency),
+      priceUsd: Number.isFinite(preset.priceUsd) ? preset.priceUsd : null,
       isBase: false,
     });
   }
@@ -820,16 +847,11 @@ function buildComparisonRows(planInput, baseOneWayRangeKm, chargers) {
   return rows;
 }
 
-function countChargersForRange(origin, chargers, oneWayRangeKm) {
-  if (!origin) return { oneWay: 0, roundTrip: 0 };
-  let oneWay = 0;
-  let roundTrip = 0;
-  for (const charger of chargers) {
-    const distanceKm = haversineDistanceKm(origin.lat, origin.lon, charger.lat, charger.lon);
-    if (distanceKm <= oneWayRangeKm) oneWay += 1;
-    if (distanceKm <= oneWayRangeKm / 2) roundTrip += 1;
+function efficiencyToKmPerKwh(efficiencyKwhPer100Km) {
+  if (!Number.isFinite(Number(efficiencyKwhPer100Km)) || Number(efficiencyKwhPer100Km) <= 0) {
+    return 0;
   }
-  return { oneWay, roundTrip };
+  return 100 / Number(efficiencyKwhPer100Km);
 }
 
 async function resolveOrigin(locationQuery) {
@@ -945,11 +967,18 @@ async function reverseGeocodePlace(lat, lon) {
 
 async function getNearbyChargers(origin, oneWayRangeKm, input) {
   const searchRadiusKm = Math.min(MAX_CHARGER_SEARCH_KM, Math.max(12, Math.round(oneWayRangeKm)));
+  const queryKey = chargerCacheKey(origin, searchRadiusKm, input);
+  const cachedByQuery = state.chargerQueryCache.get(queryKey);
+  if (Array.isArray(cachedByQuery) && cachedByQuery.length > 0) {
+    return cachedByQuery;
+  }
   if (input.verificationProfile === "official" && input.provider !== "openchargemap") {
     try {
       const ocmOnly = await fetchOpenChargeMap(origin, searchRadiusKm, input.maxResults);
       if (ocmOnly.length > 0) {
-        return sortAndTrimChargers(origin, dedupeChargers(ocmOnly), input.maxResults);
+        const trimmed = sortAndTrimChargers(origin, dedupeChargers(ocmOnly), input.maxResults);
+        cacheChargersByQuery(queryKey, trimmed);
+        return trimmed;
       }
     } catch {
       // Continue to official no-data error.
@@ -961,11 +990,15 @@ async function getNearbyChargers(origin, oneWayRangeKm, input) {
 
   if (input.provider === "openchargemap") {
     const list = await fetchOpenChargeMap(origin, searchRadiusKm, input.maxResults);
-    return sortAndTrimChargers(origin, dedupeChargers(list), input.maxResults);
+    const trimmed = sortAndTrimChargers(origin, dedupeChargers(list), input.maxResults);
+    cacheChargersByQuery(queryKey, trimmed);
+    return trimmed;
   }
   if (input.provider === "overpass") {
     const list = await fetchOverpass(origin, searchRadiusKm, input.maxResults);
-    return sortAndTrimChargers(origin, dedupeChargers(list), input.maxResults);
+    const trimmed = sortAndTrimChargers(origin, dedupeChargers(list), input.maxResults);
+    cacheChargersByQuery(queryKey, trimmed);
+    return trimmed;
   }
 
   let ocmList = [];
@@ -1000,6 +1033,7 @@ async function getNearbyChargers(origin, oneWayRangeKm, input) {
     input.maxResults
   );
   if (merged.length > 0) {
+    cacheChargersByQuery(queryKey, merged);
     return merged;
   }
 
@@ -1384,10 +1418,8 @@ function renderComparisonTable(compareRows) {
             ${isBest ? '<span class="compare-pill">Best reach</span>' : ""}
           </td>
           <td>${row.oneWayKm.toFixed(1)}</td>
-          <td>${row.roundTripKm.toFixed(1)}</td>
-          <td>${row.oneWayChargers}</td>
-          <td>${row.roundTripChargers}</td>
-          <td>${row.isBase ? "Base" : formatDeltaKm(row.deltaKm)}</td>
+          <td>${row.kmPerKwh.toFixed(2)}</td>
+          <td>${formatUsdPrice(row.priceUsd)}</td>
         </tr>
       `;
     })
@@ -1401,10 +1433,8 @@ function renderComparisonTable(compareRows) {
         <tr>
           <th>Vehicle</th>
           <th>One-way km</th>
-          <th>Round-trip km</th>
-          <th>1-way chargers</th>
-          <th>RT chargers</th>
-          <th>Delta vs base</th>
+          <th>km/kWh</th>
+          <th>Price</th>
         </tr>
       </thead>
       <tbody>
@@ -1438,7 +1468,7 @@ function pickBestReachRowIndex(compareRows) {
     }
     if (
       Math.abs(row.oneWayKm - bestRange) < 0.0001 &&
-      row.oneWayChargers > compareRows[bestIndex].oneWayChargers
+      row.kmPerKwh > compareRows[bestIndex].kmPerKwh
     ) {
       bestIndex = index;
     }
@@ -1447,10 +1477,9 @@ function pickBestReachRowIndex(compareRows) {
   return bestIndex;
 }
 
-function formatDeltaKm(deltaKm) {
-  if (Math.abs(deltaKm) < 0.05) return "0.0 km";
-  const sign = deltaKm > 0 ? "+" : "";
-  return `${sign}${deltaKm.toFixed(1)} km`;
+function formatUsdPrice(priceUsd) {
+  if (!Number.isFinite(priceUsd)) return "N/A";
+  return `$${Number(priceUsd).toLocaleString("en-US")}`;
 }
 
 function clearRoute() {

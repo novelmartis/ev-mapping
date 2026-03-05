@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import html
 import json
 import re
 import sys
@@ -16,10 +17,12 @@ import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
 BASE_URL = "https://www.fueleconomy.gov/ws/rest/vehicle"
+AFDC_DOWNLOAD_URL = "https://afdc.energy.gov/vehicles/search/download"
 USER_AGENT = "ev-mapping-catalog-sync/1.0"
 KWH_PER_GALLON_EQUIV = 33.705
 MILES_PER_100KM = 62.137119
@@ -89,6 +92,18 @@ def parse_float(value: str) -> float | None:
         return None
 
 
+def parse_usd(value: str) -> float | None:
+    if value is None:
+        return None
+    cleaned = re.sub(r"[^0-9.]", "", value.strip())
+    if not cleaned:
+        return None
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
 def slugify(text: str) -> str:
     clean = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
     return re.sub(r"-{2,}", "-", clean)
@@ -109,7 +124,91 @@ def normalize_market_array(markets: Any) -> list[str]:
     return out
 
 
-def vehicle_to_preset(vehicle: ET.Element) -> dict[str, Any] | None:
+def normalize_vehicle_key(make: str, model: str) -> str:
+    text = f"{make} {model}".strip().lower()
+    text = re.sub(r"\s+", " ", text)
+    return re.sub(r"[^a-z0-9 ]+", "", text).strip()
+
+
+def strip_model_footnotes(model: str) -> str:
+    return re.sub(r"\s*\d+\s*$", "", model).strip()
+
+
+class AfdcEvTableParser(HTMLParser):
+    """Extract EV make/model/MSRP rows from AFDC downloadable table."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.in_tbody = False
+        self.in_row = False
+        self.in_cell = False
+        self._cell_buf: list[str] = []
+        self._row: list[str] = []
+        self.rows: list[list[str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag == "tbody":
+            self.in_tbody = True
+        elif tag == "tr" and self.in_tbody:
+            self.in_row = True
+            self._row = []
+        elif tag == "td" and self.in_row:
+            self.in_cell = True
+            self._cell_buf = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "td" and self.in_cell:
+            text = html.unescape("".join(self._cell_buf)).strip()
+            text = re.sub(r"\s+", " ", text)
+            self._row.append(text)
+            self._cell_buf = []
+            self.in_cell = False
+        elif tag == "tr" and self.in_row:
+            if self._row:
+                self.rows.append(self._row)
+            self._row = []
+            self.in_row = False
+        elif tag == "tbody":
+            self.in_tbody = False
+
+    def handle_data(self, data: str) -> None:
+        if self.in_cell:
+            self._cell_buf.append(data)
+
+
+def fetch_afdc_ev_prices() -> dict[str, int]:
+    """Trusted source: AFDC (US DOE) EV downloadable table with Base MSRP."""
+    req = urllib.request.Request(
+        AFDC_DOWNLOAD_URL,
+        headers={"User-Agent": USER_AGENT, "Accept": "text/html"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        page = resp.read().decode("utf-8", errors="ignore")
+
+    parser = AfdcEvTableParser()
+    parser.feed(page)
+
+    prices: dict[str, int] = {}
+    for row in parser.rows:
+        # Expected shape: Photo, FuelType, Make, Model, ..., Base MSRP
+        if len(row) < 6:
+            continue
+        fuel_type = row[1].strip().upper()
+        if fuel_type != "EV":
+            continue
+        make = row[2].strip()
+        model = strip_model_footnotes(row[3].strip())
+        msrp_value = parse_usd(row[-1])
+        if not make or not model or msrp_value is None:
+            continue
+        key = normalize_vehicle_key(make, model)
+        prices[key] = int(round(msrp_value))
+    return prices
+
+
+def vehicle_to_preset(
+    vehicle: ET.Element, afdc_prices_by_make_model: dict[str, int] | None = None
+) -> dict[str, Any] | None:
     fuel_type = node_text(vehicle, "fuelType1").lower()
     if fuel_type != "electricity":
         return None
@@ -138,7 +237,12 @@ def vehicle_to_preset(vehicle: ET.Element) -> dict[str, Any] | None:
     battery_kwh = min(220.0, max(20.0, battery_kwh))
     efficiency = min(35.0, max(10.0, efficiency))
 
-    return {
+    price_usd = None
+    if afdc_prices_by_make_model:
+        price_key = normalize_vehicle_key(make, model)
+        price_usd = afdc_prices_by_make_model.get(price_key)
+
+    preset = {
         "id": slugify(model_label),
         "label": model_label,
         "batteryKwh": round1(battery_kwh),
@@ -147,6 +251,10 @@ def vehicle_to_preset(vehicle: ET.Element) -> dict[str, Any] | None:
         "markets": ["US"],
         "source": "fueleconomy.gov",
     }
+    if price_usd is not None:
+        preset["priceUsd"] = price_usd
+        preset["priceSource"] = "afdc.energy.gov"
+    return preset
 
 
 def load_manual_presets(path: Path) -> list[dict[str, Any]]:
@@ -179,6 +287,11 @@ def merge_presets(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "reserve": int(reserve) if reserve is not None else 10,
                 "markets": normalize_market_array(item.get("markets")),
             }
+            price_usd = parse_usd(str(item.get("priceUsd", item.get("price", ""))))
+            if price_usd is not None:
+                normalized["priceUsd"] = int(round(price_usd))
+            if "priceSource" in item:
+                normalized["priceSource"] = str(item["priceSource"]).strip()
             if "source" in item:
                 normalized["source"] = str(item["source"])
             merged[car_id] = normalized
@@ -186,6 +299,13 @@ def merge_presets(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def collect_us_ev_presets(from_year: int, to_year: int, sleep_ms: int) -> list[dict[str, Any]]:
+    afdc_prices_by_make_model: dict[str, int] = {}
+    try:
+        afdc_prices_by_make_model = fetch_afdc_ev_prices()
+        print(f"Loaded {len(afdc_prices_by_make_model)} EV MSRP entries from AFDC.")
+    except Exception as exc:  # pragma: no cover - network/runtime failures
+        print(f"Warning: AFDC price sync failed ({exc}). Continuing without MSRP.", file=sys.stderr)
+
     best_by_id: dict[str, dict[str, Any]] = {}
     for year in range(from_year, to_year + 1):
         makes_root = request_xml("/menu/make", {"year": year})
@@ -200,7 +320,7 @@ def collect_us_ev_presets(from_year: int, to_year: int, sleep_ms: int) -> list[d
                 vehicle_ids = parse_menu_values(options_root)
                 for vehicle_id in vehicle_ids:
                     vehicle = request_xml(f"/{vehicle_id}")
-                    preset = vehicle_to_preset(vehicle)
+                    preset = vehicle_to_preset(vehicle, afdc_prices_by_make_model)
                     if not preset:
                         continue
                     existing = best_by_id.get(preset["id"])

@@ -58,6 +58,30 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertGreater(preset["batteryKwh"], 20)
         self.assertLess(preset["efficiency"], 35)
 
+    def test_vehicle_to_preset_includes_price_when_available(self):
+        xml = """
+        <vehicle>
+          <year>2025</year>
+          <make>Audi</make>
+          <model>Q4 45 e-tron</model>
+          <fuelType1>Electricity</fuelType1>
+          <combE>115</combE>
+          <rangeA>288</rangeA>
+        </vehicle>
+        """
+        vehicle = ET.fromstring(xml)
+        preset = sync.vehicle_to_preset(
+            vehicle, {"audi q4 45 etron": 58200}
+        )
+        self.assertIsNotNone(preset)
+        self.assertEqual(preset["priceUsd"], 58200)
+        self.assertEqual(preset["priceSource"], "afdc.energy.gov")
+
+    def test_parse_usd(self):
+        self.assertEqual(sync.parse_usd("$58,200"), 58200.0)
+        self.assertEqual(sync.parse_usd("  $1,234.50 "), 1234.5)
+        self.assertIsNone(sync.parse_usd("N/A"))
+
     def test_merge_presets_last_source_wins(self):
         api_presets = [
             {
@@ -67,6 +91,7 @@ class SyncCarPresetsTests(unittest.TestCase):
                 "efficiency": 17.5,
                 "reserve": 10,
                 "markets": ["US"],
+                "priceUsd": 41000,
             }
         ]
         manual_presets = [
@@ -77,6 +102,8 @@ class SyncCarPresetsTests(unittest.TestCase):
                 "efficiency": 16.1,
                 "reserve": 8,
                 "markets": ["IN"],
+                "priceUsd": 39000,
+                "priceSource": "manual",
             }
         ]
         merged = sync.merge_presets(api_presets, manual_presets)
@@ -85,6 +112,8 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertEqual(merged[0]["batteryKwh"], 60.0)
         self.assertEqual(merged[0]["reserve"], 8)
         self.assertEqual(merged[0]["markets"], ["IN"])
+        self.assertEqual(merged[0]["priceUsd"], 39000)
+        self.assertEqual(merged[0]["priceSource"], "manual")
 
     def test_main_falls_back_to_manual_when_live_sync_fails(self):
         with tempfile.TemporaryDirectory() as tmp_dir:

@@ -357,10 +357,12 @@ const state = {
 
 const ui = {
   form: document.getElementById("planner-form"),
+  appResetBtn: document.getElementById("app-reset-btn"),
   carModelSelect: document.getElementById("car-model"),
   compareCarsSelect: document.getElementById("compare-cars"),
   carHint: document.getElementById("car-hint"),
   marketHint: document.getElementById("market-hint"),
+  marketDetailHint: document.getElementById("market-detail-hint"),
   useLocationBtn: document.getElementById("use-location"),
   locationInput: document.getElementById("location"),
   locationSuggestions: document.getElementById("location-suggestions"),
@@ -624,9 +626,7 @@ function applyLocationSuggestion(suggestion) {
     state.lastResolvedQueryKey = queryKey;
     cacheResolvedOrigin(queryKey, resolved);
     inferAndApplyMarket(resolved);
-    setLocationSelectionHint(
-      `Selected: ${resolved.label}${resolved.countryName ? ` (${resolved.countryName})` : ""}.`
-    );
+    setLocationSelectionHint("Location locked from suggestion. Press Compute Reach.");
     return;
   }
 
@@ -988,6 +988,68 @@ function wireEvents() {
     const btn = e.target.closest(".share-btn");
     if (btn) onShareBtnClick(btn);
   });
+  if (ui.appResetBtn) {
+    ui.appResetBtn.addEventListener("click", resetAppToGroundState);
+  }
+}
+
+function resetAppToGroundState() {
+  cancelChargerRender();
+  clearRoute();
+  if (state.chargerLayer) {
+    state.chargerLayer.clearLayers();
+  }
+  if (state.locationMarker && state.map) {
+    state.map.removeLayer(state.locationMarker);
+    state.locationMarker = null;
+  }
+  if (state.oneWayCircle && state.map) {
+    state.map.removeLayer(state.oneWayCircle);
+    state.oneWayCircle = null;
+  }
+  if (state.roundTripCircle && state.map) {
+    state.map.removeLayer(state.roundTripCircle);
+    state.roundTripCircle = null;
+  }
+
+  state.origin = null;
+  state.oneWayRangeKm = 0;
+  state.lastChargers = [];
+  state.lastSubmitMode = "reach";
+  state.lastResolvedQueryKey = "";
+  state.userSelectedCarModel = false;
+  state.marketCode = "GLOBAL";
+  state.marketLabel = "Global";
+  state.marketCluster = "GLOBAL";
+  state.marketClusterLabel = "Global";
+  state.activeCurrency = "USD";
+
+  ui.locationInput.value = "";
+  hideLocationSuggestions();
+  setLocationSelectionHint("Type a city and pick a suggestion to lock country/market.");
+
+  ui.batteryInput.value = "60";
+  ui.socInput.value = "100";
+  ui.efficiencyInput.value = "16";
+  ui.reserveInput.value = "10";
+  ui.providerSelect.value = "auto";
+  ui.verificationProfileSelect.value = "independent";
+  ui.maxResultsInput.value = String(DEFAULT_MAX_RESULTS);
+  onVerificationProfileChange();
+
+  populateCarPresets();
+  ui.carModelSelect.value = "custom";
+  onCarModelChange(false);
+  renderComparisonResults([], "reach");
+  setSummary("<h2>Summary</h2><p>Enter values and compute reach.</p>");
+
+  if (state.map) {
+    state.map.closePopup();
+    state.map.setView(DEFAULT_CENTER, DEFAULT_ZOOM);
+  }
+
+  updateMarketHint();
+  pushUrlState();
 }
 
 function scheduleMapInvalidate(delayMs = 120) {
@@ -1719,13 +1781,13 @@ function inferAndApplyMarket(origin) {
 
 function updateMarketHint(countryName = "") {
   const countryText = countryName ? ` (${countryName})` : "";
-  const clusterText =
-    state.marketCode === "GLOBAL"
-      ? ""
-      : ` Cluster: ${state.marketClusterLabel}.`;
+  const clusterText = state.marketCode === "GLOBAL" ? "" : ` Cluster: ${state.marketClusterLabel}.`;
   const catalogChannelLabel = activeCatalogChannelConfig().label;
-  ui.marketHint.textContent =
-    `Market: ${state.marketLabel}${countryText}.${clusterText} Showing: ${state.marketCatalogMode}. Catalog: ${state.catalogCount} presets (${state.catalogSource}, ${catalogChannelLabel}).`;
+  ui.marketHint.textContent = `Market: ${state.marketLabel}${countryText}.`;
+  if (ui.marketDetailHint) {
+    ui.marketDetailHint.textContent =
+      `Showing: ${state.marketCatalogMode}. Catalog: ${state.catalogCount} presets (${state.catalogSource}, ${catalogChannelLabel}).${clusterText}`;
+  }
 }
 
 function autoInferModelForMarket() {
@@ -2085,9 +2147,7 @@ async function resolveOrigin(locationQuery) {
   const cachedOrigin = state.geocodeCache.get(queryKey);
   if (cachedOrigin) {
     state.lastResolvedQueryKey = queryKey;
-    setLocationSelectionHint(
-      `Resolved: ${cachedOrigin.label}${cachedOrigin.countryName ? ` (${cachedOrigin.countryName})` : ""}.`
-    );
+    setLocationSelectionHint("Location resolved from cache. Press Compute Reach.");
     return cachedOrigin;
   }
 
@@ -2117,9 +2177,7 @@ async function resolveOrigin(locationQuery) {
   };
   state.lastResolvedQueryKey = queryKey;
   cacheResolvedOrigin(queryKey, resolved);
-  setLocationSelectionHint(
-    `Resolved: ${resolved.label}${resolved.countryName ? ` (${resolved.countryName})` : ""}.`
-  );
+  setLocationSelectionHint("Location resolved. Press Compute Reach.");
   return resolved;
 }
 
@@ -2149,9 +2207,7 @@ async function useCurrentLocation() {
       inferAndApplyMarket(state.origin);
       ui.locationInput.value = place.label;
       hideLocationSuggestions();
-      setLocationSelectionHint(
-        `GPS selected: ${place.label}${place.countryName ? ` (${place.countryName})` : ""}.`
-      );
+      setLocationSelectionHint("GPS location locked. Press Compute Reach.");
       setSummary(`<p>GPS location set: ${escapeHtml(place.label)}</p>`);
       state.map.setView([lat, lon], 12);
       renderOrigin(state.origin);

@@ -16,6 +16,7 @@
     <meta name="twitter:title" content="EV Mapping — EV Range &amp; Charger Finder" />
     <meta name="twitter:description" content="Estimate EV range and map nearby charging stations. Free, open-source." />
     <meta name="twitter:image" content="https://ev-mapping.vercel.app/icon.svg" />
+    <meta name="google-adsense-account" content="ca-pub-2653530519112130" />
     <meta name="theme-color" content="#00677b" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
     <link rel="apple-touch-icon" href="./icon.svg" />
@@ -56,7 +57,15 @@
   <body>
     <main class="app-shell">
       <section class="controls-panel">
-        <h1><svg class="brand-bolt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z"/></svg>EV Mapping</h1>
+        <h1>
+          <button
+            id="app-reset-btn"
+            class="app-reset-btn"
+            type="button"
+            title="Reset app"
+            aria-label="Reset app to defaults"
+          ><svg class="brand-bolt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z"/></svg>EV Mapping</button>
+        </h1>
         <p class="subtitle">
           Estimate one-way and round-trip range, then inspect nearby charging options.
         </p>
@@ -171,6 +180,9 @@
                 <h2>Summary</h2>
                 <p>Enter values and compute reach.</p>
               </section>
+              <p id="market-detail-hint" class="hint">
+                Catalog details appear here after location/market resolution.
+              </p>
             </div>
           </details>
 

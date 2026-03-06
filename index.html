@@ -285,13 +285,15 @@
       </section>
 
       <section class="map-panel">
-        <div id="map-empty-state" class="map-empty-state" aria-hidden="true">
-          <div class="map-empty-inner">
-            <span class="map-empty-icon">⚡</span>
-            <p>Select your EV and starting location,<br>then press <strong>Compute Reach</strong></p>
+        <div class="map-canvas">
+          <div id="map-empty-state" class="map-empty-state" aria-hidden="true">
+            <div class="map-empty-inner">
+              <span class="map-empty-icon">⚡</span>
+              <p>Select your EV and starting location,<br>then press <strong>Compute Reach</strong></p>
+            </div>
           </div>
+          <div id="map" aria-label="Reachability map" tabindex="-1"></div>
         </div>
-        <div id="map" aria-label="Reachability map" tabindex="-1"></div>
         <aside class="ad-slot ad-slot-map" aria-label="Sponsored placement">
           <p class="ad-label">Sponsored</p>
           <div id="map-ad-container" class="ad-placeholder"></div>

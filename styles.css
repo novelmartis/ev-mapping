@@ -977,10 +977,15 @@ select:focus {
   animation: rise-fade 520ms ease both;
 }
 
+.map-canvas {
+  position: relative;
+  grid-row: 1;
+  min-height: 460px;
+}
+
 #map {
   height: 100%;
-  min-height: 460px;
-  grid-row: 1;
+  min-height: 100%;
 }
 
 #map:focus-visible {
@@ -990,8 +995,8 @@ select:focus {
 
 /* ── Map empty state ── */
 .map-empty-state {
-  grid-row: 1;
-  grid-column: 1;
+  position: absolute;
+  inset: 0;
   z-index: 1001;
   display: flex;
   align-items: center;
@@ -1160,7 +1165,7 @@ select:focus {
     border-radius: 14px;
   }
 
-  #map {
+  .map-canvas {
     min-height: 55vh;
   }
 
@@ -1207,7 +1212,7 @@ select:focus {
     border-radius: 12px;
   }
 
-  #map {
+  .map-canvas {
     min-height: 50vh;
   }
 

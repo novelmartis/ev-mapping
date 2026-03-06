@@ -29,6 +29,7 @@ const CATALOG_MANIFEST_CACHE_KEY = "ev-mapping-catalog-manifest-cache-v1";
 const CATALOG_MARKET_CACHE_KEY = "ev-mapping-catalog-market-cache-v1";
 const FX_CACHE_KEY = "ev-mapping-fx-cache-v1";
 const CURRENCY_CACHE_KEY = "ev-mapping-market-currency-cache-v1";
+const OPENCHARGEMAP_API_KEY = readOpenChargeMapApiKey();
 const MAX_CACHED_MARKET_SLICES = 8;
 const MAX_PROXY_MARKET_CODES = 3;
 const STRICT_LOCAL_MARKET_MIN_PRESETS = 8;
@@ -357,7 +358,6 @@ const state = {
   activeCurrency: "USD",
   lastResolvedQueryKey: "",
   installPromptEvent: null,
-  installCardDismissed: false,
 };
 
 const ui = {
@@ -366,7 +366,6 @@ const ui = {
   installCard: document.getElementById("install-card"),
   installHint: document.getElementById("install-hint"),
   installAppBtn: document.getElementById("install-app-btn"),
-  installDismissBtn: document.getElementById("install-dismiss-btn"),
   carModelSelect: document.getElementById("car-model"),
   compareCarsSelect: document.getElementById("compare-cars"),
   compareSearch: document.getElementById("compare-search"),
@@ -1018,9 +1017,6 @@ function wireEvents() {
   if (ui.installAppBtn) {
     ui.installAppBtn.addEventListener("click", onInstallAppClick);
   }
-  if (ui.installDismissBtn) {
-    ui.installDismissBtn.addEventListener("click", onInstallDismissClick);
-  }
 }
 
 function syncSocDisplay() {
@@ -1058,7 +1054,6 @@ function setupInstallExperience() {
 
   window.addEventListener("appinstalled", () => {
     state.installPromptEvent = null;
-    state.installCardDismissed = true;
     refreshInstallCard();
   });
 
@@ -1108,7 +1103,7 @@ function installFallbackHint() {
 
 function refreshInstallCard() {
   if (!ui.installCard || !ui.installHint) return;
-  if (state.installCardDismissed || isRunningStandalone()) {
+  if (isRunningStandalone()) {
     ui.installCard.hidden = true;
     return;
   }
@@ -1142,11 +1137,6 @@ async function onInstallAppClick() {
     ui.installAppBtn.disabled = false;
     refreshInstallCard();
   }
-}
-
-function onInstallDismissClick() {
-  state.installCardDismissed = true;
-  refreshInstallCard();
 }
 
 function scheduleMapInvalidate(delayMs = 120) {
@@ -2641,6 +2631,27 @@ function getCachedChargersFallback(origin, oneWayRangeKm) {
   });
 }
 
+function readOpenChargeMapApiKey() {
+  try {
+    const fromGlobal =
+      typeof window !== "undefined" && typeof window.__EV_MAPPING_OCM_API_KEY === "string"
+        ? window.__EV_MAPPING_OCM_API_KEY
+        : "";
+    if (fromGlobal.trim()) return fromGlobal.trim();
+  } catch {
+    // Ignore missing window context.
+  }
+
+  try {
+    const fromMeta = document
+      .querySelector('meta[name="ev-mapping-ocm-api-key"]')
+      ?.getAttribute("content");
+    return String(fromMeta || "").trim();
+  } catch {
+    return "";
+  }
+}
+
 async function fetchOpenChargeMap(origin, radiusKm, maxResults, requestTimeoutMs = OCM_TIMEOUT_MS) {
   const url = new URL("https://api.openchargemap.io/v3/poi/");
   url.searchParams.set("output", "json");
@@ -2652,12 +2663,19 @@ async function fetchOpenChargeMap(origin, radiusKm, maxResults, requestTimeoutMs
   url.searchParams.set("compact", "true");
   url.searchParams.set("verbose", "false");
 
-  const response = await fetchWithTimeout(url, {
-    headers: {
-      Accept: "application/json",
-      "X-API-Key": "REDACTED_OCM_API_KEY",
+  const headers = {
+    Accept: "application/json",
+  };
+  if (OPENCHARGEMAP_API_KEY) {
+    headers["X-API-Key"] = OPENCHARGEMAP_API_KEY;
+  }
+  const response = await fetchWithTimeout(
+    url,
+    {
+      headers,
     },
-  }, requestTimeoutMs);
+    requestTimeoutMs
+  );
 
   if (!response.ok) {
     throw new Error("OpenChargeMap request failed.");

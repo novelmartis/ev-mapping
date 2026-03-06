@@ -152,39 +152,28 @@ h1::after {
   gap: 0.45rem;
 }
 
-.install-primary-btn,
-.install-dismiss-btn {
+.install-primary-btn {
   font: inherit;
   border-radius: 8px;
   padding: 0.38rem 0.65rem;
   border: 1px solid var(--line-strong);
-  background: #fff;
   font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
   transition: transform 100ms, background 150ms, border-color 150ms, color 150ms;
-}
-
 .install-primary-btn {
   color: #fff;
   border-color: var(--brand);
   background: linear-gradient(130deg, var(--brand), var(--brand-2) 70%);
 }
 
-.install-primary-btn:hover,
-.install-dismiss-btn:hover {
+.install-primary-btn:hover {
   transform: translateY(-1px);
 }
 
-.install-primary-btn:focus-visible,
-.install-dismiss-btn:focus-visible {
+.install-primary-btn:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
-}
-
-.install-dismiss-btn {
-  color: var(--muted);
-  background: rgb(255 255 255 / 82%);
 }
 
 /* ── Form ── */
@@ -1234,8 +1223,7 @@ select:focus {
     align-items: stretch;
   }
 
-  .install-primary-btn,
-  .install-dismiss-btn {
+  .install-primary-btn {
     width: 100%;
     text-align: center;
   }

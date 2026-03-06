@@ -161,6 +161,8 @@ h1::after {
   font-weight: 700;
   cursor: pointer;
   transition: transform 100ms, background 150ms, border-color 150ms, color 150ms;
+}
+
 .install-primary-btn {
   color: #fff;
   border-color: var(--brand);

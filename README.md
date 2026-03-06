@@ -62,6 +62,13 @@ This project is a static site (no build step), and is configured for Vercel with
 3. Leave **Build Command** empty and set **Output Directory** to `.` (project root), if prompted.
 4. Deploy.
 
+Recommended for stable charger coverage:
+
+5. In Vercel Project Settings -> Environment Variables, add:
+   - `OPENCHARGEMAP_API_KEY=<your_ocm_key>`
+
+The frontend calls same-origin `/api/openchargemap`, and that serverless function injects the key server-side so it is never committed to git or exposed in client code.
+
 For migration from Netlify:
 
 1. Point your custom domain to Vercel in your DNS provider (remove old Netlify DNS records first).

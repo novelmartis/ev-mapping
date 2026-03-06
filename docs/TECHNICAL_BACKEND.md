@@ -15,6 +15,7 @@ This project has a static frontend and a lightweight data-sync backend.
   - `data/catalog-next/markets/*.json` (canary split slices)
 
 There is no always-on API server required for core app functionality.
+For production reliability, this repo includes a lightweight Vercel serverless proxy at `api/openchargemap.js` so OpenChargeMap API keys stay server-side.
 
 For a direct function/constant-to-behavior index, see:
 
@@ -27,7 +28,7 @@ For a direct function/constant-to-behavior index, see:
 2. App loads catalog manifest, then lazily loads market slices relevant to detected country.
 3. If split catalog is unavailable, app falls back to full generated JSON.
 4. App merges loaded generated presets with built-in presets.
-5. User computes reach; app calls public APIs client-side.
+5. User computes reach; app calls public APIs client-side, with OpenChargeMap requests routed via same-origin `/api/openchargemap` when deployed on Vercel.
 6. Optional backend job refreshes generated catalog periodically.
 
 ## Backend script
@@ -115,10 +116,11 @@ python3 -m unittest discover -s tests -p "test_*.py" -v
 Recommended production setup:
 
 1. Host static app on Vercel (or equivalent static host).
-2. Run canary catalog sync every 12 hours via GitHub Actions/cron.
-3. Validate canary integrity and anti-regression thresholds.
-4. Promote canary to stable after passing checks.
-5. Commit updated stable outputs (`data/car-presets.generated.json` + `data/catalog/*`) only when promotion checks pass.
+2. Configure `OPENCHARGEMAP_API_KEY` in Vercel env vars (used by `/api/openchargemap`).
+3. Run canary catalog sync every 12 hours via GitHub Actions/cron.
+4. Validate canary integrity and anti-regression thresholds.
+5. Promote canary to stable after passing checks.
+6. Commit updated stable outputs (`data/car-presets.generated.json` + `data/catalog/*`) only when promotion checks pass.
 
 This keeps runtime simple and resilient.
 

@@ -29,7 +29,7 @@ const CATALOG_MANIFEST_CACHE_KEY = "ev-mapping-catalog-manifest-cache-v1";
 const CATALOG_MARKET_CACHE_KEY = "ev-mapping-catalog-market-cache-v1";
 const FX_CACHE_KEY = "ev-mapping-fx-cache-v1";
 const CURRENCY_CACHE_KEY = "ev-mapping-market-currency-cache-v1";
-const OPENCHARGEMAP_API_KEY = readOpenChargeMapApiKey();
+const OPENCHARGEMAP_PROXY_PATH = "/api/openchargemap";
 const MAX_CACHED_MARKET_SLICES = 8;
 const MAX_PROXY_MARKET_CODES = 3;
 const STRICT_LOCAL_MARKET_MIN_PRESETS = 8;
@@ -2436,38 +2436,71 @@ async function useCurrentLocation() {
 
   setSummary('<p class="result-loading">Locating you…</p>');
 
-  navigator.geolocation.getCurrentPosition(
-    async (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const place = await reverseGeocodePlace(lat, lon);
-      state.origin = {
-        lat,
-        lon,
-        label: place.label,
-        countryCode: place.countryCode,
-        countryName: place.countryName,
-      };
-      const queryKey = normalizeLocationQuery(place.label);
-      state.lastResolvedQueryKey = queryKey;
-      cacheResolvedOrigin(queryKey, state.origin);
-      inferAndApplyMarket(state.origin);
-      ui.locationInput.value = place.label;
-      hideLocationSuggestions();
-      setLocationSelectionHint("Location set. Press Compute Reach.");
-      setSummary(`<p class="result-loading">📍 ${escapeHtml(place.label)} — press <strong>Compute Reach</strong> to see your range.</p>`);
-      state.map.setView([lat, lon], 12);
-      renderOrigin(state.origin);
-    },
-    (error) => {
-      const reason = error.code === 1 ? "location permission denied"
-        : error.code === 2 ? "position unavailable"
-        : error.code === 3 ? "timed out"
-        : error.message || "unknown error";
-      setSummary(`<p class="warning">Unable to read GPS location — ${escapeHtml(reason)}. Try typing your location instead.</p>`);
-    },
-    { enableHighAccuracy: true, timeout: 12000 }
-  );
+  try {
+    const { position, usedFallbackCheck } = await resolveCurrentPositionWithRetry();
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const place = await reverseGeocodePlace(lat, lon);
+    state.origin = {
+      lat,
+      lon,
+      label: place.label,
+      countryCode: place.countryCode,
+      countryName: place.countryName,
+    };
+    const queryKey = normalizeLocationQuery(place.label);
+    state.lastResolvedQueryKey = queryKey;
+    cacheResolvedOrigin(queryKey, state.origin);
+    inferAndApplyMarket(state.origin);
+    ui.locationInput.value = place.label;
+    hideLocationSuggestions();
+    setLocationSelectionHint("Location set. Press Compute Reach.");
+    const fallbackNote = usedFallbackCheck ? " (via fallback GPS check)" : "";
+    setSummary(
+      `<p class="result-loading">📍 ${escapeHtml(place.label)}${escapeHtml(fallbackNote)} — press <strong>Compute Reach</strong> to see your range.</p>`
+    );
+    state.map.setView([lat, lon], 12);
+    renderOrigin(state.origin);
+  } catch (error) {
+    const reason = geolocationErrorReason(error);
+    const retryNote = Number(error?.code) === 1 ? "" : " A second GPS check also failed.";
+    setSummary(
+      `<p class="warning">Unable to read GPS location — ${escapeHtml(reason)}.${escapeHtml(retryNote)} Try typing your location instead.</p>`
+    );
+  }
+}
+
+function getCurrentPositionWithOptions(options) {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
+}
+
+async function resolveCurrentPositionWithRetry() {
+  const primaryOptions = { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 };
+  const fallbackOptions = { enableHighAccuracy: false, timeout: 9000, maximumAge: 5 * 60 * 1000 };
+
+  try {
+    const position = await getCurrentPositionWithOptions(primaryOptions);
+    return { position, usedFallbackCheck: false };
+  } catch (error) {
+    // Permission denied should not trigger repeated prompts; surface immediately.
+    if (Number(error?.code) === 1) {
+      throw error;
+    }
+    const position = await getCurrentPositionWithOptions(fallbackOptions);
+    return { position, usedFallbackCheck: true };
+  }
+}
+
+function geolocationErrorReason(error) {
+  return Number(error?.code) === 1
+    ? "location permission denied"
+    : Number(error?.code) === 2
+      ? "position unavailable"
+      : Number(error?.code) === 3
+        ? "timed out"
+        : error?.message || "unknown error";
 }
 
 async function reverseGeocodePlace(lat, lon) {
@@ -2631,57 +2664,75 @@ function getCachedChargersFallback(origin, oneWayRangeKm) {
   });
 }
 
-function readOpenChargeMapApiKey() {
-  try {
-    const fromGlobal =
-      typeof window !== "undefined" && typeof window.__EV_MAPPING_OCM_API_KEY === "string"
-        ? window.__EV_MAPPING_OCM_API_KEY
-        : "";
-    if (fromGlobal.trim()) return fromGlobal.trim();
-  } catch {
-    // Ignore missing window context.
-  }
+async function fetchOpenChargeMap(origin, radiusKm, maxResults, requestTimeoutMs = OCM_TIMEOUT_MS) {
+  const queryParams = buildOpenChargeMapQueryParams(origin, radiusKm, maxResults);
 
   try {
-    const fromMeta = document
-      .querySelector('meta[name="ev-mapping-ocm-api-key"]')
-      ?.getAttribute("content");
-    return String(fromMeta || "").trim();
-  } catch {
-    return "";
+    const proxyPayload = await fetchOpenChargeMapViaProxy(queryParams, requestTimeoutMs);
+    return mapOpenChargeMapPayload(proxyPayload);
+  } catch (proxyError) {
+    if (!shouldUseDirectOpenChargeMapFallback()) {
+      throw proxyError;
+    }
+    // Local static serving does not provide /api routes; fallback keeps local smoke checks usable.
+    const directPayload = await fetchOpenChargeMapDirect(queryParams, requestTimeoutMs);
+    return mapOpenChargeMapPayload(directPayload);
   }
 }
 
-async function fetchOpenChargeMap(origin, radiusKm, maxResults, requestTimeoutMs = OCM_TIMEOUT_MS) {
-  const url = new URL("https://api.openchargemap.io/v3/poi/");
-  url.searchParams.set("output", "json");
-  url.searchParams.set("latitude", String(origin.lat));
-  url.searchParams.set("longitude", String(origin.lon));
-  url.searchParams.set("distance", String(Math.min(radiusKm, CHARGER_MAX_DISTANCE_KM)));
-  url.searchParams.set("distanceunit", "KM");
-  url.searchParams.set("maxresults", String(maxResults));
-  url.searchParams.set("compact", "true");
-  url.searchParams.set("verbose", "false");
+function shouldUseDirectOpenChargeMapFallback() {
+  const host = String(window.location.hostname || "").toLowerCase();
+  return host === "localhost" || host === "127.0.0.1" || host === "::1";
+}
 
-  const headers = {
-    Accept: "application/json",
-  };
-  if (OPENCHARGEMAP_API_KEY) {
-    headers["X-API-Key"] = OPENCHARGEMAP_API_KEY;
-  }
+function buildOpenChargeMapQueryParams(origin, radiusKm, maxResults) {
+  const params = new URLSearchParams();
+  params.set("latitude", String(origin.lat));
+  params.set("longitude", String(origin.lon));
+  params.set("distance", String(Math.min(radiusKm, CHARGER_MAX_DISTANCE_KM)));
+  params.set("maxresults", String(maxResults));
+  return params;
+}
+
+async function fetchOpenChargeMapViaProxy(queryParams, requestTimeoutMs) {
   const response = await fetchWithTimeout(
-    url,
+    `${OPENCHARGEMAP_PROXY_PATH}?${queryParams.toString()}`,
     {
-      headers,
+      headers: { Accept: "application/json" },
     },
     requestTimeoutMs
   );
+  if (!response.ok) {
+    throw new Error(`OpenChargeMap proxy failed (${response.status}).`);
+  }
+  return response.json();
+}
 
+async function fetchOpenChargeMapDirect(queryParams, requestTimeoutMs) {
+  const url = new URL("https://api.openchargemap.io/v3/poi/");
+  url.search = queryParams.toString();
+  url.searchParams.set("output", "json");
+  url.searchParams.set("distanceunit", "KM");
+  url.searchParams.set("compact", "true");
+  url.searchParams.set("verbose", "false");
+
+  const response = await fetchWithTimeout(
+    url,
+    {
+      headers: {
+        Accept: "application/json",
+      },
+    },
+    requestTimeoutMs
+  );
   if (!response.ok) {
     throw new Error("OpenChargeMap request failed.");
   }
+  return response.json();
+}
 
-  const data = await response.json();
+function mapOpenChargeMapPayload(data) {
+  if (!Array.isArray(data)) return [];
   return data
     .map((item) => {
       const lat = item?.AddressInfo?.Latitude;

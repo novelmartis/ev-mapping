@@ -3,38 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Estimate EV range and find nearby charging stations on an interactive map. Free, open-source, powered by OpenStreetMap." />
+    <meta name="description" content="Free EV range calculator with 700+ electric car presets. See how far you can drive on a full or partial charge, then find nearby charging stations on a live map. No login required." />
+    <meta name="keywords" content="EV range calculator, electric car range, how far can my EV go, EV charging stations near me, electric vehicle trip planner, EV range finder, Tesla range, Ioniq range, electric car charger map" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="https://ev-mapping.vercel.app/" />
-    <meta property="og:title" content="EV Mapping — EV Range &amp; Charger Finder" />
-    <meta property="og:description" content="Plan your EV trip: estimate one-way and round-trip range, find nearby chargers. Free, open-source, no login." />
+    <meta property="og:title" content="EV Range Calculator — How Far Can Your Electric Car Go?" />
+    <meta property="og:description" content="Free EV range calculator with 700+ presets. See one-way &amp; round-trip range on a charge, then find charging stations on a live map. No login." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="EV Mapping" />
     <meta property="og:url" content="https://ev-mapping.vercel.app/" />
     <meta property="og:image" content="https://ev-mapping.vercel.app/icon.svg" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="EV Mapping — EV Range &amp; Charger Finder" />
-    <meta name="twitter:description" content="Estimate EV range and map nearby charging stations. Free, open-source." />
+    <meta name="twitter:title" content="EV Range Calculator — How Far Can Your Electric Car Go?" />
+    <meta name="twitter:description" content="700+ EV presets. See how far you can drive on any charge level, find charging stations on a live map. Free, no login." />
     <meta name="twitter:image" content="https://ev-mapping.vercel.app/icon.svg" />
     <meta name="google-adsense-account" content="ca-pub-2653530519112130" />
     <meta name="theme-color" content="#00677b" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
     <link rel="apple-touch-icon" href="./icon.svg" />
     <link rel="manifest" href="./manifest.json" />
-    <title>EV Mapping — EV Range &amp; Charger Finder</title>
+    <title>EV Range Calculator — How Far Can Your Electric Car Go? | EV Mapping</title>
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "EV Mapping",
-      "url": "https://ev-mapping.vercel.app/",
-      "description": "Estimate EV range and find nearby charging stations on an interactive map. Free, open-source.",
-      "applicationCategory": "TravelApplication",
-      "inLanguage": "en",
-      "operatingSystem": "Any",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "featureList": "EV range estimation, charging station finder, 640+ EV presets, car comparison, route planning, URL sharing"
-    }
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "EV Mapping",
+        "url": "https://ev-mapping.vercel.app/",
+        "description": "Free EV range calculator with 700+ electric car presets. See how far you can drive on a full or partial charge, then find nearby charging stations on a live map.",
+        "applicationCategory": "TravelApplication",
+        "inLanguage": "en",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": "EV range estimation, charging station finder, 700+ EV presets, car comparison, Google Maps integration, URL sharing, 20+ market coverage"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How far can my electric car go on a full charge?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "EV Mapping calculates your electric car's one-way range and round-trip radius based on your vehicle's battery capacity and real-world efficiency. Select your EV model from 700+ presets, enter your starting location, and press Compute Reach to see your range on a map."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where are the nearest EV charging stations?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "EV Mapping shows all charging stations within your EV's range on an interactive map, sourced from OpenChargeMap and OpenStreetMap. Click any pin for the station name, address, and a direct link to open navigation in Google Maps."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How far can I go on 80% battery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use the Current Charge slider on EV Mapping to set any charge level from 1% to 100%. The range calculation updates instantly to show how far you can travel on that charge."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can my EV make a round trip without charging?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "EV Mapping shows both one-way range and round-trip radius simultaneously. If your destination falls within the round-trip radius circle on the map, you can make the trip and return without needing to charge."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which electric cars are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "EV Mapping includes 700+ presets covering 2025–2026 models from Tesla, BMW, Audi, Hyundai, Kia, BYD, Volkswagen, Rivian, Volvo, Mercedes-Benz, Polestar, and many more, across 20+ markets including the US, UK, EU, India, Australia, Canada, and China."
+            }
+          }
+        ]
+      }
+    ]
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -249,6 +298,33 @@
       <span aria-hidden="true"> · </span>
       <a href="https://sushrutthorat.com" target="_blank" rel="noopener noreferrer">sushrutthorat.com</a>
     </footer>
+
+    <noscript>
+      <div style="max-width:640px;margin:2rem auto;padding:1rem;font-family:sans-serif;line-height:1.6">
+        <h1>EV Range Calculator — How Far Can Your Electric Car Go?</h1>
+        <p>EV Mapping is a free electric vehicle range calculator. Select your EV model, enter a starting location, and see your one-way range and round-trip radius on a live map, along with all nearby charging stations within reach.</p>
+        <h2>How it works</h2>
+        <ol>
+          <li>Choose your EV from 700+ presets (Tesla, BMW, Hyundai, Kia, Audi, BYD, Volkswagen, Rivian, and more)</li>
+          <li>Enter your starting city, address, or landmark</li>
+          <li>Set your current charge level (1–100%)</li>
+          <li>Press Compute Reach — see your range circle and all charging stations within it</li>
+        </ol>
+        <h2>Common questions</h2>
+        <dl>
+          <dt>How far can my electric car go on a full charge?</dt>
+          <dd>Enter your EV model and location, then press Compute Reach. EV Mapping shows your one-way range and round-trip radius in kilometres.</dd>
+          <dt>How far can I go on 80% battery?</dt>
+          <dd>Use the Current Charge slider to set any charge level. The range updates instantly.</dd>
+          <dt>Where are the nearest EV charging stations?</dt>
+          <dd>All charging stations within your range appear as pins on the map. Click any pin for the address and a Google Maps navigation link.</dd>
+          <dt>Can I make a round trip without charging?</dt>
+          <dd>EV Mapping shows a round-trip radius. If your destination is inside that circle, you can return without stopping to charge.</dd>
+        </dl>
+        <p>Supports 20+ markets including United States, United Kingdom, Germany, India, Australia, Canada, Singapore, and China. Data from OpenChargeMap and OpenStreetMap. No login required. Free.</p>
+        <p><a href="https://ev-mapping.vercel.app/">ev-mapping.vercel.app</a></p>
+      </div>
+    </noscript>
 
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"

@@ -1,61 +1,86 @@
 # EV Mapping
 
-> Free, open-source EV range estimator and charging station finder — plan your EV trip with live open data.
+> Free, open-source electric vehicle range calculator and charging station finder.
+> URL: https://ev-mapping.vercel.app/
 
-EV Mapping answers one core question: "How far can I go from here with this EV?" It plots one-way and round-trip reach circles on an interactive map and shows nearby charging stations — all in the browser, no login required.
+## What it does
+
+EV Mapping answers two core questions for electric vehicle drivers and shoppers:
+
+1. **How far can I go?** — One-way range and round-trip radius based on your EV model, starting location, and current charge level.
+2. **Where can I charge?** — All charging stations within your range shown on a live map, with address and a Google Maps navigation link.
+
+## How to use it
+
+1. Select your EV model from 700+ presets (2025–2026 models, 20+ markets)
+2. Enter your starting location (city, address, or landmark)
+3. Set your current charge level (1–100%) using the slider
+4. Press **Compute Reach** to instantly see:
+   - One-way range in km
+   - Round-trip radius in km
+   - Number of charging stations within reach
+   - Interactive map with range circle and charger pins
+
+## Common questions this tool answers
+
+- "How far can I drive my [EV model] on a full charge?"
+- "How far can I go on 80% battery?"
+- "Can my electric car make it from [City A] to [City B] and back without charging?"
+- "Where are EV charging stations near me?"
+- "What is the real-world range of a 2025 Tesla Model 3 / BMW iX / Hyundai Ioniq 6 / Kia EV6?"
+- "Which EV has the longest range?"
+- "How many charging stations are within driving distance of [location]?"
+
+## Supported vehicles
+
+700+ presets covering major brands: Tesla, BMW, Audi, Hyundai, Kia, BYD, Volkswagen, Rivian, Volvo, Mercedes-Benz, Polestar, Porsche, Ford, GM/Chevrolet, Nissan, Renault, Stellantis, Xpeng, NIO, and more.
+
+Model years: 2025–2026. Auto-updated every 12 hours via GitHub Actions.
+
+## Supported markets (20+)
+
+United States, United Kingdom, Germany, France, India, Australia, Canada, Singapore, China, Netherlands, Norway, Sweden, Italy, Spain, Belgium, Austria, Switzerland, New Zealand, South Korea, Japan.
+
+## Data sources
+
+| Data | Source |
+|------|--------|
+| EV specs & prices | Auto-synced catalog (manufacturer data, updated every 12h) |
+| Charging stations | OpenChargeMap API + OpenStreetMap Overpass API |
+| Geocoding | Nominatim (OpenStreetMap) |
+| Currency conversion | Frankfurter API |
 
 ## Features
 
-- Range circles on an interactive OpenStreetMap map (outer = one-way, inner = round-trip)
-- 640+ EV model presets with auto-fill (battery kWh, efficiency) sourced from fueleconomy.gov
-- Market-aware preset grouping: US, India, and Global
-- Nearby charger discovery via OpenChargeMap + OpenStreetMap Overpass (merged, de-duplicated)
-- Car comparison: benchmark up to 3 EVs on range and charger availability side-by-side
-- Route planning: click any charger pin for real road distance and drive time (OSRM)
-- Verification profiles: Independent (open data, wider coverage) vs Official (conservative, curated feeds)
-- GPS location support via browser geolocation
-- URL-based state sharing — share a specific EV setup via link
-- Recent location history (localStorage)
-- Installable as a PWA (offline-capable)
+- **Range calculation** — accounts for battery capacity, real-world efficiency, and battery reserve
+- **Charge level slider** — set any charge from 1–100%, not just full
+- **Charging station map** — live pins from two independent open-data sources, merged and de-duplicated
+- **Google Maps link** — one tap to navigate to any charging station
+- **Compare EVs** — side-by-side range and spec comparison for up to 3 models
+- **URL sharing** — shareable links preserve all settings
+- **GPS support** — use browser geolocation as starting point
+- **PWA** — installable, offline-capable via service worker
+- **No login, no account, completely free**
 
 ## URL Parameters (for sharing and deep-linking)
 
-- `car` — EV preset ID (e.g. `tesla-model-3-rwd`, `2025-ford-mustang-mach-e`)
+- `car` — EV preset ID (e.g. `tesla-model-3-rwd`)
 - `loc` — Start location string (e.g. `San Francisco, CA`)
 - `soc` — State of charge % (default: `100`)
-- `batt` — Battery kWh, for custom mode only
-- `eff` — Consumption kWh/100km, for custom mode only
+- `batt` — Battery kWh (custom mode only)
+- `eff` — Consumption kWh/100km (custom mode only)
 - `res` — Battery reserve % (default: `10`)
 - `src` — Data source: `auto` | `openchargemap` | `overpass` (default: `auto`)
 - `vp` — Verification profile: `independent` | `official` (default: `independent`)
 
-## Data Sources
-
-- [OpenChargeMap](https://openchargemap.org) — global EV charging station registry
-- [OpenStreetMap Overpass](https://overpass-api.de) — community-mapped charging stations
-- [fueleconomy.gov](https://www.fueleconomy.gov) — US EV efficiency data (2025–2026)
-- [Nominatim](https://nominatim.openstreetmap.org) — geocoding (OpenStreetMap)
-- [OSRM](https://project-osrm.org) — open-source road routing
-
-## Tech Stack
-
-- Plain HTML + CSS + JavaScript (ES modules, no framework, no build step)
-- [Leaflet](https://leafletjs.com) for map rendering
-- Static site — deployable to Netlify, Vercel, GitHub Pages, S3+CloudFront
-- Service worker for offline-first caching
-
-## Key Files
-
-- `index.html` — app shell and UI markup
-- `app.js` — all client logic (map, charger fetch, range calc, URL state, share)
-- `styles.css` — layout and visual design
-- `data/car-presets.generated.json` — periodically synced EV catalog
-- `data/car-presets.manual.json` — manual presets (India-specific and other non-US models)
-- `scripts/sync_car_presets.py` — catalog sync script (fueleconomy.gov → JSON)
-- `sw.js` — service worker for offline support
-
 ## Limitations
 
 - Range is an estimate; real-world range varies with speed, terrain, weather, and driving style
-- Charger data comes from public APIs — coverage varies by region and may lag real-world availability
-- Public APIs may rate-limit; the app falls back to cached data or shows reach circles without pins
+- Charger data from public APIs — coverage varies by region and may lag real-world availability
+- Public APIs may rate-limit; the app falls back gracefully and still shows range circles
+
+## Technical
+
+- Vanilla JS (ES modules), Leaflet.js map, hosted on Vercel (static)
+- Open source: https://github.com/novelmartis/ev-mapping
+- License: MIT

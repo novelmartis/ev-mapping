@@ -2003,6 +2003,9 @@ async function onPlanSubmit(event) {
     renderRangeCircles(origin, baseRangeKm);
     setSummary("<p class=\"result-loading\">Reach zones ready — loading nearby chargers…</p>");
     setMapEmptyState(false);
+    if (window.innerWidth < 768) {
+      document.querySelector(".map-panel").scrollIntoView({ behavior: "smooth" });
+    }
 
     let chargers = [];
     let visibleChargers = [];

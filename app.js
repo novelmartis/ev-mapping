@@ -2815,7 +2815,7 @@ function renderSummary(
 
   const stationHtml = chargers.length === 0
     ? `<p class="result-stations result-no-stations">No charging stations found nearby</p>`
-    : `<p class="result-stations"><span class="count-em">${shownInOneWay}</span> station${shownInOneWay !== 1 ? "s" : ""} in reach &middot; <span class="count-em">${shownInRoundTrip}</span> within round-trip</p>`;
+    : `<p class="result-stations"><span class="count-em">${shownInOneWay}</span> charging station${shownInOneWay !== 1 ? "s" : ""} in reach &middot; <span class="count-em">${shownInRoundTrip}</span> within round-trip</p>`;
 
   const html = `
     <div class="result-header">

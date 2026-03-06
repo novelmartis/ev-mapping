@@ -640,6 +640,8 @@ function applyLocationSuggestion(suggestion) {
     state.lastResolvedQueryKey = queryKey;
     cacheResolvedOrigin(queryKey, resolved);
     inferAndApplyMarket(resolved);
+    renderOrigin(resolved);
+    setMapEmptyState(false);
     setLocationSelectionHint("Location set. Press Compute Reach.");
     return;
   }
@@ -2488,8 +2490,8 @@ async function useCurrentLocation() {
     setSummary(
       `<p class="result-loading">📍 ${escapeHtml(place.label)}${escapeHtml(fallbackNote)} — press <strong>Compute Reach</strong> to see your range.</p>`
     );
-    state.map.setView([lat, lon], 12);
     renderOrigin(state.origin);
+    setMapEmptyState(false);
   } catch (error) {
     const reason = geolocationErrorReason(error);
     const retryNote = Number(error?.code) === 1 ? "" : " A second GPS check also failed.";

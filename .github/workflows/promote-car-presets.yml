@@ -53,7 +53,8 @@ jobs:
       - name: Run market smoke checks (canary)
         run: |
           python3 scripts/check_market_smoke.py \
-            --catalog data/car-presets.generated.next.json
+            --catalog data/car-presets.generated.next.json \
+            --city Sydney:AU:8:500
 
       - name: Promote canary catalog to stable paths
         run: |
@@ -85,7 +86,8 @@ jobs:
       - name: Run market smoke checks (stable)
         run: |
           python3 scripts/check_market_smoke.py \
-            --catalog data/car-presets.generated.json
+            --catalog data/car-presets.generated.json \
+            --city Sydney:AU:8:500
 
       - name: Commit and push promoted stable catalog if changed
         run: |

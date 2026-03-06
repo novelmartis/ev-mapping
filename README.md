@@ -19,7 +19,7 @@ A lightweight web app that estimates EV reachability from your current battery s
   - OpenChargeMap API
   - OpenStreetMap Overpass API
   - Auto mode merges both sources and de-duplicates nearby duplicates
-- Lets you click a charger and estimate road distance/time via OSRM routing.
+- Clicking a charger pin shows name, address, and an "Open in Google Maps" navigation link.
 - Clicking the `EV Mapping` title performs a hard refresh of the app.
 
 ## Stack
@@ -29,7 +29,6 @@ A lightweight web app that estimates EV reachability from your current battery s
 - [OpenStreetMap tiles](https://www.openstreetmap.org/)
 - [Nominatim](https://nominatim.openstreetmap.org/) for geocoding
 - [OpenChargeMap](https://openchargemap.org/) and [Overpass](https://overpass-api.de/)
-- [OSRM demo server](https://project-osrm.org/) for routing
 
 ## Run locally
 
@@ -163,11 +162,11 @@ Guardrails included:
 
 - Public APIs can rate-limit or vary in data freshness/coverage.
 - Compute Reach is optimized to render reach circles first, then fill charger pins as providers return.
-- `Max chargers fetched (API cap)` limits retrieval volume (higher values may be slower but improve coverage).
+- `Max stations to fetch` limits retrieval volume (higher values may be slower but improve coverage).
 - In `Official channels` mode, the app avoids overpass-only community queries and prioritizes curated feeds.
 - In `Auto` mode, charger fetch uses a fast parallel pass first, then a slower resilient retry path when providers are transiently unavailable.
 - Range circles are estimates; actual drivable reach depends on terrain, weather, speed, and traffic.
-- Route checks use OSRM road distance, which is more realistic than straight-line marker distance.
+
 
 ## Documentation
 

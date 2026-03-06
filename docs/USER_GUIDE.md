@@ -18,7 +18,7 @@ It is optimized for:
 2. Select your `EV model`.
 3. Set your `Start location`:
    - Type at least 2 letters and pick a suggestion from the dropdown, or
-   - Click `Use my GPS`.
+   - Click `Use my location`.
 4. Click `Compute Reach`.
 
 Defaults are tuned for quick checks:
@@ -38,31 +38,30 @@ Location tip:
 - Orange outer circle: one-way reachable zone
 - Charger pins: known charging stations within one-way reach
 
-Click any pin to view details and estimated road distance.
+Click any pin to view the station name, address, and an "Open in Google Maps" navigation link.
 
 UI shortcut:
 
 - Clicking `EV Mapping` in the top-left performs a hard refresh of the page.
 
-## Advanced Settings
+## Customize (advanced settings)
 
-Use this only when needed:
+Expand `Customize` only when needed:
 
 - Battery capacity (kWh)
-- Current charge (%)
 - Consumption (kWh/100 km)
 - Reserve battery (%)
 - Data source (`Auto`, `OpenChargeMap`, `Overpass`)
-- Verification profile (`Independent parties` or `Official channels`)
-- Max chargers fetched (API cap)
+- Range estimate (`Community data` or `Official/conservative`)
+- Max stations to fetch
 
-Compact `Summary` appears inside Advanced for a low-noise view.
+Results always appear between the main form and the Customize panel, regardless of whether it is expanded.
 
-## Car Comparison (optional)
+## Compare EVs (optional)
 
-1. Expand `Car Comparison`.
-2. Select up to 3 cars.
-3. Click `Compare Cars`.
+1. Expand `Compare EVs`.
+2. Filter models using the search box, then check up to 3.
+3. Click `Compare`.
 
 What happens:
 
@@ -87,8 +86,8 @@ What happens:
 
 - Use a precise start point (full address or landmark).
 - Increase `Max chargers fetched` in dense cities.
-- Use `Independent parties` for wider station coverage.
-- Use `Official channels` for conservative estimates.
+- Use `Community data` for wider station coverage.
+- Use `Official/conservative` for conservative estimates.
 
 ## Known limits
 

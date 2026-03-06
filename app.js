@@ -40,7 +40,6 @@ const REGION_DISPLAY_NAMES =
     : null;
 const OVERPASS_ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
-  "https://overpass.kumi.systems/api/interpreter",
   "https://overpass.openstreetmap.fr/api/interpreter",
 ];
 const CATALOG_CHANNELS = {
@@ -2534,6 +2533,7 @@ async function fetchOpenChargeMap(origin, radiusKm, maxResults, requestTimeoutMs
   const response = await fetchWithTimeout(url, {
     headers: {
       Accept: "application/json",
+      "X-API-Key": "REDACTED_OCM_API_KEY",
     },
   }, requestTimeoutMs);
 

@@ -363,6 +363,7 @@ const ui = {
   appResetBtn: document.getElementById("app-reset-btn"),
   carModelSelect: document.getElementById("car-model"),
   compareCarsSelect: document.getElementById("compare-cars"),
+  compareSearch: document.getElementById("compare-search"),
   carHint: document.getElementById("car-hint"),
   marketHint: document.getElementById("market-hint"),
   marketDetailHint: document.getElementById("market-detail-hint"),
@@ -372,6 +373,7 @@ const ui = {
   locationSelectionHint: document.getElementById("location-selection-hint"),
   batteryInput: document.getElementById("battery-kwh"),
   socInput: document.getElementById("soc"),
+  socOutput: document.getElementById("soc-output"),
   efficiencyInput: document.getElementById("efficiency"),
   reserveInput: document.getElementById("reserve"),
   providerSelect: document.getElementById("provider"),
@@ -383,6 +385,7 @@ const ui = {
   summary: document.getElementById("summary"),
   mapElement: document.getElementById("map"),
   mapPanel: document.querySelector(".map-panel"),
+  mapEmptyState: document.getElementById("map-empty-state"),
 };
 
 // ── URL state ──────────────────────────────────────────────────────────────
@@ -405,7 +408,10 @@ function readUrlState() {
     }
   }
   if (loc) ui.locationInput.value = decodeURIComponent(loc);
-  if (soc) ui.socInput.value = soc;
+  if (soc) {
+    ui.socInput.value = soc;
+    syncSocDisplay();
+  }
   if (ui.carModelSelect.value === "custom") {
     if (batt) ui.batteryInput.value = batt;
     if (eff) ui.efficiencyInput.value = eff;
@@ -417,7 +423,7 @@ function readUrlState() {
     onVerificationProfileChange();
   }
   if (loc) {
-    setLocationSelectionHint("Location loaded from URL. Press Compute Reach to resolve market.");
+    setLocationSelectionHint("Location loaded. Press Compute Reach.");
   }
 }
 
@@ -629,12 +635,12 @@ function applyLocationSuggestion(suggestion) {
     state.lastResolvedQueryKey = queryKey;
     cacheResolvedOrigin(queryKey, resolved);
     inferAndApplyMarket(resolved);
-    setLocationSelectionHint("Location locked from suggestion. Press Compute Reach.");
+    setLocationSelectionHint("Location set. Press Compute Reach.");
     return;
   }
 
   state.lastResolvedQueryKey = "";
-  setLocationSelectionHint("Suggestion selected. Press Compute Reach to resolve exact location.");
+  setLocationSelectionHint("Location selected. Press Compute Reach.");
 }
 
 function selectLocationSuggestionAt(index) {
@@ -667,27 +673,27 @@ async function refreshLocationSuggestions(query) {
   if (trimmed.length < LOCATION_SUGGEST_MIN_CHARS) {
     renderLocationSuggestions(recent);
     if (!trimmed.length) {
-      setLocationSelectionHint("Type a city and pick a suggestion to lock country/market.");
+      setLocationSelectionHint("Type your city, address, or landmark.");
     }
     return;
   }
 
   const requestToken = ++state.locationSuggestionRequestToken;
-  setLocationSelectionHint("Searching locations...");
+  setLocationSelectionHint("Searching…");
   try {
     const live = await fetchLiveLocationSuggestions(trimmed, requestToken);
     if (requestToken !== state.locationSuggestionRequestToken) return;
     const merged = mergeLocationSuggestions(recent, live);
     renderLocationSuggestions(merged);
     if (merged.length === 0) {
-      setLocationSelectionHint("No suggestions yet. Keep typing or press Compute Reach.");
+      setLocationSelectionHint("No matches. Keep typing or press Compute Reach directly.");
     } else {
-      setLocationSelectionHint("Pick a location suggestion to set market instantly.");
+      setLocationSelectionHint("Select a suggestion, or press Compute Reach.");
     }
   } catch {
     if (requestToken !== state.locationSuggestionRequestToken) return;
     renderLocationSuggestions(recent);
-    setLocationSelectionHint("Suggestion lookup is slow. You can still press Compute Reach.");
+    setLocationSelectionHint("Couldn't load suggestions. You can still press Compute Reach.");
   }
 }
 
@@ -717,9 +723,9 @@ function onLocationInputChanged() {
   state.lastResolvedQueryKey = "";
   const trimmed = ui.locationInput.value.trim();
   if (!trimmed) {
-    setLocationSelectionHint("Type a city and pick a suggestion to lock country/market.");
+    setLocationSelectionHint("Type your city, address, or landmark.");
   } else {
-    setLocationSelectionHint("Typing... choose a suggestion or press Compute Reach.");
+    setLocationSelectionHint("Select a suggestion, or press Compute Reach.");
   }
   scheduleLocationSuggestions(ui.locationInput.value);
 }
@@ -916,7 +922,7 @@ function initialize() {
   populateCarPresets();
   updateMarketHint();
   updateLocationDatalist();
-  setLocationSelectionHint("Type a city and pick a suggestion to lock country/market.");
+  setLocationSelectionHint("Type your city, address, or landmark.");
   readUrlState();
 
   state.map = L.map("map").setView(DEFAULT_CENTER, DEFAULT_ZOOM);
@@ -973,6 +979,9 @@ function wireEvents() {
   ui.form.addEventListener("submit", onPlanSubmit);
   ui.carModelSelect.addEventListener("change", () => onCarModelChange(true));
   ui.compareCarsSelect.addEventListener("change", onCompareCarsChange);
+  if (ui.compareSearch) {
+    ui.compareSearch.addEventListener("input", onCompareSearch);
+  }
   ui.useLocationBtn.addEventListener("click", useCurrentLocation);
   ui.locationInput.addEventListener("focus", onLocationInputFocus);
   ui.locationInput.addEventListener("blur", onLocationInputBlur);
@@ -982,6 +991,11 @@ function wireEvents() {
     ui.locationSuggestions.addEventListener("mousedown", onLocationSuggestionPointerDown);
   }
   ui.verificationProfileSelect.addEventListener("change", onVerificationProfileChange);
+  // Sync SOC slider → output display + range fill
+  if (ui.socInput && ui.socOutput) {
+    ui.socInput.addEventListener("input", syncSocDisplay);
+    syncSocDisplay();
+  }
   document.querySelectorAll(".controls-panel details").forEach((details) => {
     details.addEventListener("toggle", () => scheduleMapInvalidate(160));
   });
@@ -993,6 +1007,22 @@ function wireEvents() {
   });
   if (ui.appResetBtn) {
     ui.appResetBtn.addEventListener("click", hardRefreshApp);
+  }
+}
+
+function syncSocDisplay() {
+  const val = Number(ui.socInput.value);
+  if (ui.socOutput) ui.socOutput.value = val + "%";
+  ui.socInput.style.setProperty("--soc-pct", val + "%");
+}
+
+function onCompareSearch() {
+  if (!ui.compareCarsSelect || !ui.compareSearch) return;
+  const q = ui.compareSearch.value.toLowerCase().trim();
+  for (const item of ui.compareCarsSelect.querySelectorAll(".compare-item")) {
+    if (item.dataset.excluded === "true") continue;
+    const label = item.querySelector("span")?.textContent?.toLowerCase() || "";
+    item.hidden = q.length > 0 && !label.includes(q);
   }
 }
 
@@ -1054,7 +1084,7 @@ function onCarModelChange(userInitiated = false) {
 
   const presetId = ui.carModelSelect.value;
   if (presetId === "custom") {
-    ui.carHint.textContent = "Custom mode enabled. Enter your own battery and efficiency values.";
+    ui.carHint.textContent = "";
     syncCompareSelectionExclusions("custom");
     onCompareCarsChange();
     return;
@@ -1062,7 +1092,7 @@ function onCarModelChange(userInitiated = false) {
 
   const preset = getPresetById(presetId);
   if (!preset) {
-    ui.carHint.textContent = "Preset not found. You can continue with manual values.";
+    ui.carHint.textContent = "";
     syncCompareSelectionExclusions("custom");
     onCompareCarsChange();
     return;
@@ -1072,15 +1102,15 @@ function onCarModelChange(userInitiated = false) {
   ui.efficiencyInput.value = String(preset.efficiency);
   ui.reserveInput.value = String(preset.reserve);
   ui.carHint.textContent =
-    `${preset.label} loaded: ${preset.batteryKwh} kWh, ${preset.efficiency} kWh/100 km.`;
+    `${preset.batteryKwh} kWh battery · ${preset.efficiency} kWh/100 km`;
   syncCompareSelectionExclusions(presetId);
   onCompareCarsChange();
 }
 
 function populateCompareCarOptions() {
-  const selectedBefore = [...ui.compareCarsSelect.selectedOptions].map((option) => option.value);
+  const selectedBefore = [...ui.compareCarsSelect.querySelectorAll("input[type=checkbox]:checked")].map((cb) => cb.value);
   const currentCarId = ui.carModelSelect.value;
-  ui.compareCarsSelect.length = 0;
+  ui.compareCarsSelect.innerHTML = "";
 
   const visiblePresets =
     Array.isArray(state.visiblePresets) && state.visiblePresets.length > 0
@@ -1089,12 +1119,20 @@ function populateCompareCarOptions() {
   const fragment = document.createDocumentFragment();
 
   for (const preset of visiblePresets) {
-    if (preset.id === currentCarId) continue;
-    const option = document.createElement("option");
-    option.value = preset.id;
-    option.textContent = preset.label;
-    option.selected = selectedBefore.includes(preset.id);
-    fragment.append(option);
+    const item = document.createElement("label");
+    item.className = "compare-item";
+    item.dataset.excluded = "false";
+
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.value = preset.id;
+    cb.checked = selectedBefore.includes(preset.id);
+
+    const span = document.createElement("span");
+    span.textContent = preset.label;
+
+    item.append(cb, span);
+    fragment.append(item);
   }
   ui.compareCarsSelect.append(fragment);
 
@@ -1104,21 +1142,20 @@ function populateCompareCarOptions() {
 
 function syncCompareSelectionExclusions(currentCarId) {
   const currentId = String(currentCarId || "custom");
-  for (const option of ui.compareCarsSelect.options) {
-    const shouldHide = currentId !== "custom" && option.value === currentId;
-    option.hidden = shouldHide;
-    if (shouldHide) {
-      option.selected = false;
-    }
+  for (const item of ui.compareCarsSelect.querySelectorAll(".compare-item")) {
+    const cb = item.querySelector("input[type=checkbox]");
+    if (!cb) continue;
+    const shouldHide = currentId !== "custom" && cb.value === currentId;
+    item.dataset.excluded = shouldHide ? "true" : "false";
+    item.hidden = shouldHide;
+    if (shouldHide) cb.checked = false;
   }
 }
 
 function onCompareCarsChange() {
-  const selected = [...ui.compareCarsSelect.options].filter((option) => option.selected);
-  if (selected.length <= 3) return;
-  selected.slice(3).forEach((option) => {
-    option.selected = false;
-  });
+  const checked = [...ui.compareCarsSelect.querySelectorAll("input[type=checkbox]:checked")];
+  if (checked.length <= 3) return;
+  checked.slice(3).forEach((cb) => { cb.checked = false; });
 }
 
 function onVerificationProfileChange() {
@@ -1938,8 +1975,8 @@ async function onPlanSubmit(event) {
   state.lastSubmitMode = submitMode;
   setSummary(
     submitMode === "compare"
-      ? "<p>Running side-by-side comparison and loading charging points...</p>"
-      : "<p>Planning reach zones and loading charging points...</p>"
+      ? "<p class=\"result-loading\">Comparing vehicles and loading charging stations…</p>"
+      : "<p class=\"result-loading\">Computing your range…</p>"
   );
 
   clearRoute();
@@ -1964,7 +2001,8 @@ async function onPlanSubmit(event) {
     state.lastCarModelLabel = planInput.carModelLabel;
     renderOrigin(origin);
     renderRangeCircles(origin, baseRangeKm);
-    setSummary("<p>Reach zones ready. Loading nearby chargers...</p>");
+    setSummary("<p class=\"result-loading\">Reach zones ready — loading nearby chargers…</p>");
+    setMapEmptyState(false);
 
     let chargers = [];
     let visibleChargers = [];
@@ -2099,8 +2137,8 @@ function syncPrimaryVehicleFromComparison(bestRow) {
 function parsePlanInput() {
   const selectedCarId = ui.carModelSelect.value;
   const carModelLabel = ui.carModelSelect.options[ui.carModelSelect.selectedIndex]?.text || "Custom";
-  const compareCarIds = [...ui.compareCarsSelect.selectedOptions]
-    .map((option) => option.value)
+  const compareCarIds = [...ui.compareCarsSelect.querySelectorAll("input[type=checkbox]:checked")]
+    .map((cb) => cb.value)
     .filter((id) => id && id !== selectedCarId)
     .slice(0, 3);
   const batteryKwh = Number(ui.batteryInput.value);
@@ -2286,7 +2324,7 @@ async function useCurrentLocation() {
     return;
   }
 
-  setSummary("<p>Resolving your GPS location...</p>");
+  setSummary('<p class="result-loading">Locating you…</p>');
 
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -2306,8 +2344,8 @@ async function useCurrentLocation() {
       inferAndApplyMarket(state.origin);
       ui.locationInput.value = place.label;
       hideLocationSuggestions();
-      setLocationSelectionHint("GPS location locked. Press Compute Reach.");
-      setSummary(`<p>GPS location set: ${escapeHtml(place.label)}</p>`);
+      setLocationSelectionHint("Location set. Press Compute Reach.");
+      setSummary(`<p class="result-loading">📍 ${escapeHtml(place.label)} — press <strong>Compute Reach</strong> to see your range.</p>`);
       state.map.setView([lat, lon], 12);
       renderOrigin(state.origin);
     },
@@ -2644,15 +2682,6 @@ function addChargerMarker(charger, oneWayRangeKm) {
   const marker = L.marker([charger.lat, charger.lon], { title: charger.name });
 
   marker.bindPopup(makePopupHtml(charger, distanceKm, status));
-  marker.on("click", () => {
-    routeToCharger(charger, oneWayRangeKm);
-  });
-  marker.on("popupclose", () => {
-    clearRoute();
-    if (state.lastPlanSummaryHtml) {
-      setSummary(state.lastPlanSummaryHtml);
-    }
-  });
   marker.addTo(state.chargerLayer);
 }
 
@@ -2684,17 +2713,17 @@ function renderChargers(chargers, oneWayRangeKm) {
 
 function makePopupHtml(charger, distanceKm, status) {
   const label = reachabilityLabel(status);
-  const connectors =
-    charger.connectors > 0 ? `<br><span>Connectors: ${charger.connectors}</span>` : "";
+  const connectors = charger.connectors > 0
+    ? `<br><span>${charger.connectors} connector${charger.connectors !== 1 ? "s" : ""}</span>`
+    : "";
+  const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${charger.lat},${charger.lon}`;
 
   return `
     <strong>${escapeHtml(charger.name)}</strong>
     <br><span>${escapeHtml(charger.address || "Address unavailable")}</span>
-    <br><span>Source: ${escapeHtml(charger.provider)}</span>
-    <br><span>Straight-line distance: ${distanceKm.toFixed(1)} km</span>
     ${connectors}
     <br><span>${escapeHtml(label)}</span>
-    <br><span class="route-note">Click marker to estimate road distance.</span>
+    <br><a href="${escapeHtml(mapsUrl)}" target="_blank" rel="noopener noreferrer" class="popup-maps-link">Open in Google Maps →</a>
   `;
 }
 
@@ -2771,38 +2800,50 @@ function renderSummary(
   compareRows = [],
   submitMode = "reach"
 ) {
+  const roundTripKm = oneWayRangeKm / 2;
   const shownInRoundTrip = visibleChargers.filter((c) => {
-    const distanceKm = haversineDistanceKm(origin.lat, origin.lon, c.lat, c.lon);
-    return distanceKm <= oneWayRangeKm / 2;
+    return haversineDistanceKm(origin.lat, origin.lon, c.lat, c.lon) <= roundTripKm;
   }).length;
   const shownInOneWay = visibleChargers.filter((c) => {
-    const distanceKm = haversineDistanceKm(origin.lat, origin.lon, c.lat, c.lon);
-    return distanceKm <= oneWayRangeKm;
+    return haversineDistanceKm(origin.lat, origin.lon, c.lat, c.lon) <= oneWayRangeKm;
   }).length;
-  const shownLabel =
-    shownInOneWay === visibleChargers.length
-      ? `${visibleChargers.length} in one-way zone`
-      : `${visibleChargers.length} total (${shownInOneWay} in one-way zone)`;
 
-  const compareHint =
+  const compareNote =
     submitMode === "compare" && compareRows.length > 1
-      ? `<p><strong>Compare mode:</strong> Map updated to best compared car reach (${escapeHtml(carModelLabel)}).</p>`
+      ? `<p class="result-compare-note">Map shows best-range vehicle: ${escapeHtml(carModelLabel)}</p>`
       : "";
+
+  const stationHtml = chargers.length === 0
+    ? `<p class="result-stations result-no-stations">No charging stations found nearby</p>`
+    : `<p class="result-stations"><span class="count-em">${shownInOneWay}</span> station${shownInOneWay !== 1 ? "s" : ""} in reach &middot; <span class="count-em">${shownInRoundTrip}</span> within round-trip</p>`;
+
   const html = `
-    <h2>Summary</h2>
-    <p><strong>Origin:</strong> ${escapeHtml(origin.label)}</p>
-    <p><strong>Vehicle on map:</strong> ${escapeHtml(carModelLabel)}</p>
-    <p><strong>One-way reach:</strong> ${oneWayRangeKm.toFixed(1)} km</p>
-    <p><strong>Round-trip reach:</strong> ${(oneWayRangeKm / 2).toFixed(1)} km</p>
-    <p><strong>Chargers shown:</strong> ${shownLabel} (${shownInRoundTrip} in round-trip zone)</p>
-    <p><strong>Fetched:</strong> ${chargers.length} (cap ${maxResults}) via ${escapeHtml(providerLabel(provider, chargers, verificationProfile))}</p>
-    ${compareHint}
-    ${warningMessage ? `<p class="warning">${escapeHtml(warningMessage)}</p>` : ""}
-    ${chargers.length === 0 ? `<p class="route-note">No chargers found for this query.</p>` : ""}
-    <button type="button" class="share-btn">Share this setup</button>
+    <div class="result-header">
+      <span class="result-origin">${escapeHtml(origin.label)}</span>
+      <span class="result-vehicle">${escapeHtml(carModelLabel)}</span>
+    </div>
+    <div class="result-metrics">
+      <div class="metric">
+        <span class="metric-val">${Math.round(oneWayRangeKm)}</span>
+        <span class="metric-unit">km</span>
+        <span class="metric-lbl">one-way range</span>
+      </div>
+      <div class="metric metric-secondary">
+        <span class="metric-val">${Math.round(roundTripKm)}</span>
+        <span class="metric-unit">km</span>
+        <span class="metric-lbl">round-trip radius</span>
+      </div>
+    </div>
+    ${stationHtml}
+    ${compareNote}
+    ${warningMessage ? `<p class="result-warning">${escapeHtml(warningMessage)}</p>` : ""}
+    <div class="result-actions">
+      <button type="button" class="share-btn">↗ Share</button>
+    </div>
   `;
   state.lastPlanSummaryHtml = html;
   setSummary(html);
+  setMapEmptyState(false);
 }
 
 function summaryWithRoute(routeHtml) {
@@ -3019,6 +3060,12 @@ function clearRoute() {
 
 function setSummary(html) {
   ui.summary.innerHTML = html;
+}
+
+function setMapEmptyState(isEmpty) {
+  if (!ui.mapEmptyState) return;
+  ui.mapEmptyState.classList.toggle("is-hidden", !isEmpty);
+  ui.mapEmptyState.setAttribute("aria-hidden", String(!isEmpty));
 }
 
 function addLegend() {

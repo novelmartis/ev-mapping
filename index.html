@@ -67,19 +67,21 @@
           ><svg class="brand-bolt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z"/></svg>EV Mapping</button>
         </h1>
         <p class="subtitle">
-          Estimate one-way and round-trip range, then inspect nearby charging options.
+          How far can you go — and where can you charge?
         </p>
 
         <form id="planner-form" class="planner-form">
+
+          <!-- ── Main input card ── -->
           <section class="quick-card">
+
             <label for="car-model">EV model</label>
             <select id="car-model" name="car-model">
               <option value="custom" selected>Custom (manual values)</option>
             </select>
-            <p id="car-hint" class="hint">Pick a model to auto-fill battery and efficiency.</p>
-            <p id="market-hint" class="hint">Market: Auto (set after location lookup)</p>
+            <p id="car-hint" class="hint" aria-live="polite"></p>
 
-            <label for="location">Start location</label>
+            <label for="location">Starting from</label>
             <div class="location-row">
               <div class="location-autocomplete">
                 <input
@@ -96,21 +98,37 @@
                 <ul id="location-suggestions" class="location-suggestions" role="listbox" hidden></ul>
               </div>
               <datalist id="location-history"></datalist>
-              <button id="use-location" type="button">Use my GPS</button>
+              <button id="use-location" type="button" aria-label="Use my current location">Use my location</button>
             </div>
-            <p id="location-selection-hint" class="hint">
-              Type at least 2 letters and pick a suggestion to lock country/market quickly.
-            </p>
+            <p id="location-selection-hint" class="hint" aria-live="polite"></p>
 
-            <div class="action-row">
-              <button id="plan-btn" type="submit">Compute Reach</button>
-              <span class="hint">Default assumptions: 100% charge, round-trip shown.</span>
+            <!-- SOC promoted to main card -->
+            <div class="soc-row">
+              <div class="soc-label-row">
+                <label for="soc">Current charge</label>
+                <output id="soc-output" for="soc" class="soc-output">100%</output>
+              </div>
+              <input
+                id="soc"
+                name="soc"
+                type="range"
+                min="1"
+                max="100"
+                value="100"
+              />
             </div>
+
+            <button id="plan-btn" type="submit" class="cta-btn">Compute Reach</button>
           </section>
 
+          <!-- ── Results ── -->
+          <section id="summary" class="summary" role="status" aria-live="polite" aria-atomic="false"></section>
+
+          <!-- ── Customize (advanced) ── -->
           <details class="advanced-panel">
-            <summary>Advanced Settings</summary>
+            <summary>Customize</summary>
             <div class="grid advanced-grid">
+
               <label for="battery-kwh">Battery capacity (kWh)</label>
               <input
                 id="battery-kwh"
@@ -122,10 +140,7 @@
                 required
               />
 
-              <label for="soc">Current charge (%)</label>
-              <input id="soc" name="soc" type="number" min="1" max="100" value="100" required />
-
-              <label for="efficiency">Consumption (kWh/100 km)</label>
+              <label for="efficiency">Consumption (kWh / 100 km)</label>
               <input
                 id="efficiency"
                 name="efficiency"
@@ -149,22 +164,18 @@
 
               <label for="provider">Charging data source</label>
               <select id="provider" name="provider">
-                <option value="auto">Auto (OpenChargeMap first + quick Overpass merge)</option>
+                <option value="auto">Auto (OpenChargeMap + Overpass)</option>
                 <option value="openchargemap">OpenChargeMap only</option>
                 <option value="overpass">OpenStreetMap Overpass only</option>
               </select>
 
-              <label for="verification-profile">Reach verification profile</label>
+              <label for="verification-profile">Range estimate</label>
               <select id="verification-profile" name="verification-profile">
-                <option value="independent">Independent parties (community/open data)</option>
-                <option value="official">Official channels (conservative)</option>
+                <option value="independent">Community data (broader coverage)</option>
+                <option value="official">Official/conservative estimate</option>
               </select>
-              <p class="hint">
-                Official mode applies a conservative reach buffer and prefers official/provider-curated
-                feeds.
-              </p>
 
-              <label for="max-results">Max chargers fetched (API cap)</label>
+              <label for="max-results">Max stations to fetch</label>
               <input
                 id="max-results"
                 name="max-results"
@@ -174,41 +185,52 @@
                 step="10"
                 value="120"
               />
-              <p class="hint">Higher cap can surface more stations, but may be slower.</p>
 
-              <section id="summary" class="summary compact-summary" role="status" aria-live="polite" aria-atomic="false">
-                <h2>Summary</h2>
-                <p>Enter values and compute reach.</p>
-              </section>
-              <p id="market-detail-hint" class="hint">
-                Catalog details appear here after location/market resolution.
-              </p>
+              <p id="market-hint" class="hint"></p>
+              <p id="market-detail-hint" class="hint"></p>
             </div>
           </details>
 
+          <!-- ── Compare EVs ── -->
           <details class="compare-panel">
-            <summary><span class="summary-title-with-beta">Car Comparison <span class="beta-tag">Beta</span></span></summary>
-            <label for="compare-cars">Select up to 3 cars</label>
-            <select id="compare-cars" name="compare-cars" multiple size="5"></select>
-            <p class="hint">
-              Secondary view: benchmark one-way reach, efficiency, and price.
-            </p>
+            <summary><span class="summary-title-with-beta">Compare EVs <span class="beta-tag">Beta</span></span></summary>
+            <input
+              type="search"
+              id="compare-search"
+              class="compare-search"
+              placeholder="Filter models…"
+              aria-label="Filter EV models for comparison"
+              autocomplete="off"
+            />
+            <div
+              id="compare-cars"
+              class="compare-cars-list"
+              role="group"
+              aria-label="Select up to 3 EVs to compare"
+            ></div>
+            <p class="hint">Select up to 3 models, then press Compare.</p>
             <div class="compare-actions">
-              <button id="compare-btn" type="submit">Compare Cars</button>
+              <button id="compare-btn" type="submit">Compare</button>
             </div>
             <div id="compare-results" class="compare-results">
-              <p class="hint">Press Compare Cars to view side-by-side results.</p>
+              <p class="hint">Results appear here after comparing.</p>
             </div>
           </details>
+
         </form>
 
         <p class="note">
-          Uses open data providers and public APIs. Results are estimates and may vary with weather,
-          speed, terrain, and traffic.
+          Uses open data (OpenStreetMap, OpenChargeMap). Results are estimates — actual range varies with weather, speed, and terrain.
         </p>
       </section>
 
       <section class="map-panel">
+        <div id="map-empty-state" class="map-empty-state" aria-hidden="true">
+          <div class="map-empty-inner">
+            <span class="map-empty-icon">⚡</span>
+            <p>Select your EV and starting location,<br>then press <strong>Compute Reach</strong></p>
+          </div>
+        </div>
         <div id="map" aria-label="Reachability map" tabindex="-1"></div>
         <aside class="ad-slot ad-slot-map" aria-label="Sponsored placement">
           <p class="ad-label">Sponsored</p>

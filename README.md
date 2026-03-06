@@ -42,6 +42,17 @@ Then open:
 
 http://localhost:8080
 
+## Install As App (Phone/Desktop)
+
+EV Mapping is installable as a Progressive Web App (PWA).
+
+- Desktop Chromium browsers (Chrome/Edge/Brave): use the in-app `Install app` button when shown, or browser menu -> `Install EV Mapping`.
+- macOS Safari: `File` -> `Add to Dock`.
+- iPhone/iPad Safari: `Share` -> `Add to Home Screen`.
+- Android browsers: browser menu -> `Install app` / `Add to Home screen`.
+
+When installed, EV Mapping can launch as a dedicated app window and appear in your launcher/search (for example Spotlight on macOS).
+
 ## Deploy on Vercel
 
 This project is a static site (no build step), and is configured for Vercel with `vercel.json`.

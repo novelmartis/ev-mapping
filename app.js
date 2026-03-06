@@ -34,6 +34,7 @@ const MAX_PROXY_MARKET_CODES = 3;
 const STRICT_LOCAL_MARKET_MIN_PRESETS = 8;
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
 const MARKER_RENDER_BATCH_SIZE = 10;
+const INSTALL_DISPLAY_MODE_QUERY = "(display-mode: standalone)";
 const REGION_DISPLAY_NAMES =
   typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function"
     ? new Intl.DisplayNames(undefined, { type: "region" })
@@ -355,11 +356,17 @@ const state = {
   currencyByMarket: new Map(Object.entries(MARKET_CURRENCY_BY_CODE)),
   activeCurrency: "USD",
   lastResolvedQueryKey: "",
+  installPromptEvent: null,
+  installCardDismissed: false,
 };
 
 const ui = {
   form: document.getElementById("planner-form"),
   appResetBtn: document.getElementById("app-reset-btn"),
+  installCard: document.getElementById("install-card"),
+  installHint: document.getElementById("install-hint"),
+  installAppBtn: document.getElementById("install-app-btn"),
+  installDismissBtn: document.getElementById("install-dismiss-btn"),
   carModelSelect: document.getElementById("car-model"),
   compareCarsSelect: document.getElementById("compare-cars"),
   compareSearch: document.getElementById("compare-search"),
@@ -939,6 +946,7 @@ function initialize() {
 
   addLegend();
   wireEvents();
+  setupInstallExperience();
   renderComparisonResults([], "reach");
 
   if ("serviceWorker" in navigator) {
@@ -1007,6 +1015,12 @@ function wireEvents() {
   if (ui.appResetBtn) {
     ui.appResetBtn.addEventListener("click", hardRefreshApp);
   }
+  if (ui.installAppBtn) {
+    ui.installAppBtn.addEventListener("click", onInstallAppClick);
+  }
+  if (ui.installDismissBtn) {
+    ui.installDismissBtn.addEventListener("click", onInstallDismissClick);
+  }
 }
 
 function syncSocDisplay() {
@@ -1029,6 +1043,110 @@ function hardRefreshApp() {
   const url = new URL(window.location.href);
   url.searchParams.set("_r", String(Date.now()));
   window.location.replace(url.toString());
+}
+
+function setupInstallExperience() {
+  if (!ui.installCard) return;
+
+  refreshInstallCard();
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    state.installPromptEvent = event;
+    refreshInstallCard();
+  });
+
+  window.addEventListener("appinstalled", () => {
+    state.installPromptEvent = null;
+    state.installCardDismissed = true;
+    refreshInstallCard();
+  });
+
+  if (typeof window.matchMedia === "function") {
+    const standaloneQuery = window.matchMedia(INSTALL_DISPLAY_MODE_QUERY);
+    const onChange = () => refreshInstallCard();
+    if (typeof standaloneQuery.addEventListener === "function") {
+      standaloneQuery.addEventListener("change", onChange);
+    } else if (typeof standaloneQuery.addListener === "function") {
+      standaloneQuery.addListener(onChange);
+    }
+  }
+}
+
+function isRunningStandalone() {
+  const displayModeStandalone =
+    typeof window.matchMedia === "function" && window.matchMedia(INSTALL_DISPLAY_MODE_QUERY).matches;
+  const iosStandalone = window.navigator?.standalone === true;
+  return Boolean(displayModeStandalone || iosStandalone);
+}
+
+function isSafariBrowser() {
+  const ua = navigator.userAgent || "";
+  return /Safari/i.test(ua) && !/(Chrome|Chromium|CriOS|Edg|OPR|FxiOS|SamsungBrowser)/i.test(ua);
+}
+
+function installFallbackHint() {
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
+  const isMac = /Macintosh|Mac OS X/i.test(ua);
+
+  if (isIOS) {
+    return 'On iPhone/iPad: tap Share, then choose "Add to Home Screen".';
+  }
+  if (isAndroid) {
+    return 'On Android: open your browser menu, then choose "Install app" or "Add to Home screen".';
+  }
+  if (isMac && isSafariBrowser()) {
+    return "On Safari for Mac: use File > Add to Dock for dedicated app access.";
+  }
+  if (isMac) {
+    return 'On Chrome/Edge for Mac: use the browser menu and select "Install EV Mapping" or "Create shortcut".';
+  }
+  return 'Open your browser menu and choose "Install app" or "Add to Home screen".';
+}
+
+function refreshInstallCard() {
+  if (!ui.installCard || !ui.installHint) return;
+  if (state.installCardDismissed || isRunningStandalone()) {
+    ui.installCard.hidden = true;
+    return;
+  }
+
+  const canPromptInstall = Boolean(state.installPromptEvent);
+  ui.installHint.textContent = canPromptInstall
+    ? "Install EV Mapping for direct launch from your home screen, dock, or app launcher."
+    : installFallbackHint();
+
+  if (ui.installAppBtn) {
+    ui.installAppBtn.hidden = !canPromptInstall;
+    ui.installAppBtn.disabled = !canPromptInstall;
+  }
+
+  ui.installCard.hidden = false;
+}
+
+async function onInstallAppClick() {
+  const promptEvent = state.installPromptEvent;
+  if (!promptEvent || !ui.installAppBtn) return;
+
+  state.installPromptEvent = null;
+  ui.installAppBtn.disabled = true;
+
+  try {
+    await promptEvent.prompt();
+    await promptEvent.userChoice;
+  } catch {
+    // Ignore prompt errors and keep manual fallback instructions visible.
+  } finally {
+    ui.installAppBtn.disabled = false;
+    refreshInstallCard();
+  }
+}
+
+function onInstallDismissClick() {
+  state.installCardDismissed = true;
+  refreshInstallCard();
 }
 
 function scheduleMapInvalidate(delayMs = 120) {
@@ -2352,7 +2470,11 @@ async function useCurrentLocation() {
       renderOrigin(state.origin);
     },
     (error) => {
-      setSummary(`<p class="warning">Unable to read GPS location (${escapeHtml(error.message)}).</p>`);
+      const reason = error.code === 1 ? "location permission denied"
+        : error.code === 2 ? "position unavailable"
+        : error.code === 3 ? "timed out"
+        : error.message || "unknown error";
+      setSummary(`<p class="warning">Unable to read GPS location — ${escapeHtml(reason)}. Try typing your location instead.</p>`);
     },
     { enableHighAccuracy: true, timeout: 12000 }
   );

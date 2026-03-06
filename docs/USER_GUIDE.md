@@ -31,6 +31,16 @@ Location tip:
 
 - Selecting a suggestion immediately locks city/country context and speeds up market detection.
 
+## Install as an app (optional)
+
+EV Mapping can be saved as an app for faster launch:
+
+- If an `Install app` prompt/button appears in the app, use it.
+- iPhone/iPad Safari: `Share` -> `Add to Home Screen`.
+- macOS Safari: `File` -> `Add to Dock`.
+- Chrome/Edge desktop: browser menu -> `Install EV Mapping`.
+- Android browsers: browser menu -> `Install app` / `Add to Home screen`.
+
 ## Reading the map
 
 - `Reach` legend:

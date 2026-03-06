@@ -1,5 +1,5 @@
-const STATIC_CACHE = "ev-mapping-static-v7";
-const RUNTIME_CACHE = "ev-mapping-runtime-v7";
+const STATIC_CACHE = "ev-mapping-static-v8";
+const RUNTIME_CACHE = "ev-mapping-runtime-v8";
 const PRECACHE = [
   "./",
   "./index.html",

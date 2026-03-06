@@ -121,6 +121,72 @@ h1::after {
   font-weight: 500;
 }
 
+.install-card {
+  margin: 0 0 0.75rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 72%);
+  padding: 0.65rem 0.75rem;
+  display: grid;
+  gap: 0.45rem;
+  animation: rise-fade 460ms ease both;
+}
+
+.install-title {
+  margin: 0;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.install-hint {
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.install-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.install-primary-btn,
+.install-dismiss-btn {
+  font: inherit;
+  border-radius: 8px;
+  padding: 0.38rem 0.65rem;
+  border: 1px solid var(--line-strong);
+  background: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 100ms, background 150ms, border-color 150ms, color 150ms;
+}
+
+.install-primary-btn {
+  color: #fff;
+  border-color: var(--brand);
+  background: linear-gradient(130deg, var(--brand), var(--brand-2) 70%);
+}
+
+.install-primary-btn:hover,
+.install-dismiss-btn:hover {
+  transform: translateY(-1px);
+}
+
+.install-primary-btn:focus-visible,
+.install-dismiss-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.install-dismiss-btn {
+  color: var(--muted);
+  background: rgb(255 255 255 / 82%);
+}
+
 /* ── Form ── */
 .planner-form {
   display: grid;
@@ -1159,6 +1225,17 @@ select:focus {
   }
 
   #use-location {
+    width: 100%;
+    text-align: center;
+  }
+
+  .install-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .install-primary-btn,
+  .install-dismiss-btn {
     width: 100%;
     text-align: center;
   }

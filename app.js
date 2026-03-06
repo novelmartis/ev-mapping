@@ -690,8 +690,11 @@ async function refreshLocationSuggestions(query) {
     if (requestToken !== state.locationSuggestionRequestToken) return;
     const merged = mergeLocationSuggestions(recent, live);
     renderLocationSuggestions(merged);
+    const marketUpdated = inferMarketFromTopSuggestion(merged);
     if (merged.length === 0) {
       setLocationSelectionHint("No matches. Keep typing or press Compute Reach directly.");
+    } else if (marketUpdated) {
+      setLocationSelectionHint("Market updated from top match. Select a suggestion, or press Compute Reach.");
     } else {
       setLocationSelectionHint("Select a suggestion, or press Compute Reach.");
     }
@@ -761,10 +764,36 @@ function onLocationInputKeydown(event) {
     selectLocationSuggestionAt(state.activeLocationSuggestionIndex);
     return;
   }
+  if (event.key === "Enter") {
+    const fallbackIndex = firstSearchSuggestionIndex();
+    if (fallbackIndex >= 0) {
+      event.preventDefault();
+      selectLocationSuggestionAt(fallbackIndex);
+      return;
+    }
+  }
 
   if (event.key === "Escape") {
     hideLocationSuggestions();
   }
+}
+
+function firstSearchSuggestionIndex() {
+  const index = state.locationSuggestions.findIndex((item) => item?.source === "search");
+  if (index >= 0) return index;
+  return state.locationSuggestions.length > 0 ? 0 : -1;
+}
+
+function inferMarketFromTopSuggestion(items) {
+  if (!Array.isArray(items) || items.length === 0) return false;
+  const candidate = items[firstSearchSuggestionIndex()];
+  const countryCode = String(candidate?.countryCode || "").toUpperCase();
+  if (!countryCode || countryCode === state.marketCode) return false;
+  inferAndApplyMarket({
+    countryCode,
+    countryName: candidate?.countryName || "",
+  });
+  return true;
 }
 
 function onLocationSuggestionPointerDown(event) {

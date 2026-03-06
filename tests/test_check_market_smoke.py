@@ -87,6 +87,33 @@ class CheckMarketSmokeTests(unittest.TestCase):
         self.assertGreaterEqual(len(visible), 8)
         self.assertTrue(any(item["id"].startswith("jp-") for item in visible))
 
+    def test_visible_presets_for_indonesia_uses_proxy_when_local_hits_floor(self):
+        presets = [
+            {
+                "id": f"id-{idx}",
+                "label": f"ID {idx}",
+                "markets": ["ID"],
+                "source": "asean-native-seed",
+            }
+            for idx in range(1, 9)
+        ] + [
+            {
+                "id": "sg-1",
+                "label": "SG 1",
+                "markets": ["SG"],
+                "source": "asean-native-seed",
+            },
+            {
+                "id": "th-1",
+                "label": "TH 1",
+                "markets": ["TH"],
+                "source": "asean-native-seed",
+            },
+        ]
+        visible = smoke.visible_presets_for_country(presets, "ID")
+        self.assertGreater(len(visible), 8)
+        self.assertTrue(any(item["id"] == "sg-1" for item in visible))
+
 
 if __name__ == "__main__":
     unittest.main()

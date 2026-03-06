@@ -10,6 +10,9 @@ from pathlib import Path
 from typing import Any
 
 STRICT_LOCAL_MARKET_MIN_PRESETS = 8
+STRICT_LOCAL_MARKET_MIN_PRESETS_BY_MARKET = {
+    "ID": 9,
+}
 MAX_PROXY_MARKET_CODES = 3
 
 MARKET_CLUSTER_BY_COUNTRY = {
@@ -217,8 +220,9 @@ def collect_proxy_matched_presets(
 def visible_presets_for_country(presets: list[dict[str, Any]], country_code: str) -> list[dict[str, Any]]:
     code = str(country_code or "").upper()
     strict_policy = code in MARKET_LOCAL_SOURCE_TOKENS
+    strict_local_min = int(STRICT_LOCAL_MARKET_MIN_PRESETS_BY_MARKET.get(code, STRICT_LOCAL_MARKET_MIN_PRESETS))
     local = [preset for preset in presets if is_preset_source_allowed_for_market(preset, code)]
-    if local and (not strict_policy or len(local) >= STRICT_LOCAL_MARKET_MIN_PRESETS):
+    if local and (not strict_policy or len(local) >= strict_local_min):
         return local
 
     proxies = proxy_market_codes_for_country(code, market_counts_by_code(presets))

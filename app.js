@@ -33,6 +33,9 @@ const OPENCHARGEMAP_PROXY_PATH = "/api/openchargemap";
 const MAX_CACHED_MARKET_SLICES = 8;
 const MAX_PROXY_MARKET_CODES = 3;
 const STRICT_LOCAL_MARKET_MIN_PRESETS = 8;
+const STRICT_LOCAL_MARKET_MIN_PRESETS_BY_MARKET = {
+  ID: 9,
+};
 const MOBILE_LAYOUT_QUERY = "(max-width: 980px)";
 const MARKER_RENDER_BATCH_SIZE = 10;
 const INSTALL_DISPLAY_MODE_QUERY = "(display-mode: standalone)";
@@ -1706,6 +1709,8 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
   const marketGlobal = [];
   const marketCounts = marketCountsByCode(sortedPresets);
   const hasStrictSourcePolicy = Array.isArray(MARKET_LOCAL_SOURCE_TOKENS[state.marketCode]);
+  const strictLocalMin =
+    Number(STRICT_LOCAL_MARKET_MIN_PRESETS_BY_MARKET[state.marketCode]) || STRICT_LOCAL_MARKET_MIN_PRESETS;
 
   for (const preset of sortedPresets) {
     const markets = normalizeMarketArray(preset.markets);
@@ -1717,7 +1722,7 @@ function visiblePresetsForCurrentMarket(sortedPresets) {
   }
 
   if (marketMatched.length > 0) {
-    if (!hasStrictSourcePolicy || marketMatched.length >= STRICT_LOCAL_MARKET_MIN_PRESETS) {
+    if (!hasStrictSourcePolicy || marketMatched.length >= strictLocalMin) {
       return {
         visiblePresets: dedupeVisiblePresetVariants(marketMatched),
         hasMarketSpecific: true,

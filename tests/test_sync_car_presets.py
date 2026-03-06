@@ -398,6 +398,34 @@ class SyncCarPresetsTests(unittest.TestCase):
         self.assertNotIn("SG", by_id["2025-ford-f150-lightning"]["markets"])
         self.assertNotIn("CN", by_id["2025-ford-f150-lightning"]["markets"])
 
+    def test_finalize_catalog_presets_collapses_conflicts_created_by_market_expansion(self):
+        presets = [
+            {
+                "id": "volvo-ex30",
+                "label": "Volvo EX30",
+                "batteryKwh": 69,
+                "efficiency": 14.4,
+                "reserve": 10,
+                "markets": ["IN"],
+                "source": "cardekho.com",
+            },
+            {
+                "id": "volvo-ex30-asean",
+                "label": "Volvo EX30",
+                "batteryKwh": 69,
+                "efficiency": 16.3,
+                "reserve": 10,
+                "markets": ["TH"],
+                "source": "asean-native-seed",
+            },
+        ]
+        merged = sync.merge_presets(presets)
+        self.assertEqual(len(merged), 2)
+
+        finalized = sync.finalize_catalog_presets(merged)
+        self.assertEqual(len(finalized), 1)
+        self.assertEqual(finalized[0]["id"], "volvo-ex30-asean")
+
     def test_split_presets_by_market_uses_global_bucket(self):
         split = sync.split_presets_by_market(
             [

@@ -999,6 +999,12 @@ def augment_regional_market_coverage(presets: list[dict[str, Any]]) -> list[dict
     return out
 
 
+def finalize_catalog_presets(presets: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Apply regional expansion and then collapse any new overlap conflicts."""
+    expanded = augment_regional_market_coverage(presets)
+    return collapse_variant_conflicts(expanded)
+
+
 def strip_model_footnotes(model: str) -> str:
     return re.sub(r"\s*\d+\s*$", "", model).strip()
 
@@ -2046,7 +2052,7 @@ def main() -> int:
         manual_presets,
         fx=fx,
     )
-    combined = augment_regional_market_coverage(combined)
+    combined = finalize_catalog_presets(combined)
 
     validation = validate_candidate_catalog(
         combined,
@@ -2147,7 +2153,7 @@ def main() -> int:
             manual_presets,
             fx=fx,
         )
-        fallback_presets = augment_regional_market_coverage(fallback_presets)
+        fallback_presets = finalize_catalog_presets(fallback_presets)
         fallback_source_tags = set(previous_payload.get("sources", []))
         if eu_native_presets:
             fallback_source_tags.add("eu-native-seed")

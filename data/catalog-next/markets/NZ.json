@@ -1,16 +1,17 @@
 {
-  "generatedAt": "2026-03-05T18:43:13Z",
+  "generatedAt": "2026-03-07T05:54:54Z",
   "market": "NZ",
-  "source": "fueleconomy.gov + AFDC + Cardekho + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "afdc.energy.gov",
-    "asean-native-seed",
-    "cardekho.com",
-    "eu-native-seed",
     "fueleconomy.gov",
+    "afdc.energy.gov",
+    "cardekho.com",
+    "greenvehicleguide.gov.au",
+    "eu-native-seed",
+    "asean-native-seed",
     "jpkr-native-seed",
-    "manual-presets",
-    "row-native-seed"
+    "row-native-seed",
+    "manual-presets"
   ],
   "count": 329,
   "stats": {

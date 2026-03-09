@@ -1,43 +1,44 @@
 {
-  "generatedAt": "2026-03-08T13:24:56Z",
+  "generatedAt": "2026-03-09T03:43:58Z",
   "market": "TH",
-  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
+    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 300,
+  "count": 298,
   "stats": {
-    "total": 300,
-    "priced": 65,
-    "priceCoverage": 0.2167,
+    "total": 298,
+    "priced": 63,
+    "priceCoverage": 0.2114,
     "markets": {
       "AU": 275,
       "CA": 275,
-      "CN": 288,
+      "CN": 286,
       "DE": 264,
-      "EG": 288,
-      "ID": 295,
-      "IN": 13,
+      "EG": 286,
+      "ID": 293,
+      "IN": 11,
       "JP": 275,
       "KR": 248,
-      "LK": 12,
-      "MA": 288,
-      "MY": 300,
+      "LK": 10,
+      "MA": 286,
+      "MY": 298,
       "NZ": 275,
-      "PH": 291,
-      "SG": 284,
-      "TH": 300,
+      "PH": 289,
+      "SG": 282,
+      "TH": 298,
       "TR": 275,
       "US": 275,
-      "VN": 293,
-      "ZA": 288
+      "VN": 291,
+      "ZA": 286
     },
     "marketCount": 20
   },
@@ -7788,38 +7789,6 @@
       "source": "asean-native-seed"
     },
     {
-      "id": "bmw-i4",
-      "label": "BMW i4",
-      "batteryKwh": 83.9,
-      "efficiency": 14.2,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 78952,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 7250000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
       "id": "bmw-ix1",
       "label": "BMW iX1",
       "batteryKwh": 66.4,
@@ -7846,7 +7815,7 @@
           "amount": 4990000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -7912,7 +7881,7 @@
           "amount": 4100000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -7944,7 +7913,7 @@
           "amount": 4890000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -8017,7 +7986,7 @@
           "amount": 1802000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -8094,7 +8063,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -8126,7 +8095,7 @@
           "amount": 750000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -8158,7 +8127,7 @@
           "amount": 7500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -8190,7 +8159,7 @@
           "amount": 6990000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -8222,39 +8191,7 @@
           "amount": 1400000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "mg-zs-ev",
-      "label": "MG ZS EV",
-      "batteryKwh": 50.3,
-      "efficiency": 10.9,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 19591,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1799000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -8303,7 +8240,7 @@
           "amount": 6500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"
@@ -8347,7 +8284,7 @@
           "amount": 1800000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-08"
+          "updatedAt": "2026-03-09"
         }
       },
       "source": "cardekho.com"

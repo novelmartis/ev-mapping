@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-17T03:27:28Z",
+  "generatedAt": "2026-03-17T14:04:25Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "manual-presets",
     "row-native-seed"
   ],
-  "count": 696,
+  "count": 698,
   "stats": {
-    "total": 696,
+    "total": 698,
     "priced": 50,
-    "priceCoverage": 0.0718,
+    "priceCoverage": 0.0716,
     "markets": {
-      "AU": 696,
+      "AU": 698,
       "CA": 326,
       "CN": 275,
       "DE": 290,
@@ -12006,10 +12006,32 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "skoda-my26-enyaq-coupe-rs",
+      "label": "Skoda MY26 Enyaq Coupe RS",
+      "batteryKwh": 89.7,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "skoda-my26-enyaq-suv-60-select",
       "label": "Skoda MY26 Enyaq SUV 60 Select",
       "batteryKwh": 68.1,
       "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my26-enyaq-suv-rs",
+      "label": "Skoda MY26 Enyaq SUV RS",
+      "batteryKwh": 90.0,
+      "efficiency": 17.2,
       "reserve": 10,
       "markets": [
         "AU"

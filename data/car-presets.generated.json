@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-18T14:20:57Z",
+  "generatedAt": "2026-03-19T03:37:39Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,32 +13,32 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1069,
+  "count": 1052,
   "stats": {
-    "total": 1069,
-    "priced": 143,
-    "priceCoverage": 0.1338,
+    "total": 1052,
+    "priced": 145,
+    "priceCoverage": 0.1378,
     "markets": {
-      "AU": 698,
+      "AU": 679,
       "CA": 527,
-      "CN": 287,
+      "CN": 288,
       "DE": 337,
-      "EG": 315,
-      "ID": 295,
-      "IN": 25,
+      "EG": 316,
+      "ID": 296,
+      "IN": 26,
       "JP": 301,
       "KR": 267,
-      "LK": 20,
-      "MA": 314,
-      "MY": 300,
+      "LK": 21,
+      "MA": 316,
+      "MY": 301,
       "NZ": 329,
-      "PH": 290,
-      "SG": 289,
-      "TH": 299,
+      "PH": 291,
+      "SG": 290,
+      "TH": 300,
       "TR": 306,
       "US": 616,
-      "VN": 294,
-      "ZA": 316
+      "VN": 295,
+      "ZA": 317
     },
     "marketCount": 20
   },
@@ -12863,14 +12863,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 222015,
+      "priceUsd": 220580,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 20500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -12895,14 +12895,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 55125,
+      "priceUsd": 54768,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -12979,6 +12979,18 @@
       ],
       "priceUsd": 33900,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "byd-atto-3-ma",
+      "label": "BYD Atto 3 (Morocco)",
+      "batteryKwh": 60.5,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "MA"
+      ],
+      "priceUsd": 33800,
+      "source": "row-native-seed"
     },
     {
       "id": "byd-dolphin-asean",
@@ -13138,14 +13150,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 44403,
+      "priceUsd": 44116,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4100000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -13207,14 +13219,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53500,
+      "priceUsd": 53154,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -13853,14 +13865,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19516,
+      "priceUsd": 19390,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1802000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -14153,6 +14165,38 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "kia-carens-clavis-ev",
+      "label": "Kia Carens Clavis EV",
+      "batteryKwh": 51.4,
+      "efficiency": 10.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 19357,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1799000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-19"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "kia-ev3-kr",
       "label": "Kia EV3",
       "batteryKwh": 81.4,
@@ -14344,14 +14388,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 71446,
+      "priceUsd": 70984,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -14631,14 +14675,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8122,
+      "priceUsd": 8070,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 750000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -14663,14 +14707,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 81225,
+      "priceUsd": 80700,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 7500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -14838,14 +14882,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 76785,
+      "priceUsd": 76288,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 7090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -15002,14 +15046,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 15162,
+      "priceUsd": 15064,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1400000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -15260,14 +15304,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 16776,
+      "priceUsd": 16667,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1549000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -15281,14 +15325,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 17317,
+      "priceUsd": 17205,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1599000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -15402,14 +15446,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 59565,
+      "priceUsd": 59180,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -16097,215 +16141,6 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
-      "id": "porsche-macan-electric",
-      "label": "Porsche Macan Electric",
-      "batteryKwh": 105.9,
-      "efficiency": 16.2,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-macan-electric-macan-4s",
-      "label": "Porsche Macan Electric Macan 4S",
-      "batteryKwh": 105.8,
-      "efficiency": 17.1,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-macan-electric-macan-base-4",
-      "label": "Porsche Macan Electric Macan Base 4",
-      "batteryKwh": 106.1,
-      "efficiency": 17.0,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-macan-electric-macan-turbo",
-      "label": "Porsche Macan Electric Macan Turbo",
-      "batteryKwh": 106.0,
-      "efficiency": 17.2,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan",
-      "label": "Porsche Taycan",
-      "batteryKwh": 96.8,
-      "efficiency": 17.1,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-4",
-      "label": "Porsche Taycan 4",
-      "batteryKwh": 94.3,
-      "efficiency": 17.3,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-4-performance-battery",
-      "label": "Porsche Taycan 4 Performance Battery",
-      "batteryKwh": 111.0,
-      "efficiency": 17.7,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-4s",
-      "label": "Porsche Taycan 4S",
-      "batteryKwh": 94.1,
-      "efficiency": 17.3,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-4s-performance-battery",
-      "label": "Porsche Taycan 4S Performance Battery",
-      "batteryKwh": 111.2,
-      "efficiency": 17.8,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-cross-tourismo",
-      "label": "Porsche Taycan Cross Tourismo",
-      "batteryKwh": 111.2,
-      "efficiency": 18.5,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-cross-tourismo-4s",
-      "label": "Porsche Taycan Cross Tourismo 4S",
-      "batteryKwh": 111.2,
-      "efficiency": 18.5,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-cross-tourismo-turbo",
-      "label": "Porsche Taycan Cross Tourismo Turbo",
-      "batteryKwh": 111.0,
-      "efficiency": 18.6,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-cross-tourismo-turbo-s",
-      "label": "Porsche Taycan Cross Tourismo Turbo S",
-      "batteryKwh": 111.0,
-      "efficiency": 18.6,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-gts",
-      "label": "Porsche Taycan GTS",
-      "batteryKwh": 111.1,
-      "efficiency": 17.8,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-performance-battery",
-      "label": "Porsche Taycan Performance Battery",
-      "batteryKwh": 115.2,
-      "efficiency": 17.7,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-turbo",
-      "label": "Porsche Taycan Turbo",
-      "batteryKwh": 111.4,
-      "efficiency": 17.8,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-turbo-gt",
-      "label": "Porsche Taycan Turbo GT",
-      "batteryKwh": 111.3,
-      "efficiency": 18.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-turbo-gt-w-weissach-package",
-      "label": "Porsche Taycan Turbo GT w/Weissach package",
-      "batteryKwh": 111.3,
-      "efficiency": 18.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-turbo-s",
-      "label": "Porsche Taycan Turbo S",
-      "batteryKwh": 111.4,
-      "efficiency": 17.8,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
       "id": "proton-emas-7",
       "label": "Proton eMas 7",
       "batteryKwh": 58.0,
@@ -16711,14 +16546,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 18942,
+      "priceUsd": 18819,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1749000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -16733,14 +16568,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 23274,
+      "priceUsd": 23123,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 2149000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -16755,14 +16590,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13527,
+      "priceUsd": 13439,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1249000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -16777,14 +16612,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10494,
+      "priceUsd": 10426,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 969000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -16799,14 +16634,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 8653,
+      "priceUsd": 8597,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -17179,14 +17014,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19494,
+      "priceUsd": 19368,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1800000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -17223,14 +17058,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 3520,
+      "priceUsd": 3497,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 325000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -17268,14 +17103,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 18725,
+      "priceUsd": 18604,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1729000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"
@@ -17289,14 +17124,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 23707,
+      "priceUsd": 23554,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 2189000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-18"
+          "updatedAt": "2026-03-19"
         }
       },
       "source": "cardekho.com"

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-18T14:20:57Z",
+  "generatedAt": "2026-03-19T03:37:39Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 698,
+  "count": 679,
   "stats": {
-    "total": 698,
+    "total": 679,
     "priced": 50,
-    "priceCoverage": 0.0716,
+    "priceCoverage": 0.0736,
     "markets": {
-      "AU": 698,
+      "AU": 679,
       "CA": 326,
       "CN": 275,
       "DE": 290,
@@ -11647,215 +11647,6 @@
       "label": "Polestar 4 400kW Long Range Dual Motor",
       "batteryKwh": 128.0,
       "efficiency": 21.7,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-macan-electric",
-      "label": "Porsche Macan Electric",
-      "batteryKwh": 105.9,
-      "efficiency": 16.2,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-macan-electric-macan-4s",
-      "label": "Porsche Macan Electric Macan 4S",
-      "batteryKwh": 105.8,
-      "efficiency": 17.1,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-macan-electric-macan-base-4",
-      "label": "Porsche Macan Electric Macan Base 4",
-      "batteryKwh": 106.1,
-      "efficiency": 17.0,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-macan-electric-macan-turbo",
-      "label": "Porsche Macan Electric Macan Turbo",
-      "batteryKwh": 106.0,
-      "efficiency": 17.2,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan",
-      "label": "Porsche Taycan",
-      "batteryKwh": 96.8,
-      "efficiency": 17.1,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-4",
-      "label": "Porsche Taycan 4",
-      "batteryKwh": 94.3,
-      "efficiency": 17.3,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-4-performance-battery",
-      "label": "Porsche Taycan 4 Performance Battery",
-      "batteryKwh": 111.0,
-      "efficiency": 17.7,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-4s",
-      "label": "Porsche Taycan 4S",
-      "batteryKwh": 94.1,
-      "efficiency": 17.3,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-4s-performance-battery",
-      "label": "Porsche Taycan 4S Performance Battery",
-      "batteryKwh": 111.2,
-      "efficiency": 17.8,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-cross-tourismo",
-      "label": "Porsche Taycan Cross Tourismo",
-      "batteryKwh": 111.2,
-      "efficiency": 18.5,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-cross-tourismo-4s",
-      "label": "Porsche Taycan Cross Tourismo 4S",
-      "batteryKwh": 111.2,
-      "efficiency": 18.5,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-cross-tourismo-turbo",
-      "label": "Porsche Taycan Cross Tourismo Turbo",
-      "batteryKwh": 111.0,
-      "efficiency": 18.6,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-cross-tourismo-turbo-s",
-      "label": "Porsche Taycan Cross Tourismo Turbo S",
-      "batteryKwh": 111.0,
-      "efficiency": 18.6,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-gts",
-      "label": "Porsche Taycan GTS",
-      "batteryKwh": 111.1,
-      "efficiency": 17.8,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-performance-battery",
-      "label": "Porsche Taycan Performance Battery",
-      "batteryKwh": 115.2,
-      "efficiency": 17.7,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-turbo",
-      "label": "Porsche Taycan Turbo",
-      "batteryKwh": 111.4,
-      "efficiency": 17.8,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-turbo-gt",
-      "label": "Porsche Taycan Turbo GT",
-      "batteryKwh": 111.3,
-      "efficiency": 18.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-turbo-gt-w-weissach-package",
-      "label": "Porsche Taycan Turbo GT w/Weissach package",
-      "batteryKwh": 111.3,
-      "efficiency": 18.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "porsche-taycan-turbo-s",
-      "label": "Porsche Taycan Turbo S",
-      "batteryKwh": 111.4,
-      "efficiency": 17.8,
       "reserve": 10,
       "markets": [
         "AU"

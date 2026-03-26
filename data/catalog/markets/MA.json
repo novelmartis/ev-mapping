@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-03-25T03:32:16Z",
+  "generatedAt": "2026-03-25T14:04:35Z",
   "market": "MA",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
-    "cardekho.com",
-    "greenvehicleguide.gov.au",
-    "eu-native-seed",
     "asean-native-seed",
+    "cardekho.com",
+    "eu-native-seed",
+    "fueleconomy.gov",
+    "greenvehicleguide.gov.au",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
-  "count": 315,
+  "count": 316,
   "stats": {
-    "total": 315,
-    "priced": 58,
-    "priceCoverage": 0.1841,
+    "total": 316,
+    "priced": 59,
+    "priceCoverage": 0.1867,
     "markets": {
       "AU": 301,
       "CA": 301,
@@ -29,7 +29,7 @@
       "JP": 275,
       "KR": 248,
       "LK": 12,
-      "MA": 315,
+      "MA": 316,
       "MY": 288,
       "NZ": 301,
       "PH": 288,
@@ -8300,14 +8300,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 218530,
+      "priceUsd": 219965,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 20500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8332,17 +8332,29 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54259,
+      "priceUsd": 54616,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
+    },
+    {
+      "id": "byd-atto-3-ma",
+      "label": "BYD Atto 3 (Morocco)",
+      "batteryKwh": 60.5,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "MA"
+      ],
+      "priceUsd": 33800,
+      "source": "row-native-seed"
     },
     {
       "id": "byd-seal",
@@ -8364,14 +8376,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43706,
+      "priceUsd": 43993,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4100000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8396,14 +8408,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52660,
+      "priceUsd": 53006,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8440,14 +8452,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19209,
+      "priceUsd": 19335,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1802000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8472,14 +8484,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19177,
+      "priceUsd": 19303,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8504,14 +8516,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 70324,
+      "priceUsd": 70786,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8536,14 +8548,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7995,
+      "priceUsd": 8048,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 750000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8568,14 +8580,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 79950,
+      "priceUsd": 80475,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 7500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8600,14 +8612,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 75579,
+      "priceUsd": 76076,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 7090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8632,14 +8644,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14924,
+      "priceUsd": 15022,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1400000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8664,14 +8676,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 58630,
+      "priceUsd": 59015,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"
@@ -8694,14 +8706,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19188,
+      "priceUsd": 19314,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1800000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-03-25"
+          "updatedAt": "2026-03-24"
         }
       },
       "source": "cardekho.com"

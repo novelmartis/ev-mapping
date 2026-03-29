@@ -179,6 +179,7 @@ Guardrails included:
 ## Notes
 
 - Public APIs can rate-limit or vary in data freshness/coverage.
+- For a more scaled-up route-planning alternative, see [A Better Routeplanner (ABRP)](https://abetterrouteplanner.com/).
 - Compute Reach is optimized to render reach circles first, then fill charger pins as providers return.
 - `Max stations to fetch` limits retrieval volume (higher values may be slower but improve coverage).
 - In `Official channels` mode, the app avoids overpass-only community queries and prioritizes curated feeds.

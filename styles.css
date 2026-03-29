@@ -892,82 +892,11 @@ select:focus {
   line-height: 1.5;
 }
 
-/* ── Ad slot ── */
-.ad-slot {
-  border: 1px dashed var(--line-strong);
-  border-radius: 12px;
-  padding: 0.5rem 0.65rem 0.62rem;
-  background: rgb(255 255 255 / 78%);
-}
-
-.ad-slot-map {
-  margin: 0.6rem;
-  margin-top: 0;
-}
-
-.ad-label {
-  margin: 0 0 0.35rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-}
-
-.ad-placeholder {
-  min-height: 92px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: linear-gradient(180deg, #fff, #f8fbff);
-  padding: 0.65rem;
-  overflow: hidden;
-}
-
-.ad-placeholder:empty {
-  display: none;
-}
-
-.ad-slot:has(.ad-placeholder:empty) {
-  display: none;
-}
-
-.ad-runtime {
-  position: relative;
-  height: 78px;
-}
-
-.ad-fallback-image {
-  display: block;
-  width: 100%;
-  height: 78px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  object-fit: cover;
-  object-position: center;
-  opacity: 0.35;
-}
-
-.ad-runtime .adsbygoogle {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 180ms ease;
-}
-
-.ad-runtime.is-filled .adsbygoogle {
-  opacity: 1;
-}
-
-.ad-runtime.is-filled .ad-fallback-image {
-  display: none;
-}
-
 /* ── Map panel ── */
 .map-panel {
   position: relative;
   display: grid;
-  grid-template-rows: minmax(320px, 1fr) auto;
+  grid-template-rows: minmax(320px, 1fr);
   border: 1px solid rgb(255 255 255 / 80%);
   border-radius: 18px;
   overflow: hidden;
@@ -1173,10 +1102,6 @@ select:focus {
     border-radius: 13px;
   }
 
-  .ad-slot-map {
-    margin: 0.5rem;
-    margin-top: 0;
-  }
 }
 
 @media (max-width: 480px) {

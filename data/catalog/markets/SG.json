@@ -1,43 +1,46 @@
 {
-  "generatedAt": "2026-03-05T18:43:13Z",
+  "generatedAt": "2026-03-28T13:45:45Z",
   "market": "SG",
-  "source": "fueleconomy.gov + AFDC + Cardekho + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "afdc.energy.gov",
-    "asean-native-seed",
-    "cardekho.com",
-    "eu-native-seed",
     "fueleconomy.gov",
+    "afdc.energy.gov",
+    "cardekho.com",
+    "greenvehicleguide.gov.au",
+    "eu-native-seed",
+    "asean-native-seed",
     "jpkr-native-seed",
-    "manual-presets",
-    "row-native-seed"
+    "row-native-seed",
+    "manual-presets"
   ],
-  "count": 278,
+  "count": 290,
   "stats": {
-    "total": 278,
-    "priced": 50,
-    "priceCoverage": 0.1799,
+    "total": 290,
+    "priced": 62,
+    "priceCoverage": 0.2138,
     "markets": {
       "AU": 268,
       "CA": 268,
-      "CN": 264,
+      "CN": 276,
       "DE": 268,
-      "EG": 268,
-      "ID": 268,
+      "EG": 280,
+      "ID": 280,
+      "IN": 12,
       "JP": 264,
       "KR": 248,
-      "MA": 268,
-      "MY": 272,
+      "LK": 12,
+      "MA": 280,
+      "MY": 284,
       "NZ": 268,
-      "PH": 267,
-      "SG": 278,
-      "TH": 272,
+      "PH": 279,
+      "SG": 290,
+      "TH": 284,
       "TR": 268,
       "US": 268,
-      "VN": 269,
-      "ZA": 268
+      "VN": 281,
+      "ZA": 280
     },
-    "marketCount": 18
+    "marketCount": 20
   },
   "presets": [
     {
@@ -7591,6 +7594,70 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "bmw-i7",
+      "label": "BMW i7",
+      "batteryKwh": 101.7,
+      "efficiency": 16.3,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 216275,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 20500000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "bmw-ix1",
+      "label": "BMW iX1",
+      "batteryKwh": 66.4,
+      "efficiency": 12.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 53700,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 5090000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "byd-atto-3-asean",
       "label": "BYD Atto 3 (ASEAN)",
       "batteryKwh": 60.5,
@@ -7625,6 +7692,102 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "byd-seal",
+      "label": "BYD Seal",
+      "batteryKwh": 82.6,
+      "efficiency": 12.7,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 43255,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 4100000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "byd-sealion-7",
+      "label": "BYD Sealion 7",
+      "batteryKwh": 82.6,
+      "efficiency": 14.6,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 52117,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 4940000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "hyundai-creta-electric",
+      "label": "Hyundai Creta Electric",
+      "batteryKwh": 51.4,
+      "efficiency": 10.1,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 19011,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1802000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "hyundai-ioniq-5-asean",
       "label": "Hyundai Ioniq 5 (ASEAN)",
       "batteryKwh": 72.6,
@@ -7656,6 +7819,38 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "kia-carens-clavis-ev",
+      "label": "Kia Carens Clavis EV",
+      "batteryKwh": 51.4,
+      "efficiency": 10.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 18979,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1799000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "kia-ev5-asean",
       "label": "Kia EV5",
       "batteryKwh": 88.1,
@@ -7668,6 +7863,166 @@
       ],
       "priceUsd": 47300,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "kia-ev6",
+      "label": "Kia EV6",
+      "batteryKwh": 84.0,
+      "efficiency": 12.7,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 69598,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 6597000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-comet-ev",
+      "label": "MG Comet EV",
+      "batteryKwh": 20.0,
+      "efficiency": 10.0,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 7912,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 750000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-cyberster",
+      "label": "MG Cyberster",
+      "batteryKwh": 77.0,
+      "efficiency": 13.3,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 79125,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 7500000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-m9",
+      "label": "MG M9",
+      "batteryKwh": 90.0,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 74800,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 7090000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-windsor-ev",
+      "label": "MG Windsor EV",
+      "batteryKwh": 52.9,
+      "efficiency": 11.8,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 14770,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1400000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
     },
     {
       "id": "mg4-asean",
@@ -7685,6 +8040,38 @@
       ],
       "priceUsd": 32400,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "mercedes-benz-cla-electric",
+      "label": "Mercedes-Benz CLA Electric",
+      "batteryKwh": 85.5,
+      "efficiency": 10.8,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 58025,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 5500000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-03-28"
+        }
+      },
+      "source": "cardekho.com"
     },
     {
       "id": "nissan-leaf-sg",

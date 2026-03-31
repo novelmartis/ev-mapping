@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-30T03:58:53Z",
+  "generatedAt": "2026-03-30T14:20:34Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 679,
+  "count": 681,
   "stats": {
-    "total": 679,
+    "total": 681,
     "priced": 50,
-    "priceCoverage": 0.0736,
+    "priceCoverage": 0.0734,
     "markets": {
-      "AU": 679,
+      "AU": 681,
       "CA": 326,
       "CN": 275,
       "DE": 290,
@@ -10744,6 +10744,28 @@
       "label": "MG MG4 77kWh EV RWD",
       "batteryKwh": 82.6,
       "efficiency": 14.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-ev-urban-essence-43",
+      "label": "MG MG4 EV Urban Essence 43",
+      "batteryKwh": 52.1,
+      "efficiency": 16.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-ev-urban-essence-54",
+      "label": "MG MG4 EV Urban Essence 54",
+      "batteryKwh": 65.2,
+      "efficiency": 16.1,
       "reserve": 10,
       "markets": [
         "AU"

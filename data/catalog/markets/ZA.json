@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T14:24:52Z",
+  "generatedAt": "2026-04-02T03:52:49Z",
   "market": "ZA",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,32 +13,32 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 316,
+  "count": 322,
   "stats": {
-    "total": 316,
-    "priced": 59,
-    "priceCoverage": 0.1867,
+    "total": 322,
+    "priced": 60,
+    "priceCoverage": 0.1863,
     "markets": {
-      "AU": 301,
-      "CA": 301,
-      "CN": 287,
-      "DE": 290,
-      "EG": 313,
-      "ID": 287,
-      "IN": 12,
-      "JP": 275,
-      "KR": 248,
-      "LK": 11,
-      "MA": 313,
-      "MY": 287,
-      "NZ": 301,
-      "PH": 287,
-      "SG": 279,
-      "TH": 287,
-      "TR": 301,
-      "US": 301,
-      "VN": 287,
-      "ZA": 316
+      "AU": 306,
+      "CA": 306,
+      "CN": 293,
+      "DE": 291,
+      "EG": 319,
+      "ID": 293,
+      "IN": 13,
+      "JP": 280,
+      "KR": 249,
+      "LK": 12,
+      "MA": 319,
+      "MY": 293,
+      "NZ": 306,
+      "PH": 293,
+      "SG": 281,
+      "TH": 293,
+      "TR": 306,
+      "US": 306,
+      "VN": 293,
+      "ZA": 322
     },
     "marketCount": 20
   },
@@ -7625,6 +7625,34 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-tesla-model-y-standard-awd",
+      "label": "2026 Tesla Model Y Standard AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-tesla-model-y-standard-rwd-18in-wheels",
       "label": "2026 Tesla Model Y Standard RWD (18in Wheels)",
       "batteryKwh": 65.0,
@@ -7677,6 +7705,56 @@
         "NZ",
         "JP",
         "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-18inch",
+      "label": "2026 Toyota C-HR AWD 18inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-20inch",
+      "label": "2026 Toyota C-HR AWD 20inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
       ],
       "source": "fueleconomy.gov"
     },
@@ -7808,6 +7886,56 @@
     {
       "id": "2026-toyota-bz-limited-energy-capacity-200-ah",
       "label": "2026 Toyota bZ LIMITED (energy capacity 200 Ah)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-60r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/60R18",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-65r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/65R18",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -8300,14 +8428,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 218530,
+      "priceUsd": 219350,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 20500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8332,14 +8460,46 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54259,
+      "priceUsd": 54463,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "byd-seal",
+      "label": "BYD Seal",
+      "batteryKwh": 82.6,
+      "efficiency": 12.7,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 43870,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 4100000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8376,14 +8536,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52660,
+      "priceUsd": 52858,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8432,14 +8592,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19209,
+      "priceUsd": 19281,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1802000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8464,14 +8624,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 70324,
+      "priceUsd": 70588,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8496,14 +8656,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7995,
+      "priceUsd": 8025,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 750000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8528,14 +8688,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 79950,
+      "priceUsd": 80250,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 7500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8560,14 +8720,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 75579,
+      "priceUsd": 75863,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 7090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8592,14 +8752,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14924,
+      "priceUsd": 14980,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1400000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8624,14 +8784,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 58630,
+      "priceUsd": 58850,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8656,14 +8816,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 138580,
+      "priceUsd": 139100,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 13000000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -8686,14 +8846,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19188,
+      "priceUsd": 19260,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1800000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"

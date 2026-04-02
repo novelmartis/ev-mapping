@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T14:24:52Z",
+  "generatedAt": "2026-04-02T03:52:49Z",
   "market": "JP",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,30 +13,30 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 301,
+  "count": 312,
   "stats": {
-    "total": 301,
+    "total": 312,
     "priced": 48,
-    "priceCoverage": 0.1595,
+    "priceCoverage": 0.1538,
     "markets": {
-      "AU": 275,
-      "CA": 275,
-      "CN": 275,
-      "DE": 264,
-      "EG": 275,
-      "ID": 275,
-      "JP": 301,
-      "KR": 248,
-      "MA": 275,
-      "MY": 275,
-      "NZ": 275,
-      "PH": 275,
-      "SG": 264,
-      "TH": 275,
-      "TR": 275,
-      "US": 293,
-      "VN": 275,
-      "ZA": 275
+      "AU": 280,
+      "CA": 280,
+      "CN": 280,
+      "DE": 265,
+      "EG": 280,
+      "ID": 280,
+      "JP": 312,
+      "KR": 249,
+      "MA": 280,
+      "MY": 280,
+      "NZ": 280,
+      "PH": 280,
+      "SG": 265,
+      "TH": 280,
+      "TR": 280,
+      "US": 304,
+      "VN": 280,
+      "ZA": 280
     },
     "marketCount": 18
   },
@@ -6155,8 +6155,20 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-lexus-rz-350e-fwd-18-inch-wheels",
+      "label": "2026 Lexus RZ 350e FWD (18 inch wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-lexus-rz-350e-fwd-20-inch-wheels",
-      "label": "2026 Lexus RZ 350e FWD (20 inch Wheels)",
+      "label": "2026 Lexus RZ 350e FWD (20 inch wheels)",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -6180,7 +6192,7 @@
     },
     {
       "id": "2026-lexus-rz-450e-awd-20-inch-wheels-235-50r20",
-      "label": "2026 Lexus RZ 450e AWD (20 inch Wheels - 235/50R20)",
+      "label": "2026 Lexus RZ 450e AWD (20 inch wheels - 235/50R20)",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -6192,7 +6204,7 @@
     },
     {
       "id": "2026-lexus-rz-450e-awd-20-inch-wheels-235-50r20-255-45r20",
-      "label": "2026 Lexus RZ 450e AWD (20 inch Wheels - 235/50R20,255/45R20)",
+      "label": "2026 Lexus RZ 450e AWD (20 inch wheels - 235/50R20,255/45R20)",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -6913,6 +6925,66 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-subaru-trailseeker-20-inch-awd",
+      "label": "2026 Subaru Trailseeker 20 inch AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-subaru-trailseeker-awd",
+      "label": "2026 Subaru Trailseeker AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-subaru-uncharted",
+      "label": "2026 Subaru Uncharted",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-subaru-uncharted-20-inch-awd",
+      "label": "2026 Subaru Uncharted 20 inch AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-subaru-uncharted-awd",
+      "label": "2026 Subaru Uncharted AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-tesla-cybertruck-awd",
       "label": "2026 Tesla Cybertruck AWD",
       "batteryKwh": 65.0,
@@ -7333,6 +7405,34 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-tesla-model-y-standard-awd",
+      "label": "2026 Tesla Model Y Standard AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-tesla-model-y-standard-rwd-18in-wheels",
       "label": "2026 Tesla Model Y Standard RWD (18in Wheels)",
       "batteryKwh": 65.0,
@@ -7385,6 +7485,56 @@
         "NZ",
         "JP",
         "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-18inch",
+      "label": "2026 Toyota C-HR AWD 18inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-20inch",
+      "label": "2026 Toyota C-HR AWD 20inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
       ],
       "source": "fueleconomy.gov"
     },
@@ -7516,6 +7666,56 @@
     {
       "id": "2026-toyota-bz-limited-energy-capacity-200-ah",
       "label": "2026 Toyota bZ LIMITED (energy capacity 200 Ah)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-60r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/60R18",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-65r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/65R18",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,

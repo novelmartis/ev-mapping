@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T14:24:52Z",
+  "generatedAt": "2026-04-02T03:52:49Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,32 +13,32 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1054,
+  "count": 1090,
   "stats": {
-    "total": 1054,
+    "total": 1090,
     "priced": 145,
-    "priceCoverage": 0.1376,
+    "priceCoverage": 0.133,
     "markets": {
-      "AU": 681,
-      "CA": 527,
-      "CN": 287,
-      "DE": 337,
-      "EG": 315,
-      "ID": 295,
+      "AU": 704,
+      "CA": 537,
+      "CN": 293,
+      "DE": 343,
+      "EG": 321,
+      "ID": 301,
       "IN": 27,
-      "JP": 301,
-      "KR": 267,
-      "LK": 20,
-      "MA": 314,
-      "MY": 300,
-      "NZ": 329,
-      "PH": 290,
-      "SG": 289,
-      "TH": 299,
-      "TR": 306,
-      "US": 616,
-      "VN": 294,
-      "ZA": 316
+      "JP": 312,
+      "KR": 268,
+      "LK": 21,
+      "MA": 320,
+      "MY": 306,
+      "NZ": 334,
+      "PH": 296,
+      "SG": 291,
+      "TH": 305,
+      "TR": 311,
+      "US": 634,
+      "VN": 300,
+      "ZA": 322
     },
     "marketCount": 20
   },
@@ -9028,8 +9028,20 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-lexus-rz-350e-fwd-18-inch-wheels",
+      "label": "2026 Lexus RZ 350e FWD (18 inch wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-lexus-rz-350e-fwd-20-inch-wheels",
-      "label": "2026 Lexus RZ 350e FWD (20 inch Wheels)",
+      "label": "2026 Lexus RZ 350e FWD (20 inch wheels)",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -9053,7 +9065,7 @@
     },
     {
       "id": "2026-lexus-rz-450e-awd-20-inch-wheels-235-50r20",
-      "label": "2026 Lexus RZ 450e AWD (20 inch Wheels - 235/50R20)",
+      "label": "2026 Lexus RZ 450e AWD (20 inch wheels - 235/50R20)",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -9065,7 +9077,7 @@
     },
     {
       "id": "2026-lexus-rz-450e-awd-20-inch-wheels-235-50r20-255-45r20",
-      "label": "2026 Lexus RZ 450e AWD (20 inch Wheels - 235/50R20,255/45R20)",
+      "label": "2026 Lexus RZ 450e AWD (20 inch wheels - 235/50R20,255/45R20)",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -9342,6 +9354,28 @@
         "SG",
         "AU",
         "NZ"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-maserati-grecale-folgore-19-inch-wheels",
+      "label": "2026 Maserati Grecale Folgore (19 inch wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-maserati-grecale-folgore-21-inch-wheels",
+      "label": "2026 Maserati Grecale Folgore (21 inch wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US"
       ],
       "source": "fueleconomy.gov"
     },
@@ -10173,6 +10207,71 @@
       ],
       "priceUsd": 54900,
       "priceSource": "afdc.energy.gov",
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-4-electric",
+      "label": "2026 Porsche Macan 4 Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-4s-electric",
+      "label": "2026 Porsche Macan 4S Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-electric",
+      "label": "2026 Porsche Macan Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-gts-electric",
+      "label": "2026 Porsche Macan GTS Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-turbo-electric",
+      "label": "2026 Porsche Macan Turbo Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
       "source": "fueleconomy.gov"
     },
     {
@@ -11039,6 +11138,66 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-subaru-trailseeker-20-inch-awd",
+      "label": "2026 Subaru Trailseeker 20 inch AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-subaru-trailseeker-awd",
+      "label": "2026 Subaru Trailseeker AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-subaru-uncharted",
+      "label": "2026 Subaru Uncharted",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-subaru-uncharted-20-inch-awd",
+      "label": "2026 Subaru Uncharted 20 inch AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-subaru-uncharted-awd",
+      "label": "2026 Subaru Uncharted AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-tesla-cybertruck-awd",
       "label": "2026 Tesla Cybertruck AWD",
       "batteryKwh": 65.0,
@@ -11459,6 +11618,34 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-tesla-model-y-standard-awd",
+      "label": "2026 Tesla Model Y Standard AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-tesla-model-y-standard-rwd-18in-wheels",
       "label": "2026 Tesla Model Y Standard RWD (18in Wheels)",
       "batteryKwh": 65.0,
@@ -11511,6 +11698,56 @@
         "NZ",
         "JP",
         "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-18inch",
+      "label": "2026 Toyota C-HR AWD 18inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-20inch",
+      "label": "2026 Toyota C-HR AWD 20inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
       ],
       "source": "fueleconomy.gov"
     },
@@ -11642,6 +11879,56 @@
     {
       "id": "2026-toyota-bz-limited-energy-capacity-200-ah",
       "label": "2026 Toyota bZ LIMITED (energy capacity 200 Ah)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-60r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/60R18",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-65r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/65R18",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -12863,14 +13150,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 218530,
+      "priceUsd": 219350,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 20500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -12895,14 +13182,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54259,
+      "priceUsd": 54463,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -13119,6 +13406,38 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "byd-seal",
+      "label": "BYD Seal",
+      "batteryKwh": 82.6,
+      "efficiency": 12.7,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 43870,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 4100000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-04-02"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "byd-seal-za",
       "label": "BYD Seal (South Africa)",
       "batteryKwh": 82.5,
@@ -13175,14 +13494,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52660,
+      "priceUsd": 52858,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -13821,14 +14140,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19209,
+      "priceUsd": 19281,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1802000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -14312,14 +14631,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 70324,
+      "priceUsd": 70588,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -14513,27 +14832,6 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
-      "id": "lexus-es",
-      "label": "Lexus ES",
-      "batteryKwh": 74.7,
-      "efficiency": 12.9,
-      "reserve": 10,
-      "markets": [
-        "IN"
-      ],
-      "priceUsd": 95929,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 8999000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
       "id": "lexus-rz-450e",
       "label": "Lexus RZ 450e",
       "batteryKwh": 71.4,
@@ -14620,14 +14918,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7995,
+      "priceUsd": 8025,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 750000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -14652,14 +14950,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 79950,
+      "priceUsd": 80250,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 7500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -14827,14 +15125,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 75579,
+      "priceUsd": 75863,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 7090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -15013,14 +15311,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14924,
+      "priceUsd": 14980,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1400000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -15271,14 +15569,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 16512,
+      "priceUsd": 16574,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1549000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -15292,14 +15590,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 17045,
+      "priceUsd": 17109,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1599000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -15413,14 +15711,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 58630,
+      "priceUsd": 58850,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -15445,14 +15743,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 138580,
+      "priceUsd": 139100,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 13000000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -16140,6 +16438,204 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "porsche-macan-electric",
+      "label": "Porsche Macan Electric",
+      "batteryKwh": 105.3,
+      "efficiency": 19.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-4s",
+      "label": "Porsche Macan Electric Macan 4S",
+      "batteryKwh": 106.5,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-base-4",
+      "label": "Porsche Macan Electric Macan Base 4",
+      "batteryKwh": 106.9,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-gts",
+      "label": "Porsche Macan Electric Macan GTS",
+      "batteryKwh": 108.8,
+      "efficiency": 21.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-turbo",
+      "label": "Porsche Macan Electric Macan Turbo",
+      "batteryKwh": 108.8,
+      "efficiency": 21.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan",
+      "label": "Porsche Taycan",
+      "batteryKwh": 97.3,
+      "efficiency": 20.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4-performance-battery",
+      "label": "Porsche Taycan 4 Performance Battery",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4s",
+      "label": "Porsche Taycan 4S",
+      "batteryKwh": 96.6,
+      "efficiency": 21.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4s-performance-battery",
+      "label": "Porsche Taycan 4S Performance Battery",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo",
+      "label": "Porsche Taycan Cross Tourismo",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-4s",
+      "label": "Porsche Taycan Cross Tourismo 4S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-turbo",
+      "label": "Porsche Taycan Cross Tourismo Turbo",
+      "batteryKwh": 112.6,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-turbo-s",
+      "label": "Porsche Taycan Cross Tourismo Turbo S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-gts",
+      "label": "Porsche Taycan GTS",
+      "batteryKwh": 112.6,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-performance-battery",
+      "label": "Porsche Taycan Performance Battery",
+      "batteryKwh": 113.9,
+      "efficiency": 21.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-gt",
+      "label": "Porsche Taycan Turbo GT",
+      "batteryKwh": 113.7,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-gt-w-weissach-package",
+      "label": "Porsche Taycan Turbo GT w/Weissach package",
+      "batteryKwh": 113.7,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-s",
+      "label": "Porsche Taycan Turbo S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "proton-emas-7",
       "label": "Proton eMas 7",
       "batteryKwh": 58.0,
@@ -16545,14 +17041,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 18644,
+      "priceUsd": 18714,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1749000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -16567,14 +17063,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 22908,
+      "priceUsd": 22994,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 2149000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -16589,14 +17085,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13314,
+      "priceUsd": 13364,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1249000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -16611,14 +17107,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10330,
+      "priceUsd": 10368,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 969000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -16633,14 +17129,14 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 8517,
+      "priceUsd": 8549,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -17013,14 +17509,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19188,
+      "priceUsd": 19260,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1800000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -17057,14 +17553,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 3464,
+      "priceUsd": 3478,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 325000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -17102,14 +17598,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 20254,
+      "priceUsd": 20330,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1900000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -17123,14 +17619,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 18431,
+      "priceUsd": 18500,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1729000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"
@@ -17144,14 +17640,14 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 23335,
+      "priceUsd": 23422,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 2189000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-01"
+          "updatedAt": "2026-04-02"
         }
       },
       "source": "cardekho.com"

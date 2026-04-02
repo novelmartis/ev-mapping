@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T14:24:52Z",
+  "generatedAt": "2026-04-02T03:52:49Z",
   "market": "CA",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,30 +13,30 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 527,
+  "count": 537,
   "stats": {
-    "total": 527,
+    "total": 537,
     "priced": 56,
-    "priceCoverage": 0.1063,
+    "priceCoverage": 0.1043,
     "markets": {
-      "AU": 326,
-      "CA": 527,
-      "CN": 275,
-      "DE": 327,
-      "EG": 301,
-      "ID": 275,
-      "JP": 275,
-      "KR": 261,
-      "MA": 301,
-      "MY": 275,
-      "NZ": 326,
-      "PH": 275,
-      "SG": 268,
-      "TH": 275,
-      "TR": 301,
-      "US": 524,
-      "VN": 275,
-      "ZA": 301
+      "AU": 331,
+      "CA": 537,
+      "CN": 280,
+      "DE": 333,
+      "EG": 306,
+      "ID": 280,
+      "JP": 280,
+      "KR": 262,
+      "MA": 306,
+      "MY": 280,
+      "NZ": 331,
+      "PH": 280,
+      "SG": 269,
+      "TH": 280,
+      "TR": 306,
+      "US": 534,
+      "VN": 280,
+      "ZA": 306
     },
     "marketCount": 18
   },
@@ -9202,6 +9202,71 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-porsche-macan-4-electric",
+      "label": "2026 Porsche Macan 4 Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-4s-electric",
+      "label": "2026 Porsche Macan 4S Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-electric",
+      "label": "2026 Porsche Macan Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-gts-electric",
+      "label": "2026 Porsche Macan GTS Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-turbo-electric",
+      "label": "2026 Porsche Macan Turbo Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-porsche-taycan-4-cross-turismo",
       "label": "2026 Porsche Taycan 4 Cross Turismo",
       "batteryKwh": 65.0,
@@ -10417,6 +10482,34 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-tesla-model-y-standard-awd",
+      "label": "2026 Tesla Model Y Standard AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-tesla-model-y-standard-rwd-18in-wheels",
       "label": "2026 Tesla Model Y Standard RWD (18in Wheels)",
       "batteryKwh": 65.0,
@@ -10469,6 +10562,56 @@
         "NZ",
         "JP",
         "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-18inch",
+      "label": "2026 Toyota C-HR AWD 18inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-20inch",
+      "label": "2026 Toyota C-HR AWD 20inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
       ],
       "source": "fueleconomy.gov"
     },
@@ -10600,6 +10743,56 @@
     {
       "id": "2026-toyota-bz-limited-energy-capacity-200-ah",
       "label": "2026 Toyota bZ LIMITED (energy capacity 200 Ah)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-60r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/60R18",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-65r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/65R18",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,

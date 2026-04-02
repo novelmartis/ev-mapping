@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T14:24:52Z",
+  "generatedAt": "2026-04-02T03:52:49Z",
   "market": "DE",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,30 +13,30 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 337,
+  "count": 343,
   "stats": {
-    "total": 337,
+    "total": 343,
     "priced": 54,
-    "priceCoverage": 0.1602,
+    "priceCoverage": 0.1574,
     "markets": {
-      "AU": 290,
-      "CA": 327,
-      "CN": 264,
-      "DE": 337,
-      "EG": 290,
-      "ID": 264,
-      "JP": 264,
-      "KR": 248,
-      "MA": 290,
-      "MY": 264,
-      "NZ": 290,
-      "PH": 264,
-      "SG": 268,
-      "TH": 264,
-      "TR": 290,
-      "US": 327,
-      "VN": 264,
-      "ZA": 290
+      "AU": 291,
+      "CA": 333,
+      "CN": 265,
+      "DE": 343,
+      "EG": 291,
+      "ID": 265,
+      "JP": 265,
+      "KR": 249,
+      "MA": 291,
+      "MY": 265,
+      "NZ": 291,
+      "PH": 265,
+      "SG": 269,
+      "TH": 265,
+      "TR": 291,
+      "US": 333,
+      "VN": 265,
+      "ZA": 291
     },
     "marketCount": 18
   },
@@ -7364,6 +7364,71 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-porsche-macan-4-electric",
+      "label": "2026 Porsche Macan 4 Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-4s-electric",
+      "label": "2026 Porsche Macan 4S Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-electric",
+      "label": "2026 Porsche Macan Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-gts-electric",
+      "label": "2026 Porsche Macan GTS Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-turbo-electric",
+      "label": "2026 Porsche Macan Turbo Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-porsche-taycan-4-cross-turismo",
       "label": "2026 Porsche Taycan 4 Cross Turismo",
       "batteryKwh": 65.0,
@@ -7953,6 +8018,34 @@
     {
       "id": "2026-tesla-model-y-performance-awd",
       "label": "2026 Tesla Model Y Performance AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-tesla-model-y-standard-awd",
+      "label": "2026 Tesla Model Y Standard AWD",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,

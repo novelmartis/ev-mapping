@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T14:24:52Z",
+  "generatedAt": "2026-04-02T03:52:49Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,30 +13,30 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 681,
+  "count": 704,
   "stats": {
-    "total": 681,
+    "total": 704,
     "priced": 50,
-    "priceCoverage": 0.0734,
+    "priceCoverage": 0.071,
     "markets": {
-      "AU": 681,
-      "CA": 326,
-      "CN": 275,
-      "DE": 290,
-      "EG": 301,
-      "ID": 275,
-      "JP": 275,
-      "KR": 261,
-      "MA": 301,
-      "MY": 275,
-      "NZ": 329,
-      "PH": 275,
-      "SG": 268,
-      "TH": 275,
-      "TR": 301,
-      "US": 326,
-      "VN": 275,
-      "ZA": 301
+      "AU": 704,
+      "CA": 331,
+      "CN": 280,
+      "DE": 291,
+      "EG": 306,
+      "ID": 280,
+      "JP": 280,
+      "KR": 262,
+      "MA": 306,
+      "MY": 280,
+      "NZ": 334,
+      "PH": 280,
+      "SG": 269,
+      "TH": 280,
+      "TR": 306,
+      "US": 331,
+      "VN": 280,
+      "ZA": 306
     },
     "marketCount": 18
   },
@@ -7990,6 +7990,34 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-tesla-model-y-standard-awd",
+      "label": "2026 Tesla Model Y Standard AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-tesla-model-y-standard-rwd-18in-wheels",
       "label": "2026 Tesla Model Y Standard RWD (18in Wheels)",
       "batteryKwh": 65.0,
@@ -8042,6 +8070,56 @@
         "NZ",
         "JP",
         "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-18inch",
+      "label": "2026 Toyota C-HR AWD 18inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-c-hr-awd-20inch",
+      "label": "2026 Toyota C-HR AWD 20inch",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
       ],
       "source": "fueleconomy.gov"
     },
@@ -8173,6 +8251,56 @@
     {
       "id": "2026-toyota-bz-limited-energy-capacity-200-ah",
       "label": "2026 Toyota bZ LIMITED (energy capacity 200 Ah)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-60r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/60R18",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-toyota-bz-woodland-awd-235-65r18",
+      "label": "2026 Toyota bZ Woodland AWD 235/65R18",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -11669,6 +11797,204 @@
       "label": "Polestar 4 400kW Long Range Dual Motor",
       "batteryKwh": 128.0,
       "efficiency": 21.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric",
+      "label": "Porsche Macan Electric",
+      "batteryKwh": 105.3,
+      "efficiency": 19.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-4s",
+      "label": "Porsche Macan Electric Macan 4S",
+      "batteryKwh": 106.5,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-base-4",
+      "label": "Porsche Macan Electric Macan Base 4",
+      "batteryKwh": 106.9,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-gts",
+      "label": "Porsche Macan Electric Macan GTS",
+      "batteryKwh": 108.8,
+      "efficiency": 21.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-turbo",
+      "label": "Porsche Macan Electric Macan Turbo",
+      "batteryKwh": 108.8,
+      "efficiency": 21.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan",
+      "label": "Porsche Taycan",
+      "batteryKwh": 97.3,
+      "efficiency": 20.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4-performance-battery",
+      "label": "Porsche Taycan 4 Performance Battery",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4s",
+      "label": "Porsche Taycan 4S",
+      "batteryKwh": 96.6,
+      "efficiency": 21.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4s-performance-battery",
+      "label": "Porsche Taycan 4S Performance Battery",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo",
+      "label": "Porsche Taycan Cross Tourismo",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-4s",
+      "label": "Porsche Taycan Cross Tourismo 4S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-turbo",
+      "label": "Porsche Taycan Cross Tourismo Turbo",
+      "batteryKwh": 112.6,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-turbo-s",
+      "label": "Porsche Taycan Cross Tourismo Turbo S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-gts",
+      "label": "Porsche Taycan GTS",
+      "batteryKwh": 112.6,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-performance-battery",
+      "label": "Porsche Taycan Performance Battery",
+      "batteryKwh": 113.9,
+      "efficiency": 21.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-gt",
+      "label": "Porsche Taycan Turbo GT",
+      "batteryKwh": 113.7,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-gt-w-weissach-package",
+      "label": "Porsche Taycan Turbo GT w/Weissach package",
+      "batteryKwh": 113.7,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-s",
+      "label": "Porsche Taycan Turbo S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
       "reserve": 10,
       "markets": [
         "AU"

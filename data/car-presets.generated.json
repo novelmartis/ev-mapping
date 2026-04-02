@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T04:01:16Z",
+  "generatedAt": "2026-04-01T14:24:52Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,11 +13,11 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1053,
+  "count": 1054,
   "stats": {
-    "total": 1053,
-    "priced": 144,
-    "priceCoverage": 0.1368,
+    "total": 1054,
+    "priced": 145,
+    "priceCoverage": 0.1376,
     "markets": {
       "AU": 681,
       "CA": 527,
@@ -25,7 +25,7 @@
       "DE": 337,
       "EG": 315,
       "ID": 295,
-      "IN": 26,
+      "IN": 27,
       "JP": 301,
       "KR": 267,
       "LK": 20,
@@ -17092,6 +17092,27 @@
       ],
       "priceUsd": 51800,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "vinfast-vf-mpv-7",
+      "label": "VinFast VF MPV 7",
+      "batteryKwh": 60.2,
+      "efficiency": 13.4,
+      "reserve": 10,
+      "markets": [
+        "IN"
+      ],
+      "priceUsd": 20254,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1900000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-04-01"
+        }
+      },
+      "source": "cardekho.com"
     },
     {
       "id": "vinfast-vf6",

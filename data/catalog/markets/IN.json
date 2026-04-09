@@ -1,36 +1,35 @@
 {
-  "generatedAt": "2026-04-08T04:02:32Z",
+  "generatedAt": "2026-04-08T14:19:22Z",
   "market": "IN",
-  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
-    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 27,
+  "count": 28,
   "stats": {
-    "total": 27,
-    "priced": 27,
+    "total": 28,
+    "priced": 28,
     "priceCoverage": 1.0,
     "markets": {
-      "CN": 13,
-      "EG": 13,
-      "ID": 13,
-      "IN": 27,
-      "LK": 21,
-      "MA": 13,
-      "MY": 13,
-      "PH": 13,
-      "SG": 12,
-      "TH": 13,
-      "VN": 13,
-      "ZA": 13
+      "CN": 14,
+      "EG": 14,
+      "ID": 14,
+      "IN": 28,
+      "LK": 22,
+      "MA": 14,
+      "MY": 14,
+      "PH": 14,
+      "SG": 13,
+      "TH": 14,
+      "VN": 14,
+      "ZA": 14
     },
     "marketCount": 12
   },
@@ -348,6 +347,38 @@
       "marketPrices": {
         "IN": {
           "amount": 1400000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-04-08"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-zs-ev",
+      "label": "MG ZS EV",
+      "batteryKwh": 50.3,
+      "efficiency": 10.9,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 19339,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-04-08"

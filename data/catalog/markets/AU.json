@@ -1,24 +1,25 @@
 {
-  "generatedAt": "2026-04-10T14:17:40Z",
+  "generatedAt": "2026-04-11T03:47:25Z",
   "market": "AU",
-  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
+    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 335,
+  "count": 704,
   "stats": {
-    "total": 335,
+    "total": 704,
     "priced": 50,
-    "priceCoverage": 0.1493,
+    "priceCoverage": 0.071,
     "markets": {
-      "AU": 335,
+      "AU": 704,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -8773,6 +8774,886 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "alfa-romeo-junior-elettrica",
+      "label": "Alfa Romeo Junior Elettrica",
+      "batteryKwh": 61.9,
+      "efficiency": 15.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-my26-q4-e-tron-45",
+      "label": "Audi MY26 Q4 e-tron 45",
+      "batteryKwh": 89.4,
+      "efficiency": 17.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-my26-q4-e-tron-45-sportback",
+      "label": "Audi MY26 Q4 e-tron 45 Sportback",
+      "batteryKwh": 89.2,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-my26-q4-e-tron-55-sportback-quattro",
+      "label": "Audi MY26 Q4 e-tron 55 Sportback quattro",
+      "batteryKwh": 88.0,
+      "efficiency": 17.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-my26-q4-e-tron-55-quattro",
+      "label": "Audi MY26 Q4 e-tron 55 quattro",
+      "batteryKwh": 88.0,
+      "efficiency": 18.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q4-e-tron-45",
+      "label": "Audi Q4 e-tron 45",
+      "batteryKwh": 91.2,
+      "efficiency": 17.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q4-e-tron-45-sportback",
+      "label": "Audi Q4 e-tron 45 Sportback",
+      "batteryKwh": 91.3,
+      "efficiency": 16.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q4-e-tron-55-sportback-quattro",
+      "label": "Audi Q4 e-tron 55 Sportback quattro",
+      "batteryKwh": 88.0,
+      "efficiency": 17.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q4-e-tron-55-quattro",
+      "label": "Audi Q4 e-tron 55 quattro",
+      "batteryKwh": 88.3,
+      "efficiency": 18.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q6-e-tron-performance",
+      "label": "Audi Q6 e-tron Performance",
+      "batteryKwh": 106.0,
+      "efficiency": 19.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q6-e-tron-sportback-performance",
+      "label": "Audi Q6 e-tron Sportback Performance",
+      "batteryKwh": 106.6,
+      "efficiency": 18.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q6-e-tron-sportback-quattro",
+      "label": "Audi Q6 e-tron Sportback quattro",
+      "batteryKwh": 106.4,
+      "efficiency": 18.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q6-e-tron-quattro",
+      "label": "Audi Q6 e-tron quattro",
+      "batteryKwh": 105.7,
+      "efficiency": 19.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q8-q8-e-tron-quattro",
+      "label": "Audi Q8 Q8 e-tron quattro",
+      "batteryKwh": 116.2,
+      "efficiency": 25.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q8-q8-e-tron-quattro-sportback",
+      "label": "Audi Q8 Q8 e-tron quattro Sportback",
+      "batteryKwh": 116.2,
+      "efficiency": 25.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q8-e-tron-50",
+      "label": "Audi Q8 e-tron 50",
+      "batteryKwh": 98.4,
+      "efficiency": 24.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q8-e-tron-55",
+      "label": "Audi Q8 e-tron 55",
+      "batteryKwh": 116.8,
+      "efficiency": 24.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-q8-e-tron-sportback-55",
+      "label": "Audi Q8 e-tron Sportback 55",
+      "batteryKwh": 84.3,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-rs-e-tron-gt",
+      "label": "Audi RS e-tron GT",
+      "batteryKwh": 111.2,
+      "efficiency": 21.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-rs-e-tron-gt-performance",
+      "label": "Audi RS e-tron GT Performance",
+      "batteryKwh": 110.9,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-s-e-tron-gt",
+      "label": "Audi S e-tron GT",
+      "batteryKwh": 111.2,
+      "efficiency": 19.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-sq6-e-tron",
+      "label": "Audi SQ6 e-tron",
+      "batteryKwh": 104.5,
+      "efficiency": 18.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-sq6-e-tron-sportback",
+      "label": "Audi SQ6 e-tron Sportback",
+      "batteryKwh": 104.7,
+      "efficiency": 17.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-sq8-e-tron",
+      "label": "Audi SQ8 e-tron",
+      "batteryKwh": 97.3,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-sq8-e-tron-sportback",
+      "label": "Audi SQ8 e-tron Sportback",
+      "batteryKwh": 94.8,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-50",
+      "label": "Audi e-tron 50",
+      "batteryKwh": 78.8,
+      "efficiency": 23.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-55-quattro-20-21-inch-wheel",
+      "label": "Audi e-tron 55 quattro 20/21 Inch Wheel",
+      "batteryKwh": 106.5,
+      "efficiency": 23.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-55-quattro-22-inch-wheel",
+      "label": "Audi e-tron 55 quattro 22 Inch Wheel",
+      "batteryKwh": 105.7,
+      "efficiency": 24.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-gt-20",
+      "label": "Audi e-tron GT 20",
+      "batteryKwh": 103.7,
+      "efficiency": 19.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-gt-21",
+      "label": "Audi e-tron GT 21",
+      "batteryKwh": 102.5,
+      "efficiency": 19.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-s-sportback-e-tron-s-quattro",
+      "label": "Audi e-tron S Sportback e-tron S quattro",
+      "batteryKwh": 108.7,
+      "efficiency": 26.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-s-sportback-e-tron-s-quattro-20-inch-wheel",
+      "label": "Audi e-tron S Sportback e-tron S quattro 20 Inch Wheel",
+      "batteryKwh": 108.7,
+      "efficiency": 26.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-s-e-tron-s-quattro",
+      "label": "Audi e-tron S e-tron S quattro",
+      "batteryKwh": 109.0,
+      "efficiency": 26.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-sportback-50",
+      "label": "Audi e-tron Sportback 50",
+      "batteryKwh": 79.1,
+      "efficiency": 23.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-sportback-55-20",
+      "label": "Audi e-tron Sportback 55 20",
+      "batteryKwh": 106.1,
+      "efficiency": 23.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-sportback-55-21-22",
+      "label": "Audi e-tron Sportback 55 21 & 22",
+      "batteryKwh": 106.1,
+      "efficiency": 23.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-sportback-55-quattro-20-21-inch-wheel",
+      "label": "Audi e-tron Sportback 55 quattro 20/21 Inch Wheel",
+      "batteryKwh": 107.6,
+      "efficiency": 23.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-e-tron-sportback-55-quattro-22-inch-wheel",
+      "label": "Audi e-tron Sportback 55 quattro 22 Inch Wheel",
+      "batteryKwh": 105.8,
+      "efficiency": 24.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-4-series-g26-i4-edrive35",
+      "label": "BMW 4 Series G26 i4 eDrive35",
+      "batteryKwh": 74.4,
+      "efficiency": 17.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-7-series-g70-i7-xdrive60",
+      "label": "BMW 7 Series G70 i7 xDrive60",
+      "batteryKwh": 138.8,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-g01-x3-ix3",
+      "label": "BMW G01 X3 iX3",
+      "batteryKwh": 94.9,
+      "efficiency": 20.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-g26-4-series-i4-m50",
+      "label": "BMW G26 4 Series i4 M50",
+      "batteryKwh": 119.0,
+      "efficiency": 25.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-g26-4-series-i4-edrive40",
+      "label": "BMW G26 4 Series i4 eDrive40",
+      "batteryKwh": 115.4,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-g60-5-series-i5-m60-xdrive",
+      "label": "BMW G60 5 Series i5 M60 xDrive",
+      "batteryKwh": 91.1,
+      "efficiency": 18.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-g60-5-series-i5-edrive40",
+      "label": "BMW G60 5 Series i5 eDrive40",
+      "batteryKwh": 90.8,
+      "efficiency": 16.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-g61-5-series-i5-m60-xdrive-touring",
+      "label": "BMW G61 5 Series i5 M60 xDrive Touring",
+      "batteryKwh": 90.7,
+      "efficiency": 18.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-g70-7-series-i7-m70-xdrive",
+      "label": "BMW G70 7 Series i7 M70 xDrive",
+      "batteryKwh": 113.5,
+      "efficiency": 19.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-g70-7-series-i7-xdrive60",
+      "label": "BMW G70 7 Series i7 xDrive60",
+      "batteryKwh": 138.8,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-i01-i3-bev-94-ah",
+      "label": "BMW I01 i3 BEV 94 Ah",
+      "batteryKwh": 39.4,
+      "efficiency": 13.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-i01-i3-bev-94ah",
+      "label": "BMW I01 i3 BEV 94Ah",
+      "batteryKwh": 39.3,
+      "efficiency": 13.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-i01-i3-i3-bev-120ah",
+      "label": "BMW I01 i3 i3 BEV 120Ah",
+      "batteryKwh": 45.9,
+      "efficiency": 13.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-i01-i3-i3s-bev-120ah",
+      "label": "BMW I01 i3 i3s BEV 120Ah",
+      "batteryKwh": 47.7,
+      "efficiency": 14.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-i01-i3s-bev-94-ah",
+      "label": "BMW I01 i3s BEV 94 Ah",
+      "batteryKwh": 40.0,
+      "efficiency": 14.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-u10-ix2-edrive20",
+      "label": "BMW U10 iX2 eDrive20",
+      "batteryKwh": 73.0,
+      "efficiency": 17.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-u10-ix2-xdrive30",
+      "label": "BMW U10 iX2 xDrive30",
+      "batteryKwh": 73.1,
+      "efficiency": 18.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-u11-x1-ix1-edrive20",
+      "label": "BMW U11 X1 iX1 eDrive20",
+      "batteryKwh": 72.8,
+      "efficiency": 15.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-u11-x1-ix1-xdrive30",
+      "label": "BMW U11 X1 iX1 xDrive30",
+      "batteryKwh": 73.2,
+      "efficiency": 18.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-x-series-i20-ix-m60",
+      "label": "BMW X Series - I20 iX M60",
+      "batteryKwh": 155.0,
+      "efficiency": 26.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-x-series-i20-ix-m70-xdrive",
+      "label": "BMW X Series - I20 iX M70 xDrive",
+      "batteryKwh": 120.9,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-x-series-i20-ix-ix-xdrive40",
+      "label": "BMW X Series - I20 iX iX xDrive40",
+      "batteryKwh": 94.5,
+      "efficiency": 22.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-x-series-i20-ix-xdrive45",
+      "label": "BMW X Series - I20 iX xDrive45",
+      "batteryKwh": 104.4,
+      "efficiency": 20.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-x-series-i20-ix-xdrive50",
+      "label": "BMW X Series - I20 iX xDrive50",
+      "batteryKwh": 142.6,
+      "efficiency": 23.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-x-series-i20-ix-xdrive60",
+      "label": "BMW X Series - I20 iX xDrive60",
+      "batteryKwh": 120.6,
+      "efficiency": 20.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-x-series-na5-ix3-50-xdrive",
+      "label": "BMW X Series - NA5 iX3 50 xDrive",
+      "batteryKwh": 119.2,
+      "efficiency": 18.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "bmw-x3-series-g01-ix3-g08",
+      "label": "BMW X3 Series - G01 iX3 G08",
+      "batteryKwh": 95.0,
+      "efficiency": 21.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-atto-1-essential",
+      "label": "BYD Atto 1 Essential",
+      "batteryKwh": 34.1,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-atto-1-premium",
+      "label": "BYD Atto 1 Premium",
+      "batteryKwh": 49.6,
+      "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-atto-2-dynamic",
+      "label": "BYD Atto 2 Dynamic",
+      "batteryKwh": 58.6,
+      "efficiency": 17.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-atto-2-premium",
+      "label": "BYD Atto 2 Premium",
+      "batteryKwh": 58.6,
+      "efficiency": 17.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-ek-seal-dynamic",
+      "label": "BYD EK SEAL Dynamic",
+      "batteryKwh": 70.4,
+      "efficiency": 13.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-ek-seal-performance",
+      "label": "BYD EK SEAL PERFORMANCE",
+      "batteryKwh": 95.1,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-ek-seal-premium",
+      "label": "BYD EK SEAL PREMIUM",
+      "batteryKwh": 94.9,
+      "efficiency": 14.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-em2e-dolphin-dynamic",
+      "label": "BYD EM2E DOLPHIN Dynamic",
+      "batteryKwh": 51.7,
+      "efficiency": 12.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-em2e-dolphin-performance",
+      "label": "BYD EM2E DOLPHIN PERFORMANCE",
+      "batteryKwh": 69.6,
+      "efficiency": 14.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-eqe-atto-1-essential",
+      "label": "BYD EQE Atto 1 Essential",
+      "batteryKwh": 34.1,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-eqe-atto-1-premium",
+      "label": "BYD EQE Atto 1 Premium",
+      "batteryKwh": 49.6,
+      "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-sc2e-atto-3-extended",
+      "label": "BYD SC2E ATTO 3 EXTENDED",
+      "batteryKwh": 71.5,
+      "efficiency": 14.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-sc2e-atto-3-standard",
+      "label": "BYD SC2E ATTO 3 STANDARD",
+      "batteryKwh": 60.7,
+      "efficiency": 14.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-sealion-7-performance",
+      "label": "BYD SEALION 7 Performance",
+      "batteryKwh": 97.0,
+      "efficiency": 17.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "byd-sealion-7-premium",
+      "label": "BYD SEALION 7 Premium",
+      "batteryKwh": 96.4,
+      "efficiency": 17.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "byd-sealion-6-au",
       "label": "BYD Sealion 6",
       "batteryKwh": 87.0,
@@ -8784,6 +9665,732 @@
       ],
       "priceUsd": 56800,
       "source": "row-native-seed"
+    },
+    {
+      "id": "chery-e5-my2025-5-e5-155kw",
+      "label": "Chery E5 MY2025.5 E5 155kW",
+      "batteryKwh": 66.7,
+      "efficiency": 13.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "chery-omoda-e5",
+      "label": "Chery Omoda E5",
+      "batteryKwh": 59.8,
+      "efficiency": 13.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "cupra-my25-tavascan-endurance-210kw",
+      "label": "Cupra MY25 Tavascan Endurance 210kW",
+      "batteryKwh": 87.0,
+      "efficiency": 16.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "cupra-my25-tavascan-endurance-with-interior-package-210kw",
+      "label": "Cupra MY25 Tavascan Endurance with Interior Package 210kW",
+      "batteryKwh": 87.0,
+      "efficiency": 16.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "cupra-my25-tavascan-vz-250kw",
+      "label": "Cupra MY25 Tavascan VZ 250kW",
+      "batteryKwh": 86.3,
+      "efficiency": 17.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "cupra-my25-tavascan-vz-with-extreme-package-250kw",
+      "label": "Cupra MY25 Tavascan VZ with Extreme Package 250kW",
+      "batteryKwh": 86.1,
+      "efficiency": 18.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "cupra-my25-5-tavascan-endurance-210kw",
+      "label": "Cupra MY25.5 Tavascan Endurance 210kW",
+      "batteryKwh": 88.1,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "cupra-my25-5-tavascan-endurance-with-interior-package-210kw",
+      "label": "Cupra MY25.5 Tavascan Endurance with Interior Package 210kW",
+      "batteryKwh": 88.1,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "cupra-my25-5-tavascan-vz-250kw",
+      "label": "Cupra MY25.5 Tavascan VZ 250kW",
+      "batteryKwh": 87.9,
+      "efficiency": 17.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "cupra-my25-5-tavascan-vz-with-extreme-package-250kw",
+      "label": "Cupra MY25.5 Tavascan VZ with Extreme Package 250kW",
+      "batteryKwh": 88.2,
+      "efficiency": 18.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "deepal-my25-e07-e07-awd",
+      "label": "Deepal MY25 E07 E07 AWD",
+      "batteryKwh": 97.9,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "deepal-my25-e07-e07-rwd",
+      "label": "Deepal MY25 E07 E07 RWD",
+      "batteryKwh": 97.9,
+      "efficiency": 15.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "deepal-s07",
+      "label": "Deepal S07",
+      "batteryKwh": 88.3,
+      "efficiency": 18.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "denza-d9-ev-awd",
+      "label": "Denza D9 EV AWD",
+      "batteryKwh": 122.9,
+      "efficiency": 25.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "denza-d9-ev-fwd",
+      "label": "Denza D9 EV FWD",
+      "batteryKwh": 116.5,
+      "efficiency": 22.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "fiat-500e-abarth-500e-113-7-kw-42-kwh-fwd-electric",
+      "label": "Fiat 500e Abarth 500e 113.7 kW 42 kWh FWD ELECTRIC",
+      "batteryKwh": 45.8,
+      "efficiency": 18.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "fiat-500e-fwd-87-kw-42-kwh",
+      "label": "Fiat 500e FWD 87 kW 42 kWh",
+      "batteryKwh": 44.8,
+      "efficiency": 14.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ford-mach-e-gt-4p-awd",
+      "label": "Ford Mach-E GT 4P AWD",
+      "batteryKwh": 103.9,
+      "efficiency": 21.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ford-mach-e-gt-4p94-awd",
+      "label": "Ford Mach-E GT 4P94 AWD",
+      "batteryKwh": 108.2,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ford-mach-e-premium-4p-awd",
+      "label": "Ford Mach-E Premium 4P AWD",
+      "batteryKwh": 103.4,
+      "efficiency": 18.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ford-mach-e-premium-4p-rwd",
+      "label": "Ford Mach-E Premium 4P RWD",
+      "batteryKwh": 103.8,
+      "efficiency": 17.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ford-mach-e-premium-4p90-rwd",
+      "label": "Ford Mach-E Premium 4P90 RWD",
+      "batteryKwh": 106.2,
+      "efficiency": 17.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ford-mach-e-premium-lfp-awd",
+      "label": "Ford Mach-E Premium LFP AWD",
+      "batteryKwh": 83.9,
+      "efficiency": 19.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ford-mach-e-select-lfp-rwd",
+      "label": "Ford Mach-E Select LFP RWD",
+      "batteryKwh": 87.4,
+      "efficiency": 18.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "gwm-ora-extended-range",
+      "label": "GWM Ora Extended Range",
+      "batteryKwh": 69.3,
+      "efficiency": 16.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "gwm-ora-extended-range-gt",
+      "label": "GWM Ora Extended Range GT",
+      "batteryKwh": 67.2,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "gwm-ora-standard-range",
+      "label": "GWM Ora Standard Range",
+      "batteryKwh": 51.8,
+      "efficiency": 16.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "geely-ex5-complete",
+      "label": "Geely EX5 Complete",
+      "batteryKwh": 67.9,
+      "efficiency": 15.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "geely-ex5-complete-extended-range",
+      "label": "Geely EX5 Complete Extended Range",
+      "batteryKwh": 76.0,
+      "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "geely-ex5-inspire",
+      "label": "Geely EX5 Inspire",
+      "batteryKwh": 68.1,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "geely-ex5-inspire-extended-range",
+      "label": "Geely EX5 Inspire Extended Range",
+      "batteryKwh": 76.0,
+      "efficiency": 16.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "genesis-g80-electrified",
+      "label": "Genesis G80 Electrified",
+      "batteryKwh": 99.3,
+      "efficiency": 19.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "genesis-gv60-awd",
+      "label": "Genesis GV60 AWD",
+      "batteryKwh": 88.4,
+      "efficiency": 18.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "genesis-gv60-performance-awd",
+      "label": "Genesis GV60 Performance AWD",
+      "batteryKwh": 89.0,
+      "efficiency": 19.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "genesis-gv70-electrified",
+      "label": "Genesis GV70 Electrified",
+      "batteryKwh": 88.6,
+      "efficiency": 19.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-2025-ioniq5-lr-19inch",
+      "label": "Hyundai 2025 IONIQ5 LR 19inch",
+      "batteryKwh": 91.7,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-2025-ioniq5-lr-20inch",
+      "label": "Hyundai 2025 IONIQ5 LR 20inch",
+      "batteryKwh": 91.0,
+      "efficiency": 18.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-2025-ioniq5-n-line",
+      "label": "Hyundai 2025 IONIQ5 N Line",
+      "batteryKwh": 89.6,
+      "efficiency": 18.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-2025-ioniq5-std-19inch",
+      "label": "Hyundai 2025 IONIQ5 STD 19inch",
+      "batteryKwh": 68.6,
+      "efficiency": 15.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-inster-electric-42kwh",
+      "label": "Hyundai INSTER Electric 42kWh",
+      "batteryKwh": 46.8,
+      "efficiency": 14.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-inster-electric-cross-extended-range-49kwh",
+      "label": "Hyundai INSTER Electric Cross Extended Range 49kWh",
+      "batteryKwh": 54.4,
+      "efficiency": 15.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-inster-electric-cross-extended-range-49kwh-roof-basket",
+      "label": "Hyundai INSTER Electric Cross Extended Range 49kWh + Roof Basket",
+      "batteryKwh": 55.1,
+      "efficiency": 18.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-inster-electric-extended-range-49kwh",
+      "label": "Hyundai INSTER Electric Extended Range 49kWh",
+      "batteryKwh": 54.4,
+      "efficiency": 15.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-ioniq-9-calligraphy",
+      "label": "Hyundai IONIQ 9 Calligraphy",
+      "batteryKwh": 123.6,
+      "efficiency": 20.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-ioniq5-n",
+      "label": "Hyundai IONIQ5 N",
+      "batteryKwh": 95.0,
+      "efficiency": 21.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-ioniq6-lrg-range-18-inch",
+      "label": "Hyundai IONIQ6 LRG Range 18 inch",
+      "batteryKwh": 87.8,
+      "efficiency": 14.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-ioniq6-lrg-range-20-inch",
+      "label": "Hyundai IONIQ6 LRG Range 20 inch",
+      "batteryKwh": 87.7,
+      "efficiency": 16.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-ioniq-5-ev",
+      "label": "Hyundai Ioniq 5 EV",
+      "batteryKwh": 81.7,
+      "efficiency": 19.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "jaecoo-2026-j5-ev-155kw-58-9kwh-summit",
+      "label": "Jaecoo 2026 J5 EV 155kW 58.9kWh (Summit)",
+      "batteryKwh": 64.1,
+      "efficiency": 13.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "jaguar-x590-25my-i-pace-ev400",
+      "label": "Jaguar X590 25MY I-Pace EV400",
+      "batteryKwh": 102.6,
+      "efficiency": 23.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "jeep-avenger-limited",
+      "label": "Jeep Avenger Limited",
+      "batteryKwh": 61.8,
+      "efficiency": 15.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "jeep-avenger-longitude",
+      "label": "Jeep Avenger Longitude",
+      "batteryKwh": 61.8,
+      "efficiency": 15.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "jeep-avenger-summit",
+      "label": "Jeep Avenger Summit",
+      "batteryKwh": 61.6,
+      "efficiency": 15.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kgm-ok-musso-26my-musso-ev-2wd",
+      "label": "KGM OK Musso 26MY Musso EV 2WD",
+      "batteryKwh": 96.6,
+      "efficiency": 23.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kgm-ok-musso-26my-musso-ev-awd",
+      "label": "KGM OK Musso 26MY Musso EV AWD",
+      "batteryKwh": 98.5,
+      "efficiency": 26.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kgm-uk-torres-26my-torres-ev-evx",
+      "label": "KGM UK Torres 26MY Torres EV EVX",
+      "batteryKwh": 97.1,
+      "efficiency": 19.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-2021-niro-s",
+      "label": "Kia 2021 Niro S",
+      "batteryKwh": 72.3,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-2021-niro-sport",
+      "label": "Kia 2021 Niro Sport",
+      "batteryKwh": 72.3,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-2022-niro-ev",
+      "label": "Kia 2022 Niro EV",
+      "batteryKwh": 74.5,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev3-air-lr",
+      "label": "Kia EV3 Air LR",
+      "batteryKwh": 90.0,
+      "efficiency": 14.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev3-air-sr",
+      "label": "Kia EV3 Air SR",
+      "batteryKwh": 65.0,
+      "efficiency": 14.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev3-earth-lr",
+      "label": "Kia EV3 Earth LR",
+      "batteryKwh": 91.2,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev3-gt-line-lr",
+      "label": "Kia EV3 GT-Line LR",
+      "batteryKwh": 91.2,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev4-air-rwd-standard-range",
+      "label": "Kia EV4 Air RWD Standard Range",
+      "batteryKwh": 65.2,
+      "efficiency": 14.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev4-ev4-earth-long-range",
+      "label": "Kia EV4 EV4 Earth Long Range",
+      "batteryKwh": 91.2,
+      "efficiency": 14.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev4-ev4-gt-line-long-range",
+      "label": "Kia EV4 EV4 GT-Line Long Range",
+      "batteryKwh": 91.2,
+      "efficiency": 14.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
     },
     {
       "id": "kia-ev5-au",
@@ -8799,6 +10406,1370 @@
       "source": "row-native-seed"
     },
     {
+      "id": "kia-ev5-long-range-2wd-18-inch-air",
+      "label": "Kia EV5 Long Range 2WD 18 inch (Air)",
+      "batteryKwh": 99.9,
+      "efficiency": 18.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev5-long-range-4wd-19-inch-earth",
+      "label": "Kia EV5 Long Range 4WD 19 inch (Earth)",
+      "batteryKwh": 100.5,
+      "efficiency": 20.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev5-long-range-4wd-gt-line",
+      "label": "Kia EV5 Long Range 4WD GT-Line",
+      "batteryKwh": 98.7,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev5-standard-range-2wd-18-inch-air",
+      "label": "Kia EV5 Standard Range 2WD 18 inch (Air)",
+      "batteryKwh": 72.8,
+      "efficiency": 18.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev6-air-rwd",
+      "label": "Kia EV6 Air RWD",
+      "batteryKwh": 87.1,
+      "efficiency": 16.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev6-gt",
+      "label": "Kia EV6 GT",
+      "batteryKwh": 94.0,
+      "efficiency": 20.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev6-gt-line-awd",
+      "label": "Kia EV6 GT-Line AWD",
+      "batteryKwh": 87.1,
+      "efficiency": 18.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev6-gt-line-rwd",
+      "label": "Kia EV6 GT-Line RWD",
+      "batteryKwh": 86.7,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev9-air-rwd",
+      "label": "Kia EV9 Air RWD",
+      "batteryKwh": 86.4,
+      "efficiency": 19.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev9-earth-awd-19",
+      "label": "Kia EV9 Earth AWD 19",
+      "batteryKwh": 114.2,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev9-earth-awd-20",
+      "label": "Kia EV9 Earth AWD 20",
+      "batteryKwh": 113.7,
+      "efficiency": 23.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-ev9-gt-line-awd",
+      "label": "Kia EV9 GT-Line AWD",
+      "batteryKwh": 115.1,
+      "efficiency": 22.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-niro-plus-ev",
+      "label": "Kia Niro Plus EV",
+      "batteryKwh": 70.9,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-pe-ev6-air-rwd-long-range",
+      "label": "Kia PE EV6 Air RWD Long Range",
+      "batteryKwh": 92.5,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-pe-ev6-gt-line-awd",
+      "label": "Kia PE EV6 GT-Line AWD",
+      "batteryKwh": 92.4,
+      "efficiency": 17.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "kia-pe-ev6-gt-line-rwd",
+      "label": "Kia PE EV6 GT-Line RWD",
+      "batteryKwh": 94.6,
+      "efficiency": 16.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ldv-et60-et60-4x2-dual-cab-ute",
+      "label": "LDV eT60 eT60 4x2 Dual Cab Ute",
+      "batteryKwh": 88.8,
+      "efficiency": 26.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "leapmotor-b10-design-lr",
+      "label": "Leapmotor B10 Design LR",
+      "batteryKwh": 72.8,
+      "efficiency": 14.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "leapmotor-b10-style",
+      "label": "Leapmotor B10 Style",
+      "batteryKwh": 61.9,
+      "efficiency": 14.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "leapmotor-c10-style-design-bev",
+      "label": "Leapmotor C10 Style/Design BEV",
+      "batteryKwh": 79.7,
+      "efficiency": 16.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "lexus-rz-450e",
+      "label": "Lexus RZ 450e",
+      "batteryKwh": 71.4,
+      "efficiency": 15.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "lexus-rz-500e",
+      "label": "Lexus RZ 500e",
+      "batteryKwh": 82.8,
+      "efficiency": 18.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "lexus-rz-550e",
+      "label": "Lexus RZ 550e",
+      "batteryKwh": 82.6,
+      "efficiency": 18.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "lexus-rz-600e",
+      "label": "Lexus RZ 600e",
+      "batteryKwh": 82.7,
+      "efficiency": 19.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "lexus-ux-300e",
+      "label": "Lexus UX 300e",
+      "batteryKwh": 71.7,
+      "efficiency": 12.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-cyberster-77kwh-4wd",
+      "label": "MG Cyberster 77kWh 4WD",
+      "batteryKwh": 84.6,
+      "efficiency": 19.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im5-100kwh-ev-4wd",
+      "label": "MG IM IM5 100kWh EV 4WD",
+      "batteryKwh": 114.4,
+      "efficiency": 18.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im5-100kwh-ev-4wd-lux",
+      "label": "MG IM IM5 100kWh EV 4WD Lux",
+      "batteryKwh": 113.3,
+      "efficiency": 19.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im5-100kwh-ev-rwd",
+      "label": "MG IM IM5 100kWh EV RWD",
+      "batteryKwh": 113.6,
+      "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im5-100kwh-ev-rwd-lux",
+      "label": "MG IM IM5 100kWh EV RWD Lux",
+      "batteryKwh": 113.3,
+      "efficiency": 17.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im5-75kwh-ev-rwd",
+      "label": "MG IM IM5 75kWh EV RWD",
+      "batteryKwh": 85.8,
+      "efficiency": 17.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im5-75kwh-ev-rwd-lux",
+      "label": "MG IM IM5 75kWh EV RWD Lux",
+      "batteryKwh": 84.9,
+      "efficiency": 19.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im6-100kwh-ev-4wd",
+      "label": "MG IM IM6 100kWh EV 4WD",
+      "batteryKwh": 118.3,
+      "efficiency": 21.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im6-100kwh-ev-4wd-lux",
+      "label": "MG IM IM6 100kWh EV 4WD Lux",
+      "batteryKwh": 118.2,
+      "efficiency": 23.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im6-100kwh-ev-rwd",
+      "label": "MG IM IM6 100kWh EV RWD",
+      "batteryKwh": 113.8,
+      "efficiency": 18.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im6-100kwh-ev-rwd-lux",
+      "label": "MG IM IM6 100kWh EV RWD Lux",
+      "batteryKwh": 114.9,
+      "efficiency": 20.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im6-75kwh-ev-rwd",
+      "label": "MG IM IM6 75kWh EV RWD",
+      "batteryKwh": 86.0,
+      "efficiency": 19.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-im-im6-75kwh-ev-rwd-lux",
+      "label": "MG IM IM6 75kWh EV RWD Lux",
+      "batteryKwh": 85.4,
+      "efficiency": 21.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-51kwh-ev-rwd",
+      "label": "MG MG4 51kWh EV RWD",
+      "batteryKwh": 74.5,
+      "efficiency": 18.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-64kwh-ev-4wd",
+      "label": "MG MG4 64kWh EV 4WD",
+      "batteryKwh": 69.9,
+      "efficiency": 15.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-64kwh-ev-rwd",
+      "label": "MG MG4 64kWh EV RWD",
+      "batteryKwh": 69.5,
+      "efficiency": 13.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-64kwh-ev-rwd-lux",
+      "label": "MG MG4 64kWh EV RWD LUX",
+      "batteryKwh": 69.7,
+      "efficiency": 13.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-77kwh-ev-rwd",
+      "label": "MG MG4 77kWh EV RWD",
+      "batteryKwh": 82.6,
+      "efficiency": 14.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-ev-urban-essence-43",
+      "label": "MG MG4 EV Urban Essence 43",
+      "batteryKwh": 52.1,
+      "efficiency": 16.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mg4-ev-urban-essence-54",
+      "label": "MG MG4 EV Urban Essence 54",
+      "batteryKwh": 65.2,
+      "efficiency": 16.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mgs5-ev-49kwh-ev-rwd-essence",
+      "label": "MG MGS5 EV 49kWh EV RWD Essence",
+      "batteryKwh": 56.6,
+      "efficiency": 16.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mgs5-ev-49kwh-ev-rwd-excite",
+      "label": "MG MGS5 EV 49kWh EV RWD Excite",
+      "batteryKwh": 56.4,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mgs5-ev-62kwh-ev-rwd-essence",
+      "label": "MG MGS5 EV 62kWh EV RWD Essence",
+      "batteryKwh": 72.7,
+      "efficiency": 17.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mgs5-ev-62kwh-ev-rwd-excite",
+      "label": "MG MGS5 EV 62kWh EV RWD Excite",
+      "batteryKwh": 72.7,
+      "efficiency": 16.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mgs6-ev-62-2-kwh-rwd",
+      "label": "MG MGS6 EV 62.2 kWh RWD",
+      "batteryKwh": 71.5,
+      "efficiency": 14.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mgs6-ev-77kwh-ev-awd",
+      "label": "MG MGS6 EV 77kWh EV AWD",
+      "batteryKwh": 88.0,
+      "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-mgs6-ev-77kwh-ev-rwd",
+      "label": "MG MGS6 EV 77kWh EV RWD",
+      "batteryKwh": 87.7,
+      "efficiency": 14.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-zs-ev",
+      "label": "MG ZS EV",
+      "batteryKwh": 61.6,
+      "efficiency": 17.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-zs-ev-51kwh",
+      "label": "MG ZS EV 51kWh",
+      "batteryKwh": 63.7,
+      "efficiency": 17.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mg-zs-ev-72kwh",
+      "label": "MG ZS EV 72kWh",
+      "batteryKwh": 89.4,
+      "efficiency": 17.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j01-cooper-e",
+      "label": "MINI J01 Cooper E",
+      "batteryKwh": 40.6,
+      "efficiency": 15.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j01-cooper-e-hatch",
+      "label": "MINI J01 Cooper E Hatch",
+      "batteryKwh": 40.6,
+      "efficiency": 15.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j01-cooper-se",
+      "label": "MINI J01 Cooper SE",
+      "batteryKwh": 54.7,
+      "efficiency": 15.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j01-cooper-se-hatch",
+      "label": "MINI J01 Cooper SE Hatch",
+      "batteryKwh": 54.7,
+      "efficiency": 15.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j01-jcw-e-hatch",
+      "label": "MINI J01 JCW E Hatch",
+      "batteryKwh": 55.2,
+      "efficiency": 13.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j05-aceman-e",
+      "label": "MINI J05 Aceman E",
+      "batteryKwh": 42.3,
+      "efficiency": 14.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j05-aceman-e-sedan",
+      "label": "MINI J05 Aceman E Sedan",
+      "batteryKwh": 42.3,
+      "efficiency": 14.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j05-aceman-se",
+      "label": "MINI J05 Aceman SE",
+      "batteryKwh": 54.7,
+      "efficiency": 14.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j05-aceman-se-sedan",
+      "label": "MINI J05 Aceman SE Sedan",
+      "batteryKwh": 54.7,
+      "efficiency": 14.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-j05-jcw-aceman-e-sedan",
+      "label": "MINI J05 JCW Aceman E Sedan",
+      "batteryKwh": 54.6,
+      "efficiency": 14.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-u25-countryman-e",
+      "label": "MINI U25 Countryman E",
+      "batteryKwh": 72.6,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mini-u25-countryman-se-all4",
+      "label": "MINI U25 Countryman SE ALL4",
+      "batteryKwh": 72.5,
+      "efficiency": 18.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mazda-mx-30-electric",
+      "label": "Mazda MX-30 Electric",
+      "batteryKwh": 41.4,
+      "efficiency": 18.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-293-eqc-class-eqc400-4m-elec-art-line",
+      "label": "Mercedes-Benz 293 EQC Class EQC400 4M Elec. Art Line",
+      "batteryKwh": 102.3,
+      "efficiency": 23.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-293-eqc-class-eqc400-4matic",
+      "label": "Mercedes-Benz 293 EQC Class EQC400 4MATIC",
+      "batteryKwh": 102.3,
+      "efficiency": 23.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-293-eqc-class-eqc400-4matic-sport",
+      "label": "Mercedes-Benz 293 EQC Class EQC400 4MATIC Sport",
+      "batteryKwh": 102.3,
+      "efficiency": 23.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-447-eqv-300e",
+      "label": "Mercedes-Benz 447 EQV 300e",
+      "batteryKwh": 109.9,
+      "efficiency": 26.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-447-evito-tourer-mwb-van",
+      "label": "Mercedes-Benz 447 eVito Tourer MWB Van",
+      "batteryKwh": 110.3,
+      "efficiency": 26.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-465-g-class-g580",
+      "label": "Mercedes-Benz 465 G Class G580",
+      "batteryKwh": 131.0,
+      "efficiency": 23.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-eqv-eqv-300-mwb-fl2",
+      "label": "Mercedes-Benz EQV EQV 300 MWB FL2",
+      "batteryKwh": 109.7,
+      "efficiency": 25.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-h243-eqa-class-eqa-250",
+      "label": "Mercedes-Benz H243 EQA Class EQA 250+",
+      "batteryKwh": 81.5,
+      "efficiency": 14.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-h243-eqa-class-eqa-350-4matic",
+      "label": "Mercedes-Benz H243 EQA Class EQA 350 4MATIC",
+      "batteryKwh": 77.8,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-h243-eqa-class-eqa250",
+      "label": "Mercedes-Benz H243 EQA Class EQA250",
+      "batteryKwh": 84.9,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-h243-eqa-class-eqa350-4matic",
+      "label": "Mercedes-Benz H243 EQA Class EQA350 4MATIC",
+      "batteryKwh": 85.0,
+      "efficiency": 17.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v295-eqe-300",
+      "label": "Mercedes-Benz V295 EQE 300",
+      "batteryKwh": 102.0,
+      "efficiency": 16.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v295-eqe-350-4matic",
+      "label": "Mercedes-Benz V295 EQE 350 4MATIC",
+      "batteryKwh": 103.8,
+      "efficiency": 17.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v295-eqe-53-amg-4matic",
+      "label": "Mercedes-Benz V295 EQE 53 AMG 4MATIC+",
+      "batteryKwh": 112.3,
+      "efficiency": 21.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v295-eqe-class-eqe-300",
+      "label": "Mercedes-Benz V295 EQE Class EQE 300",
+      "batteryKwh": 106.7,
+      "efficiency": 18.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v295-eqe-class-eqe-350-4matic",
+      "label": "Mercedes-Benz V295 EQE Class EQE 350 4MATIC",
+      "batteryKwh": 106.1,
+      "efficiency": 19.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v295-eqe-class-eqe53-amg-4matic",
+      "label": "Mercedes-Benz V295 EQE Class EQE53 AMG 4MATIC+",
+      "batteryKwh": 109.0,
+      "efficiency": 21.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v297-eqs-500-4matic",
+      "label": "Mercedes-Benz V297 EQS 500 4MATIC",
+      "batteryKwh": 127.7,
+      "efficiency": 22.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v297-eqs-53-amg-4matic",
+      "label": "Mercedes-Benz V297 EQS 53 AMG 4MATIC+",
+      "batteryKwh": 135.0,
+      "efficiency": 23.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-v297-eqs-class-eqs-450-4matic",
+      "label": "Mercedes-Benz V297 EQS Class EQS 450 4MATIC",
+      "batteryKwh": 137.1,
+      "efficiency": 20.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x243-eqb-class-eqb-250",
+      "label": "Mercedes-Benz X243 EQB Class EQB 250+",
+      "batteryKwh": 81.3,
+      "efficiency": 17.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x243-eqb-eqb-250",
+      "label": "Mercedes-Benz X243 EQB EQB 250",
+      "batteryKwh": 84.7,
+      "efficiency": 16.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x243-eqb-eqb-350-4matic",
+      "label": "Mercedes-Benz X243 EQB EQB 350 4MATIC",
+      "batteryKwh": 83.7,
+      "efficiency": 18.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x294-eqe-class-eqe-300-suv",
+      "label": "Mercedes-Benz X294 EQE Class EQE 300 SUV",
+      "batteryKwh": 106.0,
+      "efficiency": 20.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x294-eqe-class-eqe-350-4matic-suv",
+      "label": "Mercedes-Benz X294 EQE Class EQE 350 4MATIC SUV",
+      "batteryKwh": 106.3,
+      "efficiency": 21.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x294-eqe-suv-300-suv",
+      "label": "Mercedes-Benz X294 EQE SUV 300 SUV",
+      "batteryKwh": 104.2,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x294-eqe-suv-350-4matic-suv",
+      "label": "Mercedes-Benz X294 EQE SUV 350 4MATIC SUV",
+      "batteryKwh": 105.0,
+      "efficiency": 18.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x294-eqe-suv-amg-eqe-53-4matic-suv",
+      "label": "Mercedes-Benz X294 EQE SUV AMG EQE 53 4MATIC+ SUV",
+      "batteryKwh": 107.0,
+      "efficiency": 22.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x294-eqe-suv-eqe-300-suv",
+      "label": "Mercedes-Benz X294 EQE SUV EQE 300 SUV",
+      "batteryKwh": 101.9,
+      "efficiency": 18.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x294-eqe-suv-eqe-350-4matic-suv",
+      "label": "Mercedes-Benz X294 EQE SUV EQE 350 4MATIC SUV",
+      "batteryKwh": 101.9,
+      "efficiency": 18.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x294-eqe-suv-eqe-500-4matic-suv",
+      "label": "Mercedes-Benz X294 EQE SUV EQE 500 4MATIC SUV",
+      "batteryKwh": 104.7,
+      "efficiency": 19.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x296-eqs-class-eqs-450-4matic-suv",
+      "label": "Mercedes-Benz X296 EQS Class EQS 450 4MATIC SUV",
+      "batteryKwh": 135.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x296-eqs-suv-450-4matic-suv",
+      "label": "Mercedes-Benz X296 EQS SUV 450 4MATIC SUV",
+      "batteryKwh": 133.3,
+      "efficiency": 19.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x296-eqs-suv-eqs-450-4matic-suv",
+      "label": "Mercedes-Benz X296 EQS SUV EQS 450 4MATIC SUV",
+      "batteryKwh": 121.4,
+      "efficiency": 20.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-x296-mercedes-maybach-eqs-680-4matic",
+      "label": "Mercedes-Benz X296 Mercedes-Maybach EQS 680 4MATIC",
+      "batteryKwh": 134.9,
+      "efficiency": 23.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-z296-eqs-suv-680-maybach-4-seat",
+      "label": "Mercedes-Benz Z296 EQS SUV 680 Maybach (4 seat)",
+      "batteryKwh": 133.7,
+      "efficiency": 20.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-z296-eqs-suv-680-maybach-5-seat",
+      "label": "Mercedes-Benz Z296 EQS SUV 680 Maybach (5 seat)",
+      "batteryKwh": 133.7,
+      "efficiency": 20.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-evito-112-evito-lwb-van-fl2",
+      "label": "Mercedes-Benz eVito 112 eVito LWB Van FL2",
+      "batteryKwh": 73.9,
+      "efficiency": 26.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-evito-112-evito-mwb-van-fl2",
+      "label": "Mercedes-Benz eVito 112 eVito MWB Van FL2",
+      "batteryKwh": 73.9,
+      "efficiency": 26.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-evito-129-evito-tourer-mwb-fl2",
+      "label": "Mercedes-Benz eVito 129 eVito Tourer MWB FL2",
+      "batteryKwh": 109.7,
+      "efficiency": 25.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "nissan-fe0-ariya-advance",
+      "label": "Nissan FE0 Ariya Advance+",
+      "batteryKwh": 96.3,
+      "efficiency": 19.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "nissan-fe0-ariya-engage-advance",
+      "label": "Nissan FE0 Ariya Engage / Advance",
+      "batteryKwh": 70.8,
+      "efficiency": 18.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "nissan-fe0-ariya-evolve",
+      "label": "Nissan FE0 Ariya Evolve",
+      "batteryKwh": 101.3,
+      "efficiency": 20.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "nissan-ze1-leaf",
+      "label": "Nissan ZE1 Leaf",
+      "batteryKwh": 53.2,
+      "efficiency": 17.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "nissan-ze1-leaf-e",
+      "label": "Nissan ZE1 Leaf e+",
+      "batteryKwh": 79.0,
+      "efficiency": 18.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "peugeot-2008-e2008-gt",
+      "label": "Peugeot 2008 e2008 GT",
+      "batteryKwh": 52.8,
+      "efficiency": 16.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "peugeot-partner-epartner-pro-long",
+      "label": "Peugeot Partner ePARTNER PRO LONG",
+      "batteryKwh": 56.2,
+      "efficiency": 21.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-2-170kw",
+      "label": "Polestar 2 170KW",
+      "batteryKwh": 123.1,
+      "efficiency": 19.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-2-200kw-standard-range-single-motor",
+      "label": "Polestar 2 200kW Standard Range Single Motor",
+      "batteryKwh": 87.5,
+      "efficiency": 15.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-2-220kw-long-range-single-motor",
+      "label": "Polestar 2 220kW Long Range Single Motor",
+      "batteryKwh": 104.1,
+      "efficiency": 15.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-2-300kw",
+      "label": "Polestar 2 300kW",
+      "batteryKwh": 122.8,
+      "efficiency": 23.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-2-310kw-long-range-dual-motor",
+      "label": "Polestar 2 310kW Long Range Dual Motor",
+      "batteryKwh": 102.5,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-2-350kw-long-range-dual-motor-performance-pack",
+      "label": "Polestar 2 350kW Long Range Dual Motor Performance Pack",
+      "batteryKwh": 97.7,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-3-220kw-long-range-single-motor",
+      "label": "Polestar 3 220kW Long Range Single Motor",
+      "batteryKwh": 143.3,
+      "efficiency": 20.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-3-360kw-long-range-dual-motor",
+      "label": "Polestar 3 360kW Long Range Dual Motor",
+      "batteryKwh": 138.6,
+      "efficiency": 21.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-3-380kw-long-range-dual-motor-performance-pack",
+      "label": "Polestar 3 380kW Long Range Dual Motor Performance Pack",
+      "batteryKwh": 130.4,
+      "efficiency": 23.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "polestar-4-au",
       "label": "Polestar 4 (Australia)",
       "batteryKwh": 100.0,
@@ -8809,6 +11780,1095 @@
       ],
       "priceUsd": 72400,
       "source": "row-native-seed"
+    },
+    {
+      "id": "polestar-4-200kw-long-range-single-motor",
+      "label": "Polestar 4 200kW Long Range Single Motor",
+      "batteryKwh": 114.1,
+      "efficiency": 18.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "polestar-4-400kw-long-range-dual-motor",
+      "label": "Polestar 4 400kW Long Range Dual Motor",
+      "batteryKwh": 128.0,
+      "efficiency": 21.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric",
+      "label": "Porsche Macan Electric",
+      "batteryKwh": 105.3,
+      "efficiency": 19.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-4s",
+      "label": "Porsche Macan Electric Macan 4S",
+      "batteryKwh": 106.5,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-base-4",
+      "label": "Porsche Macan Electric Macan Base 4",
+      "batteryKwh": 106.9,
+      "efficiency": 21.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-gts",
+      "label": "Porsche Macan Electric Macan GTS",
+      "batteryKwh": 108.8,
+      "efficiency": 21.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-macan-electric-macan-turbo",
+      "label": "Porsche Macan Electric Macan Turbo",
+      "batteryKwh": 108.8,
+      "efficiency": 21.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan",
+      "label": "Porsche Taycan",
+      "batteryKwh": 97.3,
+      "efficiency": 20.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4-performance-battery",
+      "label": "Porsche Taycan 4 Performance Battery",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4s",
+      "label": "Porsche Taycan 4S",
+      "batteryKwh": 96.6,
+      "efficiency": 21.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-4s-performance-battery",
+      "label": "Porsche Taycan 4S Performance Battery",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo",
+      "label": "Porsche Taycan Cross Tourismo",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-4s",
+      "label": "Porsche Taycan Cross Tourismo 4S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-turbo",
+      "label": "Porsche Taycan Cross Tourismo Turbo",
+      "batteryKwh": 112.6,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-cross-tourismo-turbo-s",
+      "label": "Porsche Taycan Cross Tourismo Turbo S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-gts",
+      "label": "Porsche Taycan GTS",
+      "batteryKwh": 112.6,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-performance-battery",
+      "label": "Porsche Taycan Performance Battery",
+      "batteryKwh": 113.9,
+      "efficiency": 21.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-gt",
+      "label": "Porsche Taycan Turbo GT",
+      "batteryKwh": 113.7,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-gt-w-weissach-package",
+      "label": "Porsche Taycan Turbo GT w/Weissach package",
+      "batteryKwh": 113.7,
+      "efficiency": 22.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "porsche-taycan-turbo-s",
+      "label": "Porsche Taycan Turbo S",
+      "batteryKwh": 112.8,
+      "efficiency": 22.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "renault-kangoo-e-tech-lwb-pro-ev45",
+      "label": "Renault Kangoo E-Tech LWB PRO EV45",
+      "batteryKwh": 50.0,
+      "efficiency": 17.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "renault-kangoo-e-tech-swb-pro-ev45",
+      "label": "Renault Kangoo E-Tech SWB PRO EV45",
+      "batteryKwh": 50.0,
+      "efficiency": 17.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "renault-kangoo-ze",
+      "label": "Renault Kangoo ZE",
+      "batteryKwh": 42.0,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "renault-megane-e-tech-techno-ev60",
+      "label": "Renault Megane E-Tech Techno EV60",
+      "batteryKwh": 70.8,
+      "efficiency": 15.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "renault-trafic-e-tech-lwb-pro-ev52",
+      "label": "Renault Trafic E-Tech LWB PRO EV52",
+      "batteryKwh": 63.7,
+      "efficiency": 20.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "renault-trafic-e-tech-swb-pro-ev52",
+      "label": "Renault Trafic E-Tech SWB PRO EV52",
+      "batteryKwh": 63.7,
+      "efficiency": 20.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "rolls-royce-rr25-spectre-black-badge-coupe",
+      "label": "Rolls-Royce RR25 Spectre Black Badge Coupe",
+      "batteryKwh": 114.1,
+      "efficiency": 20.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "rolls-royce-rr25-spectre-coupe",
+      "label": "Rolls-Royce RR25 Spectre Coupe",
+      "batteryKwh": 113.8,
+      "efficiency": 20.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my25-elroq-210kw-select",
+      "label": "Skoda MY25 Elroq 210KW SELECT",
+      "batteryKwh": 89.6,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my25-elroq-210kw-sportline",
+      "label": "Skoda MY25 Elroq 210KW SPORTLINE",
+      "batteryKwh": 89.6,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my25-enyaq-coupe-sportline",
+      "label": "Skoda MY25 Enyaq Coupe SportLine",
+      "batteryKwh": 89.2,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my26-elroq-60-select",
+      "label": "Skoda MY26 Elroq 60 SELECT",
+      "batteryKwh": 68.2,
+      "efficiency": 17.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my26-elroq-select-85",
+      "label": "Skoda MY26 Elroq SELECT 85",
+      "batteryKwh": 87.3,
+      "efficiency": 16.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my26-enyaq-coupe-rs",
+      "label": "Skoda MY26 Enyaq Coupe RS",
+      "batteryKwh": 89.7,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my26-enyaq-suv-60-select",
+      "label": "Skoda MY26 Enyaq SUV 60 Select",
+      "batteryKwh": 68.1,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my26-enyaq-suv-rs",
+      "label": "Skoda MY26 Enyaq SUV RS",
+      "batteryKwh": 90.0,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my26-enyaq-suv-sportline",
+      "label": "Skoda MY26 Enyaq SUV Sportline",
+      "batteryKwh": 87.1,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "smart-1-brabus",
+      "label": "Smart #1 Brabus",
+      "batteryKwh": 72.8,
+      "efficiency": 18.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "smart-1-premium",
+      "label": "Smart #1 Premium",
+      "batteryKwh": 73.9,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "smart-1-pro",
+      "label": "Smart #1 Pro+",
+      "batteryKwh": 73.1,
+      "efficiency": 17.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "smart-3-brabus",
+      "label": "Smart #3 Brabus",
+      "batteryKwh": 73.0,
+      "efficiency": 17.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "smart-3-premium",
+      "label": "Smart #3 Premium",
+      "batteryKwh": 74.2,
+      "efficiency": 16.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "smart-3-pro",
+      "label": "Smart #3 Pro+",
+      "batteryKwh": 73.1,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "ssangyong-uk-25my-torres-evx",
+      "label": "Ssangyong UK 25MY Torres EVX",
+      "batteryKwh": 85.9,
+      "efficiency": 18.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "subaru-my24-solterra-awd",
+      "label": "Subaru MY24 Solterra AWD",
+      "batteryKwh": 68.4,
+      "efficiency": 14.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "subaru-my24-solterra-awd-touring",
+      "label": "Subaru MY24 Solterra AWD Touring",
+      "batteryKwh": 68.4,
+      "efficiency": 14.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "subaru-my26-solterra-awd",
+      "label": "Subaru MY26 Solterra AWD",
+      "batteryKwh": 82.6,
+      "efficiency": 14.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "subaru-my26-solterra-awd-touring",
+      "label": "Subaru MY26 Solterra AWD Touring",
+      "batteryKwh": 82.7,
+      "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-awd-long-range-model-3-h5mdb",
+      "label": "Tesla AWD LONG RANGE Model 3 H5MDB",
+      "batteryKwh": 94.4,
+      "efficiency": 14.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-awd-long-range-model-y-awd-long-range-yl5ndb",
+      "label": "Tesla AWD LONG RANGE Model Y AWD Long Range YL5NDB",
+      "batteryKwh": 99.4,
+      "efficiency": 14.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-awd-long-range-model-y-ys5mdb",
+      "label": "Tesla AWD LONG RANGE Model Y YS5MDB",
+      "batteryKwh": 95.4,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-awd-performance-model-3-h5ldp",
+      "label": "Tesla AWD PERFORMANCE Model 3 H5LDP",
+      "batteryKwh": 88.2,
+      "efficiency": 16.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-awd-performance-model-3-h5mdp",
+      "label": "Tesla AWD PERFORMANCE Model 3 H5MDP",
+      "batteryKwh": 94.2,
+      "efficiency": 16.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-long-range-h5ldb",
+      "label": "Tesla Model 3 Long Range H5LDB",
+      "batteryKwh": 88.1,
+      "efficiency": 14.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-longrange-e3db",
+      "label": "Tesla Model 3 LongRange (E3DB)",
+      "batteryKwh": 90.7,
+      "efficiency": 13.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-longrange-e5db",
+      "label": "Tesla Model 3 LongRange (E5DB)",
+      "batteryKwh": 90.7,
+      "efficiency": 13.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-longrange-e5ldb",
+      "label": "Tesla Model 3 LongRange (E5LDB)",
+      "batteryKwh": 93.7,
+      "efficiency": 13.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-performance-e3dp",
+      "label": "Tesla Model 3 Performance (E3DP)",
+      "batteryKwh": 98.6,
+      "efficiency": 15.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-performance-e5ldp",
+      "label": "Tesla Model 3 Performance (E5LDP)",
+      "batteryKwh": 96.6,
+      "efficiency": 15.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-rwd-e6lrb",
+      "label": "Tesla Model 3 RWD (E6LRB)",
+      "batteryKwh": 74.9,
+      "efficiency": 13.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-rwd-h6lrb",
+      "label": "Tesla Model 3 RWD H6LRB",
+      "batteryKwh": 67.7,
+      "efficiency": 13.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-rwd-h6mrb",
+      "label": "Tesla Model 3 RWD H6MRB",
+      "batteryKwh": 71.8,
+      "efficiency": 13.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-rwd-lr-h5mrb-18-inch-wheel",
+      "label": "Tesla Model 3 RWD LR H5MRB 18 Inch wheel",
+      "batteryKwh": 93.8,
+      "efficiency": 12.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-rwd-lr-h5mrb-19-inch-wheel",
+      "label": "Tesla Model 3 RWD LR H5MRB 19 Inch wheel",
+      "batteryKwh": 94.0,
+      "efficiency": 13.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-standardrange-e1rb",
+      "label": "Tesla Model 3 StandardRange (E1RB)",
+      "batteryKwh": 64.7,
+      "efficiency": 13.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-standardrange-e6lrb",
+      "label": "Tesla Model 3 StandardRange (E6LRB)",
+      "batteryKwh": 74.9,
+      "efficiency": 13.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-3-standardrange-e6rb",
+      "label": "Tesla Model 3 StandardRange (E6RB)",
+      "batteryKwh": 67.1,
+      "efficiency": 13.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-s-longrange-sa3eb",
+      "label": "Tesla Model S LongRange (SA3EB)",
+      "batteryKwh": 120.6,
+      "efficiency": 16.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-s-sa3ep-performance",
+      "label": "Tesla Model S SA3EP Performance",
+      "batteryKwh": 121.1,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-x-long-range-xa3eb",
+      "label": "Tesla Model X Long Range (XA3EB)",
+      "batteryKwh": 120.9,
+      "efficiency": 19.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-x-performance-xa3ep",
+      "label": "Tesla Model X Performance (XA3EP)",
+      "batteryKwh": 121.3,
+      "efficiency": 19.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-y-sy6lr",
+      "label": "Tesla Model Y (SY6LR)",
+      "batteryKwh": 74.5,
+      "efficiency": 14.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-y-awd-ys5ldb",
+      "label": "Tesla Model Y AWD YS5LDB",
+      "batteryKwh": 87.1,
+      "efficiency": 15.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-y-longrange-ly5ld",
+      "label": "Tesla Model Y LongRange (LY5LD)",
+      "batteryKwh": 94.2,
+      "efficiency": 15.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-y-performance-py5ld",
+      "label": "Tesla Model Y Performance (PY5LD)",
+      "batteryKwh": 94.2,
+      "efficiency": 15.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-y-performance-ys5mdp",
+      "label": "Tesla Model Y Performance YS5MDP",
+      "batteryKwh": 94.0,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-y-rwd-sy6lr",
+      "label": "Tesla Model Y RWD (SY6LR)",
+      "batteryKwh": 74.5,
+      "efficiency": 14.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-y-rwd-ys6mrb",
+      "label": "Tesla Model Y RWD YS6MRB",
+      "batteryKwh": 71.3,
+      "efficiency": 15.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "toyota-bz4x",
+      "label": "Toyota bZ4X",
+      "batteryKwh": 82.7,
+      "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my25-id-buzz-cargo-van-swb-210kw",
+      "label": "Volkswagen MY25 ID. Buzz Cargo VAN SWB 210KW",
+      "batteryKwh": 87.5,
+      "efficiency": 20.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my25-id-buzz-pro-210kw",
+      "label": "Volkswagen MY25 ID. Buzz PRO 210KW",
+      "batteryKwh": 95.4,
+      "efficiency": 21.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my25-id-4-gtx-250kw",
+      "label": "Volkswagen MY25 ID.4 GTX 250KW",
+      "batteryKwh": 87.9,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my25-id-4-pro-210kw",
+      "label": "Volkswagen MY25 ID.4 PRO 210KW",
+      "batteryKwh": 90.8,
+      "efficiency": 16.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my25-id-5-gtx-250kw",
+      "label": "Volkswagen MY25 ID.5 GTX 250KW",
+      "batteryKwh": 88.7,
+      "efficiency": 17.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my25-id-5-pro-210kw",
+      "label": "Volkswagen MY25 ID.5 PRO 210KW",
+      "batteryKwh": 88.0,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my26-id-4-gtx-250kw",
+      "label": "Volkswagen MY26 ID.4 GTX 250KW",
+      "batteryKwh": 88.8,
+      "efficiency": 17.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my26-id-4-pro-210kw",
+      "label": "Volkswagen MY26 ID.4 PRO 210KW",
+      "batteryKwh": 89.2,
+      "efficiency": 16.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my26-id-5-gtx-250kw",
+      "label": "Volkswagen MY26 ID.5 GTX 250KW",
+      "batteryKwh": 88.9,
+      "efficiency": 16.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my26-id-5-pro-210kw",
+      "label": "Volkswagen MY26 ID.5 PRO 210KW",
+      "batteryKwh": 88.1,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-es90-single-motor",
+      "label": "Volvo ES90 Single Motor",
+      "batteryKwh": 102.5,
+      "efficiency": 18.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-ex30-cross-country-twin-motor",
+      "label": "Volvo EX30 Cross Country Twin Motor",
+      "batteryKwh": 79.6,
+      "efficiency": 19.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-ex30-single-motor",
+      "label": "Volvo EX30 Single Motor",
+      "batteryKwh": 80.8,
+      "efficiency": 17.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-ex40-single-motor",
+      "label": "Volvo EX40 Single Motor",
+      "batteryKwh": 95.7,
+      "efficiency": 18.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-ex40-twin-motor",
+      "label": "Volvo EX40 Twin Motor",
+      "batteryKwh": 94.1,
+      "efficiency": 19.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-ex90-twin",
+      "label": "Volvo EX90 Twin",
+      "batteryKwh": 125.4,
+      "efficiency": 22.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-ex90-twin-performance",
+      "label": "Volvo EX90 Twin Performance",
+      "batteryKwh": 125.4,
+      "efficiency": 22.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "xpeng-g6-g6-long-range",
+      "label": "XPENG G6 G6 Long Range",
+      "batteryKwh": 101.2,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "xpeng-g6-g6-standard-18-inch",
+      "label": "XPENG G6 G6 STANDARD 18 inch",
+      "batteryKwh": 83.5,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "xpeng-g6-g6-standard-20-inch",
+      "label": "XPENG G6 G6 STANDARD 20 inch",
+      "batteryKwh": 81.8,
+      "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
     },
     {
       "id": "xpeng-g6-au",

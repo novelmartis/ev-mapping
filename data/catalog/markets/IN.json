@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-15T04:01:20Z",
+  "generatedAt": "2026-04-15T14:23:33Z",
   "market": "IN",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,24 +13,24 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 27,
+  "count": 25,
   "stats": {
-    "total": 27,
-    "priced": 27,
+    "total": 25,
+    "priced": 25,
     "priceCoverage": 1.0,
     "markets": {
-      "CN": 13,
-      "EG": 13,
-      "ID": 13,
-      "IN": 27,
+      "CN": 12,
+      "EG": 12,
+      "ID": 12,
+      "IN": 25,
       "LK": 21,
-      "MA": 13,
-      "MY": 13,
-      "PH": 13,
+      "MA": 12,
+      "MY": 12,
+      "PH": 12,
       "SG": 12,
-      "TH": 13,
-      "VN": 13,
-      "ZA": 13
+      "TH": 12,
+      "VN": 12,
+      "ZA": 12
     },
     "marketCount": 12
   },
@@ -615,36 +615,6 @@
       "source": "cardekho.com"
     },
     {
-      "id": "toyota-urban-cruiser-ebella",
-      "label": "Toyota Urban Cruiser EBELLA",
-      "batteryKwh": 61.0,
-      "efficiency": 11.2,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 19332,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1800000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-04-15"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
       "id": "vayve-mobility-eva",
       "label": "Vayve Mobility Eva",
       "batteryKwh": 20.0,
@@ -658,27 +628,6 @@
       "marketPrices": {
         "IN": {
           "amount": 325000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-04-15"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "vinfast-vf-mpv-7",
-      "label": "VinFast VF MPV 7",
-      "batteryKwh": 60.1,
-      "efficiency": 13.4,
-      "reserve": 10,
-      "markets": [
-        "IN"
-      ],
-      "priceUsd": 20406,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1900000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-04-15"

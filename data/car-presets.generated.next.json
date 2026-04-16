@@ -1,44 +1,44 @@
 {
-  "generatedAt": "2026-04-15T14:23:33Z",
+  "generatedAt": "2026-04-16T04:04:17Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
-    "cardekho.com",
-    "greenvehicleguide.gov.au",
-    "eu-native-seed",
     "asean-native-seed",
+    "cardekho.com",
+    "eu-native-seed",
+    "fueleconomy.gov",
+    "greenvehicleguide.gov.au",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
-  "count": 1088,
+  "count": 1091,
   "stats": {
-    "total": 1088,
-    "priced": 143,
-    "priceCoverage": 0.1314,
+    "total": 1091,
+    "priced": 146,
+    "priceCoverage": 0.1338,
     "markets": {
       "AU": 704,
       "CA": 537,
-      "CN": 292,
+      "CN": 293,
       "DE": 343,
-      "EG": 320,
-      "ID": 300,
-      "IN": 25,
+      "EG": 321,
+      "ID": 301,
+      "IN": 27,
       "JP": 312,
       "KR": 268,
       "LK": 21,
-      "MA": 319,
-      "MY": 305,
+      "MA": 321,
+      "MY": 306,
       "NZ": 334,
-      "PH": 295,
+      "PH": 296,
       "SG": 291,
-      "TH": 304,
+      "TH": 305,
       "TR": 311,
       "US": 634,
-      "VN": 299,
-      "ZA": 321
+      "VN": 300,
+      "ZA": 322
     },
     "marketCount": 20
   },
@@ -13268,6 +13268,18 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "byd-atto-3-ma",
+      "label": "BYD Atto 3 (Morocco)",
+      "batteryKwh": 60.5,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "MA"
+      ],
+      "priceUsd": 33800,
+      "source": "row-native-seed"
+    },
+    {
       "id": "byd-dolphin-asean",
       "label": "BYD Dolphin",
       "batteryKwh": 60.5,
@@ -17492,6 +17504,36 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "toyota-urban-cruiser-ebella",
+      "label": "Toyota Urban Cruiser EBELLA",
+      "batteryKwh": 61.0,
+      "efficiency": 11.2,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 19332,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1800000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-04-15"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "toyota-bz4x",
       "label": "Toyota bZ4X",
       "batteryKwh": 82.7,
@@ -17558,6 +17600,27 @@
       ],
       "priceUsd": 51800,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "vinfast-vf-mpv-7",
+      "label": "VinFast VF MPV 7",
+      "batteryKwh": 60.1,
+      "efficiency": 13.4,
+      "reserve": 10,
+      "markets": [
+        "IN"
+      ],
+      "priceUsd": 20406,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1900000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-04-15"
+        }
+      },
+      "source": "cardekho.com"
     },
     {
       "id": "vinfast-vf6",
@@ -17884,5 +17947,7 @@
       "priceUsd": 53700,
       "source": "row-native-seed"
     }
-  ]
+  ],
+  "fallbackMode": true,
+  "fallbackReason": "Catalog US market count too low: 0 < 300.; Catalog CA market count too low: 3 < 120.; Catalog DE market count too low: 10 < 20.; Catalog TR market count too low: 5 < 30.; Catalog ZA market count too low: 15 < 20.; Catalog MA market count too low: 13 < 20.; Catalog EG market count too low: 14 < 20.; Catalog NZ market count too low: 3 < 20.; Catalog JP market count too low: 8 < 24.; Catalog KR marke"
 }

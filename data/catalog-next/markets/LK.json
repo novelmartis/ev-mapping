@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-20T04:16:16Z",
+  "generatedAt": "2026-04-20T14:31:34Z",
   "market": "LK",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,24 +13,24 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 20,
+  "count": 21,
   "stats": {
-    "total": 20,
-    "priced": 20,
+    "total": 21,
+    "priced": 21,
     "priceCoverage": 1.0,
     "markets": {
-      "CN": 11,
-      "EG": 11,
-      "ID": 11,
-      "IN": 20,
-      "LK": 20,
-      "MA": 11,
-      "MY": 11,
-      "PH": 11,
-      "SG": 11,
-      "TH": 11,
-      "VN": 11,
-      "ZA": 11
+      "CN": 12,
+      "EG": 12,
+      "ID": 12,
+      "IN": 21,
+      "LK": 21,
+      "MA": 12,
+      "MY": 12,
+      "PH": 12,
+      "SG": 12,
+      "TH": 12,
+      "VN": 12,
+      "ZA": 12
     },
     "marketCount": 12
   },
@@ -554,6 +554,38 @@
       "marketPrices": {
         "IN": {
           "amount": 799000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-04-20"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "tesla-model-y",
+      "label": "Tesla Model Y",
+      "batteryKwh": 75.0,
+      "efficiency": 11.3,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 64502,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 5989000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-04-20"

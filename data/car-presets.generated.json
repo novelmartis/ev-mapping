@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-20T04:16:16Z",
+  "generatedAt": "2026-04-20T14:31:34Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,32 +13,32 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1089,
+  "count": 1090,
   "stats": {
-    "total": 1089,
-    "priced": 144,
-    "priceCoverage": 0.1322,
+    "total": 1090,
+    "priced": 145,
+    "priceCoverage": 0.133,
     "markets": {
       "AU": 704,
       "CA": 537,
-      "CN": 292,
+      "CN": 293,
       "DE": 343,
-      "EG": 320,
-      "ID": 300,
-      "IN": 26,
+      "EG": 321,
+      "ID": 301,
+      "IN": 27,
       "JP": 312,
       "KR": 268,
-      "LK": 20,
-      "MA": 319,
-      "MY": 305,
+      "LK": 21,
+      "MA": 320,
+      "MY": 306,
       "NZ": 334,
-      "PH": 295,
-      "SG": 290,
-      "TH": 304,
+      "PH": 296,
+      "SG": 291,
+      "TH": 305,
       "TR": 311,
       "US": 634,
-      "VN": 299,
-      "ZA": 321
+      "VN": 300,
+      "ZA": 322
     },
     "marketCount": 20
   },
@@ -17381,6 +17381,38 @@
         "AU"
       ],
       "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "tesla-model-y",
+      "label": "Tesla Model Y",
+      "batteryKwh": 75.0,
+      "efficiency": 11.3,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 64502,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 5989000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-04-20"
+        }
+      },
+      "source": "cardekho.com"
     },
     {
       "id": "tesla-model-y-sy6lr",

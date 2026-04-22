@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-21T14:52:51Z",
+  "generatedAt": "2026-04-22T04:10:14Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 713,
+  "count": 715,
   "stats": {
-    "total": 713,
+    "total": 715,
     "priced": 50,
-    "priceCoverage": 0.0701,
+    "priceCoverage": 0.0699,
     "markets": {
-      "AU": 713,
+      "AU": 715,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -10096,6 +10096,17 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "hyundai-elexio-elite",
+      "label": "Hyundai Elexio Elite",
+      "batteryKwh": 99.4,
+      "efficiency": 18.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "hyundai-inster-electric-42kwh",
       "label": "Hyundai INSTER Electric 42kWh",
       "batteryKwh": 46.8,
@@ -12653,8 +12664,19 @@
     {
       "id": "toyota-hilux-sr",
       "label": "Toyota HILUX SR",
-      "batteryKwh": 62.7,
-      "efficiency": 25.6,
+      "batteryKwh": 63.6,
+      "efficiency": 20.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "toyota-hilux-sr5",
+      "label": "Toyota HILUX SR5",
+      "batteryKwh": 63.6,
+      "efficiency": 20.2,
       "reserve": 10,
       "markets": [
         "AU"

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-21T14:52:51Z",
+  "generatedAt": "2026-04-22T04:10:14Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1099,
+  "count": 1101,
   "stats": {
-    "total": 1099,
+    "total": 1101,
     "priced": 145,
-    "priceCoverage": 0.1319,
+    "priceCoverage": 0.1317,
     "markets": {
-      "AU": 713,
+      "AU": 715,
       "CA": 537,
       "CN": 293,
       "DE": 343,
@@ -13157,7 +13157,7 @@
           "amount": 20500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -13189,7 +13189,7 @@
           "amount": 5090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -13432,7 +13432,7 @@
           "amount": 4100000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -13501,7 +13501,7 @@
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -14147,10 +14147,21 @@
           "amount": 1802000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
+    },
+    {
+      "id": "hyundai-elexio-elite",
+      "label": "Hyundai Elexio Elite",
+      "batteryKwh": 99.4,
+      "efficiency": 18.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
     },
     {
       "id": "hyundai-inster-electric-42kwh",
@@ -14638,7 +14649,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -14925,7 +14936,7 @@
           "amount": 750000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -14957,7 +14968,7 @@
           "amount": 7500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -15132,7 +15143,7 @@
           "amount": 7090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -15318,7 +15329,7 @@
           "amount": 1400000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -15576,7 +15587,7 @@
           "amount": 1549000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -15597,7 +15608,7 @@
           "amount": 1599000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -15718,7 +15729,7 @@
           "amount": 5500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17027,7 +17038,7 @@
           "amount": 1749000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17049,7 +17060,7 @@
           "amount": 2149000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17071,7 +17082,7 @@
           "amount": 1249000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17093,7 +17104,7 @@
           "amount": 969000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17115,7 +17126,7 @@
           "amount": 799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17420,7 +17431,7 @@
           "amount": 5989000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17505,8 +17516,19 @@
     {
       "id": "toyota-hilux-sr",
       "label": "Toyota HILUX SR",
-      "batteryKwh": 62.7,
-      "efficiency": 25.6,
+      "batteryKwh": 63.6,
+      "efficiency": 20.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "toyota-hilux-sr5",
+      "label": "Toyota HILUX SR5",
+      "batteryKwh": 63.6,
+      "efficiency": 20.2,
       "reserve": 10,
       "markets": [
         "AU"
@@ -17538,7 +17560,7 @@
           "amount": 1800000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17582,7 +17604,7 @@
           "amount": 325000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17627,7 +17649,7 @@
           "amount": 2449000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17648,7 +17670,7 @@
           "amount": 1729000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"
@@ -17669,7 +17691,7 @@
           "amount": 2189000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-04-21"
+          "updatedAt": "2026-04-22"
         }
       },
       "source": "cardekho.com"

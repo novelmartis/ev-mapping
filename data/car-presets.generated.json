@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-21T04:03:42Z",
+  "generatedAt": "2026-04-21T14:52:51Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1090,
+  "count": 1099,
   "stats": {
-    "total": 1090,
+    "total": 1099,
     "priced": 145,
-    "priceCoverage": 0.133,
+    "priceCoverage": 0.1319,
     "markets": {
-      "AU": 704,
+      "AU": 713,
       "CA": 537,
       "CN": 293,
       "DE": 343,
@@ -13150,7 +13150,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 220170,
+      "priceUsd": 219145,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13182,7 +13182,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54667,
+      "priceUsd": 54412,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13425,7 +13425,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 44034,
+      "priceUsd": 43829,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13494,7 +13494,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53056,
+      "priceUsd": 52809,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14140,7 +14140,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19353,
+      "priceUsd": 19263,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14631,7 +14631,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 70852,
+      "priceUsd": 70522,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14918,7 +14918,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8055,
+      "priceUsd": 8018,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14950,7 +14950,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 80550,
+      "priceUsd": 80175,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15125,7 +15125,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 76147,
+      "priceUsd": 75792,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15311,7 +15311,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 15036,
+      "priceUsd": 14966,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15569,7 +15569,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 16636,
+      "priceUsd": 16559,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15590,7 +15590,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 17173,
+      "priceUsd": 17093,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15711,7 +15711,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 59070,
+      "priceUsd": 58795,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16472,6 +16472,17 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "porsche-taycan-4",
+      "label": "Porsche Taycan 4",
+      "batteryKwh": 96.6,
+      "efficiency": 21.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "porsche-taycan-4-performance-battery",
       "label": "Porsche Taycan 4 Performance Battery",
       "batteryKwh": 112.8,
@@ -17009,7 +17020,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 18784,
+      "priceUsd": 18697,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17031,7 +17042,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 23080,
+      "priceUsd": 22973,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17053,7 +17064,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13414,
+      "priceUsd": 13352,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17075,7 +17086,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10407,
+      "priceUsd": 10359,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17097,7 +17108,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 8581,
+      "priceUsd": 8541,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17402,7 +17413,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 64322,
+      "priceUsd": 64022,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17492,6 +17503,17 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "toyota-hilux-sr",
+      "label": "Toyota HILUX SR",
+      "batteryKwh": 62.7,
+      "efficiency": 25.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "toyota-urban-cruiser-ebella",
       "label": "Toyota Urban Cruiser EBELLA",
       "batteryKwh": 61.0,
@@ -17509,7 +17531,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19332,
+      "priceUsd": 19242,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17553,7 +17575,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 3490,
+      "priceUsd": 3474,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17598,7 +17620,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 26302,
+      "priceUsd": 26180,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17619,7 +17641,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 18569,
+      "priceUsd": 18483,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17640,7 +17662,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 23510,
+      "priceUsd": 23400,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17934,6 +17956,83 @@
       ],
       "priceUsd": 53700,
       "source": "row-native-seed"
+    },
+    {
+      "id": "zeekr-my24-x-awd",
+      "label": "ZEEKR MY24 X AWD",
+      "batteryKwh": 72.8,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "zeekr-my24-x-rwd",
+      "label": "ZEEKR MY24 X RWD",
+      "batteryKwh": 75.1,
+      "efficiency": 13.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "zeekr-my25-009-6-seat-awd",
+      "label": "ZEEKR MY25 009 6 Seat AWD",
+      "batteryKwh": 133.8,
+      "efficiency": 19.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "zeekr-my25-009-7-seat-awd",
+      "label": "ZEEKR MY25 009 7 Seat AWD",
+      "batteryKwh": 133.8,
+      "efficiency": 19.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "zeekr-my26-7x-long-range-rwd",
+      "label": "Zeekr MY26 7X Long Range RWD",
+      "batteryKwh": 107.3,
+      "efficiency": 14.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "zeekr-my26-7x-performance-awd",
+      "label": "Zeekr MY26 7X Performance AWD",
+      "batteryKwh": 105.4,
+      "efficiency": 16.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "zeekr-my26-7x-rwd",
+      "label": "Zeekr MY26 7X RWD",
+      "batteryKwh": 83.2,
+      "efficiency": 14.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
     }
   ]
 }

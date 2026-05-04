@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-03T04:29:02Z",
+  "generatedAt": "2026-05-03T14:06:29Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 715,
+  "count": 713,
   "stats": {
-    "total": 715,
+    "total": 713,
     "priced": 50,
-    "priceCoverage": 0.0699,
+    "priceCoverage": 0.0701,
     "markets": {
-      "AU": 715,
+      "AU": 713,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -12853,28 +12853,6 @@
       "label": "Volvo EX40 Twin Motor",
       "batteryKwh": 94.1,
       "efficiency": 19.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "volvo-ex90-twin",
-      "label": "Volvo EX90 Twin",
-      "batteryKwh": 125.4,
-      "efficiency": 22.0,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "volvo-ex90-twin-performance",
-      "label": "Volvo EX90 Twin Performance",
-      "batteryKwh": 125.4,
-      "efficiency": 22.0,
       "reserve": 10,
       "markets": [
         "AU"

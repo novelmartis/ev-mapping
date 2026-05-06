@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T04:36:16Z",
+  "generatedAt": "2026-05-06T15:31:26Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 713,
+  "count": 711,
   "stats": {
-    "total": 713,
+    "total": 711,
     "priced": 50,
-    "priceCoverage": 0.0701,
+    "priceCoverage": 0.0703,
     "markets": {
-      "AU": 713,
+      "AU": 711,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -8998,28 +8998,6 @@
       "label": "Audi S e-tron GT",
       "batteryKwh": 111.2,
       "efficiency": 19.9,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-sq6-e-tron",
-      "label": "Audi SQ6 e-tron",
-      "batteryKwh": 104.5,
-      "efficiency": 18.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-sq6-e-tron-sportback",
-      "label": "Audi SQ6 e-tron Sportback",
-      "batteryKwh": 104.7,
-      "efficiency": 17.9,
       "reserve": 10,
       "markets": [
         "AU"

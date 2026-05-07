@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T04:36:16Z",
+  "generatedAt": "2026-05-07T04:22:36Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 713,
+  "count": 712,
   "stats": {
-    "total": 713,
+    "total": 712,
     "priced": 50,
-    "priceCoverage": 0.0701,
+    "priceCoverage": 0.0702,
     "markets": {
-      "AU": 713,
+      "AU": 712,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -9005,28 +9005,6 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
-      "id": "audi-sq6-e-tron",
-      "label": "Audi SQ6 e-tron",
-      "batteryKwh": 104.5,
-      "efficiency": 18.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-sq6-e-tron-sportback",
-      "label": "Audi SQ6 e-tron Sportback",
-      "batteryKwh": 104.7,
-      "efficiency": 17.9,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
       "id": "audi-sq8-e-tron",
       "label": "Audi SQ8 e-tron",
       "batteryKwh": 97.3,
@@ -10089,6 +10067,17 @@
       "label": "Hyundai 2025 IONIQ5 STD 19inch",
       "batteryKwh": 68.6,
       "efficiency": 15.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-elexio-base",
+      "label": "Hyundai Elexio Base",
+      "batteryKwh": 99.5,
+      "efficiency": 17.7,
       "reserve": 10,
       "markets": [
         "AU"

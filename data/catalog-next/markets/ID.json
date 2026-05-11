@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T14:12:17Z",
+  "generatedAt": "2026-05-11T05:05:26Z",
   "market": "ID",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,32 +13,32 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 300,
+  "count": 299,
   "stats": {
-    "total": 300,
-    "priced": 60,
-    "priceCoverage": 0.2,
+    "total": 299,
+    "priced": 59,
+    "priceCoverage": 0.1973,
     "markets": {
       "AU": 280,
       "CA": 280,
-      "CN": 292,
+      "CN": 291,
       "DE": 265,
-      "EG": 292,
-      "ID": 300,
-      "IN": 12,
+      "EG": 291,
+      "ID": 299,
+      "IN": 11,
       "JP": 280,
       "KR": 249,
-      "LK": 11,
-      "MA": 292,
-      "MY": 299,
+      "LK": 10,
+      "MA": 291,
+      "MY": 298,
       "NZ": 280,
-      "PH": 295,
-      "SG": 280,
-      "TH": 299,
+      "PH": 294,
+      "SG": 279,
+      "TH": 298,
       "TR": 280,
       "US": 280,
-      "VN": 296,
-      "ZA": 292
+      "VN": 295,
+      "ZA": 291
     },
     "marketCount": 20
   },
@@ -7929,7 +7929,7 @@
           "amount": 20500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -7961,7 +7961,7 @@
           "amount": 5090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8027,7 +8027,7 @@
           "amount": 4100000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8059,7 +8059,7 @@
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8119,7 +8119,7 @@
           "amount": 1802000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8139,38 +8139,6 @@
       ],
       "priceUsd": 51200,
       "source": "asean-native-seed"
-    },
-    {
-      "id": "kia-carens-clavis-ev",
-      "label": "Kia Carens Clavis EV",
-      "batteryKwh": 51.4,
-      "efficiency": 10.5,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 19033,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1799000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
-        }
-      },
-      "source": "cardekho.com"
     },
     {
       "id": "kia-ev6",
@@ -8199,7 +8167,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8231,7 +8199,7 @@
           "amount": 750000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8263,7 +8231,7 @@
           "amount": 7500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8295,7 +8263,7 @@
           "amount": 7090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8327,7 +8295,7 @@
           "amount": 1400000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"
@@ -8388,7 +8356,7 @@
           "amount": 1800000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-05-10"
+          "updatedAt": "2026-05-11"
         }
       },
       "source": "cardekho.com"

@@ -1,25 +1,25 @@
 {
-  "generatedAt": "2026-05-11T15:51:12Z",
+  "generatedAt": "2026-05-12T15:30:50Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "afdc.energy.gov",
-    "asean-native-seed",
-    "cardekho.com",
-    "eu-native-seed",
     "fueleconomy.gov",
+    "afdc.energy.gov",
+    "cardekho.com",
     "greenvehicleguide.gov.au",
+    "eu-native-seed",
+    "asean-native-seed",
     "jpkr-native-seed",
-    "manual-presets",
-    "row-native-seed"
+    "row-native-seed",
+    "manual-presets"
   ],
-  "count": 712,
+  "count": 713,
   "stats": {
-    "total": 712,
+    "total": 713,
     "priced": 50,
-    "priceCoverage": 0.0702,
+    "priceCoverage": 0.0701,
     "markets": {
-      "AU": 712,
+      "AU": 713,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -12677,6 +12677,17 @@
       "label": "Toyota bZ4X",
       "batteryKwh": 82.7,
       "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "toyota-bz4x-touring",
+      "label": "Toyota bZ4X Touring",
+      "batteryKwh": 82.0,
+      "efficiency": 16.8,
       "reserve": 10,
       "markets": [
         "AU"

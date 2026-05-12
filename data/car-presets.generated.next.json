@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-12T04:26:53Z",
+  "generatedAt": "2026-05-12T15:30:50Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1095,
+  "count": 1096,
   "stats": {
-    "total": 1095,
+    "total": 1096,
     "priced": 142,
-    "priceCoverage": 0.1297,
+    "priceCoverage": 0.1296,
     "markets": {
-      "AU": 712,
+      "AU": 713,
       "CA": 537,
       "CN": 291,
       "DE": 343,
@@ -13128,7 +13128,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 215045,
+      "priceUsd": 214430,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13160,7 +13160,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53394,
+      "priceUsd": 53241,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13403,7 +13403,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43009,
+      "priceUsd": 42886,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13472,7 +13472,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 51821,
+      "priceUsd": 51672,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14118,7 +14118,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18903,
+      "priceUsd": 18849,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14631,7 +14631,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69203,
+      "priceUsd": 69005,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14918,7 +14918,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7867,
+      "priceUsd": 7845,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14950,7 +14950,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 78675,
+      "priceUsd": 78450,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15125,7 +15125,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 74374,
+      "priceUsd": 74161,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15311,7 +15311,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14686,
+      "priceUsd": 14644,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15569,7 +15569,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 16249,
+      "priceUsd": 16203,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15590,7 +15590,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 16774,
+      "priceUsd": 16726,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16988,7 +16988,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 17823,
+      "priceUsd": 17772,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17010,7 +17010,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 22543,
+      "priceUsd": 22479,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17032,7 +17032,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13102,
+      "priceUsd": 13065,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17054,7 +17054,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10165,
+      "priceUsd": 10136,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17076,7 +17076,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 8382,
+      "priceUsd": 8358,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17478,7 +17478,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18882,
+      "priceUsd": 18828,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17514,6 +17514,17 @@
       "source": "jpkr-native-seed"
     },
     {
+      "id": "toyota-bz4x-touring",
+      "label": "Toyota bZ4X Touring",
+      "batteryKwh": 82.0,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "vayve-mobility-eva",
       "label": "Vayve Mobility Eva",
       "batteryKwh": 20.0,
@@ -17522,7 +17533,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 3409,
+      "priceUsd": 3400,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17567,7 +17578,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 18137,
+      "priceUsd": 18085,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17588,7 +17599,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 22963,
+      "priceUsd": 22897,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {

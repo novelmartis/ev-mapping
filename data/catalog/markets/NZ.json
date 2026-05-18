@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-17T04:37:53Z",
+  "generatedAt": "2026-05-17T14:21:31Z",
   "market": "NZ",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "afdc.energy.gov",
-    "asean-native-seed",
-    "cardekho.com",
-    "eu-native-seed",
     "fueleconomy.gov",
+    "afdc.energy.gov",
+    "cardekho.com",
     "greenvehicleguide.gov.au",
+    "eu-native-seed",
+    "asean-native-seed",
     "jpkr-native-seed",
-    "manual-presets",
-    "row-native-seed"
+    "row-native-seed",
+    "manual-presets"
   ],
   "count": 334,
   "stats": {
     "total": 334,
-    "priced": 49,
-    "priceCoverage": 0.1467,
+    "priced": 3,
+    "priceCoverage": 0.009,
     "markets": {
       "AU": 334,
       "CA": 331,
@@ -67,8 +67,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 58200,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -97,8 +95,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 58200,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -575,8 +571,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 88500,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -1787,8 +1781,6 @@
         "NZ",
         "KR"
       ],
-      "priceUsd": 59290,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -1901,8 +1893,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 66100,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -1931,8 +1921,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 41800,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -1989,8 +1977,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 41800,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2131,8 +2117,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 37750,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2217,8 +2201,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 33550,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2387,8 +2369,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 69900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2445,8 +2425,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 59200,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2475,8 +2453,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 54900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2505,8 +2481,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 39600,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2743,8 +2717,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 77900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2773,8 +2745,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 74900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2859,8 +2829,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 85900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2889,8 +2857,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 85900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -2919,8 +2885,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 107400,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -3033,8 +2997,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 127350,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -3091,8 +3053,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 179900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -3175,8 +3135,6 @@
         "NZ",
         "JP"
       ],
-      "priceUsd": 39590,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -3204,8 +3162,6 @@
         "NZ",
         "JP"
       ],
-      "priceUsd": 39590,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -3287,8 +3243,6 @@
         "NZ",
         "JP"
       ],
-      "priceUsd": 39590,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -3316,8 +3270,6 @@
         "NZ",
         "JP"
       ],
-      "priceUsd": 28140,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -3592,8 +3544,6 @@
         "AU",
         "NZ"
       ],
-      "priceUsd": 54900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -3613,8 +3563,6 @@
         "AU",
         "NZ"
       ],
-      "priceUsd": 54900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -4216,8 +4164,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 59995,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -4246,8 +4192,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 59995,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -4780,8 +4724,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 58200,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -4810,8 +4752,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 58200,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -6093,8 +6033,6 @@
         "NZ",
         "KR"
       ],
-      "priceUsd": 59290,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -6207,8 +6145,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 66100,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -6237,8 +6173,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 41800,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -6295,8 +6229,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 41800,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -6577,8 +6509,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 69900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -6635,8 +6565,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 59200,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -6665,8 +6593,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 54900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -6695,8 +6621,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 39600,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -7045,8 +6969,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 107400,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -7131,8 +7053,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 127350,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -7161,8 +7081,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 179900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -7218,8 +7136,6 @@
         "NZ",
         "JP"
       ],
-      "priceUsd": 39590,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -7301,8 +7217,6 @@
         "NZ",
         "JP"
       ],
-      "priceUsd": 39590,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -7525,8 +7439,6 @@
         "AU",
         "NZ"
       ],
-      "priceUsd": 54900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -7565,8 +7477,6 @@
         "AU",
         "NZ"
       ],
-      "priceUsd": 54900,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {
@@ -8517,8 +8427,6 @@
         "JP",
         "KR"
       ],
-      "priceUsd": 36245,
-      "priceSource": "afdc.energy.gov",
       "source": "fueleconomy.gov"
     },
     {

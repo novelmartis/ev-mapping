@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T16:40:11Z",
+  "generatedAt": "2026-05-28T05:16:04Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 714,
+  "count": 713,
   "stats": {
-    "total": 714,
+    "total": 713,
     "priced": 4,
     "priceCoverage": 0.0056,
     "markets": {
-      "AU": 714,
+      "AU": 713,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -9467,17 +9467,6 @@
       "label": "BYD EM2E DOLPHIN Dynamic",
       "batteryKwh": 51.7,
       "efficiency": 12.6,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "byd-em2e-dolphin-performance",
-      "label": "BYD EM2E DOLPHIN PERFORMANCE",
-      "batteryKwh": 69.6,
-      "efficiency": 14.2,
       "reserve": 10,
       "markets": [
         "AU"

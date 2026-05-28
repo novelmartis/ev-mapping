@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T05:16:04Z",
+  "generatedAt": "2026-05-28T16:48:01Z",
   "market": "TH",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,32 +13,32 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 303,
+  "count": 304,
   "stats": {
-    "total": 303,
-    "priced": 23,
-    "priceCoverage": 0.0759,
+    "total": 304,
+    "priced": 24,
+    "priceCoverage": 0.0789,
     "markets": {
       "AU": 280,
       "CA": 280,
-      "CN": 291,
+      "CN": 292,
       "DE": 265,
-      "EG": 291,
-      "ID": 298,
-      "IN": 11,
+      "EG": 292,
+      "ID": 299,
+      "IN": 12,
       "JP": 280,
       "KR": 249,
-      "LK": 10,
-      "MA": 291,
-      "MY": 303,
+      "LK": 11,
+      "MA": 292,
+      "MY": 304,
       "NZ": 280,
-      "PH": 294,
-      "SG": 283,
-      "TH": 303,
+      "PH": 295,
+      "SG": 284,
+      "TH": 304,
       "TR": 280,
       "US": 280,
-      "VN": 296,
-      "ZA": 291
+      "VN": 297,
+      "ZA": 292
     },
     "marketCount": 20
   },
@@ -8101,6 +8101,38 @@
       ],
       "priceUsd": 36500,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "kia-carens-clavis-ev",
+      "label": "Kia Carens Clavis EV",
+      "batteryKwh": 51.4,
+      "efficiency": 10.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 18800,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1799000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-05-28"
+        }
+      },
+      "source": "cardekho.com"
     },
     {
       "id": "kia-ev5-asean",

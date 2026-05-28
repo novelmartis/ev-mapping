@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T05:16:04Z",
+  "generatedAt": "2026-05-28T16:48:01Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -21,24 +21,24 @@
     "markets": {
       "AU": 713,
       "CA": 537,
-      "CN": 291,
+      "CN": 292,
       "DE": 343,
-      "EG": 319,
-      "ID": 299,
+      "EG": 320,
+      "ID": 300,
       "IN": 25,
       "JP": 312,
       "KR": 268,
       "LK": 20,
-      "MA": 318,
-      "MY": 304,
+      "MA": 319,
+      "MY": 305,
       "NZ": 334,
-      "PH": 294,
-      "SG": 289,
-      "TH": 303,
+      "PH": 295,
+      "SG": 290,
+      "TH": 304,
       "TR": 311,
       "US": 634,
-      "VN": 298,
-      "ZA": 320
+      "VN": 299,
+      "ZA": 321
     },
     "marketCount": 20
   },
@@ -14324,6 +14324,38 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "kia-carens-clavis-ev",
+      "label": "Kia Carens Clavis EV",
+      "batteryKwh": 51.4,
+      "efficiency": 10.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 18800,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1799000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-05-28"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "kia-ev3-kr",
       "label": "Kia EV3",
       "batteryKwh": 81.4,
@@ -16943,28 +16975,6 @@
       "marketPrices": {
         "IN": {
           "amount": 969000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-05-28"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "tata-tiago-ev",
-      "label": "Tata Tiago EV",
-      "batteryKwh": 24.0,
-      "efficiency": 10.0,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "LK"
-      ],
-      "priceUsd": 8350,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 799000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-05-28"

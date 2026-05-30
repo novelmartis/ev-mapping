@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T05:15:31Z",
+  "generatedAt": "2026-05-29T16:35:39Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1097,
+  "count": 1102,
   "stats": {
-    "total": 1097,
+    "total": 1102,
     "priced": 85,
-    "priceCoverage": 0.0775,
+    "priceCoverage": 0.0771,
     "markets": {
-      "AU": 713,
+      "AU": 718,
       "CA": 537,
       "CN": 291,
       "DE": 343,
@@ -12355,8 +12355,41 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "audi-my26-q6-e-tron",
+      "label": "Audi MY26 Q6 e-tron",
+      "batteryKwh": 84.8,
+      "efficiency": 18.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-my26-q6-e-tron-sportback",
+      "label": "Audi MY26 Q6 e-tron Sportback",
+      "batteryKwh": 85.3,
+      "efficiency": 17.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "audi-my26-sq6-e-tron",
       "label": "Audi MY26 SQ6 e-tron",
+      "batteryKwh": 104.5,
+      "efficiency": 17.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "audi-my26-sq6-e-tron-sportback",
+      "label": "Audi MY26 SQ6 e-tron Sportback",
       "batteryKwh": 104.5,
       "efficiency": 17.9,
       "reserve": 10,
@@ -13023,7 +13056,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 214225,
+      "priceUsd": 215865,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13055,7 +13088,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53713,
+      "priceUsd": 54124,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13287,7 +13320,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 42845,
+      "priceUsd": 43173,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13356,7 +13389,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 51623,
+      "priceUsd": 52018,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14002,7 +14035,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18831,
+      "priceUsd": 18975,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14515,7 +14548,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 68939,
+      "priceUsd": 69466,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14802,7 +14835,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7837,
+      "priceUsd": 7898,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14834,7 +14867,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 78375,
+      "priceUsd": 78975,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15009,7 +15042,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 74090,
+      "priceUsd": 74658,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15195,7 +15228,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14630,
+      "priceUsd": 14742,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15453,7 +15486,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 16187,
+      "priceUsd": 16311,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15474,7 +15507,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 16710,
+      "priceUsd": 16837,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16872,7 +16905,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 17755,
+      "priceUsd": 17890,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16894,7 +16927,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 22457,
+      "priceUsd": 22629,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16916,7 +16949,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13052,
+      "priceUsd": 13152,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16938,7 +16971,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10126,
+      "priceUsd": 10204,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16960,7 +16993,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 7305,
+      "priceUsd": 7360,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16982,7 +17015,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13052,
+      "priceUsd": 13152,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17384,11 +17417,11 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18810,
+      "priceUsd": 24851,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
-          "amount": 1800000,
+          "amount": 2360000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-05-29"
@@ -17439,7 +17472,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 3396,
+      "priceUsd": 3422,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17484,7 +17517,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 18068,
+      "priceUsd": 18206,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17505,7 +17538,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 22875,
+      "priceUsd": 23050,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17546,6 +17579,17 @@
       "label": "Volkswagen MY25 ID. Buzz Cargo VAN SWB 210KW",
       "batteryKwh": 87.5,
       "efficiency": 20.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my25-id-buzz-gtx-250kw",
+      "label": "Volkswagen MY25 ID. Buzz GTX 250KW",
+      "batteryKwh": 95.4,
+      "efficiency": 21.2,
       "reserve": 10,
       "markets": [
         "AU"
@@ -17601,6 +17645,17 @@
       "label": "Volkswagen MY25 ID.5 PRO 210KW",
       "batteryKwh": 88.0,
       "efficiency": 16.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volkswagen-my26-id-buzz-gtx-250kw",
+      "label": "Volkswagen MY26 ID. Buzz GTX 250KW",
+      "batteryKwh": 95.4,
+      "efficiency": 21.2,
       "reserve": 10,
       "markets": [
         "AU"

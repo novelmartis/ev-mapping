@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T05:27:38Z",
+  "generatedAt": "2026-06-07T14:35:52Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 718,
+  "count": 720,
   "stats": {
-    "total": 718,
+    "total": 720,
     "priced": 4,
     "priceCoverage": 0.0056,
     "markets": {
-      "AU": 718,
+      "AU": 720,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -10560,6 +10560,28 @@
       "label": "Leapmotor C10 Style/Design BEV",
       "batteryKwh": 79.7,
       "efficiency": 16.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "lexus-es-350e",
+      "label": "Lexus ES 350e",
+      "batteryKwh": 83.6,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "lexus-es-500e",
+      "label": "Lexus ES 500e",
+      "batteryKwh": 83.2,
+      "efficiency": 17.9,
       "reserve": 10,
       "markets": [
         "AU"

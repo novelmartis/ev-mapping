@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T05:35:04Z",
+  "generatedAt": "2026-06-08T16:43:18Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1105,
+  "count": 1109,
   "stats": {
-    "total": 1105,
+    "total": 1109,
     "priced": 86,
-    "priceCoverage": 0.0778,
+    "priceCoverage": 0.0775,
     "markets": {
-      "AU": 720,
+      "AU": 724,
       "CA": 537,
       "CN": 291,
       "DE": 343,
@@ -12379,8 +12379,8 @@
     {
       "id": "audi-my26-sq6-e-tron",
       "label": "Audi MY26 SQ6 e-tron",
-      "batteryKwh": 104.5,
-      "efficiency": 17.9,
+      "batteryKwh": 104.1,
+      "efficiency": 18.4,
       "reserve": 10,
       "markets": [
         "AU"
@@ -13056,7 +13056,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 215865,
+      "priceUsd": 214225,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13088,7 +13088,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54124,
+      "priceUsd": 53713,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13320,7 +13320,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43173,
+      "priceUsd": 42845,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13389,7 +13389,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52018,
+      "priceUsd": 51623,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13482,7 +13482,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 13584,
+      "priceUsd": 13480,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13810,6 +13810,28 @@
       "source": "row-native-seed"
     },
     {
+      "id": "gwm-ora-5-hatch",
+      "label": "GWM Ora 5 Hatch",
+      "batteryKwh": 67.4,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "gwm-ora-5-suv",
+      "label": "GWM Ora 5 SUV",
+      "batteryKwh": 67.4,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "gwm-ora-extended-range",
       "label": "GWM Ora Extended Range",
       "batteryKwh": 69.3,
@@ -14056,7 +14078,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18975,
+      "priceUsd": 18831,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14569,7 +14591,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69466,
+      "priceUsd": 68939,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14878,7 +14900,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7898,
+      "priceUsd": 7837,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -14910,7 +14932,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 78975,
+      "priceUsd": 78375,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15085,7 +15107,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 74658,
+      "priceUsd": 74090,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15271,7 +15293,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14742,
+      "priceUsd": 14630,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15529,7 +15551,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 16311,
+      "priceUsd": 16187,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15550,7 +15572,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 16837,
+      "priceUsd": 16710,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -15645,6 +15667,28 @@
       "label": "Mercedes-Benz 465 G Class G580",
       "batteryKwh": 131.0,
       "efficiency": 23.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-c174-cla-200-electric",
+      "label": "Mercedes-Benz C174 CLA 200 Electric",
+      "batteryKwh": 67.7,
+      "efficiency": 14.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-c174-cla-350-4matic-electric",
+      "label": "Mercedes-Benz C174 CLA 350 4MATIC Electric",
+      "batteryKwh": 98.8,
+      "efficiency": 14.9,
       "reserve": 10,
       "markets": [
         "AU"
@@ -16948,7 +16992,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 17890,
+      "priceUsd": 17755,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16970,7 +17014,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 22629,
+      "priceUsd": 22457,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -16992,7 +17036,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13152,
+      "priceUsd": 13052,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17014,7 +17058,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10204,
+      "priceUsd": 10126,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17036,7 +17080,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 7360,
+      "priceUsd": 7305,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17058,7 +17102,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13152,
+      "priceUsd": 13052,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17460,7 +17504,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 24851,
+      "priceUsd": 24662,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17515,7 +17559,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 3422,
+      "priceUsd": 3396,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17560,7 +17604,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 18206,
+      "priceUsd": 18068,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -17581,7 +17625,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 23050,
+      "priceUsd": 22875,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {

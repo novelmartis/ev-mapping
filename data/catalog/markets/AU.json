@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T05:35:04Z",
+  "generatedAt": "2026-06-08T16:43:18Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 720,
+  "count": 724,
   "stats": {
-    "total": 720,
+    "total": 724,
     "priced": 4,
-    "priceCoverage": 0.0056,
+    "priceCoverage": 0.0055,
     "markets": {
-      "AU": 720,
+      "AU": 724,
       "CA": 331,
       "CN": 280,
       "DE": 291,
@@ -8761,8 +8761,8 @@
     {
       "id": "audi-my26-sq6-e-tron",
       "label": "Audi MY26 SQ6 e-tron",
-      "batteryKwh": 104.5,
-      "efficiency": 17.9,
+      "batteryKwh": 104.1,
+      "efficiency": 18.4,
       "reserve": 10,
       "markets": [
         "AU"
@@ -9843,6 +9843,28 @@
       "label": "Ford Mach-E Select LFP RWD",
       "batteryKwh": 87.4,
       "efficiency": 18.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "gwm-ora-5-hatch",
+      "label": "GWM Ora 5 Hatch",
+      "batteryKwh": 67.4,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "gwm-ora-5-suv",
+      "label": "GWM Ora 5 SUV",
+      "batteryKwh": 67.4,
+      "efficiency": 15.5,
       "reserve": 10,
       "markets": [
         "AU"
@@ -11176,6 +11198,28 @@
       "label": "Mercedes-Benz 465 G Class G580",
       "batteryKwh": 131.0,
       "efficiency": 23.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-c174-cla-200-electric",
+      "label": "Mercedes-Benz C174 CLA 200 Electric",
+      "batteryKwh": 67.7,
+      "efficiency": 14.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "mercedes-benz-c174-cla-350-4matic-electric",
+      "label": "Mercedes-Benz C174 CLA 350 4MATIC Electric",
+      "batteryKwh": 98.8,
+      "efficiency": 14.9,
       "reserve": 10,
       "markets": [
         "AU"

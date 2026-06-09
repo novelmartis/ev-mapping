@@ -1,44 +1,43 @@
 {
-  "generatedAt": "2026-06-09T05:05:13Z",
+  "generatedAt": "2026-06-09T15:41:34Z",
   "market": "PH",
-  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
-    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 294,
+  "count": 295,
   "stats": {
-    "total": 294,
-    "priced": 14,
-    "priceCoverage": 0.0476,
+    "total": 295,
+    "priced": 15,
+    "priceCoverage": 0.0508,
     "markets": {
       "AU": 280,
       "CA": 280,
-      "CN": 291,
+      "CN": 292,
       "DE": 265,
-      "EG": 291,
-      "ID": 294,
-      "IN": 11,
+      "EG": 292,
+      "ID": 295,
+      "IN": 12,
       "JP": 280,
       "KR": 249,
-      "LK": 10,
-      "MA": 291,
-      "MY": 294,
+      "LK": 11,
+      "MA": 292,
+      "MY": 295,
       "NZ": 280,
-      "PH": 294,
-      "SG": 278,
-      "TH": 294,
+      "PH": 295,
+      "SG": 279,
+      "TH": 295,
       "TR": 280,
       "US": 280,
-      "VN": 294,
-      "ZA": 291
+      "VN": 295,
+      "ZA": 292
     },
     "marketCount": 20
   },
@@ -7842,7 +7841,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 214225,
+      "priceUsd": 215045,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7874,7 +7873,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53713,
+      "priceUsd": 53919,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7940,7 +7939,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 42845,
+      "priceUsd": 43009,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7972,7 +7971,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 51623,
+      "priceUsd": 51821,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8004,7 +8003,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18831,
+      "priceUsd": 18903,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8036,7 +8035,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 68939,
+      "priceUsd": 69203,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8068,7 +8067,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7837,
+      "priceUsd": 7867,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8100,7 +8099,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 78375,
+      "priceUsd": 78675,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8132,7 +8131,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 74090,
+      "priceUsd": 74374,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8164,11 +8163,43 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14630,
+      "priceUsd": 14686,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1400000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-06-09"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-zs-ev",
+      "label": "MG ZS EV",
+      "batteryKwh": 50.3,
+      "efficiency": 10.9,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 18872,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-06-09"
@@ -8211,7 +8242,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 24662,
+      "priceUsd": 24756,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {

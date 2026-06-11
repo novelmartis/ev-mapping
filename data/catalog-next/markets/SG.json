@@ -1,43 +1,44 @@
 {
-  "generatedAt": "2026-06-11T05:18:04Z",
+  "generatedAt": "2026-06-11T16:46:33Z",
   "market": "SG",
-  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
+    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 290,
+  "count": 289,
   "stats": {
-    "total": 290,
-    "priced": 21,
-    "priceCoverage": 0.0724,
+    "total": 289,
+    "priced": 20,
+    "priceCoverage": 0.0692,
     "markets": {
       "AU": 269,
       "CA": 269,
-      "CN": 276,
+      "CN": 275,
       "DE": 269,
-      "EG": 280,
-      "ID": 280,
-      "IN": 11,
+      "EG": 279,
+      "ID": 279,
+      "IN": 10,
       "JP": 265,
       "KR": 249,
-      "LK": 11,
-      "MA": 280,
-      "MY": 284,
+      "LK": 10,
+      "MA": 279,
+      "MY": 283,
       "NZ": 269,
-      "PH": 279,
-      "SG": 290,
-      "TH": 284,
+      "PH": 278,
+      "SG": 289,
+      "TH": 283,
       "TR": 269,
       "US": 269,
-      "VN": 281,
-      "ZA": 280
+      "VN": 280,
+      "ZA": 279
     },
     "marketCount": 20
   },
@@ -7560,7 +7561,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 215250,
+      "priceUsd": 214020,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7592,7 +7593,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53970,
+      "priceUsd": 53662,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7658,7 +7659,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43050,
+      "priceUsd": 42804,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7690,7 +7691,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 51870,
+      "priceUsd": 51574,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7722,7 +7723,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18921,
+      "priceUsd": 18813,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7799,7 +7800,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69268,
+      "priceUsd": 68873,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7831,7 +7832,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7875,
+      "priceUsd": 7830,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7863,7 +7864,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 78750,
+      "priceUsd": 78300,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7895,7 +7896,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 74445,
+      "priceUsd": 74020,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7927,43 +7928,11 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14700,
+      "priceUsd": 14616,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1400000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-06-11"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "mg-zs-ev",
-      "label": "MG ZS EV",
-      "batteryKwh": 50.3,
-      "efficiency": 10.9,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 18890,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-06-11"

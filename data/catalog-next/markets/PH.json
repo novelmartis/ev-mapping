@@ -1,43 +1,44 @@
 {
-  "generatedAt": "2026-06-14T05:24:28Z",
+  "generatedAt": "2026-06-14T14:49:52Z",
   "market": "PH",
-  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
+    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 294,
+  "count": 293,
   "stats": {
-    "total": 294,
-    "priced": 14,
-    "priceCoverage": 0.0476,
+    "total": 293,
+    "priced": 13,
+    "priceCoverage": 0.0444,
     "markets": {
       "AU": 280,
       "CA": 280,
-      "CN": 291,
+      "CN": 290,
       "DE": 265,
-      "EG": 291,
-      "ID": 294,
-      "IN": 11,
+      "EG": 290,
+      "ID": 293,
+      "IN": 10,
       "JP": 280,
       "KR": 249,
-      "LK": 11,
-      "MA": 291,
-      "MY": 294,
+      "LK": 10,
+      "MA": 290,
+      "MY": 293,
       "NZ": 280,
-      "PH": 294,
-      "SG": 279,
-      "TH": 294,
+      "PH": 293,
+      "SG": 278,
+      "TH": 293,
       "TR": 280,
       "US": 280,
-      "VN": 294,
-      "ZA": 291
+      "VN": 293,
+      "ZA": 290
     },
     "marketCount": 20
   },
@@ -8168,38 +8169,6 @@
       "marketPrices": {
         "IN": {
           "amount": 1400000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-06-14"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "mg-zs-ev",
-      "label": "MG ZS EV",
-      "batteryKwh": 50.3,
-      "efficiency": 10.9,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 18907,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-06-14"

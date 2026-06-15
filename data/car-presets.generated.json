@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-06-14T14:49:52Z",
+  "generatedAt": "2026-06-15T05:47:28Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
-    "cardekho.com",
-    "greenvehicleguide.gov.au",
-    "eu-native-seed",
     "asean-native-seed",
+    "cardekho.com",
+    "eu-native-seed",
+    "fueleconomy.gov",
+    "greenvehicleguide.gov.au",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
-  "count": 1108,
+  "count": 1109,
   "stats": {
-    "total": 1108,
-    "priced": 85,
-    "priceCoverage": 0.0767,
+    "total": 1109,
+    "priced": 86,
+    "priceCoverage": 0.0775,
     "markets": {
       "AU": 724,
       "CA": 537,
@@ -29,7 +29,7 @@
       "JP": 312,
       "KR": 268,
       "LK": 20,
-      "MA": 317,
+      "MA": 318,
       "MY": 303,
       "NZ": 334,
       "PH": 293,
@@ -13174,6 +13174,18 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "byd-atto-3-ma",
+      "label": "BYD Atto 3 (Morocco)",
+      "batteryKwh": 60.5,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "MA"
+      ],
+      "priceUsd": 33800,
+      "source": "row-native-seed"
+    },
+    {
       "id": "byd-dolphin-asean",
       "label": "BYD Dolphin",
       "batteryKwh": 60.5,
@@ -17967,5 +17979,7 @@
       ],
       "source": "greenvehicleguide.gov.au"
     }
-  ]
+  ],
+  "fallbackMode": true,
+  "fallbackReason": "Catalog IN market count too low: 3 < 20.; Catalog LK market count too low: 3 < 10.; India sync error: HTTP Error 403: Forbidden"
 }

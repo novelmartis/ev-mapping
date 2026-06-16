@@ -1,42 +1,41 @@
 {
-  "generatedAt": "2026-06-16T06:04:10Z",
+  "generatedAt": "2026-06-16T17:39:18Z",
   "market": "DE",
-  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
-    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 343,
+  "count": 348,
   "stats": {
-    "total": 343,
+    "total": 348,
     "priced": 10,
-    "priceCoverage": 0.0292,
+    "priceCoverage": 0.0287,
     "markets": {
-      "AU": 291,
-      "CA": 333,
-      "CN": 265,
-      "DE": 343,
-      "EG": 291,
-      "ID": 265,
-      "JP": 265,
-      "KR": 249,
-      "MA": 291,
-      "MY": 265,
-      "NZ": 291,
-      "PH": 265,
-      "SG": 269,
-      "TH": 265,
-      "TR": 291,
-      "US": 333,
-      "VN": 265,
-      "ZA": 291
+      "AU": 292,
+      "CA": 338,
+      "CN": 266,
+      "DE": 348,
+      "EG": 292,
+      "ID": 266,
+      "JP": 266,
+      "KR": 250,
+      "MA": 292,
+      "MY": 266,
+      "NZ": 292,
+      "PH": 266,
+      "SG": 270,
+      "TH": 266,
+      "TR": 292,
+      "US": 338,
+      "VN": 266,
+      "ZA": 292
     },
     "marketCount": 18
   },
@@ -7291,6 +7290,19 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-porsche-macan-4-electric-20in-wheels",
+      "label": "2026 Porsche Macan 4 Electric 20in Wheels",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-porsche-macan-4s-electric",
       "label": "2026 Porsche Macan 4S Electric",
       "batteryKwh": 65.0,
@@ -7306,6 +7318,19 @@
     {
       "id": "2026-porsche-macan-electric",
       "label": "2026 Porsche Macan Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-electric-20in-wheels",
+      "label": "2026 Porsche Macan Electric 20in Wheels",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -7358,6 +7383,32 @@
     {
       "id": "2026-porsche-taycan-4-perf-battery-plus",
       "label": "2026 Porsche Taycan 4 Perf Battery Plus",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-taycan-4-perf-battery-plus-19in-all-season-m-s",
+      "label": "2026 Porsche Taycan 4 Perf Battery Plus 19in All-Season (M+S)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-taycan-4-performance-battery",
+      "label": "2026 Porsche Taycan 4 Performance Battery",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -7540,6 +7591,34 @@
     {
       "id": "2026-tesla-cybertruck-awd",
       "label": "2026 Tesla Cybertruck AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-tesla-cybertruck-dual-motor-awd",
+      "label": "2026 Tesla Cybertruck Dual Motor AWD",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,

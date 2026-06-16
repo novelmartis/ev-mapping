@@ -1,44 +1,43 @@
 {
-  "generatedAt": "2026-06-16T06:04:10Z",
+  "generatedAt": "2026-06-16T17:39:18Z",
   "market": "VN",
-  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
-    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 297,
+  "count": 299,
   "stats": {
-    "total": 297,
-    "priced": 17,
-    "priceCoverage": 0.0572,
+    "total": 299,
+    "priced": 18,
+    "priceCoverage": 0.0602,
     "markets": {
-      "AU": 280,
-      "CA": 280,
-      "CN": 290,
-      "DE": 265,
-      "EG": 290,
-      "ID": 294,
-      "IN": 10,
-      "JP": 280,
-      "KR": 249,
-      "LK": 10,
-      "MA": 290,
-      "MY": 295,
-      "NZ": 280,
-      "PH": 293,
-      "SG": 280,
-      "TH": 295,
-      "TR": 280,
-      "US": 280,
-      "VN": 297,
-      "ZA": 290
+      "AU": 281,
+      "CA": 281,
+      "CN": 292,
+      "DE": 266,
+      "EG": 292,
+      "ID": 296,
+      "IN": 11,
+      "JP": 281,
+      "KR": 250,
+      "LK": 11,
+      "MA": 292,
+      "MY": 297,
+      "NZ": 281,
+      "PH": 295,
+      "SG": 282,
+      "TH": 297,
+      "TR": 281,
+      "US": 281,
+      "VN": 299,
+      "ZA": 292
     },
     "marketCount": 20
   },
@@ -6649,6 +6648,34 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-tesla-cybertruck-dual-motor-awd",
+      "label": "2026 Tesla Cybertruck Dual Motor AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-tesla-cybertruck-long-range-20in-cyber-wheels",
       "label": "2026 Tesla Cybertruck Long Range (20in Cyber wheels)",
       "batteryKwh": 65.0,
@@ -7842,7 +7869,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54278,
+      "priceUsd": 54381,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7908,7 +7935,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43296,
+      "priceUsd": 43378,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7940,7 +7967,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52166,
+      "priceUsd": 52265,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -7972,7 +7999,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19029,
+      "priceUsd": 19065,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8035,7 +8062,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19008,
+      "priceUsd": 19044,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8067,7 +8094,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69664,
+      "priceUsd": 69796,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8099,7 +8126,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 7920,
+      "priceUsd": 7935,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8131,7 +8158,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 79200,
+      "priceUsd": 79350,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8163,7 +8190,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 74870,
+      "priceUsd": 75012,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8195,11 +8222,43 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14784,
+      "priceUsd": 14812,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1400000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-06-16"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-zs-ev",
+      "label": "MG ZS EV",
+      "batteryKwh": 50.3,
+      "efficiency": 10.9,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 19033,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-06-16"

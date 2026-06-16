@@ -1,42 +1,41 @@
 {
-  "generatedAt": "2026-06-16T06:04:10Z",
+  "generatedAt": "2026-06-16T17:39:18Z",
   "market": "US",
-  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
-    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 634,
+  "count": 646,
   "stats": {
-    "total": 634,
+    "total": 646,
     "priced": 0,
     "priceCoverage": 0.0,
     "markets": {
-      "AU": 331,
-      "CA": 534,
-      "CN": 280,
-      "DE": 333,
-      "EG": 306,
-      "ID": 280,
-      "JP": 304,
-      "KR": 262,
-      "MA": 306,
-      "MY": 280,
-      "NZ": 331,
-      "PH": 280,
-      "SG": 269,
-      "TH": 280,
-      "TR": 306,
-      "US": 634,
-      "VN": 280,
-      "ZA": 306
+      "AU": 332,
+      "CA": 539,
+      "CN": 281,
+      "DE": 338,
+      "EG": 307,
+      "ID": 281,
+      "JP": 309,
+      "KR": 263,
+      "MA": 307,
+      "MY": 281,
+      "NZ": 332,
+      "PH": 281,
+      "SG": 270,
+      "TH": 281,
+      "TR": 307,
+      "US": 646,
+      "VN": 281,
+      "ZA": 307
     },
     "marketCount": 18
   },
@@ -8598,6 +8597,17 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-jeep-recon-moab-4wd",
+      "label": "2026 Jeep Recon MOAB 4WD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-jeep-wagoneer-s-awd-falken-tire",
       "label": "2026 Jeep Wagoneer S AWD (Falken tire)",
       "batteryKwh": 65.0,
@@ -8924,6 +8934,54 @@
         "NZ",
         "JP",
         "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-lexus-es-350e-19-inch-wheels",
+      "label": "2026 Lexus ES 350e (19 inch Wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-lexus-es-350e-21-inch-wheels",
+      "label": "2026 Lexus ES 350e (21 inch Wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-lexus-es-500e-awd-19-inch-wheels",
+      "label": "2026 Lexus ES 500e AWD (19 inch Wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-lexus-es-500e-awd-21-inch-wheels",
+      "label": "2026 Lexus ES 500e AWD (21 inch Wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
       ],
       "source": "fueleconomy.gov"
     },
@@ -9256,8 +9314,30 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-maserati-grancabrio-folgore",
+      "label": "2026 Maserati Grancabrio Folgore",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-maserati-grecale-folgore-19-inch-wheels",
       "label": "2026 Maserati Grecale Folgore (19 inch wheels)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-maserati-grecale-folgore-20-inch-wheels",
+      "label": "2026 Maserati Grecale Folgore (20 inch Wheels)",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -10107,6 +10187,19 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-porsche-macan-4-electric-20in-wheels",
+      "label": "2026 Porsche Macan 4 Electric 20in Wheels",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-porsche-macan-4s-electric",
       "label": "2026 Porsche Macan 4S Electric",
       "batteryKwh": 65.0,
@@ -10122,6 +10215,19 @@
     {
       "id": "2026-porsche-macan-electric",
       "label": "2026 Porsche Macan Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-macan-electric-20in-wheels",
+      "label": "2026 Porsche Macan Electric 20in Wheels",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -10174,6 +10280,32 @@
     {
       "id": "2026-porsche-taycan-4-perf-battery-plus",
       "label": "2026 Porsche Taycan 4 Perf Battery Plus",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-taycan-4-perf-battery-plus-19in-all-season-m-s",
+      "label": "2026 Porsche Taycan 4 Perf Battery Plus 19in All-Season (M+S)",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-taycan-4-performance-battery",
+      "label": "2026 Porsche Taycan 4 Performance Battery",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -11084,6 +11216,34 @@
     {
       "id": "2026-tesla-cybertruck-awd",
       "label": "2026 Tesla Cybertruck AWD",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE",
+        "TR",
+        "ZA",
+        "MA",
+        "EG",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH",
+        "AU",
+        "NZ",
+        "JP",
+        "KR"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-tesla-cybertruck-dual-motor-awd",
+      "label": "2026 Tesla Cybertruck Dual Motor AWD",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,

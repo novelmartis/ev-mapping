@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T16:33:02Z",
+  "generatedAt": "2026-06-18T16:12:31Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 725,
+  "count": 728,
   "stats": {
-    "total": 725,
+    "total": 728,
     "priced": 4,
     "priceCoverage": 0.0055,
     "markets": {
-      "AU": 725,
+      "AU": 728,
       "CA": 332,
       "CN": 281,
       "DE": 292,
@@ -9535,6 +9535,17 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "byd-em2e-dolphin-premium",
+      "label": "BYD EM2E DOLPHIN Premium",
+      "batteryKwh": 69.6,
+      "efficiency": 14.2,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "byd-eqe-atto-1-essential",
       "label": "BYD EQE Atto 1 Essential",
       "batteryKwh": 34.1,
@@ -12910,6 +12921,28 @@
       "label": "Volvo EX40 Twin Motor",
       "batteryKwh": 94.1,
       "efficiency": 19.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-ex90-twin",
+      "label": "Volvo EX90 Twin",
+      "batteryKwh": 118.8,
+      "efficiency": 22.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "volvo-ex90-twin-performance",
+      "label": "Volvo EX90 Twin Performance",
+      "batteryKwh": 118.8,
+      "efficiency": 22.8,
       "reserve": 10,
       "markets": [
         "AU"

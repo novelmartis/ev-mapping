@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T04:58:26Z",
+  "generatedAt": "2026-06-26T15:32:32Z",
   "market": "IN",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -164,19 +164,19 @@
       "source": "cardekho.com"
     },
     {
-      "id": "citroen-e-c3x",
-      "label": "Citroen e-C3X",
+      "id": "citroen-e-c3-x",
+      "label": "Citroen e-C3 X",
       "batteryKwh": 29.2,
       "efficiency": 10.0,
       "reserve": 10,
       "markets": [
         "IN"
       ],
-      "priceUsd": 12697,
+      "priceUsd": 7392,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
-          "amount": 1199000,
+          "amount": 698000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-06-26"
@@ -204,11 +204,11 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19083,
+      "priceUsd": 19094,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
-          "amount": 1802000,
+          "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-06-26"

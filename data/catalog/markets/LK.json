@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T04:52:55Z",
+  "generatedAt": "2026-06-25T15:36:05Z",
   "market": "LK",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,17 +13,17 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 19,
+  "count": 18,
   "stats": {
-    "total": 19,
-    "priced": 19,
+    "total": 18,
+    "priced": 18,
     "priceCoverage": 1.0,
     "markets": {
       "CN": 10,
       "EG": 10,
       "ID": 10,
-      "IN": 19,
-      "LK": 19,
+      "IN": 18,
+      "LK": 18,
       "MA": 10,
       "MY": 10,
       "PH": 10,
@@ -55,7 +55,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 216480,
+      "priceUsd": 217095,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -87,7 +87,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54278,
+      "priceUsd": 54433,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -119,7 +119,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43296,
+      "priceUsd": 43419,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -151,7 +151,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52166,
+      "priceUsd": 52315,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -183,7 +183,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 19029,
+      "priceUsd": 19083,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -215,7 +215,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69664,
+      "priceUsd": 69862,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -247,7 +247,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8026,
+      "priceUsd": 8048,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -279,7 +279,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 79200,
+      "priceUsd": 79425,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -311,7 +311,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 74870,
+      "priceUsd": 75083,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -343,7 +343,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14890,
+      "priceUsd": 14932,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -398,28 +398,6 @@
       "source": "manual"
     },
     {
-      "id": "mahindra-xuv400-ev",
-      "label": "Mahindra XUV400 EV",
-      "batteryKwh": 39.4,
-      "efficiency": 10.0,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "LK"
-      ],
-      "priceUsd": 16357,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1549000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-06-25"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
       "id": "tata-curvv-ev",
       "label": "Tata Curvv EV",
       "batteryKwh": 55.0,
@@ -429,7 +407,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 17941,
+      "priceUsd": 17992,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -451,7 +429,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 22693,
+      "priceUsd": 22758,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -473,7 +451,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13189,
+      "priceUsd": 13227,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -495,7 +473,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10233,
+      "priceUsd": 10262,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -517,7 +495,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 7381,
+      "priceUsd": 7402,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {

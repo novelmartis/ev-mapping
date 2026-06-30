@@ -1,35 +1,36 @@
 {
-  "generatedAt": "2026-06-29T16:37:29Z",
+  "generatedAt": "2026-06-30T05:06:05Z",
   "market": "IN",
-  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
+    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 25,
+  "count": 24,
   "stats": {
-    "total": 25,
-    "priced": 25,
+    "total": 24,
+    "priced": 24,
     "priceCoverage": 1.0,
     "markets": {
-      "CN": 11,
-      "EG": 11,
-      "ID": 11,
-      "IN": 25,
+      "CN": 10,
+      "EG": 10,
+      "ID": 10,
+      "IN": 24,
       "LK": 19,
-      "MA": 11,
-      "MY": 11,
-      "PH": 11,
-      "SG": 11,
-      "TH": 11,
-      "VN": 11,
-      "ZA": 11
+      "MA": 10,
+      "MY": 10,
+      "PH": 10,
+      "SG": 10,
+      "TH": 10,
+      "VN": 10,
+      "ZA": 10
     },
     "marketCount": 12
   },
@@ -61,7 +62,7 @@
           "amount": 20500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -93,7 +94,7 @@
           "amount": 5140000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -125,7 +126,7 @@
           "amount": 4100000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -157,28 +158,7 @@
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "citroen-e-c3-x",
-      "label": "Citroen e-C3 X",
-      "batteryKwh": 29.2,
-      "efficiency": 10.0,
-      "reserve": 10,
-      "markets": [
-        "IN"
-      ],
-      "priceUsd": 7385,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 698000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -210,7 +190,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -242,7 +222,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -274,7 +254,7 @@
           "amount": 760000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -306,7 +286,7 @@
           "amount": 7500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -338,7 +318,7 @@
           "amount": 7090000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -370,39 +350,7 @@
           "amount": 1410000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "mg-zs-ev",
-      "label": "MG ZS EV",
-      "batteryKwh": 50.3,
-      "efficiency": 10.9,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 19033,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1799000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -450,6 +398,28 @@
       "source": "manual"
     },
     {
+      "id": "mahindra-xuv400-ev",
+      "label": "Mahindra XUV400 EV",
+      "batteryKwh": 39.4,
+      "efficiency": 10.0,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "LK"
+      ],
+      "priceUsd": 16388,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1549000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-06-30"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "maruti-suzuki-e-vitara",
       "label": "Maruti Suzuki e Vitara",
       "batteryKwh": 61.0,
@@ -465,7 +435,7 @@
           "amount": 1599000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -486,7 +456,7 @@
           "amount": 479000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -508,7 +478,7 @@
           "amount": 1699000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -530,7 +500,7 @@
           "amount": 2149000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -552,7 +522,7 @@
           "amount": 1249000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -574,7 +544,7 @@
           "amount": 969000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -596,7 +566,7 @@
           "amount": 699000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -617,7 +587,7 @@
           "amount": 325000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -638,7 +608,7 @@
           "amount": 1729000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"
@@ -659,7 +629,7 @@
           "amount": 2189000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-06-29"
+          "updatedAt": "2026-06-30"
         }
       },
       "source": "cardekho.com"

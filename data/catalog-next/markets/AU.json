@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T15:19:08Z",
+  "generatedAt": "2026-07-01T05:25:01Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 728,
+  "count": 727,
   "stats": {
-    "total": 728,
+    "total": 727,
     "priced": 4,
     "priceCoverage": 0.0055,
     "markets": {
-      "AU": 728,
+      "AU": 727,
       "CA": 332,
       "CN": 281,
       "DE": 292,
@@ -10197,6 +10197,17 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
+      "id": "hyundai-staria-load-ev",
+      "label": "Hyundai Staria Load EV",
+      "batteryKwh": 93.2,
+      "efficiency": 20.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "jaecoo-2026-j5-ev-155kw-58-9kwh-summit",
       "label": "Jaecoo 2026 J5 EV 155kW 58.9kWh (Summit)",
       "batteryKwh": 64.1,
@@ -12147,32 +12158,10 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
-      "id": "skoda-my25-elroq-210kw-select",
-      "label": "Skoda MY25 Elroq 210KW SELECT",
-      "batteryKwh": 89.6,
-      "efficiency": 16.6,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
       "id": "skoda-my25-elroq-210kw-sportline",
       "label": "Skoda MY25 Elroq 210KW SPORTLINE",
       "batteryKwh": 89.6,
       "efficiency": 16.6,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "skoda-my25-enyaq-coupe-sportline",
-      "label": "Skoda MY25 Enyaq Coupe SportLine",
-      "batteryKwh": 89.2,
-      "efficiency": 15.9,
       "reserve": 10,
       "markets": [
         "AU"

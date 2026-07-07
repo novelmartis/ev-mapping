@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T05:13:54Z",
+  "generatedAt": "2026-07-06T16:12:12Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 728,
+  "count": 733,
   "stats": {
-    "total": 728,
+    "total": 733,
     "priced": 4,
     "priceCoverage": 0.0055,
     "markets": {
-      "AU": 728,
+      "AU": 733,
       "CA": 332,
       "CN": 281,
       "DE": 292,
@@ -12239,6 +12239,61 @@
       "label": "Skoda MY26 Enyaq SUV Sportline",
       "batteryKwh": 87.1,
       "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my27-enyaq-coupe-rs",
+      "label": "Skoda MY27 Enyaq Coupe RS",
+      "batteryKwh": 89.7,
+      "efficiency": 16.1,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my27-enyaq-coupe-sportline",
+      "label": "Skoda MY27 Enyaq Coupe SportLine",
+      "batteryKwh": 88.7,
+      "efficiency": 15.7,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my27-enyaq-suv-60-select",
+      "label": "Skoda MY27 Enyaq SUV 60 Select",
+      "batteryKwh": 68.5,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my27-enyaq-suv-rs",
+      "label": "Skoda MY27 Enyaq SUV RS",
+      "batteryKwh": 90.1,
+      "efficiency": 16.5,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "skoda-my27-enyaq-suv-sportline",
+      "label": "Skoda MY27 Enyaq SUV Sportline",
+      "batteryKwh": 89.3,
+      "efficiency": 16.2,
       "reserve": 10,
       "markets": [
         "AU"

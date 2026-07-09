@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-08T14:55:34Z",
+  "generatedAt": "2026-07-09T04:50:03Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 733,
+  "count": 736,
   "stats": {
-    "total": 733,
+    "total": 736,
     "priced": 4,
-    "priceCoverage": 0.0055,
+    "priceCoverage": 0.0054,
     "markets": {
-      "AU": 733,
+      "AU": 736,
       "CA": 332,
       "CN": 281,
       "DE": 292,
@@ -12414,6 +12414,39 @@
       "id": "subaru-my26-solterra-awd-touring",
       "label": "Subaru MY26 Solterra AWD Touring",
       "batteryKwh": 82.7,
+      "efficiency": 16.0,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "subaru-my26-trailseeker-awd",
+      "label": "Subaru MY26 Trailseeker AWD",
+      "batteryKwh": 82.1,
+      "efficiency": 15.4,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "subaru-my26-trailseeker-awd-touring",
+      "label": "Subaru MY26 Trailseeker AWD Touring",
+      "batteryKwh": 82.0,
+      "efficiency": 16.8,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "subaru-my26-uncharted-awd",
+      "label": "Subaru MY26 Uncharted AWD",
+      "batteryKwh": 83.5,
       "efficiency": 16.0,
       "reserve": 10,
       "markets": [

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T16:04:43Z",
+  "generatedAt": "2026-07-10T15:17:46Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 736,
+  "count": 737,
   "stats": {
-    "total": 736,
+    "total": 737,
     "priced": 4,
     "priceCoverage": 0.0054,
     "markets": {
-      "AU": 736,
+      "AU": 737,
       "CA": 332,
       "CN": 281,
       "DE": 292,
@@ -10023,8 +10023,8 @@
     {
       "id": "genesis-gv70-electrified",
       "label": "Genesis GV70 Electrified",
-      "batteryKwh": 88.6,
-      "efficiency": 19.9,
+      "batteryKwh": 92.4,
+      "efficiency": 20.0,
       "reserve": 10,
       "markets": [
         "AU"
@@ -10179,6 +10179,17 @@
       "label": "Hyundai IONIQ6 LRG Range 20 inch",
       "batteryKwh": 87.7,
       "efficiency": 16.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "hyundai-ioniq6-n",
+      "label": "Hyundai IONIQ6 N",
+      "batteryKwh": 91.1,
+      "efficiency": 18.7,
       "reserve": 10,
       "markets": [
         "AU"

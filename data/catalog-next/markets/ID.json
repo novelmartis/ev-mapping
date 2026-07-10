@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T16:04:43Z",
+  "generatedAt": "2026-07-10T04:44:19Z",
   "market": "ID",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,32 +13,32 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 299,
+  "count": 298,
   "stats": {
-    "total": 299,
-    "priced": 18,
-    "priceCoverage": 0.0602,
+    "total": 298,
+    "priced": 17,
+    "priceCoverage": 0.057,
     "markets": {
       "AU": 281,
       "CA": 281,
-      "CN": 291,
+      "CN": 290,
       "DE": 266,
-      "EG": 291,
-      "ID": 299,
-      "IN": 10,
+      "EG": 290,
+      "ID": 298,
+      "IN": 9,
       "JP": 281,
       "KR": 250,
-      "LK": 10,
-      "MA": 291,
-      "MY": 298,
+      "LK": 9,
+      "MA": 290,
+      "MY": 297,
       "NZ": 281,
-      "PH": 294,
-      "SG": 280,
-      "TH": 298,
+      "PH": 293,
+      "SG": 279,
+      "TH": 297,
       "TR": 281,
       "US": 281,
-      "VN": 295,
-      "ZA": 291
+      "VN": 294,
+      "ZA": 290
     },
     "marketCount": 20
   },
@@ -7851,38 +7851,6 @@
       "source": "fueleconomy.gov"
     },
     {
-      "id": "bmw-i7",
-      "label": "BMW i7",
-      "batteryKwh": 101.7,
-      "efficiency": 16.3,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 214840,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 20500000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
       "id": "bmw-ix1",
       "label": "BMW iX1",
       "batteryKwh": 66.4,
@@ -7909,7 +7877,7 @@
           "amount": 5140000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"
@@ -7975,7 +7943,7 @@
           "amount": 4150000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"
@@ -8007,7 +7975,7 @@
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"
@@ -8067,7 +8035,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"
@@ -8115,7 +8083,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"
@@ -8147,7 +8115,7 @@
           "amount": 780000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"
@@ -8179,7 +8147,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"
@@ -8211,7 +8179,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"
@@ -8243,7 +8211,7 @@
           "amount": 1410000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-09"
+          "updatedAt": "2026-07-10"
         }
       },
       "source": "cardekho.com"

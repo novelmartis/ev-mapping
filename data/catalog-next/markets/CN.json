@@ -1,11 +1,12 @@
 {
-  "generatedAt": "2026-07-15T14:39:30Z",
+  "generatedAt": "2026-07-16T04:10:21Z",
   "market": "CN",
-  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
+    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
@@ -7876,7 +7877,7 @@
           "amount": 5140000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -7908,7 +7909,7 @@
           "amount": 4150000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -7940,7 +7941,7 @@
           "amount": 4940000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -7972,7 +7973,39 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "kia-carens-clavis-ev",
+      "label": "Kia Carens Clavis EV",
+      "batteryKwh": 51.4,
+      "efficiency": 10.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 18702,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1800000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -8004,7 +8037,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -8036,7 +8069,7 @@
           "amount": 1300000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -8068,7 +8101,7 @@
           "amount": 780000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -8100,7 +8133,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -8132,7 +8165,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"
@@ -8164,39 +8197,7 @@
           "amount": 1410000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "mg-zs-ev",
-      "label": "MG ZS EV",
-      "batteryKwh": 50.3,
-      "efficiency": 10.9,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 18692,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 1799000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-07-15"
+          "updatedAt": "2026-07-16"
         }
       },
       "source": "cardekho.com"

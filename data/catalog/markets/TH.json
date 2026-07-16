@@ -1,44 +1,43 @@
 {
-  "generatedAt": "2026-07-15T03:55:09Z",
+  "generatedAt": "2026-07-15T14:39:30Z",
   "market": "TH",
-  "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
+  "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
     "afdc.energy.gov",
     "cardekho.com",
-    "greenvehicleguide.gov.au",
     "eu-native-seed",
     "asean-native-seed",
     "jpkr-native-seed",
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 302,
+  "count": 304,
   "stats": {
-    "total": 302,
-    "priced": 21,
-    "priceCoverage": 0.0695,
+    "total": 304,
+    "priced": 23,
+    "priceCoverage": 0.0757,
     "markets": {
       "AU": 281,
       "CA": 281,
-      "CN": 290,
+      "CN": 292,
       "DE": 266,
-      "EG": 290,
-      "ID": 297,
-      "IN": 9,
+      "EG": 292,
+      "ID": 299,
+      "IN": 11,
       "JP": 281,
       "KR": 250,
-      "LK": 9,
-      "MA": 290,
-      "MY": 302,
+      "LK": 11,
+      "MA": 292,
+      "MY": 304,
       "NZ": 281,
-      "PH": 293,
-      "SG": 283,
-      "TH": 302,
+      "PH": 295,
+      "SG": 285,
+      "TH": 304,
       "TR": 281,
       "US": 281,
-      "VN": 295,
-      "ZA": 290
+      "VN": 297,
+      "ZA": 292
     },
     "marketCount": 20
   },
@@ -8145,6 +8144,38 @@
       "source": "cardekho.com"
     },
     {
+      "id": "kia-syros-ev",
+      "label": "Kia Syros EV",
+      "batteryKwh": 51.4,
+      "efficiency": 10.0,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 13507,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1300000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-07-15"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "mg-comet-ev",
       "label": "MG Comet EV",
       "batteryKwh": 20.0,
@@ -8265,6 +8296,38 @@
       "marketPrices": {
         "IN": {
           "amount": 1410000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-07-15"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-zs-ev",
+      "label": "MG ZS EV",
+      "batteryKwh": 50.3,
+      "efficiency": 10.9,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 18692,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-07-15"

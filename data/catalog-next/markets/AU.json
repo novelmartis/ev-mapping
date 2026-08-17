@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T13:19:49Z",
+  "generatedAt": "2026-08-17T02:22:38Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 748,
+  "count": 750,
   "stats": {
-    "total": 748,
+    "total": 750,
     "priced": 4,
     "priceCoverage": 0.0053,
     "markets": {
-      "AU": 748,
+      "AU": 750,
       "CA": 332,
       "CN": 281,
       "DE": 292,
@@ -10676,6 +10676,28 @@
       "label": "LDV eT60 eT60 4x2 Dual Cab Ute",
       "batteryKwh": 88.8,
       "efficiency": 26.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "leapmotor-b05-design-lr",
+      "label": "Leapmotor B05 Design LR",
+      "batteryKwh": 76.6,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "leapmotor-b05-style",
+      "label": "Leapmotor B05 Style",
+      "batteryKwh": 63.4,
+      "efficiency": 15.8,
       "reserve": 10,
       "markets": [
         "AU"

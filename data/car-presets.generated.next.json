@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T02:22:38Z",
+  "generatedAt": "2026-08-17T13:23:16Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1144,
+  "count": 1141,
   "stats": {
-    "total": 1144,
+    "total": 1141,
     "priced": 84,
-    "priceCoverage": 0.0734,
+    "priceCoverage": 0.0736,
     "markets": {
-      "AU": 750,
+      "AU": 747,
       "CA": 542,
       "CN": 292,
       "DE": 348,
@@ -12516,50 +12516,6 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
-      "id": "audi-my26-q6-e-tron",
-      "label": "Audi MY26 Q6 e-tron",
-      "batteryKwh": 84.8,
-      "efficiency": 18.2,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-my26-q6-e-tron-sportback",
-      "label": "Audi MY26 Q6 e-tron Sportback",
-      "batteryKwh": 85.3,
-      "efficiency": 17.3,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-my26-sq6-e-tron",
-      "label": "Audi MY26 SQ6 e-tron",
-      "batteryKwh": 104.1,
-      "efficiency": 18.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-my26-sq6-e-tron-sportback",
-      "label": "Audi MY26 SQ6 e-tron Sportback",
-      "batteryKwh": 104.5,
-      "efficiency": 17.9,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
       "id": "audi-q4-e-tron-45",
       "label": "Audi Q4 e-tron 45",
       "batteryKwh": 91.2,
@@ -13858,6 +13814,17 @@
       ],
       "priceUsd": 24200,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "farizon-supervan-short-wheelbase-standard-roof",
+      "label": "Farizon SUPERVAN Short Wheelbase Standard Roof",
+      "batteryKwh": 91.6,
+      "efficiency": 25.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
     },
     {
       "id": "fiat-500e-42",

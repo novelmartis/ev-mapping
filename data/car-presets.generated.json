@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T13:19:49Z",
+  "generatedAt": "2026-08-17T13:23:16Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 1142,
+  "count": 1141,
   "stats": {
-    "total": 1142,
+    "total": 1141,
     "priced": 84,
     "priceCoverage": 0.0736,
     "markets": {
-      "AU": 748,
+      "AU": 747,
       "CA": 542,
       "CN": 292,
       "DE": 348,
@@ -12516,50 +12516,6 @@
       "source": "greenvehicleguide.gov.au"
     },
     {
-      "id": "audi-my26-q6-e-tron",
-      "label": "Audi MY26 Q6 e-tron",
-      "batteryKwh": 84.8,
-      "efficiency": 18.2,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-my26-q6-e-tron-sportback",
-      "label": "Audi MY26 Q6 e-tron Sportback",
-      "batteryKwh": 85.3,
-      "efficiency": 17.3,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-my26-sq6-e-tron",
-      "label": "Audi MY26 SQ6 e-tron",
-      "batteryKwh": 104.1,
-      "efficiency": 18.4,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
-      "id": "audi-my26-sq6-e-tron-sportback",
-      "label": "Audi MY26 SQ6 e-tron Sportback",
-      "batteryKwh": 104.5,
-      "efficiency": 17.9,
-      "reserve": 10,
-      "markets": [
-        "AU"
-      ],
-      "source": "greenvehicleguide.gov.au"
-    },
-    {
       "id": "audi-q4-e-tron-45",
       "label": "Audi Q4 e-tron 45",
       "batteryKwh": 91.2,
@@ -13224,7 +13180,7 @@
           "amount": 21000000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -13256,7 +13212,7 @@
           "amount": 5240000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -13521,7 +13477,7 @@
           "amount": 4150000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -13590,7 +13546,7 @@
           "amount": 4990000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -13858,6 +13814,17 @@
       ],
       "priceUsd": 24200,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "farizon-supervan-short-wheelbase-standard-roof",
+      "label": "Farizon SUPERVAN Short Wheelbase Standard Roof",
+      "batteryKwh": 91.6,
+      "efficiency": 25.3,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
     },
     {
       "id": "fiat-500e-42",
@@ -14291,7 +14258,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -14826,7 +14793,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -15013,7 +14980,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -15023,6 +14990,28 @@
       "label": "LDV eT60 eT60 4x2 Dual Cab Ute",
       "batteryKwh": 88.8,
       "efficiency": 26.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "leapmotor-b05-design-lr",
+      "label": "Leapmotor B05 Design LR",
+      "batteryKwh": 76.6,
+      "efficiency": 15.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "leapmotor-b05-style",
+      "label": "Leapmotor B05 Style",
+      "batteryKwh": 63.4,
+      "efficiency": 15.8,
       "reserve": 10,
       "markets": [
         "AU"
@@ -15178,7 +15167,7 @@
           "amount": 780000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -15210,7 +15199,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -15385,7 +15374,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -15571,7 +15560,7 @@
           "amount": 1470000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -15828,7 +15817,7 @@
           "amount": 1599000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17380,7 +17369,7 @@
           "amount": 1699000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17402,7 +17391,7 @@
           "amount": 2169000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17424,7 +17413,7 @@
           "amount": 1249000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17446,7 +17435,7 @@
           "amount": 969000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17467,7 +17456,7 @@
           "amount": 1879000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17489,7 +17478,7 @@
           "amount": 699000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17916,7 +17905,7 @@
           "amount": 399000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17961,7 +17950,7 @@
           "amount": 1819000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"
@@ -17982,7 +17971,7 @@
           "amount": 2299000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-16"
+          "updatedAt": "2026-08-17"
         }
       },
       "source": "cardekho.com"

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T02:10:52Z",
+  "generatedAt": "2026-08-19T13:47:42Z",
   "market": "AU",
   "source": "fueleconomy.gov + AFDC + Cardekho + Australia GVG + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -13,13 +13,13 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 747,
+  "count": 750,
   "stats": {
-    "total": 747,
+    "total": 750,
     "priced": 4,
-    "priceCoverage": 0.0054,
+    "priceCoverage": 0.0053,
     "markets": {
-      "AU": 747,
+      "AU": 750,
       "CA": 332,
       "CN": 281,
       "DE": 292,
@@ -8710,6 +8710,28 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "aion-aion-v-luxury",
+      "label": "Aion AION V Luxury",
+      "batteryKwh": 86.4,
+      "efficiency": 14.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "aion-aion-v-premium",
+      "label": "Aion AION V Premium",
+      "batteryKwh": 86.4,
+      "efficiency": 14.9,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
       "id": "alfa-romeo-junior-elettrica",
       "label": "Alfa Romeo Junior Elettrica",
       "batteryKwh": 61.9,
@@ -12206,6 +12228,17 @@
       "label": "Renault Megane E-Tech Techno EV60",
       "batteryKwh": 70.8,
       "efficiency": 15.6,
+      "reserve": 10,
+      "markets": [
+        "AU"
+      ],
+      "source": "greenvehicleguide.gov.au"
+    },
+    {
+      "id": "renault-megane-esprit-alpine",
+      "label": "Renault Megane Esprit Alpine",
+      "batteryKwh": 74.0,
+      "efficiency": 13.7,
       "reserve": 10,
       "markets": [
         "AU"

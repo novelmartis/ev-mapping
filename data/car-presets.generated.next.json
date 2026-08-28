@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-08-27T22:38:29Z",
+  "generatedAt": "2026-08-28T11:41:07Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
+    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "asean-native-seed",
+    "fueleconomy.gov",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
-  "count": 731,
+  "count": 732,
   "stats": {
-    "total": 731,
-    "priced": 85,
-    "priceCoverage": 0.1163,
+    "total": 732,
+    "priced": 86,
+    "priceCoverage": 0.1175,
     "markets": {
       "AU": 336,
       "CA": 542,
@@ -28,7 +28,7 @@
       "JP": 317,
       "KR": 269,
       "LK": 20,
-      "MA": 320,
+      "MA": 321,
       "MY": 306,
       "NZ": 335,
       "PH": 296,
@@ -12479,7 +12479,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 219870,
+      "priceUsd": 220080,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -12511,7 +12511,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54863,
+      "priceUsd": 54915,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -12553,6 +12553,18 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "byd-atto-3-ma",
+      "label": "BYD Atto 3 (Morocco)",
+      "batteryKwh": 60.5,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "MA"
+      ],
+      "priceUsd": 33800,
+      "source": "row-native-seed"
+    },
+    {
       "id": "byd-dolphin-asean",
       "label": "BYD Dolphin",
       "batteryKwh": 60.5,
@@ -12589,7 +12601,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43450,
+      "priceUsd": 43492,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -12658,7 +12670,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43869,
+      "priceUsd": 43911,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -12875,7 +12887,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18877,
+      "priceUsd": 18895,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13025,7 +13037,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69071,
+      "priceUsd": 69137,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13069,7 +13081,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14134,
+      "priceUsd": 14148,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13113,7 +13125,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8167,
+      "priceUsd": 8174,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13145,7 +13157,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 86378,
+      "priceUsd": 86460,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13177,7 +13189,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 83708,
+      "priceUsd": 83788,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13209,7 +13221,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 15391,
+      "priceUsd": 15406,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13241,7 +13253,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18836,
+      "priceUsd": 18854,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13333,7 +13345,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 16951,
+      "priceUsd": 16967,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13565,7 +13577,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 17789,
+      "priceUsd": 17806,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13587,7 +13599,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 22709,
+      "priceUsd": 22731,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13609,7 +13621,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13077,
+      "priceUsd": 13090,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13631,7 +13643,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10145,
+      "priceUsd": 10155,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13652,7 +13664,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 19673,
+      "priceUsd": 19692,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13674,7 +13686,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 7319,
+      "priceUsd": 7326,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13727,7 +13739,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 4178,
+      "priceUsd": 4182,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13772,7 +13784,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 19045,
+      "priceUsd": 19063,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13793,7 +13805,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 24071,
+      "priceUsd": 24094,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13868,5 +13880,7 @@
       "priceUsd": 53700,
       "source": "row-native-seed"
     }
-  ]
+  ],
+  "fallbackMode": true,
+  "fallbackReason": "Catalog US market count too low: 0 < 300.; Catalog CA market count too low: 3 < 120.; Catalog DE market count too low: 10 < 20.; Catalog TR market count too low: 5 < 30.; Catalog ZA market count too low: 15 < 20.; Catalog MA market count too low: 13 < 20.; Catalog EG market count too low: 14 < 20.; Catalog AU market count too low: 4 < 20.; Catalog NZ market count too low: 3 < 20.; Catalog JP marke"
 }

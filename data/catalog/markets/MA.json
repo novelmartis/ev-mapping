@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-08-29T07:22:12Z",
+  "generatedAt": "2026-08-29T16:48:18Z",
   "market": "MA",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
+    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "asean-native-seed",
+    "fueleconomy.gov",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
-  "count": 320,
+  "count": 321,
   "stats": {
-    "total": 320,
-    "priced": 13,
-    "priceCoverage": 0.0406,
+    "total": 321,
+    "priced": 14,
+    "priceCoverage": 0.0436,
     "markets": {
       "AU": 307,
       "CA": 307,
@@ -28,7 +28,7 @@
       "JP": 281,
       "KR": 250,
       "LK": 12,
-      "MA": 320,
+      "MA": 321,
       "MY": 293,
       "NZ": 307,
       "PH": 293,
@@ -8378,6 +8378,18 @@
         }
       },
       "source": "cardekho.com"
+    },
+    {
+      "id": "byd-atto-3-ma",
+      "label": "BYD Atto 3 (Morocco)",
+      "batteryKwh": 60.5,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "MA"
+      ],
+      "priceUsd": 33800,
+      "source": "row-native-seed"
     },
     {
       "id": "byd-seal",

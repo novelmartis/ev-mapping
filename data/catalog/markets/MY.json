@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-08-28T11:41:07Z",
+  "generatedAt": "2026-08-29T07:22:12Z",
   "market": "MY",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
+    "fueleconomy.gov",
     "afdc.energy.gov",
-    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "fueleconomy.gov",
+    "asean-native-seed",
     "jpkr-native-seed",
-    "manual-presets",
-    "row-native-seed"
+    "row-native-seed",
+    "manual-presets"
   ],
   "count": 306,
   "stats": {
@@ -7864,38 +7864,6 @@
       "source": "asean-native-seed"
     },
     {
-      "id": "bmw-i7",
-      "label": "BMW i7",
-      "batteryKwh": 101.7,
-      "efficiency": 16.3,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 220080,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 21000000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
       "id": "bmw-ix1",
       "label": "BMW iX1",
       "batteryKwh": 66.4,
@@ -7922,7 +7890,7 @@
           "amount": 5240000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -7988,7 +7956,7 @@
           "amount": 4150000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8020,7 +7988,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8093,7 +8061,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8170,7 +8138,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8202,7 +8170,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8234,7 +8202,7 @@
           "amount": 780000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8266,7 +8234,39 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-hector-tomahawk-ev",
+      "label": "MG Hector Tomahawk EV",
+      "batteryKwh": 69.2,
+      "efficiency": 13.4,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 20426,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1949000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8298,7 +8298,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8330,7 +8330,7 @@
           "amount": 1470000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"
@@ -8362,7 +8362,7 @@
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-08-27"
+          "updatedAt": "2026-08-29"
         }
       },
       "source": "cardekho.com"

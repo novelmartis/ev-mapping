@@ -1,6 +1,6 @@
 {
-  "catalogVersion": "2026-09-01T05:54:51Z",
-  "generatedAt": "2026-09-01T05:54:51Z",
+  "catalogVersion": "2026-09-01T17:11:40Z",
+  "generatedAt": "2026-09-01T17:11:40Z",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
     "fueleconomy.gov",
@@ -54,147 +54,147 @@
     "AU": {
       "count": 336,
       "file": "./data/catalog-next/markets/AU.json",
-      "sha256": "6712ce17c4feab696d092f302cdb6c0fbfece4f2ce5ec3ce46d57cc08f07746f",
+      "sha256": "4dbe33714a27227a4c355efe805b21071866be778b53ba31b53f87b972aa2eaa",
       "priceCoverage": 0.0119
     },
     "CA": {
       "count": 542,
       "file": "./data/catalog-next/markets/CA.json",
-      "sha256": "d0f2b2c07d60b5c07a0d999a0837d96cca6d3260e9290e6c875e7bacdb1a802f",
+      "sha256": "66a6c1f2ccdaff38f314e2037304b42574b3a32257230b4d1019d7bb9f1fd2a6",
       "priceCoverage": 0.0055
     },
     "CN": {
       "count": 293,
       "file": "./data/catalog-next/markets/CN.json",
-      "sha256": "b4059eccbd2f4557ddc493adcd7301f3882816288785f4dad439f73e88a6b457",
+      "sha256": "20527192a266119dbfa1efcc536dc1b35b73a1db6a66b32074cec96483d3a290",
       "priceCoverage": 0.041
     },
     "DE": {
       "count": 348,
       "file": "./data/catalog-next/markets/DE.json",
-      "sha256": "e996582b3c8e73bb877b6793020e397d1f4ccb442002013c9b624cb80eb7d200",
+      "sha256": "6f777d82e8d0d8e1d9d93dedbf8da02044ca4990972a8923cf8dd46be586eb74",
       "priceCoverage": 0.0287
     },
     "EG": {
       "count": 321,
       "file": "./data/catalog-next/markets/EG.json",
-      "sha256": "12bd3017bf487a34fb88e123e7fd1a4f164c2ef35b9b5cc4d151f2f854b171b0",
+      "sha256": "67ff7d617a4261412e4301b462096ec787dd6733c395cf833136e8dcefae5092",
       "priceCoverage": 0.0436
     },
     "ID": {
       "count": 301,
       "file": "./data/catalog-next/markets/ID.json",
-      "sha256": "111b2538fe406b61ba311c9f436a8c056938ed6ba74a063f0fdc9469c8721f77",
+      "sha256": "71411f10289e7e273b121ec6a17ffc18ff4ce44d206c52aa420a2ab123a38969",
       "priceCoverage": 0.0664
     },
     "IN": {
       "count": 25,
       "file": "./data/catalog-next/markets/IN.json",
-      "sha256": "584b8bf67cf7a6e9f1413db8a48de2ae39fcae5d9c5557d1c914c943d4bb531a",
+      "sha256": "4215914b0479fc2b429f793277d8f9746d6b35259f0e1decf1b296c141418a20",
       "priceCoverage": 1.0
     },
     "JP": {
       "count": 317,
       "file": "./data/catalog-next/markets/JP.json",
-      "sha256": "b0cd61b1b1e6c34b3ad3f2ce5c42dc5af69e859dc123522214aed388be31c82e",
+      "sha256": "db691a630252079b4b4ffda078aac59f365a4663bf05edd0489bea71fca168ce",
       "priceCoverage": 0.0252
     },
     "KR": {
       "count": 269,
       "file": "./data/catalog-next/markets/KR.json",
-      "sha256": "2fd546948a23a80b2b50535d2e4487593b40e253d37f7a1cf7550ef676548bf7",
+      "sha256": "f0e5ae104ab3a1d96ad448735716bcc2c7be9bd5b584c07a5dfc7142b3ef6c62",
       "priceCoverage": 0.0223
     },
     "LK": {
       "count": 20,
       "file": "./data/catalog-next/markets/LK.json",
-      "sha256": "5f53943393345de8004d063835caed158b2e497b892c14263bdea49d819e82fa",
+      "sha256": "2a89c2ef297255d0b8edefc9664514504e918bb69e30ebd08346469905614d9e",
       "priceCoverage": 1.0
     },
     "MA": {
       "count": 320,
       "file": "./data/catalog-next/markets/MA.json",
-      "sha256": "76197be7aee3d6f55f0c8655a6d6eb76c3dea50c6c6cf2e1a9a409973be28f09",
+      "sha256": "25dc555bc4a0576a7357920e67f6c66e0df69531cc4d7bfd05f73327b3a07038",
       "priceCoverage": 0.0406
     },
     "MY": {
       "count": 306,
       "file": "./data/catalog-next/markets/MY.json",
-      "sha256": "84e5e06ed1aa339031ce2d477cb69a881bf5acabfdd5f12aa320cf84b4f57da7",
+      "sha256": "1890339f0f794bd6232045147557e3ec4699d33d58eba321ac350c9c728f3ed4",
       "priceCoverage": 0.0817
     },
     "NZ": {
       "count": 335,
       "file": "./data/catalog-next/markets/NZ.json",
-      "sha256": "3dce44f0671c3d205de72f89035a7e6fdbaec4ffa4a233be1fcddc45e18aada1",
+      "sha256": "7493812b3bb31c4201ee9fa180e786e21faeb636006675699089ef7e2eaadd61",
       "priceCoverage": 0.009
     },
     "PH": {
       "count": 296,
       "file": "./data/catalog-next/markets/PH.json",
-      "sha256": "84fc0dd2aa795954aa107bed4afcab3583eb6ee8843a9e28ca9a7d51d152c2b4",
+      "sha256": "92b60f40467dae32b2d6e7297fa4b14c84b4661a4c907913f9609dd20bbc929a",
       "priceCoverage": 0.0507
     },
     "SG": {
       "count": 292,
       "file": "./data/catalog-next/markets/SG.json",
-      "sha256": "e5229ff0692a9c0b85ceeb3348a9443c1fc9f3c3312b8feb570ade2bc4ebbea6",
+      "sha256": "5584de48236f0776a5a167a0e277a3a4002376c79252a76f6a3da112d7b1b942",
       "priceCoverage": 0.0753
     },
     "TH": {
       "count": 305,
       "file": "./data/catalog-next/markets/TH.json",
-      "sha256": "e4d880fe2d6b7195c242d11581624817338968ae1ec297e8e9492c0d8c129738",
+      "sha256": "d656ca2dc5507a0f0c6abb083e12578e50b25332e960d5555a6b270df0d9868d",
       "priceCoverage": 0.0787
     },
     "TR": {
       "count": 312,
       "file": "./data/catalog-next/markets/TR.json",
-      "sha256": "0628a596bcd5c5d0a28cd79c23440830184c2db0ed025cd7de640a8d05c6cf14",
+      "sha256": "5f119370b1419de3a25888db0c0472285619c2e19954d08a7094ae1a79dd8b5b",
       "priceCoverage": 0.016
     },
     "US": {
       "count": 646,
       "file": "./data/catalog-next/markets/US.json",
-      "sha256": "00523f1d1dafb33aeadb5a0878abd3cddff2bd1b5374000a555abdf795dd3586",
+      "sha256": "18d380cf9402178fd59493398eea181355866c51cbbc58ce33c5007b38d8d758",
       "priceCoverage": 0.0
     },
     "VN": {
       "count": 300,
       "file": "./data/catalog-next/markets/VN.json",
-      "sha256": "acb3a3ffa9caa777dd8fa47cdfe35d424878fc98c1b0b35879e7eccab3cd5643",
+      "sha256": "ae91bbaae0c3c6af7f3eb704bdce07485c0a3155af056fda4e780fdb4211a73f",
       "priceCoverage": 0.0633
     },
     "ZA": {
       "count": 322,
       "file": "./data/catalog-next/markets/ZA.json",
-      "sha256": "44fe69f875c3479451bad5ae5b7def3a84f48c27300dd34c0394140293cb6b12",
+      "sha256": "a90ea8dffefbac57bf4449b1cc476d9e02159f4fd2567ac209bab4157286115a",
       "priceCoverage": 0.0466
     }
   },
   "checksums": {
-    "combined": "5a4143ffd7c94c299d757bcf3c2ce39fc879f7412e987c2dbd8b56b3dbbd83e9",
+    "combined": "3bd5ff9df78001f6392eeda9d1b32ca671debb79f93b8b74bf7410b1291789d5",
     "markets": {
-      "AU": "6712ce17c4feab696d092f302cdb6c0fbfece4f2ce5ec3ce46d57cc08f07746f",
-      "CA": "d0f2b2c07d60b5c07a0d999a0837d96cca6d3260e9290e6c875e7bacdb1a802f",
-      "CN": "b4059eccbd2f4557ddc493adcd7301f3882816288785f4dad439f73e88a6b457",
-      "DE": "e996582b3c8e73bb877b6793020e397d1f4ccb442002013c9b624cb80eb7d200",
-      "EG": "12bd3017bf487a34fb88e123e7fd1a4f164c2ef35b9b5cc4d151f2f854b171b0",
-      "ID": "111b2538fe406b61ba311c9f436a8c056938ed6ba74a063f0fdc9469c8721f77",
-      "IN": "584b8bf67cf7a6e9f1413db8a48de2ae39fcae5d9c5557d1c914c943d4bb531a",
-      "JP": "b0cd61b1b1e6c34b3ad3f2ce5c42dc5af69e859dc123522214aed388be31c82e",
-      "KR": "2fd546948a23a80b2b50535d2e4487593b40e253d37f7a1cf7550ef676548bf7",
-      "LK": "5f53943393345de8004d063835caed158b2e497b892c14263bdea49d819e82fa",
-      "MA": "76197be7aee3d6f55f0c8655a6d6eb76c3dea50c6c6cf2e1a9a409973be28f09",
-      "MY": "84e5e06ed1aa339031ce2d477cb69a881bf5acabfdd5f12aa320cf84b4f57da7",
-      "NZ": "3dce44f0671c3d205de72f89035a7e6fdbaec4ffa4a233be1fcddc45e18aada1",
-      "PH": "84fc0dd2aa795954aa107bed4afcab3583eb6ee8843a9e28ca9a7d51d152c2b4",
-      "SG": "e5229ff0692a9c0b85ceeb3348a9443c1fc9f3c3312b8feb570ade2bc4ebbea6",
-      "TH": "e4d880fe2d6b7195c242d11581624817338968ae1ec297e8e9492c0d8c129738",
-      "TR": "0628a596bcd5c5d0a28cd79c23440830184c2db0ed025cd7de640a8d05c6cf14",
-      "US": "00523f1d1dafb33aeadb5a0878abd3cddff2bd1b5374000a555abdf795dd3586",
-      "VN": "acb3a3ffa9caa777dd8fa47cdfe35d424878fc98c1b0b35879e7eccab3cd5643",
-      "ZA": "44fe69f875c3479451bad5ae5b7def3a84f48c27300dd34c0394140293cb6b12"
+      "AU": "4dbe33714a27227a4c355efe805b21071866be778b53ba31b53f87b972aa2eaa",
+      "CA": "66a6c1f2ccdaff38f314e2037304b42574b3a32257230b4d1019d7bb9f1fd2a6",
+      "CN": "20527192a266119dbfa1efcc536dc1b35b73a1db6a66b32074cec96483d3a290",
+      "DE": "6f777d82e8d0d8e1d9d93dedbf8da02044ca4990972a8923cf8dd46be586eb74",
+      "EG": "67ff7d617a4261412e4301b462096ec787dd6733c395cf833136e8dcefae5092",
+      "ID": "71411f10289e7e273b121ec6a17ffc18ff4ce44d206c52aa420a2ab123a38969",
+      "IN": "4215914b0479fc2b429f793277d8f9746d6b35259f0e1decf1b296c141418a20",
+      "JP": "db691a630252079b4b4ffda078aac59f365a4663bf05edd0489bea71fca168ce",
+      "KR": "f0e5ae104ab3a1d96ad448735716bcc2c7be9bd5b584c07a5dfc7142b3ef6c62",
+      "LK": "2a89c2ef297255d0b8edefc9664514504e918bb69e30ebd08346469905614d9e",
+      "MA": "25dc555bc4a0576a7357920e67f6c66e0df69531cc4d7bfd05f73327b3a07038",
+      "MY": "1890339f0f794bd6232045147557e3ec4699d33d58eba321ac350c9c728f3ed4",
+      "NZ": "7493812b3bb31c4201ee9fa180e786e21faeb636006675699089ef7e2eaadd61",
+      "PH": "92b60f40467dae32b2d6e7297fa4b14c84b4661a4c907913f9609dd20bbc929a",
+      "SG": "5584de48236f0776a5a167a0e277a3a4002376c79252a76f6a3da112d7b1b942",
+      "TH": "d656ca2dc5507a0f0c6abb083e12578e50b25332e960d5555a6b270df0d9868d",
+      "TR": "5f119370b1419de3a25888db0c0472285619c2e19954d08a7094ae1a79dd8b5b",
+      "US": "18d380cf9402178fd59493398eea181355866c51cbbc58ce33c5007b38d8d758",
+      "VN": "ae91bbaae0c3c6af7f3eb704bdce07485c0a3155af056fda4e780fdb4211a73f",
+      "ZA": "a90ea8dffefbac57bf4449b1cc476d9e02159f4fd2567ac209bab4157286115a"
     }
   },
   "qaSummary": {

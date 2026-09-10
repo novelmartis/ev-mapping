@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T05:08:08Z",
+  "generatedAt": "2026-09-10T16:55:40Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -12,11 +12,11 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 731,
+  "count": 732,
   "stats": {
-    "total": 731,
+    "total": 732,
     "priced": 85,
-    "priceCoverage": 0.1163,
+    "priceCoverage": 0.1161,
     "markets": {
       "AU": 336,
       "CA": 542,
@@ -25,7 +25,7 @@
       "EG": 320,
       "ID": 300,
       "IN": 25,
-      "JP": 317,
+      "JP": 318,
       "KR": 269,
       "LK": 19,
       "MA": 319,
@@ -35,7 +35,7 @@
       "SG": 291,
       "TH": 304,
       "TR": 312,
-      "US": 646,
+      "US": 647,
       "VN": 299,
       "ZA": 321
     },
@@ -8295,8 +8295,20 @@
       "source": "fueleconomy.gov"
     },
     {
-      "id": "2026-honda-prologue-awd",
-      "label": "2026 Honda Prologue AWD",
+      "id": "2026-honda-prologue-awd-elite",
+      "label": "2026 Honda Prologue AWD Elite",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-honda-prologue-awd-touring",
+      "label": "2026 Honda Prologue AWD Touring",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,
@@ -12479,7 +12491,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 55072,
+      "priceUsd": 54915,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -12557,7 +12569,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43616,
+      "priceUsd": 43492,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -12626,7 +12638,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 44037,
+      "priceUsd": 43911,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -12843,7 +12855,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18950,
+      "priceUsd": 18895,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -12993,7 +13005,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69334,
+      "priceUsd": 69137,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13037,7 +13049,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14188,
+      "priceUsd": 14148,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13081,7 +13093,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8198,
+      "priceUsd": 8174,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13113,7 +13125,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 86708,
+      "priceUsd": 86460,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13145,7 +13157,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 20494,
+      "priceUsd": 20436,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13177,7 +13189,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 15450,
+      "priceUsd": 15406,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13209,7 +13221,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18907,
+      "priceUsd": 18854,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13301,7 +13313,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 17016,
+      "priceUsd": 16967,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13533,7 +13545,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 18067,
+      "priceUsd": 18015,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13555,7 +13567,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 22901,
+      "priceUsd": 22836,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13577,7 +13589,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13127,
+      "priceUsd": 13090,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13599,7 +13611,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10289,
+      "priceUsd": 10260,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13620,7 +13632,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 19748,
+      "priceUsd": 19692,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13642,7 +13654,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 7346,
+      "priceUsd": 7326,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13695,7 +13707,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 4193,
+      "priceUsd": 4182,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13716,7 +13728,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 24162,
+      "priceUsd": 24094,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13761,7 +13773,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 19118,
+      "priceUsd": 19063,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -13782,7 +13794,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 24162,
+      "priceUsd": 24094,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {

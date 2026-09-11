@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T05:08:08Z",
+  "generatedAt": "2026-09-11T05:16:09Z",
   "market": "US",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -12,9 +12,9 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 646,
+  "count": 647,
   "stats": {
-    "total": 646,
+    "total": 647,
     "priced": 0,
     "priceCoverage": 0.0,
     "markets": {
@@ -24,7 +24,7 @@
       "DE": 338,
       "EG": 307,
       "ID": 281,
-      "JP": 309,
+      "JP": 310,
       "KR": 263,
       "MA": 307,
       "MY": 281,
@@ -33,7 +33,7 @@
       "SG": 270,
       "TH": 281,
       "TR": 307,
-      "US": 646,
+      "US": 647,
       "VN": 281,
       "ZA": 307
     },
@@ -8293,8 +8293,20 @@
       "source": "fueleconomy.gov"
     },
     {
-      "id": "2026-honda-prologue-awd",
-      "label": "2026 Honda Prologue AWD",
+      "id": "2026-honda-prologue-awd-elite",
+      "label": "2026 Honda Prologue AWD Elite",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "JP"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-honda-prologue-awd-touring",
+      "label": "2026 Honda Prologue AWD Touring",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,

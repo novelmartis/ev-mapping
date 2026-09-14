@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T16:40:49Z",
+  "generatedAt": "2026-09-14T05:35:00Z",
   "market": "CN",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -12,32 +12,32 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 292,
+  "count": 293,
   "stats": {
-    "total": 292,
-    "priced": 11,
-    "priceCoverage": 0.0377,
+    "total": 293,
+    "priced": 12,
+    "priceCoverage": 0.041,
     "markets": {
       "AU": 281,
       "CA": 281,
-      "CN": 292,
+      "CN": 293,
       "DE": 266,
-      "EG": 292,
-      "ID": 292,
-      "IN": 11,
+      "EG": 293,
+      "ID": 293,
+      "IN": 12,
       "JP": 281,
       "KR": 250,
-      "LK": 11,
-      "MA": 292,
-      "MY": 292,
+      "LK": 12,
+      "MA": 293,
+      "MY": 293,
       "NZ": 281,
-      "PH": 292,
+      "PH": 293,
       "SG": 277,
-      "TH": 292,
+      "TH": 293,
       "TR": 281,
       "US": 281,
-      "VN": 292,
-      "ZA": 292
+      "VN": 293,
+      "ZA": 293
     },
     "marketCount": 20
   },
@@ -7850,6 +7850,37 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "bmw-i7",
+      "label": "BMW i7",
+      "batteryKwh": 112.5,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 203970,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 19500000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-09-14"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "bmw-ix1",
       "label": "BMW iX1",
       "batteryKwh": 66.4,
@@ -7876,39 +7907,7 @@
           "amount": 5240000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "byd-seal",
-      "label": "BYD Seal",
-      "batteryKwh": 82.6,
-      "efficiency": 12.7,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 43409,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 4150000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -7940,7 +7939,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -7972,7 +7971,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -8004,7 +8003,7 @@
           "amount": 6597000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -8036,7 +8035,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -8068,7 +8067,7 @@
           "amount": 780000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -8100,7 +8099,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -8132,7 +8131,39 @@
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-m9",
+      "label": "MG M9",
+      "batteryKwh": 90.0,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 83628,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 7995000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -8164,7 +8195,7 @@
           "amount": 1470000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"
@@ -8196,7 +8227,7 @@
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-13"
+          "updatedAt": "2026-09-14"
         }
       },
       "source": "cardekho.com"

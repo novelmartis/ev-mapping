@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T16:43:05Z",
+  "generatedAt": "2026-09-21T05:20:09Z",
   "market": "VN",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -7875,39 +7875,7 @@
           "amount": 19500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "bmw-ix1",
-      "label": "BMW iX1",
-      "batteryKwh": 66.4,
-      "efficiency": 12.5,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 54653,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 5240000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -7973,7 +7941,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -8005,7 +7973,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -8042,6 +8010,38 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "kia-ev6",
+      "label": "Kia EV6",
+      "batteryKwh": 84.0,
+      "efficiency": 12.7,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 68807,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 6597000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-09-21"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "kia-syros-ev",
       "label": "Kia Syros EV",
       "batteryKwh": 51.4,
@@ -8068,7 +8068,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -8100,7 +8100,7 @@
           "amount": 780000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -8132,7 +8132,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -8164,7 +8164,7 @@
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -8196,7 +8196,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -8228,7 +8228,7 @@
           "amount": 1470000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"
@@ -8260,7 +8260,7 @@
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-09-20"
+          "updatedAt": "2026-09-21"
         }
       },
       "source": "cardekho.com"

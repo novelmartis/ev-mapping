@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-10-06T06:38:37Z",
+  "generatedAt": "2026-10-06T18:43:04Z",
   "market": "EG",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
+    "fueleconomy.gov",
     "afdc.energy.gov",
-    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "fueleconomy.gov",
+    "asean-native-seed",
     "jpkr-native-seed",
-    "manual-presets",
-    "row-native-seed"
+    "row-native-seed",
+    "manual-presets"
   ],
   "count": 321,
   "stats": {
@@ -8367,14 +8367,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 54391,
+      "priceUsd": 54339,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5240000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8411,14 +8411,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43077,
+      "priceUsd": 43036,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4150000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8443,14 +8443,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43492,
+      "priceUsd": 43450,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8475,14 +8475,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18715,
+      "priceUsd": 18697,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8507,14 +8507,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 68477,
+      "priceUsd": 68421,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
-          "amount": 6597000,
+          "amount": 6598000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8539,14 +8539,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14013,
+      "priceUsd": 14000,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8571,14 +8571,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8096,
+      "priceUsd": 8089,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 780000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8603,14 +8603,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 85635,
+      "priceUsd": 85552,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8635,46 +8635,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 20241,
+      "priceUsd": 20222,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "mg-m9",
-      "label": "MG M9",
-      "batteryKwh": 90.0,
-      "efficiency": 16.4,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 82988,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 7995000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8699,14 +8667,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 15259,
+      "priceUsd": 15244,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1470000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"
@@ -8731,14 +8699,46 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18674,
+      "priceUsd": 18656,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-04"
+          "updatedAt": "2026-10-06"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "tesla-model-y",
+      "label": "Tesla Model Y",
+      "batteryKwh": 82.0,
+      "efficiency": 12.0,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 52773,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 5089000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-06"
         }
       },
       "source": "cardekho.com"

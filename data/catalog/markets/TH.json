@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T21:45:19Z",
+  "generatedAt": "2026-10-13T07:07:44Z",
   "market": "TH",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -32,7 +32,7 @@
       "MY": 305,
       "NZ": 281,
       "PH": 296,
-      "SG": 286,
+      "SG": 285,
       "TH": 305,
       "TR": 281,
       "US": 281,
@@ -7864,6 +7864,37 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "bmw-i7",
+      "label": "BMW i7",
+      "batteryKwh": 112.5,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 203580,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 19500000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-13"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "byd-atto-3-asean",
       "label": "BYD Atto 3 (ASEAN)",
       "batteryKwh": 60.5,
@@ -7924,7 +7955,7 @@
           "amount": 4150000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -7956,7 +7987,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8029,7 +8060,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8106,7 +8137,7 @@
           "amount": 6598000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8138,7 +8169,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8170,7 +8201,7 @@
           "amount": 780000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8202,7 +8233,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8234,7 +8265,7 @@
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8266,7 +8297,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8298,7 +8329,7 @@
           "amount": 1470000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8330,7 +8361,7 @@
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
+          "updatedAt": "2026-10-13"
         }
       },
       "source": "cardekho.com"
@@ -8365,38 +8396,6 @@
       ],
       "priceUsd": 22400,
       "source": "asean-native-seed"
-    },
-    {
-      "id": "tesla-model-y",
-      "label": "Tesla Model Y",
-      "batteryKwh": 82.0,
-      "efficiency": 12.0,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 53129,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 5089000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-10-12"
-        }
-      },
-      "source": "cardekho.com"
     },
     {
       "id": "volvo-ex30-asean",

@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-10-18T05:14:33Z",
+  "generatedAt": "2026-10-18T16:03:59Z",
   "market": "MY",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
+    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "asean-native-seed",
+    "fueleconomy.gov",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
   "count": 306,
   "stats": {
@@ -7889,7 +7889,7 @@
           "amount": 19500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -7955,7 +7955,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8028,7 +8028,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8079,6 +8079,38 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "kia-ev6",
+      "label": "Kia EV6",
+      "batteryKwh": 84.0,
+      "efficiency": 12.7,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 69477,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 6598000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-17"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "kia-syros-ev",
       "label": "Kia Syros EV",
       "batteryKwh": 51.4,
@@ -8105,7 +8137,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8137,7 +8169,7 @@
           "amount": 790000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8169,7 +8201,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8201,7 +8233,7 @@
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8233,7 +8265,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8265,7 +8297,7 @@
           "amount": 1485000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8297,7 +8329,7 @@
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -8346,40 +8378,22 @@
       "source": "asean-native-seed"
     },
     {
-      "id": "tesla-model-y",
-      "label": "Tesla Model Y",
-      "batteryKwh": 82.0,
-      "efficiency": 12.0,
+      "id": "volvo-ex30-asean",
+      "label": "Volvo EX30",
+      "batteryKwh": 69.0,
+      "efficiency": 16.3,
       "reserve": 10,
       "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
         "SG",
-        "CN",
         "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
+        "MY"
       ],
-      "priceUsd": 53587,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 5089000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
-        }
-      },
-      "source": "cardekho.com"
+      "priceUsd": 49800,
+      "source": "asean-native-seed"
     },
     {
-      "id": "tesla-roadster",
-      "label": "Tesla Roadster",
+      "id": "volvo-ex90",
+      "label": "Volvo EX90",
       "batteryKwh": 106.0,
       "efficiency": 17.0,
       "reserve": 10,
@@ -8397,31 +8411,17 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52713,
+      "priceUsd": 132678,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
-          "amount": 5006000,
+          "amount": 12600000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
-    },
-    {
-      "id": "volvo-ex30-asean",
-      "label": "Volvo EX30",
-      "batteryKwh": 69.0,
-      "efficiency": 16.3,
-      "reserve": 10,
-      "markets": [
-        "SG",
-        "TH",
-        "MY"
-      ],
-      "priceUsd": 49800,
-      "source": "asean-native-seed"
     }
   ]
 }

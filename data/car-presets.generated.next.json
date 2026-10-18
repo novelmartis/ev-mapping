@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-10-18T05:14:33Z",
+  "generatedAt": "2026-10-18T16:03:59Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
+    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "asean-native-seed",
+    "fueleconomy.gov",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
-  "count": 733,
+  "count": 735,
   "stats": {
-    "total": 733,
-    "priced": 86,
-    "priceCoverage": 0.1173,
+    "total": 735,
+    "priced": 88,
+    "priceCoverage": 0.1197,
     "markets": {
       "AU": 336,
       "CA": 542,
@@ -24,11 +24,11 @@
       "DE": 348,
       "EG": 321,
       "ID": 301,
-      "IN": 26,
+      "IN": 27,
       "JP": 318,
       "KR": 269,
       "LK": 20,
-      "MA": 320,
+      "MA": 321,
       "MY": 306,
       "NZ": 335,
       "PH": 296,
@@ -12497,7 +12497,7 @@
           "amount": 19500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -12530,6 +12530,18 @@
       ],
       "priceUsd": 33900,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "byd-atto-3-ma",
+      "label": "BYD Atto 3 (Morocco)",
+      "batteryKwh": 60.5,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "MA"
+      ],
+      "priceUsd": 33800,
+      "source": "row-native-seed"
     },
     {
       "id": "byd-dolphin-asean",
@@ -12612,7 +12624,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -12719,7 +12731,7 @@
           "amount": 10000000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -12850,7 +12862,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -12974,6 +12986,38 @@
       "source": "row-native-seed"
     },
     {
+      "id": "kia-ev6",
+      "label": "Kia EV6",
+      "batteryKwh": 84.0,
+      "efficiency": 12.7,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 69477,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 6598000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-17"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "kia-ev9-tr",
       "label": "Kia EV9",
       "batteryKwh": 99.8,
@@ -13012,7 +13056,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13056,7 +13100,7 @@
           "amount": 790000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13088,7 +13132,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13120,7 +13164,7 @@
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13152,7 +13196,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13184,7 +13228,7 @@
           "amount": 1485000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13216,7 +13260,7 @@
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13308,7 +13352,7 @@
           "amount": 1619000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13540,7 +13584,7 @@
           "amount": 1719000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13562,7 +13606,7 @@
           "amount": 2179000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13584,7 +13628,7 @@
           "amount": 1249000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13606,7 +13650,7 @@
           "amount": 979000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13627,7 +13671,7 @@
           "amount": 1879000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13649,7 +13693,7 @@
           "amount": 699000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13673,70 +13717,6 @@
         }
       },
       "source": "asean-native-seed"
-    },
-    {
-      "id": "tesla-model-y",
-      "label": "Tesla Model Y",
-      "batteryKwh": 82.0,
-      "efficiency": 12.0,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 53587,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 5089000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "tesla-roadster",
-      "label": "Tesla Roadster",
-      "batteryKwh": 106.0,
-      "efficiency": 17.0,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 52713,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 5006000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
-        }
-      },
-      "source": "cardekho.com"
     },
     {
       "id": "toyota-bz4x-jp",
@@ -13766,7 +13746,7 @@
           "amount": 399000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13787,7 +13767,7 @@
           "amount": 2299000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13817,6 +13797,27 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "vinfast-vf6",
+      "label": "VinFast VF6",
+      "batteryKwh": 59.6,
+      "efficiency": 12.7,
+      "reserve": 10,
+      "markets": [
+        "IN"
+      ],
+      "priceUsd": 19154,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1819000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-17"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "vinfast-vf7",
       "label": "VinFast VF7",
       "batteryKwh": 70.0,
@@ -13832,7 +13833,7 @@
           "amount": 2299000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-18"
+          "updatedAt": "2026-10-17"
         }
       },
       "source": "cardekho.com"
@@ -13876,6 +13877,38 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "volvo-ex90",
+      "label": "Volvo EX90",
+      "batteryKwh": 106.0,
+      "efficiency": 17.0,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 132678,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 12600000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-17"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "wuling-air-ev-asean",
       "label": "Wuling Air EV",
       "batteryKwh": 26.7,
@@ -13900,5 +13933,7 @@
       "priceUsd": 53700,
       "source": "row-native-seed"
     }
-  ]
+  ],
+  "fallbackMode": true,
+  "fallbackReason": "Catalog US market count too low: 0 < 300.; Catalog CA market count too low: 3 < 120.; Catalog DE market count too low: 10 < 20.; Catalog TR market count too low: 5 < 30.; Catalog ZA market count too low: 15 < 20.; Catalog MA market count too low: 13 < 20.; Catalog EG market count too low: 14 < 20.; Catalog AU market count too low: 4 < 20.; Catalog NZ market count too low: 3 < 20.; Catalog JP marke"
 }

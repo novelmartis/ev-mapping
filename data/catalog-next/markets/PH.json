@@ -1,43 +1,43 @@
 {
-  "generatedAt": "2026-10-18T16:03:59Z",
+  "generatedAt": "2026-10-19T05:08:58Z",
   "market": "PH",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
+    "fueleconomy.gov",
     "afdc.energy.gov",
-    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "fueleconomy.gov",
+    "asean-native-seed",
     "jpkr-native-seed",
-    "manual-presets",
-    "row-native-seed"
+    "row-native-seed",
+    "manual-presets"
   ],
-  "count": 296,
+  "count": 297,
   "stats": {
-    "total": 296,
-    "priced": 15,
-    "priceCoverage": 0.0507,
+    "total": 297,
+    "priced": 16,
+    "priceCoverage": 0.0539,
     "markets": {
       "AU": 281,
       "CA": 281,
-      "CN": 293,
+      "CN": 294,
       "DE": 266,
-      "EG": 293,
-      "ID": 296,
-      "IN": 12,
+      "EG": 294,
+      "ID": 297,
+      "IN": 13,
       "JP": 281,
       "KR": 250,
-      "LK": 12,
-      "MA": 293,
-      "MY": 296,
+      "LK": 13,
+      "MA": 294,
+      "MY": 297,
       "NZ": 281,
-      "PH": 296,
-      "SG": 280,
-      "TH": 296,
+      "PH": 297,
+      "SG": 281,
+      "TH": 297,
       "TR": 281,
       "US": 281,
-      "VN": 296,
-      "ZA": 293
+      "VN": 297,
+      "ZA": 294
     },
     "marketCount": 20
   },
@@ -7875,7 +7875,7 @@
           "amount": 19500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -7941,7 +7941,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -7973,39 +7973,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "kia-ev6",
-      "label": "Kia EV6",
-      "batteryKwh": 84.0,
-      "efficiency": 12.7,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 69477,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 6598000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -8037,7 +8005,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -8069,7 +8037,7 @@
           "amount": 790000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -8101,7 +8069,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -8133,7 +8101,7 @@
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -8165,7 +8133,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -8197,7 +8165,7 @@
           "amount": 1485000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -8229,7 +8197,7 @@
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"
@@ -8250,6 +8218,70 @@
       ],
       "priceUsd": 32400,
       "source": "asean-native-seed"
+    },
+    {
+      "id": "tesla-model-y",
+      "label": "Tesla Model Y",
+      "batteryKwh": 82.0,
+      "efficiency": 12.0,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 53587,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 5089000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-19"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "tesla-roadster",
+      "label": "Tesla Roadster",
+      "batteryKwh": 61.0,
+      "efficiency": 11.2,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 52713,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 5006000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-19"
+        }
+      },
+      "source": "cardekho.com"
     },
     {
       "id": "volvo-ex90",
@@ -8278,7 +8310,7 @@
           "amount": 12600000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-10-17"
+          "updatedAt": "2026-10-19"
         }
       },
       "source": "cardekho.com"

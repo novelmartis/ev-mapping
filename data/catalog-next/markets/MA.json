@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-10-26T18:57:00Z",
+  "generatedAt": "2026-10-27T05:21:45Z",
   "market": "MA",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
+    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "asean-native-seed",
+    "fueleconomy.gov",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
-  "count": 321,
+  "count": 322,
   "stats": {
-    "total": 321,
-    "priced": 14,
-    "priceCoverage": 0.0436,
+    "total": 322,
+    "priced": 15,
+    "priceCoverage": 0.0466,
     "markets": {
       "AU": 307,
       "CA": 307,
@@ -28,7 +28,7 @@
       "JP": 281,
       "KR": 250,
       "LK": 13,
-      "MA": 321,
+      "MA": 322,
       "MY": 294,
       "NZ": 307,
       "PH": 294,
@@ -8366,7 +8366,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 204867,
+      "priceUsd": 205394,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8398,7 +8398,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 55051,
+      "priceUsd": 55193,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8409,6 +8409,18 @@
         }
       },
       "source": "cardekho.com"
+    },
+    {
+      "id": "byd-atto-3-ma",
+      "label": "BYD Atto 3 (Morocco)",
+      "batteryKwh": 60.5,
+      "efficiency": 16.4,
+      "reserve": 10,
+      "markets": [
+        "MA"
+      ],
+      "priceUsd": 33800,
+      "source": "row-native-seed"
     },
     {
       "id": "byd-seal",
@@ -8430,7 +8442,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43600,
+      "priceUsd": 43712,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8462,7 +8474,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 44020,
+      "priceUsd": 44133,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8506,7 +8518,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18942,
+      "priceUsd": 18991,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8538,7 +8550,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14183,
+      "priceUsd": 14220,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8570,7 +8582,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8300,
+      "priceUsd": 8321,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8602,7 +8614,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 86674,
+      "priceUsd": 86897,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8634,7 +8646,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 20487,
+      "priceUsd": 20539,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8666,7 +8678,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 15601,
+      "priceUsd": 15642,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8698,7 +8710,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18900,
+      "priceUsd": 18949,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8730,7 +8742,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53465,
+      "priceUsd": 53602,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -8762,7 +8774,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52593,
+      "priceUsd": 52728,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {

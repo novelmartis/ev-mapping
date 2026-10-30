@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T06:31:05Z",
+  "generatedAt": "2026-10-30T18:18:44Z",
   "market": "IN",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -15,8 +15,8 @@
   "count": 27,
   "stats": {
     "total": 27,
-    "priced": 26,
-    "priceCoverage": 0.963,
+    "priced": 27,
+    "priceCoverage": 1.0,
     "markets": {
       "CN": 12,
       "EG": 12,
@@ -53,7 +53,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 204692,
+      "priceUsd": 205374,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -85,11 +85,11 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 55004,
+      "priceUsd": 57610,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
-          "amount": 5240000,
+          "amount": 5470000,
           "currency": "INR",
           "source": "cardekho.com",
           "updatedAt": "2026-10-30"
@@ -117,7 +117,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 43982,
+      "priceUsd": 44129,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -138,7 +138,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 104970,
+      "priceUsd": 105320,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -154,11 +154,21 @@
       "id": "denza-z9-gt",
       "label": "Denza Z9 GT",
       "batteryKwh": 122.5,
-      "efficiency": 20.4,
+      "efficiency": 17.5,
       "reserve": 10,
       "markets": [
         "IN"
       ],
+      "priceUsd": 131650,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 12500000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-10-30"
+        }
+      },
       "source": "cardekho.com"
     },
     {
@@ -181,7 +191,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18926,
+      "priceUsd": 18989,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -213,7 +223,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69259,
+      "priceUsd": 69490,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -245,7 +255,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14171,
+      "priceUsd": 14218,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -277,7 +287,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8293,
+      "priceUsd": 8320,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -309,7 +319,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 86600,
+      "priceUsd": 86889,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -341,7 +351,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 20469,
+      "priceUsd": 20537,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -373,7 +383,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18884,
+      "priceUsd": 18947,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -436,7 +446,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 16995,
+      "priceUsd": 17051,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -458,7 +468,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 18044,
+      "priceUsd": 18105,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -480,7 +490,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 22873,
+      "priceUsd": 22949,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -502,7 +512,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 13111,
+      "priceUsd": 13154,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -524,7 +534,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 10277,
+      "priceUsd": 10311,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -545,7 +555,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 19724,
+      "priceUsd": 19790,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -567,7 +577,7 @@
         "IN",
         "LK"
       ],
-      "priceUsd": 7337,
+      "priceUsd": 7362,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -599,7 +609,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53419,
+      "priceUsd": 53597,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -631,7 +641,7 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52548,
+      "priceUsd": 52723,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -652,7 +662,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 4188,
+      "priceUsd": 4202,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -673,7 +683,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 24133,
+      "priceUsd": 24213,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
@@ -694,7 +704,7 @@
       "markets": [
         "IN"
       ],
-      "priceUsd": 24133,
+      "priceUsd": 24213,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {

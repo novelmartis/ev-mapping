@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-03T07:26:35Z",
+  "generatedAt": "2026-11-03T19:57:26Z",
   "market": "ID",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
-    "fueleconomy.gov",
     "afdc.energy.gov",
+    "asean-native-seed",
     "cardekho.com",
     "eu-native-seed",
-    "asean-native-seed",
+    "fueleconomy.gov",
     "jpkr-native-seed",
-    "row-native-seed",
-    "manual-presets"
+    "manual-presets",
+    "row-native-seed"
   ],
   "count": 301,
   "stats": {
@@ -7868,14 +7868,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 205452,
+      "priceUsd": 205374,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 19500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -7900,14 +7900,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 57632,
+      "priceUsd": 57610,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5470000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -7966,14 +7966,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 44146,
+      "priceUsd": 44129,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -8026,14 +8026,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18996,
+      "priceUsd": 18989,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -8074,14 +8074,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 69517,
+      "priceUsd": 69490,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 6598000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -8106,23 +8106,23 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 14224,
+      "priceUsd": 14218,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
     },
     {
-      "id": "mg-comet-ev",
-      "label": "MG Comet EV",
-      "batteryKwh": 20.0,
-      "efficiency": 10.0,
+      "id": "mg-cyberster",
+      "label": "MG Cyberster",
+      "batteryKwh": 77.0,
+      "efficiency": 13.3,
       "reserve": 10,
       "markets": [
         "IN",
@@ -8138,14 +8138,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 8323,
+      "priceUsd": 86889,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
-          "amount": 790000,
+          "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -8170,14 +8170,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 20545,
+      "priceUsd": 20537,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -8202,14 +8202,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 15646,
+      "priceUsd": 15640,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1485000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -8234,14 +8234,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 18954,
+      "priceUsd": 18947,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -8297,14 +8297,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 53618,
+      "priceUsd": 53597,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5089000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"
@@ -8312,8 +8312,8 @@
     {
       "id": "tesla-roadster",
       "label": "Tesla Roadster",
-      "batteryKwh": 77.0,
-      "efficiency": 13.3,
+      "batteryKwh": 20.0,
+      "efficiency": 10.0,
       "reserve": 10,
       "markets": [
         "IN",
@@ -8329,14 +8329,14 @@
         "VN",
         "PH"
       ],
-      "priceUsd": 52743,
+      "priceUsd": 52723,
       "priceSource": "cardekho.com",
       "marketPrices": {
         "IN": {
           "amount": 5006000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-03"
+          "updatedAt": "2026-11-01"
         }
       },
       "source": "cardekho.com"

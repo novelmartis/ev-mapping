@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T20:20:56Z",
+  "generatedAt": "2026-11-05T07:29:15Z",
   "market": "LK",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -12,17 +12,17 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 19,
+  "count": 20,
   "stats": {
-    "total": 19,
-    "priced": 19,
+    "total": 20,
+    "priced": 20,
     "priceCoverage": 1.0,
     "markets": {
       "CN": 12,
       "EG": 12,
       "ID": 12,
-      "IN": 19,
-      "LK": 19,
+      "IN": 20,
+      "LK": 20,
       "MA": 12,
       "MY": 12,
       "PH": 12,
@@ -60,7 +60,7 @@
           "amount": 19500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -92,7 +92,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -124,7 +124,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -156,7 +156,7 @@
           "amount": 6598000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -188,7 +188,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -220,7 +220,7 @@
           "amount": 790000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -252,7 +252,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -284,7 +284,7 @@
           "amount": 1950000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -316,7 +316,7 @@
           "amount": 1485000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -348,7 +348,7 @@
           "amount": 1799000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -396,6 +396,28 @@
       "source": "manual"
     },
     {
+      "id": "tata-curvv-ev",
+      "label": "Tata Curvv EV",
+      "batteryKwh": 55.0,
+      "efficiency": 11.0,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "LK"
+      ],
+      "priceUsd": 18163,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1719000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-11-05"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "tata-harrier-ev",
       "label": "Tata Harrier EV",
       "batteryKwh": 75.0,
@@ -412,7 +434,7 @@
           "amount": 2179000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -434,7 +456,7 @@
           "amount": 1249000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -456,7 +478,7 @@
           "amount": 979000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -478,7 +500,7 @@
           "amount": 699000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -510,7 +532,7 @@
           "amount": 5089000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"
@@ -518,8 +540,8 @@
     {
       "id": "tesla-roadster",
       "label": "Tesla Roadster",
-      "batteryKwh": 55.0,
-      "efficiency": 11.0,
+      "batteryKwh": 70.0,
+      "efficiency": 13.2,
       "reserve": 10,
       "markets": [
         "IN",
@@ -542,7 +564,7 @@
           "amount": 5006000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-04"
+          "updatedAt": "2026-11-05"
         }
       },
       "source": "cardekho.com"

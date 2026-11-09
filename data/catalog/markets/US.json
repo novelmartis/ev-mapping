@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T07:33:03Z",
+  "generatedAt": "2026-11-09T07:22:45Z",
   "market": "US",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -12,16 +12,16 @@
     "row-native-seed",
     "manual-presets"
   ],
-  "count": 647,
+  "count": 661,
   "stats": {
-    "total": 647,
+    "total": 661,
     "priced": 0,
     "priceCoverage": 0.0,
     "markets": {
       "AU": 332,
-      "CA": 539,
+      "CA": 552,
       "CN": 281,
-      "DE": 338,
+      "DE": 351,
       "EG": 307,
       "ID": 281,
       "JP": 310,
@@ -33,7 +33,7 @@
       "SG": 270,
       "TH": 281,
       "TR": 307,
-      "US": 647,
+      "US": 661,
       "VN": 281,
       "ZA": 307
     },
@@ -9337,6 +9337,17 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-maserati-granturismo-folgore",
+      "label": "2026 Maserati Granturismo Folgore",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-maserati-grecale-folgore-19-inch-wheels",
       "label": "2026 Maserati Grecale Folgore (19 inch wheels)",
       "batteryKwh": 65.0,
@@ -10186,6 +10197,162 @@
       "source": "fueleconomy.gov"
     },
     {
+      "id": "2026-porsche-cayenne-coupe-electric",
+      "label": "2026 Porsche Cayenne Coupe Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-coupe-electric-range-setup",
+      "label": "2026 Porsche Cayenne Coupe Electric Range Setup",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-electric",
+      "label": "2026 Porsche Cayenne Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-electric-range-setup",
+      "label": "2026 Porsche Cayenne Electric Range Setup",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-s-coupe-electric",
+      "label": "2026 Porsche Cayenne S Coupe Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-s-coupe-electric-range-setup",
+      "label": "2026 Porsche Cayenne S Coupe Electric Range Setup",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-s-electric",
+      "label": "2026 Porsche Cayenne S Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-s-electric-range-setup",
+      "label": "2026 Porsche Cayenne S Electric Range Setup",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-turbo-coupe-electric",
+      "label": "2026 Porsche Cayenne Turbo Coupe Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-turbo-coupe-electric-w-21in-all-season-tires",
+      "label": "2026 Porsche Cayenne Turbo Coupe Electric w/21in All-Season Tires",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-turbo-electric",
+      "label": "2026 Porsche Cayenne Turbo Electric",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-cayenne-turbo-electric-w-21in-all-season-tires",
+      "label": "2026 Porsche Cayenne Turbo Electric w/21in All-Season Tires",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
       "id": "2026-porsche-macan-4-electric",
       "label": "2026 Porsche Macan 4 Electric",
       "batteryKwh": 65.0,
@@ -10474,6 +10641,19 @@
     {
       "id": "2026-porsche-taycan-turbo-s",
       "label": "2026 Porsche Taycan Turbo S",
+      "batteryKwh": 65.0,
+      "efficiency": 35.0,
+      "reserve": 10,
+      "markets": [
+        "US",
+        "CA",
+        "DE"
+      ],
+      "source": "fueleconomy.gov"
+    },
+    {
+      "id": "2026-porsche-taycan-turbo-s-21in-aero-design-wheel-285-35",
+      "label": "2026 Porsche Taycan Turbo S 21in Aero-Design wheel (285/35)",
       "batteryKwh": 65.0,
       "efficiency": 35.0,
       "reserve": 10,

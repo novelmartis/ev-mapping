@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T20:18:29Z",
+  "generatedAt": "2026-11-11T07:15:44Z",
   "market": "TH",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -7889,7 +7889,7 @@
           "amount": 19500000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -7955,7 +7955,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8028,7 +8028,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8105,7 +8105,7 @@
           "amount": 6598000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8137,7 +8137,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8169,7 +8169,7 @@
           "amount": 790000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8201,7 +8201,39 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
+      "id": "mg-hector-tomahawk-ev",
+      "label": "MG Hector Tomahawk EV",
+      "batteryKwh": 69.2,
+      "efficiency": 13.4,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "SG",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 20762,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 1950000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8233,7 +8265,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8265,7 +8297,7 @@
           "amount": 1485000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8314,7 +8346,7 @@
           "amount": 7850000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"
@@ -8360,39 +8392,7 @@
           "amount": 5089000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
-      "id": "tesla-roadster",
-      "label": "Tesla Roadster",
-      "batteryKwh": 103.4,
-      "efficiency": 17.2,
-      "reserve": 10,
-      "markets": [
-        "IN",
-        "ZA",
-        "MA",
-        "EG",
-        "LK",
-        "SG",
-        "CN",
-        "TH",
-        "MY",
-        "ID",
-        "VN",
-        "PH"
-      ],
-      "priceUsd": 53299,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 5006000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-11-10"
+          "updatedAt": "2026-11-11"
         }
       },
       "source": "cardekho.com"

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T07:13:18Z",
+  "generatedAt": "2026-11-15T06:58:03Z",
   "market": "US + regional manual",
   "source": "fueleconomy.gov + AFDC + Cardekho + EU seed + ASEAN seed + JP/KR seed + ROW seed + manual presets",
   "sources": [
@@ -20,24 +20,24 @@
     "markets": {
       "AU": 336,
       "CA": 555,
-      "CN": 292,
+      "CN": 293,
       "DE": 361,
-      "EG": 320,
-      "ID": 300,
+      "EG": 321,
+      "ID": 301,
       "IN": 26,
       "JP": 318,
       "KR": 269,
-      "LK": 19,
-      "MA": 319,
-      "MY": 305,
+      "LK": 20,
+      "MA": 320,
+      "MY": 306,
       "NZ": 335,
-      "PH": 295,
+      "PH": 296,
       "SG": 291,
-      "TH": 304,
+      "TH": 305,
       "TR": 312,
       "US": 661,
-      "VN": 299,
-      "ZA": 321
+      "VN": 300,
+      "ZA": 322
     },
     "marketCount": 20
   },
@@ -12652,6 +12652,37 @@
       "source": "asean-native-seed"
     },
     {
+      "id": "bmw-i7",
+      "label": "BMW i7",
+      "batteryKwh": 112.5,
+      "efficiency": 15.5,
+      "reserve": 10,
+      "markets": [
+        "IN",
+        "ZA",
+        "MA",
+        "EG",
+        "LK",
+        "CN",
+        "TH",
+        "MY",
+        "ID",
+        "VN",
+        "PH"
+      ],
+      "priceUsd": 206914,
+      "priceSource": "cardekho.com",
+      "marketPrices": {
+        "IN": {
+          "amount": 19500000,
+          "currency": "INR",
+          "source": "cardekho.com",
+          "updatedAt": "2026-11-15"
+        }
+      },
+      "source": "cardekho.com"
+    },
+    {
       "id": "bmw-ix3-eg",
       "label": "BMW iX3 (Egypt)",
       "batteryKwh": 80.0,
@@ -12761,7 +12792,7 @@
           "amount": 4190000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -12868,7 +12899,7 @@
           "amount": 9000000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -12999,7 +13030,7 @@
           "amount": 1803000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13149,7 +13180,7 @@
           "amount": 6598000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13193,7 +13224,7 @@
           "amount": 1350000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13237,7 +13268,7 @@
           "amount": 790000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13269,7 +13300,7 @@
           "amount": 8250000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13301,7 +13332,7 @@
           "amount": 2025000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13333,7 +13364,7 @@
           "amount": 7995000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13365,7 +13396,7 @@
           "amount": 1485000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13457,7 +13488,7 @@
           "amount": 1619000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13501,7 +13532,7 @@
           "amount": 7850000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13721,7 +13752,7 @@
           "amount": 1719000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13743,7 +13774,7 @@
           "amount": 2179000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13765,7 +13796,7 @@
           "amount": 1249000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13787,7 +13818,7 @@
           "amount": 979000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13808,7 +13839,7 @@
           "amount": 1879000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13830,7 +13861,7 @@
           "amount": 699000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13882,7 +13913,7 @@
           "amount": 5089000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13915,7 +13946,7 @@
           "amount": 399000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13936,7 +13967,7 @@
           "amount": 2299000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
@@ -13966,27 +13997,6 @@
       "source": "asean-native-seed"
     },
     {
-      "id": "vinfast-vf-mpv-7",
-      "label": "VinFast VF MPV 7",
-      "batteryKwh": 60.1,
-      "efficiency": 11.6,
-      "reserve": 10,
-      "markets": [
-        "IN"
-      ],
-      "priceUsd": 21636,
-      "priceSource": "cardekho.com",
-      "marketPrices": {
-        "IN": {
-          "amount": 2039000,
-          "currency": "INR",
-          "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
-        }
-      },
-      "source": "cardekho.com"
-    },
-    {
       "id": "vinfast-vf7",
       "label": "VinFast VF7",
       "batteryKwh": 70.0,
@@ -14002,7 +14012,7 @@
           "amount": 2299000,
           "currency": "INR",
           "source": "cardekho.com",
-          "updatedAt": "2026-11-14"
+          "updatedAt": "2026-11-15"
         }
       },
       "source": "cardekho.com"
